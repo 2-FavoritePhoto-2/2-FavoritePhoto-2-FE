@@ -1,4 +1,3 @@
-import SearchBar from "@/components/Common/SearchBar/SearchBar";
 import styles from "@/styles/Home.module.css";
 
 export default function Home() {
@@ -9,7 +8,6 @@ export default function Home() {
         <br />
         <span>랜딩 페이지</span>가 될 예정이에요 &gt;_0
       </h1>
-      <SearchBar />
     </>
   );
 }
