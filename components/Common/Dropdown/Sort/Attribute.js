@@ -31,9 +31,6 @@ export default function Attribute({ sortType }) {
       {isOpen && (
         <div className={styles.dropDown_wrapper}>
           <ul className={styles.dropDown_list}>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("ALL")}>
-              ALL
-            </li>
             <li className={styles.dropDown_item} onClick={() => handleSelect("COMMON")}>
               불꽃
             </li>

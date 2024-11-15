@@ -34,9 +34,6 @@ export default function Soldout({ sortType }) {
       {isOpen && (
         <div className={styles.dropDown_wrapper}>
           <ul className={styles.dropDown_list}>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("ALL")}>
-              ALL
-            </li>
             <li className={styles.dropDown_item} onClick={() => handleSelect("매진됨")}>
               매진됨
             </li>
