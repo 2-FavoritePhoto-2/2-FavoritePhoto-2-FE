@@ -4,7 +4,7 @@ import styles from "@/styles/Home.module.css";
 export default function Home() {
   return (
     <>
-      <Notification />
+      <Notification type="login" />
       <h1 className={styles.home}>
         이 페이지는 저희 프로젝트의
         <br />
