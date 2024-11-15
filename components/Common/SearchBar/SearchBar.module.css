@@ -1,0 +1,22 @@
+.searchBar_container {
+  border: 1px solid var(--color-gray-200);
+
+  border-radius: 2px;
+  display: flex;
+  width: 320px;
+  justify-content: space-between;
+  font-size: 1.6rem;
+  padding: 1rem 1rem;
+}
+
+.input_container {
+  background-color: var(--color-black);
+  border: none;
+  color: var(--color-gray-200);
+  outline: none;
+  flex: 1;
+}
+
+.searchIcon_container {
+  background: transparent;
+}
