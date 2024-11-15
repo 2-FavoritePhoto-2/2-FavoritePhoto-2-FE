@@ -61,7 +61,7 @@
     gap: 1rem;
 }
 
-.category {
+.category p {
     font-size: 1.6rem;
     font-weight: 400;
     line-height: 2.317rem;
@@ -69,10 +69,6 @@
 
 .category .vert_line {
     color: var(--color-gray-400);
-}
-
-.category .type {
-    color: var(--color-gray-300);
 }
 
 .meta_info .seller {

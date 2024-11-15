@@ -1,0 +1,135 @@
+.card_container {
+    display: flex;
+    flex-direction: column;
+
+    padding: 4rem;
+    border: 0.1rem solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.2rem;
+
+    width: 44rem;
+    height: 60rem;
+
+    background-color: var(--color-gray-500);
+
+    gap: 2rem;
+}
+
+.img_wrap {
+    position: relative;
+
+    width: 36rem;
+    height: 27rem;
+
+    background-color: var(--color-black);
+}
+
+.img-wrap img {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
+
+.card_info {
+    display: flex;
+    flex-direction: column;
+
+    gap: 2rem;
+}
+
+.card_header {
+    display: flex;
+    flex-direction: column;
+
+    gap: 1rem;
+}
+
+.card_header h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 3.186rem;
+}
+
+.meta_info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.category {
+    display: flex;
+
+    gap: 1rem;
+}
+
+.category p {
+    color: var(--color-gray-300);
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 2.317rem;
+}
+
+.category .vert_line {
+    color: var(--color-gray-400);
+}
+
+.category .point {
+    color: var(--color-white);
+}
+
+.meta_info .seller {
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 2.317rem;
+    text-decoration: underline;
+}
+
+.card_line {
+    border: 0.1rem solid var(--color-gray-400);
+}
+
+.card_description {
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 2.317rem;
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+
+    gap: 2rem;
+}
+
+.buttons button {
+    width: 17rem;
+    height: 6rem;
+
+    padding: 1.7rem 5.15rem;
+    border-radius: 0.2rem;
+
+    font-size: 1.8rem;
+    line-height: 2.606rem;
+}
+
+.buttons .refuse {
+    border: 0.1rem solid var(--color-gray-100);
+
+    color: var(--color-white);
+    font-weight: 500;
+    background-color: transparent;
+}
+
+.buttons .approve {
+    font-weight: 700;
+    background-color: var(--color-main);
+}
+
+.buttons .cancel {
+    width: 100%;
+
+    border: 0.1rem solid var(--color-gray-100);
+
+    color: var(--color-white);
+    font-weight: 500;
+    background-color: transparent;
+}
