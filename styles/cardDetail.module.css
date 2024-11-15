@@ -1,0 +1,36 @@
+.container{
+    margin: 14rem auto;
+    width: 148rem;
+}
+.poketplace{
+ margin-bottom: 6rem;  
+}
+.title{
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 5.792rem;
+    color: white;
+    border-bottom: 1px solid white;
+    padding-bottom: 2rem ;
+    margin-bottom: 6rem;
+}
+.card_details_table{
+    display: flex;
+    gap: 8rem;
+}
+.card_img{
+    width: 96rem;
+    height: 72rem;
+}
+.card_details{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.card_details_header{
+display: flex;
+justify-content: space-between;
+border-bottom: 1px solid #5a5a5a;
+padding-bottom: 3rem;
+}
+
