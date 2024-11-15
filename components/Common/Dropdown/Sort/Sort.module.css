@@ -1,0 +1,33 @@
+.dropDown_container {
+  width: 6.4rem;
+  color: var(--color-gray-200);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0.5rem;
+  font-size: 1.6rem;
+  position: relative;
+  user-select: none;
+}
+.downIcon_container {
+  display: flex;
+  align-items: center;
+}
+
+.dropDown_wrapper {
+  border: 0.1rem solid var(--color-gray-200);
+  color: var(--color-white);
+  position: absolute;
+  top: 100%;
+  padding: 1.5rem;
+  width: 13.4rem;
+  margin-top: 0.5rem;
+}
+
+.dropDown_list {
+  display: flex;
+  list-style: none;
+  flex-direction: column;
+  gap: 1.5rem;
+  font-size: 1.6rem;
+}
