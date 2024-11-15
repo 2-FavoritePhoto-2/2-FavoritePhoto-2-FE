@@ -1,8 +1,10 @@
+import Notification from "@/components/Common/Modal/Notification";
 import styles from "@/styles/Home.module.css";
 
 export default function Home() {
   return (
     <>
+      <Notification />
       <h1 className={styles.home}>
         이 페이지는 저희 프로젝트의
         <br />
