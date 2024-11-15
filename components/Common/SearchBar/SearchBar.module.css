@@ -1,9 +1,9 @@
 .searchBar_container {
-  border: 1px solid var(--color-gray-200);
+  border: 0.1rem solid var(--color-gray-200);
 
-  border-radius: 2px;
+  border-radius: 0.2rem;
   display: flex;
-  width: 320px;
+  width: 32rem;
   justify-content: space-between;
   font-size: 1.6rem;
   padding: 1rem 1rem;
