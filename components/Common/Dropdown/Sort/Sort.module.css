@@ -14,6 +14,12 @@
   width: 9.3rem;
 }
 
+.container_box {
+  width: 18rem;
+  padding: 1.2rem;
+  border: 0.1rem solid var(--color-gray-200);
+}
+
 .downIcon_container {
   display: flex;
   align-items: center;
@@ -21,12 +27,19 @@
 
 .dropDown_wrapper {
   border: 0.1rem solid var(--color-gray-200);
+  background-color: var(--color-black);
   color: var(--color-white);
   position: absolute;
   top: 100%;
+  left: 0;
   padding: 1.5rem;
   width: 13.4rem;
   margin-top: 0.5rem;
+  z-index: 1000;
+}
+
+.wrapper_box {
+  width: 18rem;
 }
 
 .dropDown_list {

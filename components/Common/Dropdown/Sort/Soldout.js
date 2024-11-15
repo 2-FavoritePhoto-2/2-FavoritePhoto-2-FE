@@ -6,7 +6,7 @@ import { useState } from "react";
 
 export default function Soldout({ sortType }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectValue, setSelectValue] = useState("등급");
+  const [selectValue, setSelectValue] = useState("매진여부");
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -37,10 +37,10 @@ export default function Soldout({ sortType }) {
             <li className={styles.dropDown_item} onClick={() => handleSelect("ALL")}>
               ALL
             </li>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("SoldOut")}>
+            <li className={styles.dropDown_item} onClick={() => handleSelect("매진됨")}>
               매진됨
             </li>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("NotSoldOut")}>
+            <li className={styles.dropDown_item} onClick={() => handleSelect("매진안됨")}>
               매진안됨
             </li>
           </ul>
