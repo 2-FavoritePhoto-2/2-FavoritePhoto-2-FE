@@ -1,4 +1,4 @@
-.container {
+.details_container {
   margin: 14rem auto;
   width: 148rem;
 }
@@ -10,13 +10,14 @@
   font-weight: 700;
   line-height: 5.792rem;
   color: white;
-  border-bottom: 1px solid white;
+  border-bottom: 2px solid #eeeeee;
   padding-bottom: 2rem;
   margin-bottom: 6rem;
 }
 .card_details_table {
   display: flex;
   gap: 8rem;
+  margin-bottom: 12rem;
 }
 .card_img {
   width: 96rem;
@@ -97,23 +98,91 @@
   line-height: 3.475rem;
   color: white;
 }
-.remaining_contain{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.remaining_contain {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.remaining_table{
+.remaining_table {
+  display: flex;
+  align-items: center;
+}
+.remaining_card {
+  font-size: 2.4rem;
+}
+.quantity_table {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.trade_table {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 5rem;
+}
+.quantity_font {
+  color: white;
+}
+.totalprice_contain {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.totalprice_table {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.photocard_button {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  padding: 2.5rem 14.4rem;
+  width: 44rem;
+  height: 8rem;
+  border-radius: 0.2rem;
+  background-color: #efff04;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 2.896rem;
+  color: black;
+  border: none;
+}
+.compare_table {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 2rem;
+  border-bottom: 2px solid #eeeeee;
+  margin-bottom: 6rem;
+}
+.compare_name {
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 5.792rem;
+  color: white;
+}
+.compare_button{
     display: flex;
     align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    width: 44rem;
+    height: 6rem;
+    border-radius: 0.2rem;
+    border: none;
+    padding: 1.7rem 23.5rem;
+    background-color: #efff04;
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 2.606rem;
+    color: black;
 }
-.remaining_card{
+.compare_content{
     font-size: 2.4rem;
-}
-.quantity_table{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.quantity_font{
+    font-weight: 700;
+    line-height: 3.475rem;
     color: white;
+    margin-bottom: 2rem;
 }
