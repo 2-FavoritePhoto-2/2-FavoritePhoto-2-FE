@@ -1,36 +1,119 @@
-.container{
-    margin: 14rem auto;
-    width: 148rem;
+.container {
+  margin: 14rem auto;
+  width: 148rem;
 }
-.poketplace{
- margin-bottom: 6rem;  
+.poketplace {
+  margin-bottom: 6rem;
 }
-.title{
-    font-size: 4rem;
-    font-weight: 700;
-    line-height: 5.792rem;
+.title {
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 5.792rem;
+  color: white;
+  border-bottom: 1px solid white;
+  padding-bottom: 2rem;
+  margin-bottom: 6rem;
+}
+.card_details_table {
+  display: flex;
+  gap: 8rem;
+}
+.card_img {
+  width: 96rem;
+  height: 72rem;
+}
+.card_details {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 3rem;
+}
+.card_details_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #5a5a5a;
+  padding-bottom: 3rem;
+}
+.card_rating_table {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.card_rating {
+  font-size: 2.4rem;
+  font-weight: 2.4rem;
+  line-height: 3.475rem;
+  color: #ff2a6a;
+  padding-right: 1.5rem;
+  border-right: 3.5px solid #5a5a5a;
+}
+.card_attribute {
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 3.475rem;
+  color: #a4a4a4;
+}
+.card_writer {
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 3.475rem;
+  border-bottom: 1px solid white;
+  color: white;
+}
+.description_table {
+  font-size: 1.8rem;
+  font-weight: 400;
+  line-height: 2.606rem;
+  color: white;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid #5a5a5a;
+}
+.price_contain {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid #5a5a5a;
+}
+.price_table {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.price_name,
+.remaining_name,
+.remaining_card,
+.quantity_font {
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 2.896rem;
+  color: #a4a4a4;
+}
+.price,
+.quantity_int {
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 3.475rem;
+  color: white;
+}
+.remaining_contain{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.remaining_table{
+    display: flex;
+    align-items: center;
+}
+.remaining_card{
+    font-size: 2.4rem;
+}
+.quantity_table{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.quantity_font{
     color: white;
-    border-bottom: 1px solid white;
-    padding-bottom: 2rem ;
-    margin-bottom: 6rem;
 }
-.card_details_table{
-    display: flex;
-    gap: 8rem;
-}
-.card_img{
-    width: 96rem;
-    height: 72rem;
-}
-.card_details{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-.card_details_header{
-display: flex;
-justify-content: space-between;
-border-bottom: 1px solid #5a5a5a;
-padding-bottom: 3rem;
-}
-

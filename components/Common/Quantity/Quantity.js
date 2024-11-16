@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Quantity.module.css";
 
 //구매수량
-export default function Quantity() {
+export default function Quantity({ onChange }) {
   const [quantity, setQuantity] = useState(1);
 
   const increaseQuantity = () => {
@@ -14,6 +14,11 @@ export default function Quantity() {
       setQuantity((prevQuantity) => prevQuantity - 1);
     }
   };
+
+  // quantity가 변경될 때마다 상위 컴포넌트의 함수를 호출
+  useEffect(() => {
+    onChange(quantity);
+  }, [quantity, onChange]);
 
   return (
     <div className={styles.quantity_table}>
