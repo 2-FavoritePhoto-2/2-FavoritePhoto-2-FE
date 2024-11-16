@@ -8,6 +8,8 @@ export default function () {
   const router = useRouter();
   const { id } = router.query;
 
+  const maxQuantity = 5;
+
   const handleQuantityChange = (newQuantity) => {
     setSelectedQuantity(newQuantity);
   };
@@ -43,13 +45,13 @@ export default function () {
                 <p className={styles.remaining_name}>잔여</p>
                 <div className={styles.remaining_table}>
                   <p className={styles.quantity_int}>{selectedQuantity}</p>
-                  <p className={styles.remaining_card}>/5</p>
+                  <p className={styles.remaining_card}>{`/ ${maxQuantity}`}</p>
                 </div>
               </div>
             </div>
             <div className={styles.quantity_table}>
               <p className={styles.quantity_font}>구매수량</p>
-              <Quantity onChange={handleQuantityChange} />
+              <Quantity onChange={handleQuantityChange} maxQuantity={maxQuantity} />
             </div>
             <div>
               <p>총 가격</p>

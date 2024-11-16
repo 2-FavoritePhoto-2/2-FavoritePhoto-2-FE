@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import styles from "./Quantity.module.css";
 
 //구매수량
-export default function Quantity({ onChange }) {
+export default function Quantity({ onChange, maxQuantity }) {
   const [quantity, setQuantity] = useState(1);
 
   const increaseQuantity = () => {
-    setQuantity((prevQuantity) => prevQuantity + 1);
+    if (quantity < maxQuantity) {
+      setQuantity((prevQuantity) => prevQuantity + 1);
+    }
   };
 
   const decreaseQuantity = () => {
@@ -29,7 +31,12 @@ export default function Quantity({ onChange }) {
         disabled={quantity <= 1}
       />
       <p className={styles.quantity}>{quantity}</p>
-      <img src="/assets/btn_plus.png" className={styles.plus_button} onClick={increaseQuantity} />
+      <img
+        src="/assets/btn_plus.png"
+        className={styles.plus_button}
+        onClick={increaseQuantity}
+        disabled={quantity >= maxQuantity} //수량 최대 도달시 버튼 비활성화
+      />
     </div>
   );
 }
