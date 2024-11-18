@@ -1,0 +1,37 @@
+.container {
+    display: flex;
+    flex-direction: column;
+
+    gap: 2rem;
+}
+
+.title_button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    max-width: 148rem;
+    width: 100%;
+}
+
+.title_button h1 {
+    font-family: BR B;
+    font-size: 6.2rem;
+    font-weight: 400;
+    line-height: 6.349rem;
+    letter-spacing: -0.03em;
+}
+
+.title_button button {
+    width: 44rem;
+    height: 6rem;
+
+    padding: 1.7rem 15.1rem;
+    border-radius: 0.2rem;
+
+    background-color: var(--color-main);
+}
+
+.line {
+    border: 0.2rem solid var(--color-gray-100);
+}
