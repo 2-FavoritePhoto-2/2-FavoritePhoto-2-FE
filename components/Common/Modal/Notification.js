@@ -6,6 +6,9 @@ import { useState } from "react";
 export default function Notification({ type, onButtonClick, data }) {
   const [isOpen, setIsOpen] = useState(true);
 
+  /*TODO
+   * data props 받아서 description 바꾸기
+   */
   const notificationContent = {
     login: {
       title: "로그인이 필요합니다.",
@@ -14,22 +17,29 @@ export default function Notification({ type, onButtonClick, data }) {
     },
     purchase: {
       title: "포토카드 구매",
-      description: `[${data.rate} | ${data.title}] ${data.count}장을 구매하시겠습니까?`,
+      description: `장을 구매하시겠습니까?`,
+      // description: `[${data.rate} | ${data.title}] ${data.count}장을 구매하시겠습니까?`,
       buttonText: "구매하기",
     },
     exchange_cancel: {
       title: "교환 제시 취소",
-      description: `[${data.rate} | ${data.title}] 교환 제시를 취소하시겠습니까?`,
+      description: ` 교환 제시를 취소하시겠습니까?`,
+
+      // description: `[${data.rate} | ${data.title}] 교환 제시를 취소하시겠습니까?`,
       buttonText: "취소하기",
     },
     exchange_reject: {
       title: "교환 제시 거절",
-      description: `[${data.rate} | ${data.title}] 카드와의 교환을 거절하시겠습니까?`,
+      description: ` 카드와의 교환을 거절하시겠습니까?`,
+
+      // description: `[${data.rate} | ${data.title}] 카드와의 교환을 거절하시겠습니까?`,
       buttonText: "거절하기",
     },
     exchange_accept: {
       title: "교환 제시 승인",
-      description: `[${data.rate} | ${data.title}] 카드와의 교환을 승인하시겠습니까?`,
+      description: `카드와의 교환을 승인하시겠습니까?`,
+
+      // description: `[${data.rate} | ${data.title}] 카드와의 교환을 승인하시겠습니까?`,
       buttonText: "승인하기",
     },
     sale_stop: {
