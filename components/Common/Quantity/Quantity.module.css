@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.quantity_font,
+.quantity {
+  font-size: 2rem;
+  font-weight: 400;
+  color: white;
+  line-height: 2.896rem;
+}
+.quantity_table {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid white;
+  border-radius: 1px;
+  background-color: black;
+  padding: 1rem 1.2rem;
+  width: 17.6rem;
+  height: 5rem;
+}
+.minus_button,
+.plus_button {
+  width: 2.2rem;
+  height: 2.2rem;
+}
