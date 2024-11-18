@@ -3,11 +3,16 @@ import styles from "./Dropdown.module.css";
 import Image from "next/image";
 import arrowDown from "@/public/assets/icon_down.svg";
 
-export default function Dropdown({ label, name, value, onChange, options }) {
+export default function Dropdown({ label, name, value, setValue, options }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
     setIsOpen((prev) => !prev);
+  };
+
+  const handleOptionClick = (val) => {
+    setValue(val);
+    setIsOpen(false);
   };
 
   return (
@@ -21,8 +26,12 @@ export default function Dropdown({ label, name, value, onChange, options }) {
         {isOpen && (
           <div className={styles.dropdown_options}>
             {options.map((option) => (
-              <div key={option} className={styles.dropdown_option} onClick={onChange}>
-                {option}
+              <div
+                key={option.value}
+                className={styles.dropdown_option}
+                onClick={() => handleOptionClick(option)}
+              >
+                <p>{option}</p>
               </div>
             ))}
           </div>

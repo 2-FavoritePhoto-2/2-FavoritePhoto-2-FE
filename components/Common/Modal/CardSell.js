@@ -34,6 +34,7 @@ export default function CardSell() {
                 label="등급"
                 name="grade"
                 value={selectedGrade}
+                setValue={setSelectedGrade}
                 onChange={handleGradeChange}
                 options={grades}
               />

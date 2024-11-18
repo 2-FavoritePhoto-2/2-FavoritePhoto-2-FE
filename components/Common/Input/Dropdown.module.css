@@ -14,6 +14,8 @@
 }
 
 .dropdown_container {
+    position: relative;
+
     display: flex;
     align-items: center;
 
@@ -23,6 +25,8 @@
     padding: 1.8rem 2rem;
     border: 0.1rem solid var(--color-gray-200);
     border-radius: 0.2rem;
+
+    background-color: var(--color-gray-500);
 }
 
 .dropdown {
@@ -38,4 +42,38 @@
     font-size: 1.6rem;
     font-weight: 300;
     line-height: 2.317rem;
+}
+
+.dropdown img {
+    cursor: pointer;
+}
+
+.dropdown_options {
+    position: absolute;
+    top: 7rem;
+    left: 0;
+
+    width: inherit;
+    height: 19.2rem;
+
+    padding: 2rem;
+    border: 0.1rem solid var(--color-gray-200);
+    border-radius: 0.2rem;
+
+    background-color: var(--color-gray-500);
+
+    gap: 2rem;
+}
+
+.dropdown_option {
+    color: var(--color-gray-200);
+    font-size: 1.6rem;
+    font-weight: 300;
+    line-height: 2.317rem;
+
+    cursor: pointer;
+}
+
+.dropdown_option:not(:last-child) {
+    padding-bottom: 2rem;
 }
