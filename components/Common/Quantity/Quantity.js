@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./Quantity.module.css";
 
-//구매수량
+//수량
 export default function Quantity({ onChange, maxQuantity }) {
   const [quantity, setQuantity] = useState(1);
 
@@ -17,7 +17,7 @@ export default function Quantity({ onChange, maxQuantity }) {
     }
   };
 
-  // quantity가 변경될 때마다 상위 컴포넌트의 함수를 호출
+  // quantity가 변경될 때마다 상위 컴포넌트의 함수를 호출(상위컴포넌트에 수량 표시)
   useEffect(() => {
     onChange(quantity);
   }, [quantity, onChange]);
