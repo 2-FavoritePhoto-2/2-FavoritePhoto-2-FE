@@ -1,0 +1,73 @@
+.group {
+    display: flex;
+    flex-direction: column;
+
+    max-width: 52rem;
+    width: 100%;
+
+    gap: 1rem;
+}
+
+.group label {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 2.896rem;
+}
+
+.group input {
+    width: 100%;
+    height: 6rem;
+
+    padding: 1.8rem 2rem;
+    border: 0.1rem solid var(--color-gray-200);
+    border-radius: 0.2rem;
+
+    color: var(--color-white);
+    font-size: 1.6rem;
+    font-weight: 300;
+    line-height: 2.317rem;
+
+    background-color: var(--color-black);
+}
+
+.group input::placeholder,
+.group textarea::placeholder {
+    color: var(--color-gray-200);
+}
+
+.group input:focus,
+.group textarea:focus {
+    outline: 0.1rem solid var(--color-main);
+}
+
+.group textarea {
+    width: 100%;
+    height: 18rem;
+
+    padding: 1.8rem 2rem;
+    border: 0.1rem solid var(--color-gray-200);
+    border-radius: 0.2rem;
+
+    color: var(--color-white);
+    font-size: 1.6rem;
+    font-weight: 300;
+    line-height: 2.317rem;
+
+    background-color: var(--color-black);
+}
+
+.password {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password input {
+    padding-right: 5rem;
+}
+
+.password img {
+    position: absolute;
+    right: 2rem;
+    cursor: pointer;
+}
