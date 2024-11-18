@@ -66,16 +66,19 @@ export default function () {
             <button className={styles.photocard_button}>포토카드 구매하기</button>
           </div>
         </div>
-        <div className={styles.compare_table}>
-          <p className={styles.compare_name}>교환 희망 정보</p>
-          <button className={styles.compare_button}>포토카드 교환하기</button>
-        </div>
-        <p className={styles.compare_content}>교환 희망 정보에서의 content 입니다.</p>
-        <div className={styles.card_rating_table}>
-          <p className={styles.card_rating}>RARE</p>
-          <p className={styles.card_attribute}>불</p>
+        <div className={styles.exchange_container}>
+          <div className={styles.exchange_table}>
+            <p className={styles.exchange_name}>교환 희망 정보</p>
+            <button className={styles.exchange_button}>포토카드 교환하기</button>
+          </div>
+          <p className={styles.exchange_content}>교환 희망 정보에서의 content 입니다.</p>
+          <div className={styles.exchange_card_rating_table}>
+            <p className={styles.card_rating}>RARE</p>
+            <p className={styles.card_attribute}>불</p>
+          </div>
         </div>
       </div>
+      
     </>
   );
 }

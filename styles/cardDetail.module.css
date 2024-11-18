@@ -36,7 +36,8 @@
   border-bottom: 1px solid #5a5a5a;
   padding-bottom: 3rem;
 }
-.card_rating_table {
+.card_rating_table,
+.exchange_card_rating_table {
   display: flex;
   align-items: center;
   gap: 1.5rem;
@@ -149,7 +150,7 @@
   color: black;
   border: none;
 }
-.compare_table {
+.exchange_table {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -157,32 +158,130 @@
   border-bottom: 2px solid #eeeeee;
   margin-bottom: 6rem;
 }
-.compare_name {
+.exchange_name {
   font-size: 4rem;
   font-weight: 700;
   line-height: 5.792rem;
   color: white;
 }
-.compare_button{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    white-space: nowrap;
-    width: 44rem;
-    height: 6rem;
-    border-radius: 0.2rem;
-    border: none;
-    padding: 1.7rem 23.5rem;
-    background-color: #efff04;
-    font-size: 1.8rem;
-    font-weight: 700;
-    line-height: 2.606rem;
-    color: black;
+.exchange_button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  width: 44rem;
+  height: 6rem;
+  border-radius: 0.2rem;
+  border: none;
+  padding: 1.7rem 23.5rem;
+  background-color: #efff04;
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 2.606rem;
+  color: black;
 }
-.compare_content{
+.exchange_content {
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 3.475rem;
+  color: white;
+  margin-bottom: 2rem;
+}
+.exchange_container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 태블릿사이즈 */
+@media (max-width: 1199px) {
+  .details_container {
+    margin: 11rem auto;
+    width: 70.4rem;
+  }
+  .poketplace {
+    width: 83px;
+    height: 16px;
+  }
+  .card_details_table {
+    gap: 2rem;
+  }
+  .title,
+  .exchange_name {
+    font-size: 3.2rem;
+  }
+  .card_img {
+    width: 342px;
+    height: 256.5px;
+  }
+  .card_rating,
+  .card_attribute,
+  .card_writer,
+  .price_name,
+  .remaining_name,
+  .quantity_font,
+  .price_name,
+  .photocard_button,
+  .exchange_content {
+    font-size: 1.8rem;
+  }
+  .description_table,
+  .exchange_button {
+    font-size: 1.6rem;
+  }
+  .price,
+  .quantity_int,
+  .remaining_card {
+    font-size: 2rem;
+  }
+  .photocard_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 34.2rem;
+    height: 7.5rem;
+  }
+  .exchange_button {
+    width: 34.2rem;
+    height: 6rem;
+  }
+}
+
+/* 모바일 사이즈 */
+@media (max-width: 743px) {
+  .details_container {
+    margin: 8rem auto;
+    max-width: 345px;
+    width: 100%;
+  }
+  .poketplace {
+    display: none;
+  }
+  .title,
+  .exchange_name {
     font-size: 2.4rem;
-    font-weight: 700;
-    line-height: 3.475rem;
-    color: white;
-    margin-bottom: 2rem;
+  }
+  .card_details_table {
+    flex-direction: column;
+  }
+  .card_img {
+    width: 345px;
+    height: 258.75px;
+  }
+  .exchange_table {
+    flex-direction: column;
+    position: relative;
+    align-items: flex-start;
+    margin-bottom: 40px;
+  }
+  .exchange_button {
+    position: absolute;
+    padding: 0;
+    width: 345px;
+    height: 55px;
+    top: 320%;
+    margin-bottom: 80px;
+  }
+  .exchange_card_rating_table {
+    margin-bottom: 135px;
+  }
 }

@@ -27,3 +27,15 @@
   height: 2.2rem;
   cursor: pointer;
 }
+
+@media (max-width: 1199px) {
+  .quantity_table {
+    max-width: 14.4rem;
+    width: 100%;
+    height: 4.5rem;
+  }
+  .quantity,
+  .quantity_font {
+    font-size: 1.8rem;
+  }
+}
