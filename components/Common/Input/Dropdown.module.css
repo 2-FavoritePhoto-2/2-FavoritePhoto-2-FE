@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
 
-    width: 44rem;
+    width: 100%;
 
     gap: 1rem;
 }
@@ -63,6 +63,8 @@
     background-color: var(--color-gray-500);
 
     gap: 2rem;
+
+    overflow-y: scroll;
 }
 
 .dropdown_option {
@@ -76,4 +78,18 @@
 
 .dropdown_option:not(:last-child) {
     padding-bottom: 2rem;
+}
+
+.dropdown_options::-webkit-scrollbar {
+    width: 0.8rem
+}
+
+.dropdown_options::-webkit-scrollbar-thumb {
+    background-color: var(--color-gray-400);
+    border-radius: 1rem;
+}
+
+.dropdown_options::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 1rem;
 }
