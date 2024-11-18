@@ -67,3 +67,12 @@
   gap: 1.5rem;
   font-size: 1.6rem;
 }
+
+@media (max-width: 1199px) {
+  .dropDown_container {
+    font-size: 1.4rem;
+  }
+  .wrapper_box {
+    width: 14rem;
+  }
+}
