@@ -36,12 +36,12 @@
   width: 13.4rem;
   margin-top: 0.5rem;
   z-index: 1000;
-  max-height: 250px;
+  max-height: 25rem;
   overflow-y: auto;
 }
 
 .dropDown_wrapper::-webkit-scrollbar {
-  width: 8px;
+  width: 0.8rem;
 }
 
 .dropDown_wrapper::-webkit-scrollbar-track {
