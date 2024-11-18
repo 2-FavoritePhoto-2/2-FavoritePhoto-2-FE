@@ -31,31 +31,58 @@ export default function Attribute({ sortType }) {
       {isOpen && (
         <div className={styles.dropDown_wrapper}>
           <ul className={styles.dropDown_list}>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("COMMON")}>
+            <li className={styles.dropDown_item} onClick={() => handleSelect("불꽃")}>
               불꽃
             </li>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("RARE")}>
+            <li className={styles.dropDown_item} onClick={() => handleSelect("물")}>
               물
             </li>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("SUPER RARE")}>
+            <li className={styles.dropDown_item} onClick={() => handleSelect("풀")}>
               풀
             </li>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("LEGENDARY")}>
+            <li className={styles.dropDown_item} onClick={() => handleSelect("전기")}>
               전기
             </li>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("LEGENDARY")}>
+            <li className={styles.dropDown_item} onClick={() => handleSelect("얼음")}>
               얼음
             </li>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("LEGENDARY")}>
+            <li className={styles.dropDown_item} onClick={() => handleSelect("격투")}>
               격투
             </li>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("LEGENDARY")}>
+            <li className={styles.dropDown_item} onClick={() => handleSelect("독")}>
               독
             </li>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("LEGENDARY")}>
+            <li className={styles.dropDown_item} onClick={() => handleSelect("땅")}>
               땅
             </li>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("LEGENDARY")}>
+            <li className={styles.dropDown_item} onClick={() => handleSelect("비행")}>
+              비행
+            </li>
+            <li className={styles.dropDown_item} onClick={() => handleSelect("에스퍼")}>
+              에스퍼
+            </li>
+            <li className={styles.dropDown_item} onClick={() => handleSelect("벌레")}>
+              벌레
+            </li>
+            <li className={styles.dropDown_item} onClick={() => handleSelect("바위")}>
+              바위
+            </li>
+            <li className={styles.dropDown_item} onClick={() => handleSelect("고스트")}>
+              고스트
+            </li>
+            <li className={styles.dropDown_item} onClick={() => handleSelect("드래곤")}>
+              드래곤
+            </li>
+            <li className={styles.dropDown_item} onClick={() => handleSelect("악")}>
+              악
+            </li>
+            <li className={styles.dropDown_item} onClick={() => handleSelect("강철")}>
+              강철
+            </li>
+            <li className={styles.dropDown_item} onClick={() => handleSelect("페어리")}>
+              페어리
+            </li>
+            <li className={styles.dropDown_item} onClick={() => handleSelect("기타")}>
               기타
             </li>
           </ul>
