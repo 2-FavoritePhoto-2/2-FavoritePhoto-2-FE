@@ -1,23 +1,23 @@
 :root {
-  --color-black: #0F0F0F;
-  --color-white: #FFFFFF;
+  --color-black: #0f0f0f;
+  --color-white: #ffffff;
 
   --color-gray-500: #161616;
-  --color-gray-400: #5A5A5A;
-  --color-gray-300: #A4A4A4;
-  --color-gray-200: #DDDDDD;
-  --color-gray-100: #EEEEEE;
+  --color-gray-400: #5a5a5a;
+  --color-gray-300: #a4a4a4;
+  --color-gray-200: #dddddd;
+  --color-gray-100: #eeeeee;
 
-  --color-red: #FF483D;
-  --color-blue: #29C9F9;
-  --color-purple: #A77EFF;
-  --color-pink: #FF2A6A;
-  --color-main: #EFFF04;
+  --color-red: #ff483d;
+  --color-blue: #29c9f9;
+  --color-purple: #a77eff;
+  --color-pink: #ff2a6a;
+  --color-main: #efff04;
 }
 
 @font-face {
-  font-family: 'BR B';
-  src: url('/fonts/배스킨라빈스B.otf') format('opentype');
+  font-family: "BR B";
+  src: url("/fonts/배스킨라빈스B.otf") format("opentype");
 }
 
 * {
@@ -43,4 +43,20 @@ a {
 button {
   cursor: pointer;
   border: none;
+}
+
+body {
+  padding: 0 22rem;
+}
+
+@media (min-width: 744px) and (max-width: 1199px) {
+  body {
+    padding: 0 2rem;
+  }
+}
+
+@media (max-width: 743px) {
+  body {
+    padding: 0 1.5rem;
+  }
 }
