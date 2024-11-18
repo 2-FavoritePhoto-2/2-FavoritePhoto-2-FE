@@ -4,7 +4,7 @@ import styles from "@/styles/cardDetail.module.css";
 import { useState } from "react";
 
 //구매자 기준 상세페이지
-export default function () {
+export default function CardDetail() {
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const router = useRouter();
   const { id } = router.query;
@@ -78,7 +78,6 @@ export default function () {
           </div>
         </div>
       </div>
-      
     </>
   );
 }
