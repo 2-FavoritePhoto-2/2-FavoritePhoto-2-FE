@@ -1,0 +1,20 @@
+.list_title {
+    display: flex;
+    flex-direction: column;
+
+    width: 92rem;
+
+    gap: 2rem;
+}
+
+.list_title h1 {
+    font-family: BR B;
+    font-size: 4.6rem;
+    font-weight: 400;
+    line-height: 4.71rem;
+    letter-spacing: -0.03em;
+}
+
+.list_title .line {
+    border: 0.2rem solid var(--color-gray-100);
+}
