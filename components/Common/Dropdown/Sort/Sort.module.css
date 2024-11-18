@@ -36,6 +36,24 @@
   width: 13.4rem;
   margin-top: 0.5rem;
   z-index: 1000;
+  max-height: 25rem;
+  overflow-y: auto;
+}
+
+.dropDown_wrapper::-webkit-scrollbar {
+  width: 0.8rem;
+}
+
+.dropDown_wrapper::-webkit-scrollbar-track {
+  background: var(--color-gray-500);
+}
+
+.dropDown_wrapper::-webkit-scrollbar-thumb {
+  background: var(--color-gray-400);
+}
+
+.dropDown_wrapper::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gray-300);
 }
 
 .wrapper_box {
