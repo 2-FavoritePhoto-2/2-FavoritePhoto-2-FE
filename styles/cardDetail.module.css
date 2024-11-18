@@ -210,8 +210,8 @@
     font-size: 3.2rem;
   }
   .card_img {
-    width: 342px;
-    height: 256.5px;
+    width: 34.2rem;
+    height: 25.65rem;
   }
   .card_rating,
   .card_attribute,
@@ -243,6 +243,7 @@
   .exchange_button {
     width: 34.2rem;
     height: 6rem;
+    padding: 0;
   }
 }
 
@@ -250,7 +251,7 @@
 @media (max-width: 743px) {
   .details_container {
     margin: 8rem auto;
-    max-width: 345px;
+    max-width: 34.5rem;
     width: 100%;
   }
   .poketplace {
@@ -264,24 +265,24 @@
     flex-direction: column;
   }
   .card_img {
-    width: 345px;
-    height: 258.75px;
+    width: 34.5rem;
+    height: 25.875rem;
   }
   .exchange_table {
     flex-direction: column;
     position: relative;
     align-items: flex-start;
-    margin-bottom: 40px;
+    margin-bottom: 4rem;
   }
   .exchange_button {
     position: absolute;
     padding: 0;
-    width: 345px;
-    height: 55px;
+    width: 34.5rem;
+    height: 5.5rem;
     top: 320%;
-    margin-bottom: 80px;
+    margin-bottom: 8rem;
   }
   .exchange_card_rating_table {
-    margin-bottom: 135px;
+    margin-bottom: 13.5rem;
   }
 }
