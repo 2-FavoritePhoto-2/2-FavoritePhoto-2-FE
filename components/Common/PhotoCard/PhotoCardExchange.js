@@ -1,6 +1,7 @@
 import styles from "./PhotoCardExchange.module.css";
 import Image from "next/image";
 import logo from "@/public/assets/logo.svg";
+import Grade from "../Grade/Grade";
 
 export default function PhotoCardExchange() {
   const division = "seller";
@@ -16,7 +17,7 @@ export default function PhotoCardExchange() {
           <h1>정말 귀여운 피카츄</h1>
           <div className={styles.meta_info}>
             <div className={styles.category}>
-              <p>LEGENDARY</p>
+              <Grade grade="LEGENDARY" />
               <p className={styles.vert_line}>|</p>
               <p className={styles.type}>전기</p>
               <p className={styles.vert_line}>|</p>
