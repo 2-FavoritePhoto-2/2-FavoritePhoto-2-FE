@@ -3,6 +3,9 @@ import Image from "next/image";
 import logo from "@/public/assets/logo.svg";
 
 export default function PhotoCard() {
+  const division = "buyer";
+  const type = division === "seller";
+
   return (
     <div className={styles.card_container}>
       <div className={styles.img_wrap}>
@@ -27,7 +30,7 @@ export default function PhotoCard() {
             <p className={styles.point}>3p</p>
           </div>
           <div className={styles.card_quantity}>
-            <p className={styles.label}>잔여</p>
+            {type ? <p className={styles.label}>잔여</p> : <p className={styles.label}>수량</p>}
             <p className={styles.value}>
               <span>3</span>/5
             </p>
