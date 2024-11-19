@@ -130,10 +130,6 @@
     margin: 2rem auto 0;
 }
 
-/* 다른 코드에도 복붙해서 쓸 예정이라 추후 삭제 예정 */
-/* Tablet + Mobile */
-@media (min-width: 375px) and (max-width: 1199px) {}
-
 /* Tablet Only */
 @media (min-width: 744px) and (max-width: 1199px) {
     .card_container {
