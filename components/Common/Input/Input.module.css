@@ -53,6 +53,8 @@
     line-height: 2.317rem;
 
     background-color: var(--color-black);
+
+    resize: none;
 }
 
 .password {
