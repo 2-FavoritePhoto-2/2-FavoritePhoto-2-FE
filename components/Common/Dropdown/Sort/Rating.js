@@ -24,7 +24,7 @@ export default function Rating({ sortType }) {
 
   return (
     <div className={styles.dropDown_container} onClick={handleToggle}>
-      <div>등급</div>
+      <div>{selectValue}</div>
       <div className={styles.downIcon_container}>
         <Image src={isOpen ? icon_up : icon_down} alt="토글아이콘" />
       </div>

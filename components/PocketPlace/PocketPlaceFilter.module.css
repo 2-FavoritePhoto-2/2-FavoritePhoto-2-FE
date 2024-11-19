@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  gap: 2rem;
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+}
+
+.search_filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.filters {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.sort {
+  margin-left: auto;
+}
