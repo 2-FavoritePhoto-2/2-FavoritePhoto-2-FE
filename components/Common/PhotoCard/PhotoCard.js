@@ -3,8 +3,8 @@ import Image from "next/image";
 import logo from "@/public/assets/logo.svg";
 import Grade from "../Grade/Grade";
 
-export default function PhotoCard({ type }) {
-  const selectType = type === "quantity";
+export default function PhotoCard({ type = "quantity" }) {
+  const selectType = type === "left";
 
   return (
     <div className={styles.card_container}>
@@ -31,9 +31,9 @@ export default function PhotoCard({ type }) {
           </div>
           <div className={styles.card_quantity}>
             {selectType ? (
-              <p className={styles.label}>수량</p>
-            ) : (
               <p className={styles.label}>잔여</p>
+            ) : (
+              <p className={styles.label}>수량</p>
             )}
             <p className={styles.value}>
               <span>3</span>/5

@@ -3,7 +3,7 @@ import Image from "next/image";
 import logo from "@/public/assets/logo.svg";
 import Grade from "../Grade/Grade";
 
-export default function PhotoCardExchange({ type }) {
+export default function PhotoCardExchange({ type = "buyer" }) {
   const buttonType = type === "seller";
 
   return (
