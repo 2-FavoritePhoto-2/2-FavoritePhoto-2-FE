@@ -51,17 +51,21 @@
 
 .meta_info {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-}
-
-.category {
-    display: flex;
 
     gap: 1rem;
 }
 
-.category p {
+.category {
+    display: flex;
+    align-items: center;
+
+    gap: 1rem;
+}
+
+.category .type {
     color: var(--color-gray-300);
     font-size: 1.6rem;
     font-weight: 400;
@@ -70,13 +74,31 @@
 
 .category .vert_line {
     color: var(--color-gray-400);
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 2.317rem;
 }
 
-.category .point {
+.point_seller {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 50%;
+}
+
+.point_seller .bought {
+    color: var(--color-gray-300);
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 2.317rem;
+}
+
+.point_seller .point {
     color: var(--color-white);
 }
 
-.meta_info .seller {
+.point_seller .seller {
     font-size: 1.6rem;
     font-weight: 400;
     line-height: 2.317rem;
@@ -103,6 +125,10 @@
 }
 
 .buttons button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     width: 17rem;
     height: 6rem;
 
@@ -111,6 +137,7 @@
 
     font-size: 1.8rem;
     line-height: 2.606rem;
+    text-wrap: nowrap;
 }
 
 .buttons .refuse {
@@ -121,9 +148,18 @@
     background-color: transparent;
 }
 
+.buttons .refuse::before {
+    content: '거절하기';
+}
+
 .buttons .approve {
+    color: var(--color-black);
     font-weight: 700;
     background-color: var(--color-main);
+}
+
+.buttons .approve::before {
+    content: '승인하기';
 }
 
 .buttons .cancel {
@@ -134,4 +170,116 @@
     color: var(--color-white);
     font-weight: 500;
     background-color: transparent;
+}
+
+/* Tablet Only */
+@media (min-width: 744px) and (max-width: 1199px) {
+    .card_container {
+        padding: 2rem;
+
+        width: 34.2rem;
+        height: 56.1rem;
+    }
+
+    .img_wrap {
+        width: 30.2rem;
+        height: 22.6rem;
+    }
+
+    .category>:last-child {
+        display: none;
+    }
+
+    .point_seller {
+        width: 100%;
+    }
+
+    .buttons {
+        margin-top: 0;
+    }
+
+    .buttons button {
+        width: 14.1rem;
+        height: 5.5rem;
+
+        padding: 1.6rem 4.1rem;
+
+        font-size: 1.6rem;
+        line-height: 2.317rem;
+    }
+
+}
+
+/* Mobile Only */
+@media (max-width: 743px) {
+    .card_container {
+        padding: 1rem;
+
+        width: 17rem;
+        height: 30.8rem;
+
+        gap: 1rem;
+    }
+
+    .img_wrap {
+        width: 15rem;
+        height: 11.2rem;
+    }
+
+    .category>:last-child {
+        display: none;
+    }
+
+    .card_info {
+        gap: 1rem;
+    }
+
+    .card_header h1 {
+        font-size: 1.4rem;
+        line-height: 2.027rem;
+    }
+
+    .category .type {
+        font-size: 1rem;
+        font-weight: 300;
+        line-height: 1.448rem;
+    }
+
+    .point_seller {
+        width: 100%;
+    }
+
+    .point_seller .bought,
+    .point_seller .seller {
+        font-size: 1rem;
+        line-height: 1.448rem;
+    }
+
+    .card_description {
+        font-size: 1rem;
+        line-height: 1.448rem;
+    }
+
+    .buttons {
+        margin-top: 0;
+        gap: 0.5rem;
+    }
+
+    .buttons button {
+        width: 7.25rem;
+        height: 4rem;
+
+        padding: 1.15rem 2.475rem;
+
+        font-size: 1.2rem;
+        line-height: 1.738rem;
+    }
+
+    .buttons .refuse::before {
+        content: '거절';
+    }
+
+    .buttons .approve::before {
+        content: '승인';
+    }
 }
