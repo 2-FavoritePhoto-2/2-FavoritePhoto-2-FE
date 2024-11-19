@@ -1,5 +1,5 @@
 import styles from "./PocketPlaceList.module.css";
-import PhotoCard from "@/components/PhotoCard/PhotoCard";
+import PhotoCard from "../Common/PhotoCard/PhotoCard";
 import { useState, useEffect } from "react";
 
 export default function MyGalleryList() {

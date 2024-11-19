@@ -1,0 +1,186 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}
+
+.container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+
+    width: 116rem;
+    height: 100rem;
+
+    padding: 3rem;
+    border-radius: 0.2rem;
+
+    background-color: var(--color-gray-500);
+
+    gap: 1rem;
+
+    overflow: hidden;
+}
+
+.card_info_wrapper {
+    display: flex;
+    flex-direction: column;
+
+    margin-left: 11rem;
+    padding: 1.5rem 0;
+    padding-right: 4rem;
+
+    gap: 4rem;
+
+    overflow-y: scroll;
+}
+
+.card_info_wrapper::-webkit-scrollbar {
+    width: 0.8rem
+}
+
+.card_info_wrapper::-webkit-scrollbar-thumb {
+    background-color: var(--color-gray-400);
+    border-radius: 1rem;
+}
+
+.card_info_wrapper::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 1rem;
+}
+
+.modal_title {
+    color: var(--color-gray-300);
+    font-family: BR B;
+    font-size: 2.4rem;
+    font-weight: 400;
+    line-height: 2.458rem;
+    letter-spacing: -0.03em;
+}
+
+.card_title {
+    display: flex;
+    flex-direction: column;
+
+    gap: 2rem;
+}
+
+.card_title h1 {
+    font-family: BR B;
+    font-size: 4.6rem;
+    font-weight: 400;
+    line-height: 4.71rem;
+    letter-spacing: -0.03em;
+}
+
+.bold_line {
+    border: 0.2rem solid var(--color-gray-100);
+}
+
+.card_info {
+    display: flex;
+    align-items: center;
+
+    gap: 4rem;
+}
+
+.img_wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 44rem;
+    height: 33rem;
+
+    background-color: var(--color-gray-300);
+}
+
+.card_meta_info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 44rem;
+    height: 100%;
+
+    background-color: var(--color-gray-300);
+}
+
+.exchange_info {
+    display: flex;
+    flex-direction: column;
+
+    gap: 4rem;
+}
+
+.exchange_title {
+    display: flex;
+    flex-direction: column;
+
+    gap: 2rem;
+}
+
+.exchange_title h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    line-height: 4.054rem;
+}
+
+.select_exchange_info {
+    display: flex;
+    flex-direction: column;
+
+    gap: 3rem;
+}
+
+.select_exchange_info .dropdown {
+    display: flex;
+    align-items: center;
+
+    gap: 2rem;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.buttons button {
+    width: 44rem;
+    height: 6rem;
+
+    padding: 1.7rem 1.85rem;
+    border-radius: 0.2rem;
+
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 2.606rem;
+}
+
+.buttons .cancel {
+    border: 0.1rem solid var(--color-gray-100);
+
+    color: var(--color-white);
+    background-color: var(--color-gray-500);
+}
+
+.buttons .edit {
+    background-color: var(--color-main);
+}
+
+.thin_line {
+    margin-top: 2rem;
+    border: 0.1rem solid var(--color-gray-400);
+}

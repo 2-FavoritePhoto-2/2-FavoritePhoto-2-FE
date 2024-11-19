@@ -1,0 +1,25 @@
+.container {
+    display: flex;
+    flex-direction: column;
+
+    gap: 2rem;
+}
+
+.line {
+    border: 0.1rem solid var(--color-gray-400);
+}
+
+.search_filters {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    gap: 6rem;
+}
+
+.filters {
+    display: flex;
+    align-items: center;
+
+    gap: 4.5rem;
+}
