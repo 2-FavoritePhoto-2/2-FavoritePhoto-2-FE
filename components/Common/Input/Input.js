@@ -4,7 +4,7 @@ import Image from "next/image";
 import ic_visible from "@/public/assets/icon_visible.svg";
 import ic_inVisible from "@/public/assets/icon_invisible.svg";
 
-export default function Input({ label, type, name, value, onChange, placeholder }) {
+export default function Input({ label, type, name, value, onChange, placeholder, exchange }) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -13,7 +13,14 @@ export default function Input({ label, type, name, value, onChange, placeholder 
 
   const inputType =
     type === "textarea" ? (
-      <textarea name={name} id={name} value={value} onChange={onChange} placeholder={placeholder} />
+      <textarea
+        className={exchange ? styles.exchange : styles.textarea}
+        name={name}
+        id={name}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+      />
     ) : type === "password" ? (
       <div className={styles.password}>
         <input
@@ -32,6 +39,18 @@ export default function Input({ label, type, name, value, onChange, placeholder 
           alt={isPasswordVisible ? "비밀번호 표시" : "비밀번호 숨기기"}
         />
       </div>
+    ) : type === "point" ? (
+      <div className={styles.point}>
+        <input
+          type="text"
+          name={name}
+          id={name}
+          value={value}
+          onChange={onChange}
+          placeholder={placeholder}
+        />
+        <p>P</p>
+      </div>
     ) : (
       <input
         type={type}
@@ -45,7 +64,7 @@ export default function Input({ label, type, name, value, onChange, placeholder 
 
   return (
     <div className={styles.group}>
-      <label htmlFor={name}>{label}</label>
+      {label ? <label htmlFor={name}>{label}</label> : ""}
       {inputType}
     </div>
   );
