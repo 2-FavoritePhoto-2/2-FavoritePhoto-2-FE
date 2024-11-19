@@ -3,9 +3,8 @@ import Image from "next/image";
 import logo from "@/public/assets/logo.svg";
 import Grade from "../Grade/Grade";
 
-export default function PhotoCardExchange() {
-  const division = "seller";
-  const buttonType = division === "seller";
+export default function PhotoCardExchange({ type }) {
+  const buttonType = type === "seller";
 
   return (
     <div className={styles.card_container}>
