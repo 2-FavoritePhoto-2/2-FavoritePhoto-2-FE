@@ -60,53 +60,56 @@ export default function MultiFilterModal({ filterKeys }) {
       </div>
       <div className={styles.filterModal_container}>
         {isModalOpen && (
-          <div className={styles.modal_container}>
-            <div className={styles.modal_content}>
-              <div className={styles.modal_title}>
-                <h2>필터</h2>
-                <button onClick={closeModal} className={styles.close_button}>
-                  X
-                </button>
-              </div>
-              <div className={styles.filter_tabs}>
-                {filterKeys.map((tab) => (
-                  <button
-                    key={tab}
-                    onClick={() => setActiveTab(tab)}
-                    className={`${styles.tab_button} ${
-                      activeTab === tab ? `${styles.active}` : ""
-                    }`}
-                  >
-                    {tab}
+          <>
+            <div className={styles.overlay}></div>
+            <div className={styles.modal_container}>
+              <div className={styles.modal_content}>
+                <div className={styles.modal_title}>
+                  <h2>필터</h2>
+                  <button onClick={closeModal} className={styles.close_button}>
+                    X
                   </button>
-                ))}
-              </div>
-
-              <div className={styles.filter_content}>
-                <ul className={styles.filter_list}>
-                  {filterData[activeTab].map((item, index) => (
-                    <li
-                      key={index}
-                      className={selectedItem === item ? styles.selected : ""}
-                      style={{ color: colorMapping[item] }}
-                      onClick={() => setSelectedItem(item)}
+                </div>
+                <div className={styles.filter_tabs}>
+                  {filterKeys.map((tab) => (
+                    <button
+                      key={tab}
+                      onClick={() => setActiveTab(tab)}
+                      className={`${styles.tab_button} ${
+                        activeTab === tab ? `${styles.active}` : ""
+                      }`}
                     >
-                      {item}
-                    </li>
+                      {tab}
+                    </button>
                   ))}
-                </ul>
-              </div>
-              <div className={styles.button_wrapper}>
-                <Image
-                  src={icon_exchange}
-                  alt="새로고침"
-                  className={styles.reset_button}
-                  onClick={resetSelect}
-                />
-                <button className={styles.filterPhoto_button}>개 포토보기</button>
+                </div>
+
+                <div className={styles.filter_content}>
+                  <ul className={styles.filter_list}>
+                    {filterData[activeTab].map((item, index) => (
+                      <li
+                        key={index}
+                        className={selectedItem === item ? styles.selected : ""}
+                        style={{ color: colorMapping[item] }}
+                        onClick={() => setSelectedItem(item)}
+                      >
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className={styles.button_wrapper}>
+                  <Image
+                    src={icon_exchange}
+                    alt="새로고침"
+                    className={styles.reset_button}
+                    onClick={resetSelect}
+                  />
+                  <button className={styles.filterPhoto_button}>개 포토보기</button>
+                </div>
               </div>
             </div>
-          </div>
+          </>
         )}
       </div>
     </div>
