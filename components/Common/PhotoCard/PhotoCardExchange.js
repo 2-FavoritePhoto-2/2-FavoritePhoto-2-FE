@@ -3,7 +3,7 @@ import Image from "next/image";
 import logo from "@/public/assets/logo.svg";
 
 export default function PhotoCardExchange() {
-  const division = "buyer";
+  const division = "seller";
   const buttonType = division === "seller";
 
   return (
@@ -20,11 +20,13 @@ export default function PhotoCardExchange() {
               <p className={styles.vert_line}>|</p>
               <p className={styles.type}>전기</p>
               <p className={styles.vert_line}>|</p>
+            </div>
+            <div className={styles.point_seller}>
               <p className={styles.bought}>
                 <span className={styles.point}>4 P</span> 에 구매
               </p>
+              <p className={styles.seller}>판매자</p>
             </div>
-            <p className={styles.seller}>판매자</p>
           </div>
         </div>
         <div className={styles.card_line}></div>
@@ -35,8 +37,8 @@ export default function PhotoCardExchange() {
       <div className={styles.buttons}>
         {buttonType ? (
           <>
-            <button className={styles.refuse}>거절하기</button>
-            <button className={styles.approve}>승인하기</button>
+            <button className={styles.refuse}></button>
+            <button className={styles.approve}></button>
           </>
         ) : (
           <button className={styles.cancel}>취소하기</button>
