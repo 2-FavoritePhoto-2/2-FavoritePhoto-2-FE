@@ -2,8 +2,6 @@
     display: flex;
     flex-direction: column;
 
-    width: 100%;
-
     gap: 1rem;
 }
 
@@ -95,9 +93,12 @@
     position: relative;
     display: flex;
     align-items: center;
+
+    width: 24.5rem;
 }
 
 .point input {
+    width: 100%;
     padding-right: 5rem;
 }
 
@@ -131,8 +132,9 @@
         width: 44rem;
     }
 
-    .point {
-        width: 44rem;
+    .point,
+    .point input {
+        width: 20.2rem;
     }
 }
 
@@ -152,7 +154,8 @@
         width: 34.5rem;
     }
 
-    .point {
-        width: 34.5rem;
+    .point,
+    .point input {
+        width: 20.2rem;
     }
 }
