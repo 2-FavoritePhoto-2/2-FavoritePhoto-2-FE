@@ -1,0 +1,76 @@
+.home_container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+}
+.home {
+  font-family: "BR B";
+  font-size: 20rem;
+  letter-spacing: -3%;
+  display: flex;
+  gap: 3rem;
+}
+
+.home span {
+  animation: colorChange 3s infinite alternate;
+}
+.pick_wrapper {
+  width: 20rem;
+  aspect-ratio: 1;
+}
+
+.pick_image {
+  width: 100%;
+  height: auto;
+}
+.home_button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50rem;
+  height: 8rem;
+  font-size: 2rem;
+  font-weight: 700;
+  background-color: var(--color-main);
+  border-radius: 1rem;
+  margin-top: 5rem;
+}
+
+@keyframes colorChange {
+  0% {
+    color: var(--color-main);
+  }
+
+  100% {
+    color: var(--color-white);
+  }
+}
+
+@media (max-width: 1199px) {
+  .home {
+    font-size: 10rem;
+  }
+  .pick_wrapper {
+    width: 10rem;
+  }
+  .home_button {
+    height: 6rem;
+  }
+}
+
+@media (max-width: 743px) {
+  .home {
+    font-size: 8rem;
+  }
+  .pick_wrapper {
+    width: 8rem;
+  }
+  .home_button {
+    height: 5rem;
+  }
+}

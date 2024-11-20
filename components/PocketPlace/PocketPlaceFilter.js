@@ -21,8 +21,6 @@ export default function PocketPlaceFilter() {
           </div>
         </div>
       </div>
-
-      {/* </div> */}
     </>
   );
 }
