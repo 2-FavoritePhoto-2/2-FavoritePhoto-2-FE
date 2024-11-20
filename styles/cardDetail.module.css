@@ -191,6 +191,25 @@
   display: flex;
   flex-direction: column;
 }
+.exchange_present_table {
+  display: flex;
+  flex-direction: column;
+}
+.exchange_present {
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 5.792rem;
+  color: white;
+  padding-bottom: 2rem;
+  border-bottom: 0.1rem solid white;
+  margin-bottom: 6rem;
+}
+.exchange_present_list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4rem 8rem;
+}
 
 /* 태블릿사이즈 */
 @media (max-width: 1199px) {
@@ -206,8 +225,10 @@
     gap: 2rem;
   }
   .title,
-  .exchange_name {
+  .exchange_name,
+  .exchange_present {
     font-size: 3.2rem;
+    line-height: 4.634rem;
   }
   .card_img {
     width: 34.2rem;
@@ -240,17 +261,26 @@
     width: 34.2rem;
     height: 7.5rem;
   }
+  .exchange_table{
+    margin-bottom: 4rem;
+  }
   .exchange_button {
     width: 34.2rem;
     height: 6rem;
     padding: 0;
+  }
+  .exchange_present {
+    margin-bottom: 4rem;
+  }
+  .exchange_present_list {
+    gap: 2rem;
   }
 }
 
 /* 모바일 사이즈 */
 @media (max-width: 743px) {
   .details_container {
-    margin: 8rem auto;
+    margin: 8rem auto 0;
     max-width: 34.5rem;
     width: 100%;
   }
@@ -258,8 +288,10 @@
     display: none;
   }
   .title,
-  .exchange_name {
+  .exchange_name,
+  .exchange_present {
     font-size: 2.4rem;
+    line-height: 3.475rem;
   }
   .card_details_table {
     flex-direction: column;
@@ -272,6 +304,7 @@
     flex-direction: column;
     position: relative;
     align-items: flex-start;
+    padding-bottom: 1rem;
     margin-bottom: 4rem;
   }
   .exchange_button {
@@ -284,5 +317,8 @@
   }
   .exchange_card_rating_table {
     margin-bottom: 13.5rem;
+  }
+  .exchange_present_list {
+    gap:1.5rem 0.5rem ;
   }
 }
