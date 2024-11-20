@@ -2,7 +2,7 @@ import Gnb from '../lib/gnb/gnb.js';
 
 export default function TestPage() {
   
-  // 테스트용 데이터
+  // 테스트용 데이터 true false
   const isLoggedIn = true; // 로그인 여부
   const points = 1540; // 보유 포인트
   const nickname = '유디'; // 닉네임
@@ -20,7 +20,7 @@ export default function TestPage() {
       <main style={{ padding: '20px' }}>
         <h1>GNB 테스트 페이지</h1>
         <p>이 페이지는 GNB 테스트를 위해 만들어졌습니다.
-          css 해결이 되지 않아요...ㅠ
+
         </p>
       </main>
     </>
