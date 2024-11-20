@@ -5,6 +5,7 @@ import Input from "../Input/Input";
 import { useState } from "react";
 
 export default function CardSellInfo() {
+  const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [point, setPoint] = useState("");
 
   return (
@@ -21,8 +22,11 @@ export default function CardSellInfo() {
       <div className={styles.quantity_price}>
         <div className={styles.total_quantity}>
           <p className={styles.label}>총 판매 수량</p>
-          <div className={styles.quanitty}>
-            <Quantity maxQuantity={3} />
+          <div className={styles.quantity}>
+            <Quantity
+              onChange={(newQuantity) => setSelectedQuantity(newQuantity)}
+              maxQuantity={3}
+            />
             <div className={styles.max_quantity}>
               <p className={styles.max_count}>
                 /<span>3</span>

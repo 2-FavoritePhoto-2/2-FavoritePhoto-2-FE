@@ -47,7 +47,19 @@
     gap: 2rem;
 }
 
-.total_quantity,
+.total_quantity {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.quantity {
+    display: flex;
+    align-items: center;
+
+    gap: 2rem;
+}
+
 .price {
     display: flex;
     justify-content: space-between;
@@ -59,6 +71,7 @@
     font-size: 2rem;
     font-weight: 400;
     line-height: 2.896rem;
+    text-wrap: nowrap;
 }
 
 .max_quantity {
@@ -85,6 +98,12 @@
     .max_count {
         font-size: 1.8rem;
         line-height: 2.606rem;
+    }
+
+    .price {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 
     .max_notice {
