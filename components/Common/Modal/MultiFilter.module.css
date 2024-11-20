@@ -11,9 +11,10 @@
 .filter_button {
   cursor: pointer;
   border: 0.1rem solid var(--color-white);
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 4.5rem;
+  height: 4.5rem;
   padding: 0.5rem;
+  border-radius: 0.2rem;
 }
 
 .modal_container {
