@@ -1,6 +1,7 @@
 import styles from "@/styles/MyGalleryDetail.module.css";
 import Image from "next/image";
 import test from "@/public/assets/box_blue.svg";
+import MyCardDetail from "@/components/Common/CardInfo/MyCardDetail";
 
 export default function MyGalleryDetail() {
   return (
@@ -13,7 +14,7 @@ export default function MyGalleryDetail() {
         <div className={styles.img_wrap}>
           <Image src={test} fill alt="카드 이미지" priority />
         </div>
-        <div className={styles.info}>세부 정보 카드 컴포넌트 자리</div>
+        <MyCardDetail />
       </div>
     </div>
   );
