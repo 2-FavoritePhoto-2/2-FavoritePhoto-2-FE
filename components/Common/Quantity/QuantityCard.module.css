@@ -1,0 +1,241 @@
+.card_details {
+  display: flex;
+  flex-direction: column;
+  width: 44rem;
+  gap: 3rem;
+}
+.card_details_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 0.1rem solid #5a5a5a;
+  padding-bottom: 3rem;
+}
+.card_rating_table,
+.exchange_card_rating_table {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.card_rating {
+  font-size: 2.4rem;
+  font-weight: 2.4rem;
+  line-height: 3.475rem;
+  color: #ff2a6a;
+  padding-right: 1.5rem;
+  border-right: 3.5px solid #5a5a5a;
+}
+.card_attribute {
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 3.475rem;
+  color: #a4a4a4;
+}
+.card_writer {
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 3.475rem;
+  border-bottom: 1px solid white;
+  color: white;
+}
+.description_table {
+  font-size: 1.8rem;
+  font-weight: 400;
+  line-height: 2.606rem;
+  color: white;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid #5a5a5a;
+}
+.price_contain {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid #5a5a5a;
+}
+.price_table {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.price_name,
+.remaining_name,
+.remaining_card,
+.quantity_font {
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 2.896rem;
+  color: #a4a4a4;
+}
+.price,
+.quantity_int {
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 3.475rem;
+  color: white;
+}
+.remaining_contain {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.remaining_table {
+  display: flex;
+  align-items: center;
+}
+.remaining_card {
+  font-size: 2.4rem;
+}
+.quantity_table {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.trade_table {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 5rem;
+}
+.quantity_font {
+  color: white;
+}
+.totalprice_contain {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.totalprice_table {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.photocard_button,
+.patch_button {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  padding: 2.5rem 14.4rem;
+  width: 44rem;
+  height: 8rem;
+  border-radius: 0.2rem;
+  background-color: #efff04;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 2.896rem;
+  color: black;
+  border: none;
+}
+
+/* seller css */
+.price_container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+.exchange_table {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 0.2rem solid white;
+  margin-bottom: 4rem;
+}
+.exchange_name {
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 4.054rem;
+  color: white;
+}
+
+.exchange_card_rating_table {
+  border-bottom: 0.1rem solid #5a5a5a;
+  padding-bottom: 3rem;
+}
+.exchange_content {
+  font-size: 1.8rem;
+  font-weight: 400;
+  line-height: 2.606rem;
+  color: white;
+  margin-bottom: 5rem;
+}
+.patch_button {
+  justify-content: center;
+}
+.dont_sell_button {
+  border-radius: 0.2rem;
+  border: 0.1rem solid #eeeeee;
+  color: white;
+  width: 44rem;
+  height: 8rem;
+  background-color: #0f0f0f;
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 2.896rem;
+}
+/* 태블릿사이즈 */
+@media (max-width: 1199px) {
+  .card_details {
+    width: 34.2rem;
+  }
+  .card_details_table {
+    gap: 2rem;
+  }
+  .card_rating,
+  .card_attribute,
+  .card_writer,
+  .price_name,
+  .remaining_name,
+  .quantity_font,
+  .price_name,
+  .photocard_button,
+  .patch_button,
+  .dont_sell_button {
+    font-size: 1.8rem;
+  }
+  .description_table,
+  .exchange_button,
+  .exchange_content {
+    font-size: 1.6rem;
+  }
+  .price,
+  .quantity_int,
+  .remaining_card {
+    font-size: 2rem;
+  }
+  .photocard_button,
+  .patch_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 34.2rem;
+    height: 7.5rem;
+  }
+  .dont_sell_button {
+    width: 34.2rem;
+    height: 7.5rem;
+  }
+  .exchange_table {
+    margin-bottom: 3rem;
+  }
+  .icon_exchange {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+  .exchange_name {
+    font-size: 2.2rem;
+    line-height: 3.186rem;
+  }
+  .exchange_content {
+    margin-bottom: 1rem;
+  }
+}
+@media (max-width: 743px) {
+  .card_details {
+    width: 34.5rem;
+  }
+  .card_details_table {
+    flex-direction: column;
+  }
+}
