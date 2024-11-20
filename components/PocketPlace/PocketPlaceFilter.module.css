@@ -21,3 +21,19 @@
 .sort {
   margin-left: auto;
 }
+
+.filters > * {
+  display: block;
+}
+.filters .mobileOnly {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .filters > * {
+    display: none;
+  }
+  .filters .mobileOnly {
+    display: block;
+  }
+}
