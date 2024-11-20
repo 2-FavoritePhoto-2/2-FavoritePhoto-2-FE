@@ -4,7 +4,7 @@ import icon_up from "@/public/assets/icon_up.svg";
 import icon_down from "@/public/assets/icon_down.svg";
 import { useState } from "react";
 
-export default function Soldout({ sortType }) {
+export default function Sale({ sortType }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectValue, setSelectValue] = useState("판매여부");
 
