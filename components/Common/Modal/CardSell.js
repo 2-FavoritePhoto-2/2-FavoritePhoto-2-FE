@@ -13,6 +13,7 @@ export default function CardSell() {
 
   const grades = ["COMMON", "RARE", "SUPER_RARE", "LEGENDARY"];
   const types = [
+    "노말",
     "불꽃",
     "물",
     "풀",
@@ -30,7 +31,6 @@ export default function CardSell() {
     "악",
     "강철",
     "페어리",
-    "기타",
   ];
 
   return (

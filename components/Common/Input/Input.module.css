@@ -95,6 +95,8 @@
     position: relative;
     display: flex;
     align-items: center;
+
+    width: 24.5rem;
 }
 
 .point input {
@@ -132,7 +134,7 @@
     }
 
     .point {
-        width: 44rem;
+        width: 20.2rem;
     }
 }
 
@@ -153,6 +155,6 @@
     }
 
     .point {
-        width: 34.5rem;
+        width: 20.2rem;
     }
 }
