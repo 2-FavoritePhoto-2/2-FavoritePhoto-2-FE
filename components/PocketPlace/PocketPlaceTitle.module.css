@@ -20,7 +20,7 @@
 }
 
 .title_button button {
-  width: 44rem;
+  width: 42rem;
   height: 6rem;
   display: flex;
   justify-content: center;
@@ -35,4 +35,35 @@
 
 .line {
   border: 0.1rem solid var(--color-gray-100);
+}
+
+@media (max-width: 1199px) {
+  .title_button h1 {
+    font-size: 4.8rem;
+  }
+  .title_button button {
+    width: 34.2rem;
+  }
+}
+
+@media (max-width: 743px) {
+  .title_button {
+    display: flex;
+    justify-content: center;
+  }
+  .title_button h1 {
+    display: none;
+  }
+  .title_button button {
+    width: 34.5rem;
+  }
+
+  .button {
+    position: fixed;
+    bottom: 2rem;
+    z-index: 10;
+  }
+  .line {
+    display: none;
+  }
 }
