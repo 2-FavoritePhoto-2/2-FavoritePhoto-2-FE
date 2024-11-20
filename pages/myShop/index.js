@@ -2,6 +2,7 @@ import styles from "@/styles/MyShop.module.css";
 import MyShopTitle from "@/components/MyShop/MyShopTitle";
 import MySaleCards from "@/components/MyShop/MySaleCards";
 import MyShopFilter from "@/components/MyShop/MyShopFilter";
+import MyShopList from "@/components/MyShop/MyShopList";
 
 export default function MyShop() {
   return (
@@ -11,6 +12,7 @@ export default function MyShop() {
         <MySaleCards />
         <MyShopFilter />
       </div>
+      <MyShopList />
     </div>
   );
 }
