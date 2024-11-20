@@ -17,6 +17,7 @@ export default function MultiFilterModal({ filterKeys }) {
   const filterData = {
     등급: ["COMMON", "RARE", "SUPER RARE", "LEGENDARY"],
     속성: [
+      "노말",
       "불꽃",
       "물",
       "풀",
@@ -34,7 +35,6 @@ export default function MultiFilterModal({ filterKeys }) {
       "악",
       "강철",
       "페어리",
-      "기타",
     ],
     판매여부: ["판매중", "대기중"],
     매진여부: ["매진", "잔여"],
