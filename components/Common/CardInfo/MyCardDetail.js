@@ -1,7 +1,21 @@
+import { useState } from "react";
 import styles from "./MyCardDetail.module.css";
 import Grade from "../Grade/Grade";
+import Modal from "../Modal/Modal";
+import CardList from "@/components/Common/Modal/CardList";
+import CardSell from "@/components/Common/Modal/CardSell";
 
 export default function MyCardDetail() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleClick = () => {
+    setIsOpen(true);
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -29,7 +43,14 @@ export default function MyCardDetail() {
           <p className={styles.value}>5</p>
         </div>
       </div>
-      <button className={styles.sell}>포토카드 판매하기</button>
+      <button className={styles.sell} onClick={handleClick}>
+        포토카드 판매하기
+      </button>
+      {isOpen && (
+        <Modal isOpen={isOpen} closeModal={handleClose}>
+          <CardList />
+        </Modal>
+      )}
     </div>
   );
 }
