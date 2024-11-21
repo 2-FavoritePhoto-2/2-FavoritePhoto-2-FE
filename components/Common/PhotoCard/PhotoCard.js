@@ -19,6 +19,8 @@ export default function PhotoCard({ card, type = "quantity" }) {
               <Grade grade={card.grade} />
               <p className={styles.vert_line}>|</p>
               <p className={styles.type}>{card.type[0]}</p>
+              <p className={styles.vert_line}>|</p>
+              <p className={styles.type}>{card.type[1]}</p>
             </div>
             <p className={styles.seller}>판매자</p>
           </div>

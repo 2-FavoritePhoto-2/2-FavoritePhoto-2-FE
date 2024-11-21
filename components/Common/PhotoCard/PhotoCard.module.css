@@ -19,8 +19,6 @@
 
   width: 36rem;
   height: 27rem;
-
-  background-color: var(--color-black);
 }
 
 .img {
@@ -165,6 +163,10 @@
   .card_header h1 {
     font-size: 1.4rem;
     line-height: 2.027rem;
+  }
+
+  .category {
+    gap: 0.5rem;
   }
 
   .category p {

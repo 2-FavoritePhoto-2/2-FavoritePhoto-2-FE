@@ -7,7 +7,6 @@ import MultiFilterModal from "./MultiFilter";
 import data from "@/public/mockData.json";
 
 export default function CardList() {
-  const count = 10;
   return (
     <div className={styles.list_wrapper}>
       <div className={styles.list_header}>
@@ -32,7 +31,9 @@ export default function CardList() {
       <div className={styles.card_list_wrapper}>
         <div className={styles.card_list}>
           {data.map((card) => (
-            <PhotoCard key={card.id} card={card} />
+            <div key={card.id} onClick={() => handleCardClick(card.id)}>
+              <PhotoCard card={card} />
+            </div>
           ))}
         </div>
       </div>
