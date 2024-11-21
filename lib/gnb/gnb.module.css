@@ -75,6 +75,7 @@ text-decoration-skip-ink: none;
 .menu button:hover,
 .menu a:hover {
 color: var(--color-main);
+}
 
 
 .loginLink,
