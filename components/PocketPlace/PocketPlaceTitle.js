@@ -1,11 +1,11 @@
 import styles from "./PocketPlaceTitle.module.css";
 import { useState } from "react";
-import CardSell from "../Common/Modal/CardSell";
+import CardList from "../Common/Modal/CardList";
 
 export default function PocketPlaceTitle() {
   const [showCardSell, setShowCardSell] = useState(false);
 
-  const handleClickSell = () => {
+  const handleClickList = () => {
     setShowCardSell(true);
   };
 
@@ -16,11 +16,11 @@ export default function PocketPlaceTitle() {
           <h1 className={styles.title}>포켓플레이스</h1>
         </div>
         <div className={styles.button}>
-          <button onClick={handleClickSell}>나의 포토카드 판매하기</button>
+          <button onClick={handleClickList}>나의 포토카드 판매하기</button>
         </div>
       </div>
       <div className={styles.line}></div>
-      {showCardSell && <CardSell />}
+      {showCardSell && <CardList />}
     </div>
   );
 }
