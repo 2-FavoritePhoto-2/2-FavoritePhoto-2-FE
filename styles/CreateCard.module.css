@@ -1,0 +1,18 @@
+.container {
+    display: flex;
+    flex-direction: column;
+
+    max-width: 148rem;
+    width: 100%;
+
+    margin: 0 auto;
+
+    gap: 8rem;
+}
+
+/* Mobile Only */
+@media (max-width: 743px) {
+    .container {
+        gap: 2rem;
+    }
+}

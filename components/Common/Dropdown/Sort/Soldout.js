@@ -27,7 +27,7 @@ export default function Soldout({ sortType }) {
       className={`${styles.dropDown_container} ${styles.container_large}`}
       onClick={handleToggle}
     >
-      <div>매진여부</div>
+      <div>{selectValue}</div>
       <div className={styles.downIcon_container}>
         <Image src={isOpen ? icon_up : icon_down} alt="토글아이콘" />
       </div>

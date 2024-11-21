@@ -4,7 +4,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import GlobalNavigationBar from '@/lib/gnb/gnb';
 import Head from 'next/head';
 
-
 const noto = Noto_Sans_KR({ subsets: ['latin'] });
 
 const queryClient = new QueryClient();
@@ -12,6 +11,7 @@ const queryClient = new QueryClient();
 export default function App({ Component, pageProps }) {
   return (
     <QueryClientProvider client={queryClient}>
+      <UserProvider>
       <Head>
         <title>피카픽포토</title>
         <link rel="icon" href="/favicon.ico" />

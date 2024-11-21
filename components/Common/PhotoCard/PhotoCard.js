@@ -1,8 +1,11 @@
 import styles from "./PhotoCard.module.css";
 import Image from "next/image";
 import logo from "@/public/assets/logo.svg";
+import Grade from "../Grade/Grade";
 
-export default function PhotoCard() {
+export default function PhotoCard({ type = "quantity" }) {
+  const selectType = type === "left";
+
   return (
     <div className={styles.card_container}>
       <div className={styles.img_wrap}>
@@ -13,7 +16,7 @@ export default function PhotoCard() {
           <h1>정말 귀여운 피카츄</h1>
           <div className={styles.meta_info}>
             <div className={styles.category}>
-              <p>LEGENDARY</p>
+              <Grade grade="LEGENDARY" />
               <p className={styles.vert_line}>|</p>
               <p className={styles.type}>전기</p>
             </div>
@@ -27,7 +30,11 @@ export default function PhotoCard() {
             <p className={styles.point}>3p</p>
           </div>
           <div className={styles.card_quantity}>
-            <p className={styles.label}>잔여</p>
+            {selectType ? (
+              <p className={styles.label}>잔여</p>
+            ) : (
+              <p className={styles.label}>수량</p>
+            )}
             <p className={styles.value}>
               <span>3</span>/5
             </p>
