@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #0f0f0f;
+  color: black; 
   margin-top: 0.625rem; 
   margin-bottom: 0.625rem;
   padding: 1.25rem; 
@@ -10,8 +10,8 @@
 
 
 .logoImage {
-  width: 8.682rem; 
-  height: 1.575rem; 
+width: 13.894rem;
+height: 2.51rem;
 }
 
 .menu_container {
@@ -19,10 +19,10 @@
   align-items: center;
 }
 
-.points {
-  color: #fff;
+.points { 
+  color:#dddddd;
   margin-right: 1.875rem; 
-  font-size: 0.875rem; 
+  font-size: 1.4rem;
 }
 
 .bellIcon {
@@ -33,11 +33,18 @@
 }
 
 .nickname {
-  color: #fff;
-  font-weight: bold; 
-  margin-right: 1.875rem; 
-  font-size: 0.875rem; 
-  cursor: pointer; 
+color:#dddddd;
+margin-right: 1.875rem; 
+font-size: 1.8rem;
+cursor: pointer; 
+font-family: BR B;
+font-weight: 400;
+line-height: 1.5;;
+letter-spacing: -0.03em;
+text-align: left;
+text-underline-position: from-font;
+text-decoration-skip-ink: none;
+
 }
 
 .separator {
@@ -51,7 +58,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 0.875rem; 
+  font-size: 1.4rem;
   margin-left: 1.875rem; 
   margin-right: 1.875rem; 
 }
@@ -67,33 +74,33 @@
 
 .menu button:hover,
 .menu a:hover {
-  color: #ff0;
+color: #efff04;
 }
 
 
 .loginLink,
 .signupLink {
-  color: #fff;
-  font-size: 0.875rem; 
+  color: #dddddd;
+  font-size: 1.4rem;
   text-decoration: none;
   margin-right: 0.9375rem; 
 }
 
 .loginLink:hover,
 .signupLink:hover {
-  color: #ff0; 
+  color: #efff04; /* 호버 효과 */
 }
 
 
 /* 미디어쿼리 */
-@media (max-width: 46.5rem) { 
+@media (max-width: 744px) { 
   .globalNavigationBar_container {
     padding: 0.625rem 0.625rem; 
   }
 }
 
 
-@media (max-width: 23.4375rem) { 
+@media (max-width: 375px) { 
   .globalNavigationBar_container {
     justify-content: space-between;
     padding: 0 0.9375rem; 
