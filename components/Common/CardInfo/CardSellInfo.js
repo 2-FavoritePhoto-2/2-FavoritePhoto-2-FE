@@ -1,8 +1,8 @@
+import { useState } from "react";
 import styles from "./CardSellInfo.module.css";
 import Grade from "../Grade/Grade";
 import Quantity from "../Quantity/Quantity";
 import Input from "../Input/Input";
-import { useState } from "react";
 
 export default function CardSellInfo() {
   const [selectedQuantity, setSelectedQuantity] = useState(1);
@@ -12,9 +12,11 @@ export default function CardSellInfo() {
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.category}>
-          <Grade grade="SUPER-RARE" detail={true} />
+          <Grade grade="SUPER RARE" detail={true} />
           <p>|</p>
           <p>전기</p>
+          <p>|</p>
+          <p>풀</p>
         </div>
         <p className={styles.seller}>판매자</p>
       </div>
@@ -39,13 +41,15 @@ export default function CardSellInfo() {
         </div>
         <div className={styles.price}>
           <p className={styles.label}>장당 가격</p>
-          <Input
-            type="point"
-            name="point"
-            value={point}
-            onChange={(e) => setPoint(e.target.value)}
-            placeholder="숫자만 입력"
-          />
+          <div className={styles.point_input}>
+            <Input
+              type="point"
+              name="point"
+              value={point}
+              onChange={(e) => setPoint(e.target.value)}
+              placeholder="숫자만 입력"
+            />
+          </div>
         </div>
       </div>
     </div>

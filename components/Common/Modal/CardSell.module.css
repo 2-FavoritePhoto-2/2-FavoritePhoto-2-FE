@@ -1,44 +1,11 @@
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 100%;
-
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 10;
-}
-
-.container {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: space-between;
-
-    width: 116rem;
-    height: 100rem;
-
-    padding: 3rem;
-    border-radius: 0.2rem;
-
-    background-color: var(--color-gray-500);
-
-    gap: 1rem;
-
-    overflow: hidden;
-}
-
 .card_info_wrapper {
     display: flex;
     flex-direction: column;
 
-    margin-left: 11rem;
-    padding: 1.5rem 0;
+    max-width: 96.8rem;
+    width: 100%;
+
+    margin: 0 auto;
     padding-right: 4rem;
 
     gap: 4rem;
@@ -90,31 +57,22 @@
 
 .card_info {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
 
     gap: 4rem;
 }
 
 .img_wrap {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: relative;
 
     width: 44rem;
     height: 33rem;
-
-    background-color: var(--color-gray-300);
 }
 
-.card_meta_info {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    width: 44rem;
+.img {
+    object-fit: cover;
+    width: 100%;
     height: 100%;
-
-    background-color: var(--color-gray-300);
 }
 
 .exchange_info {
@@ -183,4 +141,70 @@
 .thin_line {
     margin-top: 2rem;
     border: 0.1rem solid var(--color-gray-400);
+}
+
+/* Tablet + Mobile */
+@media (min-width: 375px) and (max-width: 1199px) {
+    .card_info_wrapper {
+        padding-right: 0;
+    }
+
+    .card_info_wrapper::-webkit-scrollbar {
+        width: 0;
+    }
+
+    .card_info_wrapper::-webkit-scrollbar-thumb {
+        background-color: transparent;
+    }
+}
+
+/* Tablet Only */
+@media (min-width: 744px) and (max-width: 1199px) {
+    .card_info_wrapper {
+        max-width: 70.4rem;
+    }
+
+    .img_wrap {
+        width: 34.2rem;
+        height: 25.65rem;
+    }
+
+    .buttons button {
+        width: 34.2rem;
+        height: 5.5rem;
+    }
+}
+
+/* Mobile Only */
+@media (max-width: 743px) {
+    .card_info_wrapper {
+        max-width: 34.5rem;
+    }
+
+    .card_info {
+        flex-direction: column;
+    }
+
+    .card_title {
+        gap: 1rem;
+    }
+
+    .card_title h1 {
+        font-size: 2.4rem;
+        line-height: 3.475rem;
+    }
+
+    .img_wrap {
+        width: 34.5rem;
+        height: 25.87rem;
+    }
+
+    .dropdown {
+        flex-direction: column;
+    }
+
+    .buttons button {
+        width: 16.5rem;
+        height: 5.5rem;
+    }
 }

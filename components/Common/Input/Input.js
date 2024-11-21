@@ -4,16 +4,7 @@ import Image from "next/image";
 import ic_visible from "@/public/assets/icon_visible.svg";
 import ic_inVisible from "@/public/assets/icon_invisible.svg";
 
-export default function Input({
-  label,
-  type,
-  name,
-  value,
-  onChange,
-  placeholder,
-  exchange,
-  onFileChange,
-}) {
+export default function Input({ label, type, name, value, onChange, placeholder, onFileChange }) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -30,7 +21,7 @@ export default function Input({
   const inputType =
     type === "textarea" ? (
       <textarea
-        className={exchange ? styles.exchange : styles.textarea}
+        className={styles.textarea}
         name={name}
         id={name}
         value={value}

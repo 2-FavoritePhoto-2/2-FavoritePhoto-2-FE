@@ -67,10 +67,15 @@
     }
 
     .title_button button {
+        position: fixed;
+        bottom: 2rem;
+
         width: 34.5rem;
         height: 5.5rem;
 
         font-size: 1.6rem;
         line-height: 2.317rem;
+
+        z-index: 1;
     }
 }
