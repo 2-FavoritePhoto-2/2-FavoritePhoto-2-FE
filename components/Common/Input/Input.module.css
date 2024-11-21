@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: column;
 
-    max-width: 52rem;
     width: 100%;
 
     gap: 1rem;
@@ -124,10 +123,6 @@
 
 /* Tablet Only */
 @media (min-width: 744px) and (max-width: 1199px) {
-    .group {
-        max-width: 44rem;
-    }
-
     .group input {
         height: 5.5rem;
     }
@@ -147,10 +142,6 @@
 
 /* Mobile Only */
 @media (max-width: 743px) {
-    .group {
-        max-width: 34.5rem;
-    }
-
     .group input {
         height: 5.5rem;
     }

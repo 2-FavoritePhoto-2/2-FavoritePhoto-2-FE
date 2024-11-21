@@ -19,12 +19,10 @@
 
     width: 36rem;
     height: 27rem;
-
-    background-color: var(--color-black);
 }
 
-.img-wrap img {
-    object-fit: contain;
+.img {
+    object-fit: cover;
     width: 100%;
     height: 100%;
 }
