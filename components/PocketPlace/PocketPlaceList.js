@@ -67,9 +67,9 @@ export default function PocketPlaceList() {
       {rows.map((_, rowIndex) => (
         <div className={styles.row} key={rowIndex}>
           {mockData.slice(rowIndex * cardPerRow, rowIndex * cardPerRow + cardPerRow).map((item) => {
-            const updatedItem = { ...item, type: item.type.join(", ") };
+            const updatedItem = { ...item };
 
-            return <PhotoCard key={item.id} {...updatedItem} />;
+            return <PhotoCard key={item.id} card={updatedItem} />;
           })}
         </div>
       ))}
