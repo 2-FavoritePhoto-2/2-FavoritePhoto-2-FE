@@ -2,6 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
+<<<<<<< HEAD
     remotePatterns: [
       {
         protocol: "https",
@@ -10,6 +11,9 @@ const nextConfig = {
         pathname: "/**",
       },
     ],
+=======
+    unoptimized: true,
+>>>>>>> dev
   },
 };
 

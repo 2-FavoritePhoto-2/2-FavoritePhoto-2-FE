@@ -1,6 +1,6 @@
 import PocketPlaceTitle from "@/components/PocketPlace/PocketPlaceTitle";
 import PocketPlaceFilter from "@/components/PocketPlace/PocketPlaceFilter";
-import PocketPlaceyList from "@/components/PocketPlace/PocketPlaceList";
+import PocketPlaceList from "@/components/PocketPlace/PocketPlaceList";
 import styles from "./pocketPlace.module.css";
 
 export default function () {
@@ -11,7 +11,7 @@ export default function () {
           <PocketPlaceTitle />
           <PocketPlaceFilter />
         </div>
-        <PocketPlaceyList />
+        <PocketPlaceList />
       </div>
     </>
   );
