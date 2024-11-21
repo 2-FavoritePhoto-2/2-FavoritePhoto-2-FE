@@ -21,7 +21,7 @@ export default function PhotoCard({ card, type = "quantity" }) {
               <p className={styles.type}>{card.type[0]}</p>
               {card.type[1] ? (
                 <>
-                  <p>|</p>
+                  <p className={styles.vert_line}>|</p>
                   <p>{card.type[1]}</p>
                 </>
               ) : (

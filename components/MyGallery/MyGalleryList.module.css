@@ -1,6 +1,6 @@
 .card_list {
     display: grid;
-    grid-template-columns: repeat(3, minmax(17rem, 1fr));
+    grid-template-columns: repeat(3, minmax(20rem, 1fr));
 
     gap: 2vw;
 }
