@@ -12,9 +12,11 @@ export default function CardSellInfo() {
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.category}>
-          <Grade grade="SUPER-RARE" detail={true} />
+          <Grade grade="SUPER RARE" detail={true} />
           <p>|</p>
           <p>전기</p>
+          <p>|</p>
+          <p>풀</p>
         </div>
         <p className={styles.seller}>판매자</p>
       </div>

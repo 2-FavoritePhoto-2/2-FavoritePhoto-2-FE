@@ -99,6 +99,10 @@
         height: 36.5rem;
     }
 
+    .category {
+        gap: 1rem;
+    }
+
     .category p:not(:first-child),
     .seller,
     .label {
