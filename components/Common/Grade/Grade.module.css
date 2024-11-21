@@ -35,7 +35,8 @@
   border-color: var(--color-blue);
 }
 
-.grade_super-rare {
+.grade_super-rare,
+.grade_super_rare {
   color: var(--color-purple);
   border-color: var(--color-purple);
 }
