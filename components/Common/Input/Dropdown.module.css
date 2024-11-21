@@ -65,6 +65,8 @@
     gap: 2rem;
 
     overflow-y: scroll;
+
+    z-index: 1;
 }
 
 .dropdown_option {
@@ -92,4 +94,11 @@
 .dropdown_options::-webkit-scrollbar-track {
     background: transparent;
     border-radius: 1rem;
+}
+
+/* Mobile Only */
+@media (max-width: 743px) {
+    .dropdown p {
+        text-wrap: balance;
+    }
 }

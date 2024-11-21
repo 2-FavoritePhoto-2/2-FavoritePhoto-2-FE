@@ -24,13 +24,16 @@ export default function Attribute({ sortType }) {
 
   return (
     <div className={styles.dropDown_container} onClick={handleToggle}>
-      <div>속성</div>
+      <div>{selectValue}</div>
       <div className={styles.downIcon_container}>
         <Image src={isOpen ? icon_up : icon_down} alt="토글아이콘" />
       </div>
       {isOpen && (
         <div className={styles.dropDown_wrapper}>
           <ul className={styles.dropDown_list}>
+            <li className={styles.dropDown_item} onClick={() => handleSelect("노말")}>
+              노말
+            </li>
             <li className={styles.dropDown_item} onClick={() => handleSelect("불꽃")}>
               불꽃
             </li>
@@ -81,9 +84,6 @@ export default function Attribute({ sortType }) {
             </li>
             <li className={styles.dropDown_item} onClick={() => handleSelect("페어리")}>
               페어리
-            </li>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("기타")}>
-              기타
             </li>
           </ul>
         </div>

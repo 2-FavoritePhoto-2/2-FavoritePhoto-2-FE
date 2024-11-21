@@ -3,7 +3,7 @@ import Image from "next/image";
 import icon_close from "@/public/assets/icon_close.svg";
 import { useState } from "react";
 
-export default function Notification({ type, onButtonClick, data }) {
+export default function Notification({ type, onButtonClick, onClose, data }) {
   const [isOpen, setIsOpen] = useState(true);
 
   /*TODO
@@ -50,7 +50,6 @@ export default function Notification({ type, onButtonClick, data }) {
   };
 
   const content = notificationContent[type];
-  const closeModal = () => setIsOpen(false);
 
   if (!isOpen) return null;
 
@@ -58,7 +57,7 @@ export default function Notification({ type, onButtonClick, data }) {
     <>
       <div className={styles.overlay}></div>
       <div className={styles.alert_container}>
-        <div className={styles.closeIcon_wrapper} onClick={closeModal}>
+        <div className={styles.closeIcon_wrapper} onClick={onClose}>
           <Image src={icon_close} alt="닫기" />
         </div>
         <div className={styles.alert_wrapper}>

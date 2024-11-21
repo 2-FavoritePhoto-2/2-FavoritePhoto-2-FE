@@ -1,0 +1,18 @@
+.pocketPlace_container {
+  display: flex;
+  flex-direction: column;
+
+  max-width: 148rem;
+  width: 100%;
+
+  margin: 0 auto;
+
+  gap: 6rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+
+  gap: 4rem;
+}
