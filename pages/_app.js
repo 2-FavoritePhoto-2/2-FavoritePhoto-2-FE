@@ -11,7 +11,6 @@ const queryClient = new QueryClient();
 export default function App({ Component, pageProps }) {
   return (
     <QueryClientProvider client={queryClient}>
-      <UserProvider>
       <Head>
         <title>피카픽포토</title>
         <link rel="icon" href="/favicon.ico" />
