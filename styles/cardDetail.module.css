@@ -191,9 +191,11 @@
   display: flex;
   flex-direction: column;
 }
-.exchange_present_table {
+.exchange_present_table,
+.my_exchange_present_table {
   display: flex;
   flex-direction: column;
+  margin-top: 12rem;
 }
 .exchange_present {
   font-size: 4rem;
@@ -261,7 +263,7 @@
     width: 34.2rem;
     height: 7.5rem;
   }
-  .exchange_table{
+  .exchange_table {
     margin-bottom: 4rem;
   }
   .exchange_button {
@@ -319,6 +321,9 @@
     margin-bottom: 13.5rem;
   }
   .exchange_present_list {
-    gap:1.5rem 0.5rem ;
+    gap: 1.5rem 0.5rem;
+  }
+  .my_exchange_present_table {
+    margin-bottom: 2rem;
   }
 }

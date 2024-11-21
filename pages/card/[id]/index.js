@@ -6,29 +6,17 @@ import PhotoCardExchange from "@/components/Common/PhotoCard/PhotoCardExchange";
 import { useEffect, useState } from "react";
 import { useUser } from "@/hooks/contexts/UserContext";
 
-// export async function getServerSideProps(context) {
-//   const { id } = context.params;
-//   const post = await fetchPostById(id); // 포스트 데이터를 가져오는 함수
 
-//   return {
-//     props: {
-//       post,
-//     },
-//   };
-// }
 
 //구매자 기준 상세페이지
 export default function CardDetail() {
   const [isOwner, setIsOwner] = useState(false);
-  // const { user } = useUser();
+  const [myOffer, setMyOffer] = useState(true);
+
+ 
   const router = useRouter();
   const { id } = router.query;
 
-  // useEffect(() => {
-  //   if (user && post) {
-  //     setIsOwner(user.id === post.authorId); // 유저 ID와 글 작성자 ID 비교
-  //   }
-  // }, [user, post]);
 
   return (
     <>
@@ -58,6 +46,18 @@ export default function CardDetail() {
                 <p className={styles.card_rating}>RARE</p>
                 <p className={styles.card_attribute}>불</p>
               </div>
+              {myOffer && (
+                <div className={styles.my_exchange_present_table} >
+                  <p className={styles.exchange_present}>내가 제시한 교환 목록</p>
+                  <div className={styles.exchange_present_list}>
+                  <PhotoCardExchange />
+                  <PhotoCardExchange />
+                  <PhotoCardExchange />
+                  <PhotoCardExchange />
+                  <PhotoCardExchange />
+                  </div>
+              </div>
+            )}
             </>
           )}
         </div>
