@@ -19,7 +19,6 @@ export default function App({ Component, pageProps }) {
       
       <div className={noto.className}>
         <GlobalNavigationBar />
-
         <Component {...pageProps} />
       </div>
     </QueryClientProvider>
