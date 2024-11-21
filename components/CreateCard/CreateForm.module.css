@@ -20,6 +20,10 @@
     gap: 1rem;
 }
 
+.description textarea {
+    height: 18rem;
+}
+
 .create {
     display: flex;
     justify-content: center;

@@ -66,6 +66,10 @@
     align-items: center;
 }
 
+.point_input {
+    width: 24.5rem;
+}
+
 .label,
 .max_count {
     font-size: 2rem;
@@ -93,6 +97,10 @@
         height: 19.6rem;
     }
 
+    .category {
+        gap: 1rem;
+    }
+
     .category p:not(:first-child),
     .seller,
     .label,
@@ -105,10 +113,8 @@
         width: 20.2rem;
     }
 
-    .price {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+    .point_input {
+        width: 20.2rem;
     }
 
     .max_notice {
@@ -124,6 +130,10 @@
         height: 19.6rem;
     }
 
+    .category {
+        gap: 1rem;
+    }
+
     .category p:not(:first-child),
     .seller,
     .label,
@@ -133,6 +143,10 @@
     }
 
     .quantity {
+        width: 20.2rem;
+    }
+
+    .point_input {
         width: 20.2rem;
     }
 

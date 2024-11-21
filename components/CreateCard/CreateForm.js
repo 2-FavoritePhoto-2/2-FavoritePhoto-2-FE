@@ -74,14 +74,16 @@ export default function CreateForm() {
           onChange={handleImageChange}
           placeholder="사진 업로드"
         />
-        <Input
-          label="포토카드 설명"
-          type="textarea"
-          name="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          placeholder="카드 설명을 입력해 주세요"
-        />
+        <div className={styles.description}>
+          <Input
+            label="포토카드 설명"
+            type="textarea"
+            name="description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="카드 설명을 입력해 주세요"
+          />
+        </div>
         <button className={styles.create}>생성하기</button>
       </form>
     </div>
