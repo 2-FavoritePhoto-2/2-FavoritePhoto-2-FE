@@ -5,7 +5,7 @@
   color: black; 
   margin-top: 0.625rem; 
   margin-bottom: 0.625rem;
-  padding: 1.25rem; 
+  padding: 1rem 2rem;
 }
 
 
@@ -20,7 +20,7 @@ height: 2.51rem;
 }
 
 .points { 
-  color:#dddddd;
+  color : var(--color-gray-200);
   margin-right: 1.875rem; 
   font-size: 1.4rem;
 }
@@ -39,7 +39,7 @@ font-size: 1.8rem;
 cursor: pointer; 
 font-family: BR B;
 font-weight: 400;
-line-height: 1.5;;
+line-height: 1.5;
 letter-spacing: -0.03em;
 text-align: left;
 text-underline-position: from-font;
@@ -48,13 +48,13 @@ text-decoration-skip-ink: none;
 }
 
 .separator {
-  border-left: 1px solid #5a5a5a;
+  border-left: 0.1rem solid var(--color-gray-400);
   height: 1.25rem; 
   margin: 0 1.25rem; 
 }
 
 .logoutButton {
-  color: #5a5a5a;
+  color: var(--color-gray-400);
   background: none;
   border: none;
   cursor: pointer;
@@ -74,13 +74,12 @@ text-decoration-skip-ink: none;
 
 .menu button:hover,
 .menu a:hover {
-color: #efff04;
-}
+color: var(--color-main);
 
 
 .loginLink,
 .signupLink {
-  color: #dddddd;
+  color: var(--color-gray-200);
   font-size: 1.4rem;
   text-decoration: none;
   margin-right: 0.9375rem; 
@@ -88,7 +87,7 @@ color: #efff04;
 
 .loginLink:hover,
 .signupLink:hover {
-  color: #efff04; /* 호버 효과 */
+  color: var(--color-main); /* 호버 효과 */
 }
 
 
@@ -132,10 +131,13 @@ color: #efff04;
     transform: translateY(-50%); 
   }
 
+  
   .points,
   .nickname,
   .logoutButton,
-  .separator 
+  .separator,
+  .signupLink, 
+  .loginLink
   { display: none; }
 }
 
