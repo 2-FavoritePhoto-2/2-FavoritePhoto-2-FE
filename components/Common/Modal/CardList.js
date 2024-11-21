@@ -31,7 +31,7 @@ export default function CardList() {
       <div className={styles.card_list_wrapper}>
         <div className={styles.card_list}>
           {data.map((card) => (
-            <div key={card.id} onClick={() => handleCardClick(card.id)}>
+            <div key={card.id}>
               <PhotoCard card={card} />
             </div>
           ))}

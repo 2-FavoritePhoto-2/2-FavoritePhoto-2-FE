@@ -2,7 +2,7 @@ import styles from "./MyGalleryTitle.module.css";
 import { useRouter } from "next/router";
 
 export default function MyGalleryTitle() {
-  const router = useRouter;
+  const router = useRouter();
 
   return (
     <div className={styles.container}>

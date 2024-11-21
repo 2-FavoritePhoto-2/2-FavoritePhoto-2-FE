@@ -9,7 +9,7 @@ export default function PhotoCard({ card, type = "quantity" }) {
   return (
     <div className={styles.card_container}>
       <div className={styles.img_wrap}>
-        <Image className={styles.img} src={card.image} fill alt="카드 이미지" priority />
+        <Image className={styles.img} src={card.image} fill alt="카드 이미지" />
       </div>
       <div className={styles.card_info}>
         <div className={styles.card_header}>
@@ -19,8 +19,14 @@ export default function PhotoCard({ card, type = "quantity" }) {
               <Grade grade={card.grade} />
               <p className={styles.vert_line}>|</p>
               <p className={styles.type}>{card.type[0]}</p>
-              <p className={styles.vert_line}>|</p>
-              <p className={styles.type}>{card.type[1]}</p>
+              {card.type[1] ? (
+                <>
+                  <p>|</p>
+                  <p>{card.type[1]}</p>
+                </>
+              ) : (
+                ""
+              )}
             </div>
             <p className={styles.seller}>판매자</p>
           </div>

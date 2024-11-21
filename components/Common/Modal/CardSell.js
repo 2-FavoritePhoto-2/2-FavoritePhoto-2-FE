@@ -43,13 +43,7 @@ export default function CardSell() {
       </div>
       <div className={styles.card_info}>
         <div className={styles.img_wrap}>
-          <Image
-            className={styles.img}
-            src={data[0].image}
-            fill
-            style={{ objectFit: "cover" }}
-            alt="카드 이미지"
-          />
+          <Image className={styles.img} src={data[0].image} fill alt="카드 이미지" />
         </div>
         <CardSellInfo />
       </div>
