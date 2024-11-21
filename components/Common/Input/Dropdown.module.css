@@ -96,8 +96,8 @@
     border-radius: 1rem;
 }
 
-/* Mobile Only */
-@media (max-width: 743px) {
+/* Tablet + Mobile */
+@media (min-width: 375px) and (max-width: 1199px) {
     .dropdown p {
         text-wrap: balance;
     }

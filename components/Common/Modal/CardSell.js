@@ -12,28 +12,6 @@ export default function CardSell() {
   const [selectedType2, setSelectedType2] = useState("");
   const [exchange, setExchange] = useState("");
 
-  const grades = ["COMMON", "RARE", "SUPER_RARE", "LEGENDARY"];
-  const types = [
-    "노말",
-    "불꽃",
-    "물",
-    "풀",
-    "전기",
-    "얼음",
-    "격투",
-    "독",
-    "땅",
-    "비행",
-    "에스퍼",
-    "벌레",
-    "바위",
-    "고스트",
-    "드래곤",
-    "악",
-    "강철",
-    "페어리",
-  ];
-
   return (
     <div className={styles.card_info_wrapper}>
       <h1 className={styles.modal_title}>나의 포토카드 판매하기</h1>
@@ -59,21 +37,21 @@ export default function CardSell() {
               name="grade"
               value={selectedGrade}
               setValue={setSelectedGrade}
-              options={grades}
+              option="등급"
             />
             <Dropdown
               label="속성 ①"
               name="attribute1"
               value={selectedType1}
               setValue={setSelectedType1}
-              options={types}
+              option="속성"
             />
             <Dropdown
               label="속성 ②"
               name="attribute2"
               value={selectedType2}
               setValue={setSelectedType2}
-              options={types}
+              option="속성"
             />
           </div>
           <Input
