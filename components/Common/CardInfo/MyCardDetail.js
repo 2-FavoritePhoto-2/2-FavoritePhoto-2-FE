@@ -3,7 +3,6 @@ import styles from "./MyCardDetail.module.css";
 import Grade from "../Grade/Grade";
 import Modal from "../Modal/Modal";
 import CardList from "@/components/Common/Modal/CardList";
-import CardSell from "../Modal/CardSell";
 
 export default function MyCardDetail({ data }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -56,7 +55,7 @@ export default function MyCardDetail({ data }) {
       </button>
       {isOpen && (
         <Modal isOpen={isOpen} closeModal={handleClose}>
-          <CardSell />
+          <CardList />
         </Modal>
       )}
     </div>
