@@ -4,11 +4,27 @@ import Image from "next/image";
 import ic_visible from "@/public/assets/icon_visible.svg";
 import ic_inVisible from "@/public/assets/icon_invisible.svg";
 
-export default function Input({ label, type, name, value, onChange, placeholder, exchange }) {
+export default function Input({
+  label,
+  type,
+  name,
+  value,
+  onChange,
+  placeholder,
+  exchange,
+  onFileChange,
+}) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const togglePasswordVisibility = () => {
     setIsPasswordVisible((prev) => !prev);
+  };
+
+  const handleFileChange = (e) => {
+    if (onFileChange) {
+      const file = e.target.files[0];
+      onFileChange(file);
+    }
   };
 
   const inputType =
@@ -50,6 +66,32 @@ export default function Input({ label, type, name, value, onChange, placeholder,
           placeholder={placeholder}
         />
         <p>P</p>
+      </div>
+    ) : type === "file" ? (
+      <div className={styles.file_input}>
+        <input
+          type="file"
+          name={name}
+          id={name}
+          placeholder={placeholder}
+          onChange={handleFileChange}
+          style={{ display: "none" }}
+        />
+        <input
+          type="text"
+          name={name}
+          id={name}
+          value={value}
+          onChange={() => {}}
+          placeholder={placeholder}
+        />
+        <button
+          type="button"
+          className={styles.file_select}
+          onClick={() => document.getElementById(name).click()}
+        >
+          {value ? value : "파일선택"}
+        </button>
       </div>
     ) : (
       <input
