@@ -3,8 +3,32 @@ import styles from "./Dropdown.module.css";
 import Image from "next/image";
 import arrowDown from "@/public/assets/icon_down.svg";
 
-export default function Dropdown({ label, name, value, setValue, options }) {
+export default function Dropdown({ label, name, value, setValue, option }) {
   const [isOpen, setIsOpen] = useState(false);
+
+  const options = {
+    등급: ["COMMON", "RARE", "SUPER RARE", "LEGENDARY"],
+    속성: [
+      "노말",
+      "불꽃",
+      "물",
+      "풀",
+      "전기",
+      "얼음",
+      "격투",
+      "독",
+      "땅",
+      "비행",
+      "에스퍼",
+      "벌레",
+      "바위",
+      "고스트",
+      "드래곤",
+      "악",
+      "강철",
+      "페어리",
+    ],
+  };
 
   const toggleDropdown = () => {
     setIsOpen((prev) => !prev);
@@ -25,7 +49,7 @@ export default function Dropdown({ label, name, value, setValue, options }) {
         </div>
         {isOpen && (
           <div className={styles.dropdown_options}>
-            {options.map((option) => (
+            {options[option].map((option) => (
               <div
                 key={option.value}
                 className={styles.dropdown_option}

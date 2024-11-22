@@ -9,7 +9,7 @@ export default function PhotoCardExchange({ type = "buyer" }) {
   return (
     <div className={styles.card_container}>
       <div className={styles.img_wrap}>
-        <Image src={logo} fill alt="카드 이미지" priority />
+        <Image className={styles.img} src={logo} fill alt="카드 이미지" priority />
       </div>
       <div className={styles.card_info}>
         <div className={styles.card_header}>

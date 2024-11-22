@@ -2,6 +2,8 @@
     display: flex;
     flex-direction: column;
 
+    width: 100%;
+
     gap: 1rem;
 }
 
@@ -39,7 +41,7 @@
 
 .textarea {
     width: 100%;
-    height: 18rem;
+    height: 100%;
 
     padding: 1.8rem 2rem;
     border: 0.1rem solid var(--color-gray-200);
@@ -55,25 +57,8 @@
     resize: none;
 }
 
-.exchange {
-    width: 44rem;
-    height: 18rem;
-
-    padding: 1.8rem 2rem;
-    border: 0.1rem solid var(--color-gray-200);
-    border-radius: 0.2rem;
-
-    color: var(--color-white);
-    font-size: 1.6rem;
-    font-weight: 300;
-    line-height: 2.317rem;
-
-    background-color: var(--color-black);
-
-    resize: none;
-}
-
-.password {
+.password,
+.point {
     position: relative;
     display: flex;
     align-items: center;
@@ -89,16 +74,8 @@
     cursor: pointer;
 }
 
-.point {
-    position: relative;
-    display: flex;
-    align-items: center;
-
-    width: 24.5rem;
-}
-
 .point input {
-    width: 100%;
+    height: 5rem;
     padding-right: 5rem;
 }
 
@@ -147,48 +124,38 @@
 /* Tablet Only */
 @media (min-width: 744px) and (max-width: 1199px) {
     .group input {
-        width: 44rem;
         height: 5.5rem;
-    }
-
-    .textarea {
-        width: 44rem;
-        height: 14rem;
-    }
-
-    .exchange {
-        width: 34.2rem;
-        height: 12rem;
     }
 
     .password {
         width: 44rem;
     }
 
-    .point,
     .point input {
-        width: 20.2rem;
+        height: 4.5rem;
+    }
+
+    .file_select {
+        height: 5.5rem;
     }
 }
 
 /* Mobile Only */
 @media (max-width: 743px) {
     .group input {
-        width: 34.5rem;
         height: 5.5rem;
-    }
-
-    .group textarea {
-        width: 34.5rem;
-        height: 14rem;
     }
 
     .password {
         width: 34.5rem;
     }
 
-    .point,
     .point input {
-        width: 20.2rem;
+        height: 4.5rem;
+    }
+
+    .file_select {
+        width: 10.5rem;
+        height: 5.5rem;
     }
 }

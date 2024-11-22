@@ -66,6 +66,10 @@
     align-items: center;
 }
 
+.point_input {
+    width: 24.5rem;
+}
+
 .label,
 .max_count {
     font-size: 2rem;
@@ -83,6 +87,7 @@
     font-size: 1.4rem;
     font-weight: 300;
     line-height: 2.027rem;
+    text-wrap: nowrap;
 }
 
 /* Tablet Only */
@@ -90,6 +95,10 @@
     .container {
         max-width: 34.2rem;
         height: 19.6rem;
+    }
+
+    .category {
+        gap: 1rem;
     }
 
     .category p:not(:first-child),
@@ -100,10 +109,12 @@
         line-height: 2.606rem;
     }
 
-    .price {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+    .quantity {
+        width: 20.2rem;
+    }
+
+    .point_input {
+        width: 20.2rem;
     }
 
     .max_notice {
@@ -119,12 +130,24 @@
         height: 19.6rem;
     }
 
+    .category {
+        gap: 1rem;
+    }
+
     .category p:not(:first-child),
     .seller,
     .label,
     .max_count {
         font-size: 1.8rem;
         line-height: 2.606rem;
+    }
+
+    .quantity {
+        width: 20.2rem;
+    }
+
+    .point_input {
+        width: 20.2rem;
     }
 
     .max_notice {

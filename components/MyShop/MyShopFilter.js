@@ -14,7 +14,9 @@ export default function MyShopFilter() {
         <div className={styles.mobile_filter}>
           <MultiFilterModal filterKeys={["등급", "속성", "판매여부", "매진여부"]} />
         </div>
-        <SearchBar />
+        <div className={styles.search}>
+          <SearchBar />
+        </div>
         <div className={styles.filters}>
           <Rating />
           <Attribute />

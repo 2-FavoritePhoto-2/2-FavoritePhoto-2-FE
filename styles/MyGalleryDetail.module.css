@@ -5,6 +5,8 @@
     max-width: 148rem;
     width: 100%;
 
+    margin: 0 auto;
+
     gap: 6rem;
 }
 
@@ -40,8 +42,9 @@
     background-color: var(--color-gray-300);
 }
 
-.img_wrap img {
-    object-fit: contain;
+.img {
+    object-fit: cover;
+    object-position: left center;
 
     width: 100%;
     height: 100%;
