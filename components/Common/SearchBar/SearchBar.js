@@ -3,7 +3,7 @@ import Image from "next/image";
 import icon_search from "@/public/assets/icon_search.svg";
 import { useState } from "react";
 
-export default function SearchBar() {
+export default function SearchBar({ onSearch }) {
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearchChange = (e) => {
@@ -11,7 +11,7 @@ export default function SearchBar() {
   };
 
   const handleSearchClick = () => {
-    //todo: 클릭 후 필터되는 로직 작성하기
+    onSearch(searchTerm);
   };
 
   return (

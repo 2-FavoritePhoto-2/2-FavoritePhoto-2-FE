@@ -8,13 +8,17 @@ import Sort from "../Common/Dropdown/Sort/Sort";
 import MultiFilterModal from "../Common/Modal/MultiFilter";
 import icon_exchange from "@/public/assets/icon_exchange.svg";
 
-export default function PocketPlaceFilter() {
+export default function PocketPlaceFilter({ onSearch }) {
+  const handleSearch = (term) => {
+    onSearch(term);
+  };
+
   return (
     <>
       <div className={styles.container}>
         <div className={styles.search_filters}>
           <div className={styles.searchBar_container}>
-            <SearchBar />
+            <SearchBar onSearch={handleSearch} />
           </div>
           <div className={styles.line}></div>
           <div className={styles.filters}>
