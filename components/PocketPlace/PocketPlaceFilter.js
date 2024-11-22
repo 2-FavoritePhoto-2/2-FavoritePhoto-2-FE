@@ -8,7 +8,7 @@ import Sort from "../Common/Dropdown/Sort/Sort";
 import MultiFilterModal from "../Common/Modal/MultiFilter";
 import icon_exchange from "@/public/assets/icon_exchange.svg";
 
-export default function PocketPlaceFilter() {
+export default function PocketPlaceFilter({ sortType }) {
   return (
     <>
       <div className={styles.container}>
@@ -19,7 +19,7 @@ export default function PocketPlaceFilter() {
           <div className={styles.line}></div>
           <div className={styles.filters}>
             <div className={`${styles.desktopOnly} ${styles.rating}`}>
-              <Rating />
+              <Rating sortType={sortType} />
             </div>
             <div className={styles.desktopOnly}>
               <Attribute />

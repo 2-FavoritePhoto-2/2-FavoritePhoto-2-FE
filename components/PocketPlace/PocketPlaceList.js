@@ -1,11 +1,12 @@
 import styles from "./PocketPlaceList.module.css";
 import PhotoCard from "../Common/PhotoCard/PhotoCard";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import throttle from "lodash/throttle";
+import { fetchData } from "@/lib/api/poketPlaceAPI";
 
-export default function PocketPlaceList() {
+export default function PocketPlaceList({ ratingFilter }) {
   const [cardPerRow, setCardPerRow] = useState(3);
-  const [mockData, setMockData] = useState([]);
+  const [cardData, setCardData] = useState([]);
   const [count, setCount] = useState(12);
   const [loading, setLoading] = useState(false);
 
@@ -16,15 +17,15 @@ export default function PocketPlaceList() {
   const handleScroll = throttle(() => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 
-    if (mockData.length === 0 || scrollTop + clientHeight < scrollHeight - 200 || loading) return;
+    if (cardData.length === 0 || scrollTop + clientHeight < scrollHeight - 200 || loading) return;
 
-    if (count >= mockData.length) return;
+    if (count >= cardData.length) return;
 
     setLoading(true);
     try {
-      const newCards = mockData.slice(count, count + 12);
-      setMockData((prevData) => [...prevData, ...newCards]);
-      setCount((prevCount) => Math.min(prevCount + 12, mockData.length));
+      const newCards = cardData.slice(count, count + 12);
+      setCardData((prevData) => [...prevData, ...newCards]);
+      setCount((prevCount) => Math.min(prevCount + 12, cardData.length));
       setLoading(false);
     } catch (error) {
       console.error(error);
@@ -44,21 +45,25 @@ export default function PocketPlaceList() {
     };
   }, [handleScroll]);
 
-  //TODO: 실제 API 연결 부분
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchCardData = async () => {
       try {
-        const response = await fetch("/mockData.json");
-        if (response.ok) {
-          const data = await response.json();
-          setMockData(data);
-        }
+        const list = await fetchData();
+        const cardData = list.map((item) => item.card);
+        setCardData(cardData);
       } catch (error) {
         console.error(error);
       }
     };
-    fetchData();
+    fetchCardData();
   }, []);
+
+  const filteredData = useMemo(() => {
+    if (ratingFilter) {
+      return cardData.filter((card) => card.grade === ratingFilter); // ratingFilter에 맞는 카드만 필터링
+    }
+    return cardData;
+  }, [cardData, ratingFilter]);
 
   const rows = Array.from({ length: Math.ceil(count / cardPerRow) });
 
@@ -66,11 +71,11 @@ export default function PocketPlaceList() {
     <div className={styles.pocketItem_container}>
       {rows.map((_, rowIndex) => (
         <div className={styles.row} key={rowIndex}>
-          {mockData.slice(rowIndex * cardPerRow, rowIndex * cardPerRow + cardPerRow).map((item) => {
-            const updatedItem = { ...item, type: item.type.join(", ") };
-
-            return <PhotoCard key={item.id} {...updatedItem} />;
-          })}
+          {filteredData
+            .slice(rowIndex * cardPerRow, rowIndex * cardPerRow + cardPerRow)
+            .map((item) => (
+              <PhotoCard key={item.id} card={{ ...item }} />
+            ))}
         </div>
       ))}
     </div>
