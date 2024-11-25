@@ -5,10 +5,17 @@ import styles from "./Exchange.module.css";
 import { useState } from "react";
 import MultiFilterModal from "./MultiFilter.js";
 import PhotoCard from "../PhotoCard/PhotoCard.js";
+import SelectCardExchange from "./SelectCardExchange.js";
 
-export default function Exchange({ onClose }) {
+export default function Exchange({ data, onClose }) {
   const [isOpen, setIsOpen] = useState(true);
   const [isSliding, setIsSliding] = useState(false);
+  const [isToggle, setIsToggle] = useState(false);
+  const [selectPhoto, setSelectPhoto] = useState();
+
+  const handleToggleModal = () => {
+    setIsToggle(!isToggle);
+  };
 
   const slideCloseModal = () => {
     setIsSliding(true);
@@ -17,6 +24,11 @@ export default function Exchange({ onClose }) {
       setIsSliding(false);
       onClose();
     }, 300); // 애니메이션 시간과 일치시킴
+  };
+
+  const handleSelectPhoto = (photo) => {
+    setSelectPhoto(photo); // 선택된 데이터 저장
+    setIsToggle(true); // SelectCardExchange 모달 열기
   };
 
   if (!isOpen && !isSliding) return null;
@@ -57,18 +69,16 @@ export default function Exchange({ onClose }) {
               </div>
             </div>
             <div className={styles.photocard_content}>
-              {/* <PhotoCard />
-              <PhotoCard />
-              <PhotoCard />
-              <PhotoCard />
-              <PhotoCard />
-              <PhotoCard />
-              <PhotoCard />
-              <PhotoCard /> */}
+              {data.map((photo) => (
+                 <div key={photo.id} onClick={() => handleSelectPhoto(photo)}>
+                  <PhotoCard data={photo} />
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
+      {isToggle && <SelectCardExchange data={selectPhoto} onClose={handleToggleModal} />}
     </>
   );
 }

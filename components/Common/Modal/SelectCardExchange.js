@@ -3,15 +3,19 @@ import styles from "./SelectCardExchange.module.css";
 import PhotoCard from "../PhotoCard/PhotoCard";
 import Input from "../Input/Input";
 
-export default function SelectCardExchange() {
+export default function SelectCardExchange({ data, onClose }) {
   const [isOpen, setIsOpen] = useState(true);
   const [isSliding, setIsSliding] = useState(false);
 
-  const closeModal = () => setIsOpen(false);
+  const closeModal = () => {
+    setIsOpen(false);
+    onClose();
+  };
 
   const slideCloseModal = () => {
     setIsSliding(true);
     setTimeout(() => {
+      onClose();
       setIsOpen(false);
       setIsSliding(false);
     }, 300); // 애니메이션 시간과 일치시킴
@@ -53,19 +57,25 @@ export default function SelectCardExchange() {
                 onClick={closeModal}
               />
             </div>
-            <p className={styles.exchange_name}>선택한 카드 네임</p>
+            <p className={styles.exchange_name}>{data.card.name}</p>
             <div className={styles.photocard_content}>
-              <PhotoCard data={data ?? {}} />
+              <div className={styles.photocard_size}>
+                <PhotoCard data={data ?? {}} />
+              </div>
               <div className={styles.select_table}>
-                <Input
-                  label="교환 제시 내용"
-                  name="post"
-                  type="textarea"
-                  placeholder="내용을 입력해 주세요."
-                  exchange={true}
-                />
+                <div className={styles.input_size}>
+                  <Input
+                    label="교환 제시 내용"
+                    name="post"
+                    type="textarea"
+                    placeholder="내용을 입력해 주세요."
+                    exchange={true}
+                  />
+                </div>
                 <div className={styles.button_table}>
-                  <button className={styles.button_cancel}>취소하기</button>
+                  <button className={styles.button_cancel} onClick={closeModal}>
+                    취소하기
+                  </button>
                   <button className={styles.button_exchange}>교환하기</button>
                 </div>
               </div>

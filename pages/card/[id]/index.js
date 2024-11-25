@@ -21,7 +21,7 @@ export async function getServerSideProps(context) {
     };
   }
   const response = await axios.get(`/shop`);
-  let cardList = response.data;
+  let cardList = response.data.list;
   // props로 전달할 데이터를 반환합니다.
   return {
     props: {
@@ -117,7 +117,7 @@ export default function CardDetail({ data, cardList }) {
           )}
         </div>
       </div>
-      {exchangeModal && <Exchange onClose={exchangeModalClose} />}
+      {exchangeModal && <Exchange data={cardList} onClose={exchangeModalClose} />}
     </>
   );
 }

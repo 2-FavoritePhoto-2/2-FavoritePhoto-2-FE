@@ -14,16 +14,16 @@ export default function PhotoCard({ data, type = "quantity" }) {
       </div>
       <div className={styles.card_info}>
         <div className={styles.card_header}>
-          <h1>{card.name}</h1>
+          <h1>{data.card.name}</h1>
           <div className={styles.meta_info}>
             <div className={styles.category}>
-              <Grade grade={card.grade} />
+              <Grade grade={data.card.grade} />
               <p className={styles.vert_line}>|</p>
-              <p className={styles.type}>{card.type[0]}</p>
-              {card.type[1] ? (
+              <p className={styles.type}>{data.card.type[0]}</p>
+              {data.card.type[1] ? (
                 <>
                   <p className={styles.vert_line}>|</p>
-                  <p>{card.type[1]}</p>
+                  <p>{data.card.type[1]}</p>
                 </>
               ) : (
                 ""
@@ -36,7 +36,7 @@ export default function PhotoCard({ data, type = "quantity" }) {
         <div className={styles.card_price_quantity}>
           <div className={styles.card_price}>
             <p className={styles.label}>가격</p>
-            <p className={styles.point}>{card.price}p</p>
+            <p className={styles.point}>{data.card.price}p</p>
           </div>
           <div className={styles.card_quantity}>
             {selectType ? (
@@ -45,7 +45,7 @@ export default function PhotoCard({ data, type = "quantity" }) {
               <p className={styles.label}>수량</p>
             )}
             <p className={styles.value}>
-              <span>{card.remainingQuantity}</span>/{card.totalQuantity}
+              <span>{data.card.remainingQuantity}</span>/{data.card.totalQuantity}
             </p>
           </div>
         </div>
