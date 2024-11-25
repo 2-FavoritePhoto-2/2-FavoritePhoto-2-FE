@@ -6,17 +6,16 @@ import { useState } from "react";
 import MultiFilterModal from "./MultiFilter.js";
 import PhotoCard from "../PhotoCard/PhotoCard.js";
 
-export default function Exchange() {
+export default function Exchange({ onClose }) {
   const [isOpen, setIsOpen] = useState(true);
   const [isSliding, setIsSliding] = useState(false);
-
-  const closeModal = () => setIsOpen(false);
 
   const slideCloseModal = () => {
     setIsSliding(true);
     setTimeout(() => {
       setIsOpen(false);
       setIsSliding(false);
+      onClose();
     }, 300); // 애니메이션 시간과 일치시킴
   };
 
@@ -40,7 +39,7 @@ export default function Exchange() {
                 src="/assets/icon_close.svg"
                 alt="close_button"
                 className={styles.close_button}
-                onClick={closeModal}
+                onClick={onClose}
               />
             </div>
 
@@ -50,7 +49,7 @@ export default function Exchange() {
                 <MultiFilterModal filterKeys={["등급", "속성"]} />
               </div>
               <div className={styles.searchbar}>
-              <SearchBar />
+                <SearchBar />
               </div>
               <div className={styles.filter_table}>
                 <Rating />

@@ -3,9 +3,10 @@ import Image from "next/image";
 import logo from "@/public/assets/logo.svg";
 import Grade from "../Grade/Grade";
 
-export default function PhotoCard({ type = "quantity" }) {
+export default function PhotoCard({ data, type = "quantity" }) {
   const selectType = type === "left";
 
+  const list = data?.card || {};
   return (
     <div className={styles.card_container}>
       <div className={styles.img_wrap}>
@@ -13,7 +14,7 @@ export default function PhotoCard({ type = "quantity" }) {
       </div>
       <div className={styles.card_info}>
         <div className={styles.card_header}>
-          <h1>정말 귀여운 피카츄</h1>
+          <h1>{list.name}</h1>
           <div className={styles.meta_info}>
             <div className={styles.category}>
               <Grade grade="LEGENDARY" />

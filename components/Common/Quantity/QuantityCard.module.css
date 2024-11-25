@@ -19,9 +19,8 @@
 }
 .card_rating {
   font-size: 2.4rem;
-  font-weight: 2.4rem;
+  font-weight: 700;
   line-height: 3.475rem;
-  color: #ff2a6a;
   padding-right: 1.5rem;
   border-right: 3.5px solid #5a5a5a;
 }
@@ -173,6 +172,22 @@
   font-size: 2rem;
   font-weight: 500;
   line-height: 2.896rem;
+}
+
+.COMMON {
+  color: var(--color-main);
+}
+
+.RARE {
+  color: var(--color-blue);
+}
+
+.SUPER_RARE {
+  color: var(--color-purple);
+}
+
+.LEGENDARY {
+  color: var(--color-pink);
 }
 /* 태블릿사이즈 */
 @media (max-width: 1199px) {
