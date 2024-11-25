@@ -3,6 +3,7 @@ import PhotoCard from "../Common/PhotoCard/PhotoCard";
 import { useState, useEffect } from "react";
 import throttle from "lodash/throttle";
 import { getCards } from "@/lib/api/pocketPlaceAPI";
+import { useRouter } from "next/router";
 
 export default function PocketPlaceList({ searchTerm, activeFilter }) {
   const [cardPerRow, setCardPerRow] = useState(3);
@@ -11,9 +12,12 @@ export default function PocketPlaceList({ searchTerm, activeFilter }) {
   const [count, setCount] = useState(12);
   const [loading, setLoading] = useState(false);
 
+  const router = useRouter();
+
   const updateCardPerRow = () => {
     setCardPerRow(window.innerWidth <= 1199 ? 2 : 3);
   };
+
   const handleScroll = throttle(() => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 
@@ -33,6 +37,20 @@ export default function PocketPlaceList({ searchTerm, activeFilter }) {
       setLoading(false);
     }
   }, 50);
+
+  const handleCardClick = (card) => {
+    router.push(`/card/${card.listId}`);
+  };
+
+  const handleFilterChange = (filterType, value) => {
+    if (!filterType) {
+      setFilteredCards(cardItems);
+      setActiveFilter({});
+      return;
+    }
+
+    setActiveFilter({ type: filterType, value });
+  };
 
   useEffect(() => {
     updateCardPerRow();
@@ -75,13 +93,13 @@ export default function PocketPlaceList({ searchTerm, activeFilter }) {
     }
   }, [searchTerm, cardItems]);
 
+  // 필터링
   useEffect(() => {
     if (!activeFilter.type) {
       setFilteredCards(cardItems);
       return;
     }
 
-    // 필터링
     const newFilteredCards = cardItems.filter((card) => {
       switch (activeFilter.type) {
         case "rating":
@@ -107,7 +125,16 @@ export default function PocketPlaceList({ searchTerm, activeFilter }) {
           {filteredCards
             .slice(rowIndex * cardPerRow, rowIndex * cardPerRow + cardPerRow)
             .map((item) => {
-              return <PhotoCard key={item.listId} card={item} />;
+              return (
+                <div
+                  key={item.listId}
+                  className={styles.cardWrapper}
+                  onClick={() => handleCardClick(item.listId)}
+                  style={{ cursor: "pointer" }}
+                >
+                  <PhotoCard card={item} />
+                </div>
+              );
             })}
         </div>
       ))}
