@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import throttle from "lodash/throttle";
 import { getCards } from "@/lib/api/pocketPlaceAPI";
 
-export default function PocketPlaceList({ searchTerm }) {
+export default function PocketPlaceList({ searchTerm, activeFilter }) {
   const [cardPerRow, setCardPerRow] = useState(3);
   const [cardItems, setCardItems] = useState([]);
   const [filteredCards, setFilteredCards] = useState([]);
@@ -56,7 +56,6 @@ export default function PocketPlaceList({ searchTerm }) {
           listPrice: item.price,
           ...item.card,
         }));
-        console.log(cards);
         setCardItems(cards);
         setFilteredCards(cards);
       } catch (error) {
@@ -70,12 +69,32 @@ export default function PocketPlaceList({ searchTerm }) {
     if (searchTerm === "") {
       setFilteredCards(cardItems);
       setFilteredCards(
-        cardItems.filter(
-          (item) => item.name.toLowerCase().includes(searchTerm.toLowerCase()), // 카드 이름에 검색어 포함된 카드만 필터링
-        ),
+        cardItems.filter((item) => item.name.toLowerCase().includes(searchTerm.toLowerCase())),
       );
     }
   }, [searchTerm, cardItems]);
+
+  useEffect(() => {
+    if (!activeFilter.type) {
+      setFilteredCards(cardItems);
+      return;
+    }
+
+    const newFilteredCards = cardItems.filter((card) => {
+      switch (activeFilter.type) {
+        case "rating":
+          return card.grade === activeFilter.value;
+        case "attribute":
+          return card.type === activeFilter.value;
+        // case "soldout":
+        // return card.soldout === activeFilter.value;
+        default:
+          return true;
+      }
+    });
+
+    setFilteredCards(newFilteredCards);
+  }, [activeFilter, cardItems]);
 
   const rows = Array.from({ length: Math.ceil(filteredCards.length / cardPerRow) });
 

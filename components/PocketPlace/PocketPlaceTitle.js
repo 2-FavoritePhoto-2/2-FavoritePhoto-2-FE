@@ -9,6 +9,10 @@ export default function PocketPlaceTitle() {
     setShowCardSell(true);
   };
 
+  const closeModal = () => {
+    setShowCardSell(false);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.title_button}>
@@ -20,7 +24,7 @@ export default function PocketPlaceTitle() {
         </div>
       </div>
       <div className={styles.line}></div>
-      {showCardSell && <CardList />}
+      {showCardSell && <CardList closeModal={closeModal} />}
     </div>
   );
 }
