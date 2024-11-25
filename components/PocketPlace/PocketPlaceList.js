@@ -65,6 +65,7 @@ export default function PocketPlaceList({ searchTerm, activeFilter }) {
     fetchData();
   }, [searchTerm]);
 
+  //검색
   useEffect(() => {
     if (searchTerm === "") {
       setFilteredCards(cardItems);
@@ -80,12 +81,13 @@ export default function PocketPlaceList({ searchTerm, activeFilter }) {
       return;
     }
 
+    // 필터링
     const newFilteredCards = cardItems.filter((card) => {
       switch (activeFilter.type) {
         case "rating":
           return card.grade === activeFilter.value;
         case "attribute":
-          return card.type === activeFilter.value;
+          return card.type && card.type.includes(activeFilter.value);
         // case "soldout":
         // return card.soldout === activeFilter.value;
         default:

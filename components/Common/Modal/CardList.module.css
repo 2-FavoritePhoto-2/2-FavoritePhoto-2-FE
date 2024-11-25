@@ -1,29 +1,13 @@
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 50;
-}
-.close {
-  position: fixed;
-  right: 2rem;
-  top: 2rem;
-  cursor: pointer;
-}
 .list_wrapper {
   display: flex;
   flex-direction: column;
-  padding: 5rem;
+
+  max-width: 92rem;
+  width: 100%;
+
+  margin: 0 auto;
+
   gap: 4rem;
-  position: fixed;
-  z-index: 100;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: var(--color-gray-500);
 }
 
 .modal_title {
@@ -141,6 +125,10 @@
     line-height: 1.638rem;
   }
 
+  .list_wrapper {
+    max-width: 70.4rem;
+  }
+
   .list_title h1 {
     font-size: 4rem;
     line-height: 4.096rem;
@@ -171,6 +159,7 @@
   }
 
   .list_wrapper {
+    max-width: 34.5rem;
     gap: 2rem;
   }
 
