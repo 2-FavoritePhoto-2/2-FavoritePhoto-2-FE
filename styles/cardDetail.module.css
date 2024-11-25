@@ -55,6 +55,7 @@
   font-weight: 700;
   line-height: 3.475rem;
   color: #a4a4a4;
+  gap: 1rem;
 }
 .card_writer {
   font-size: 2.4rem;
@@ -150,7 +151,8 @@
   color: black;
   border: none;
 }
-.exchange_table {
+.exchange_table,
+.recommendcard_table {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -158,7 +160,8 @@
   border-bottom: 2px solid #eeeeee;
   margin-bottom: 6rem;
 }
-.exchange_name {
+.exchange_name,
+.recommendcard_name {
   font-size: 4rem;
   font-weight: 700;
   line-height: 5.792rem;
@@ -180,6 +183,9 @@
   line-height: 2.606rem;
   color: black;
 }
+.exchange_button_mobile {
+  display: none;
+}
 .exchange_content {
   font-size: 2.4rem;
   font-weight: 700;
@@ -195,7 +201,7 @@
 .my_exchange_present_table {
   display: flex;
   flex-direction: column;
-  margin-top: 12rem;
+  margin-top: 8rem;
 }
 .exchange_present {
   font-size: 4rem;
@@ -212,6 +218,46 @@
   align-items: center;
   gap: 4rem 8rem;
 }
+.COMMON {
+  color: var(--color-main);
+}
+.RARE {
+  color: var(--color-blue);
+}
+.SUPER_RARE {
+  color: var(--color-purple);
+}
+.LEGENDARY {
+  color: var(--color-pink);
+}
+.recommendcard_table {
+  margin:4rem 0;
+}
+.recommendcard{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+}
+.recommendcard::-webkit-scrollbar{
+  height: 1rem;
+}
+.recommendcard::-webkit-scrollbar-track {
+  background: var(--color-gray-500);
+}
+.recommendcard::-webkit-scrollbar-thumb {
+  background: var(--color-gray-400);
+  border-radius: 0.8rem;
+}
+
+.recommendcard::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gray-300);
+}
+.nonCardList{
+  font-size: 1.8rem;
+  font-weight: 500;
+}
 
 /* 태블릿사이즈 */
 @media (max-width: 1199px) {
@@ -223,11 +269,15 @@
     width: 83px;
     height: 16px;
   }
+  .title {
+    margin-bottom: 4rem;
+  }
   .card_details_table {
     gap: 2rem;
   }
   .title,
   .exchange_name,
+  .recommendcard_name,
   .exchange_present {
     font-size: 3.2rem;
     line-height: 4.634rem;
@@ -263,7 +313,7 @@
     width: 34.2rem;
     height: 7.5rem;
   }
-  .exchange_table {
+  .exchange_table,.recommendcard_table {
     margin-bottom: 4rem;
   }
   .exchange_button {
@@ -277,6 +327,9 @@
   .exchange_present_list {
     gap: 2rem;
   }
+  .recommendcard_table{
+    margin-bottom: 3rem;
+  }
 }
 
 /* 모바일 사이즈 */
@@ -289,8 +342,12 @@
   .poketplace {
     display: none;
   }
+  .title {
+    margin-bottom: 2rem;
+  }
   .title,
   .exchange_name,
+  .recommendcard_name,
   .exchange_present {
     font-size: 2.4rem;
     line-height: 3.475rem;
@@ -310,20 +367,38 @@
     margin-bottom: 4rem;
   }
   .exchange_button {
-    position: absolute;
-    padding: 0;
-    width: 34.5rem;
-    height: 5.5rem;
-    top: 320%;
-    margin-bottom: 8rem;
+    display: none;
   }
   .exchange_card_rating_table {
-    margin-bottom: 13.5rem;
+    margin-bottom: 4rem;
   }
   .exchange_present_list {
     gap: 1.5rem 0.5rem;
   }
   .my_exchange_present_table {
     margin-bottom: 2rem;
+  }
+  .exchange_button_mobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    border-radius: 0.2rem;
+    border: none;
+    background-color: #efff04;
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 2.606rem;
+    color: black;
+    padding: 0;
+    width: 34.5rem;
+    height: 5.5rem;
+    margin-bottom: 4rem;
+  }
+  .recommendcard{
+    margin-bottom: 1rem;
+  }
+  .recommendcard::-webkit-scrollbar{
+    height: 0.5rem;
   }
 }

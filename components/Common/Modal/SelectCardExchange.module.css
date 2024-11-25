@@ -49,9 +49,9 @@
   width: 96rem;
   height: 63.8rem;
 }
-.select_table {
+/* .select_table {
   width: 100%;
-}
+} */
 .button_table {
   margin-top: 6rem;
   display: flex;
@@ -80,6 +80,14 @@
 }
 .mobile_header {
   display: none;
+}
+.photocard_size {
+  width: 44rem;
+  height: 60rem;
+}
+.input_size textarea {
+  width: 44rem;
+  height: 12rem;
 }
 
 /* 태블릿사이즈 미디어쿼리만 구현 ->공통컴포넌트의 미디어쿼리 적용시 재구현예정 */
@@ -137,6 +145,14 @@
   .crossbutton {
     cursor: pointer;
   }
+  .photocard_size {
+    width: 34.2rem;
+    height: 51.7rem;
+  }
+  .input_size textarea{
+    width: 34.2rem;
+    height: 12rem;
+  }
 }
 @media (max-width: 743px) {
   .modal_table {
@@ -186,5 +202,14 @@
   }
   .backarrow {
     cursor: pointer;
+  }
+  .photocard_size {
+    width: 34.5rem;
+    height: 51.9rem;
+    font-size: 2.4rem;
+  }
+  .input_size textarea{
+    width: 34.5rem;
+    height: 14rem;
   }
 }

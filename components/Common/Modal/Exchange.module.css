@@ -22,6 +22,7 @@
 }
 .slidebar_table {
   display: none;
+  cursor: pointer;
 }
 .mygallery_table {
   display: flex;
@@ -100,7 +101,7 @@
     bottom: 0;
     height: auto;
     width: 74.4rem;
-    overflow: scroll;
+    overflow-x: none;
     margin: 0 auto;
     padding: 5rem 2rem 0;
   }
