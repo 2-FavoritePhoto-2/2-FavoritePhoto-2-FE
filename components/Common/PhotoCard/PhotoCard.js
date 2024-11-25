@@ -3,7 +3,8 @@ import Image from "next/image";
 import logo from "@/public/assets/logo.svg";
 import Grade from "../Grade/Grade";
 
-export default function PhotoCard({ data, type = "판매카드" }) {
+export default function PhotoCard({ data, type = "판매카드", exchange }) {
+  const exchangeClass = exchange ? styles.exchange : "";
   const cardType =
     type === "내카드" ? (
       <>
@@ -28,7 +29,7 @@ export default function PhotoCard({ data, type = "판매카드" }) {
                 )}
               </div>
               {/* 수정필요 */}
-              <p className={styles.seller}>{data.seller.nickname}</p>
+              <p className={styles.seller}>판매자</p>
             </div>
           </div>
           <div className={styles.card_line}></div>
@@ -88,7 +89,7 @@ export default function PhotoCard({ data, type = "판매카드" }) {
     );
 
   return (
-    <div className={styles.card_container}>
+    <div className={`${styles.card_container} ${exchangeClass}`}>
       {cardType}
       <div className={styles.logo_wrap}>
         <Image className={styles.logo} src={logo} fill alt="사이트 로고" />

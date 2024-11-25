@@ -186,11 +186,7 @@
     line-height: 1.448rem;
   }
 
-  .meta_info .seller {
-    font-size: 1rem;
-    line-height: 1.448rem;
-  }
-
+  .meta_info .seller,
   .label,
   .card_price .point,
   .card_quantity .value,
@@ -201,5 +197,32 @@
 
   .logo {
     display: none;
+  }
+
+  .card_container .exchange .img_wrap {
+    width: 30.2rem;
+    height: 22.6rem;
+  }
+
+  .card_container .exchange .card_header h1 {
+    font-size: 2.2rem;
+    line-height: 3.186rem;
+  }
+
+  .card_container .exchange .category p,
+  .card_container .exchange .meta_info .seller,
+  .card_container .exchange .label,
+  .card_container .exchange .card_price .point {
+    font-size: 1.6rem;
+    line-height: 2.317rem;
+  }
+
+  .card_container .exchange .card_quantity .value {
+    font-size: 1.8rem;
+    line-height: 2.606rem;
+  }
+
+  .card_container .exchange .logo {
+    display: block;
   }
 }
