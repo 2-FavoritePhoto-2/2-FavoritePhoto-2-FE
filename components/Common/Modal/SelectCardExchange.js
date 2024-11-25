@@ -55,7 +55,7 @@ export default function SelectCardExchange() {
             </div>
             <p className={styles.exchange_name}>선택한 카드 네임</p>
             <div className={styles.photocard_content}>
-              <PhotoCard />
+              <PhotoCard data={data ?? {}} />
               <div className={styles.select_table}>
                 <Input
                   label="교환 제시 내용"

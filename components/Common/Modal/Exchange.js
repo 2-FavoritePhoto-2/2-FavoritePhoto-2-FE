@@ -57,14 +57,14 @@ export default function Exchange({ onClose }) {
               </div>
             </div>
             <div className={styles.photocard_content}>
+              {/* <PhotoCard />
               <PhotoCard />
               <PhotoCard />
               <PhotoCard />
               <PhotoCard />
               <PhotoCard />
               <PhotoCard />
-              <PhotoCard />
-              <PhotoCard />
+              <PhotoCard /> */}
             </div>
           </div>
         </div>

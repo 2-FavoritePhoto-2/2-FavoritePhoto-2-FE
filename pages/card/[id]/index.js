@@ -106,7 +106,7 @@ export default function CardDetail({ data, cardList }) {
               </div>
               <div className={styles.recommendcard}>
                 {relatedCards.length > 0 ? (
-                  relatedCards.map((photo) => <PhotoCard key={photo.id} data={photo} />)
+                  relatedCards.map((photo) => <PhotoCard key={photo.id} data={photo ?? {}} />)
                 ) : (
                   <p className={styles.nonCardList}>
                     {card.name} 카드와 비슷한 포토카드를 등록해보세요!
