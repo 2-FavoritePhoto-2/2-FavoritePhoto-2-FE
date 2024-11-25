@@ -1,10 +1,10 @@
 .modal {
   position: fixed;
-  top: 217px;
-  left: 443px;
-  width: 1034px;
-  height: 646px;
-  background-color: rgba(0, 0, 0, 0.8);
+  top: 21.7rem;
+  left: 44.3rem;
+  width: 103.4rem;
+  height: 64.6rem;
+  background-color: var(--color-gray-500);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -15,37 +15,35 @@
 .content {
   background-color: var(--color-gray-500);
   color: var(--color-white);
-  padding: 20px;
-  border-radius: 10px;
+  padding: 2rem;
+  border-radius: 1rem;
   text-align: center;
   width: 100%;
   height: 100%;
 }
 
-
 .closeButton {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 2rem;
+  right: 2rem;
   background: none;
   border: none;
-  font-size: 32px;
   cursor: pointer;
-  color: #fff;
-  padding: 5px; 
+  padding: 0.5rem;
+  color: var(--color-gray-300);
 }
 
 .title {
   font-family: 'BR B';
-  font-size: 46px;
-  margin-top: 60px;
-  margin-bottom: 60px;
+  font-size: 4.6rem;
+  margin-top: 6rem;
+  margin-bottom: 6rem;
 }
 
 .random {
   font-family: 'BR B';
   font-weight: 400;
-  line-height: 47.1px;
+  line-height: 4.71rem;
   letter-spacing: -0.03em;
   text-align: center;
   text-underline-position: from-font;
@@ -55,7 +53,7 @@
 .point{
   font-family: 'BR B';
   font-weight: 400;
-  line-height: 47.1px;
+  line-height: 4.71rem;
   letter-spacing: -0.03em;
   text-align: center;
   text-underline-position: from-font;
@@ -64,38 +62,36 @@
 }
 
 .description {
-  width: 362px;
-  height: 58px;
+  font-family:'Noto Sans KR';
+  width: 36.2rem;
+  height: 5.8rem;
   margin: 0 auto;
-  font-size: 19.5px;
+  font-size: 1.9rem;
   font-weight: 700;
-  line-height: 28.96px;
   color: var(--color-white);
-  margin-bottom: 40px; 
+  margin-bottom: 4rem; 
 }
 
-.timer {
-  margin-top: 10px;
-  margin-bottom: 60px; 
+.timer {  
+  margin-top: 1rem;
+  margin-bottom: 5rem; 
 }
 
 .timerText {
   font-family: 'Noto Sans KR';
-  font-size: 16px;
+  font-size: 1.6rem;
   font-weight: 400;
-  line-height: 23.17px;
   text-align: center;
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
   color: var(--color-gray-300);
-  margin-right: 10px;
+  margin-right: 1rem;
 }
 
 .timerValue {
   font-family: 'Noto Sans KR';
-  font-size: 16px;
+  font-size: 1.6rem;
   font-weight: 400;
-  line-height: 23.17px;
   text-align: center;
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
@@ -104,34 +100,46 @@
 
 .boxContainer {
   display: flex;
-  justify-content: space-between; 
-  width: 835.66px; 
+  justify-content: center; 
+  width: 83.566rem; 
+  height: 19.8rem; 
   margin: 0 auto; 
   background: transparent;
-  border: none; /* 불필요한 선 제거 */
-  box-shadow: none; /* 불필요한 그림자 제거 */
+  position: relative; 
 }
 
-.box {
-  cursor: pointer;
-  background: transparent;
-  border: none; /* 불필요한 선 제거 */
-  box-shadow: none; /* 불필요한 그림자 제거 */
+.boxBlue, .boxPurple, .boxRed {
+  opacity: 1; 
+  position: absolute; 
+  margin: 1 1rem; 
+  top: 0; 
 }
 
-.closeButton {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  color: #fff;
+.boxBlue {
+  top: 0.4rem;
+  left: 0;
+}
+
+.boxPurple {
+  top: 0; 
+}
+
+.boxRed {
+  width: 24.596rem;
+  left: 58.97rem;
+  position: absolute; 
 }
 
 .congratulations {
-  margin-top: 20px;
-  font-size: 20px;
-  color: #ffffff;
+  font-family: 'BR B';
+  margin-top: 1rem;
+  font-size: 3rem;
+  color: var(--color-white);
+  padding: 1rem 2rem;
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+.congratulations:hover {
+  transform: scale(1.05); /* 마우스 오버 시 확대 효과 */
 }

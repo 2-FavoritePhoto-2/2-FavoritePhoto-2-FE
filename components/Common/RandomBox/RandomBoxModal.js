@@ -6,17 +6,19 @@ const RandomBoxModal = ({ onClose }) => {
   const [selectedBox, setSelectedBox] = useState(null);
   const [points, setPoints] = useState(0);
   const [timeLeft, setTimeLeft] = useState(3600);
-  const [isModalOpen, setIsModalOpen] = useState(false); //항상 열려 있도록 설정 변경은 false 
+  const [isModalOpen, setIsModalOpen] = useState(true); //항상 열려 있도록 설정 상태, 변경은 false 
+  const [visibleBoxes, setVisibleBoxes] = useState([1, 2, 3]);
 
   const boxes = [
-    { id: 1, image: '/assets/box_blue.svg' },
-    { id: 2, image: '/assets/box_purple.svg' },
-    { id: 3, image: '/assets/box_red.svg' },
+    { id: 1, image: '/assets/box_blue.png', className: styles.boxBlue },
+    { id: 2, image: '/assets/box_purple.png', className: styles.boxPurple },
+    { id: 3, image: '/assets/box_red.png', className: styles.boxRed },
   ];
 
   useEffect(() => {
     const interval = setInterval(() => {
       setIsModalOpen(true);
+      setVisibleBoxes([1, 2, 3]);
     }, 3600000); 
 
     return () => clearInterval(interval);
@@ -42,16 +44,17 @@ const RandomBoxModal = ({ onClose }) => {
 
   const handleBoxClick = (id) => {
     if (selectedBox === null) {
-      const randomPoints = Math.floor(Math.random() * 16) + 5; // 5 to 20 points
+      const randomPoints = Math.floor(Math.random() * 20) + 1; // 1 to 20 points
       setSelectedBox(id);
       setPoints(randomPoints);
+      setVisibleBoxes([id]); 
     }
   };
 
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${minutes}분 ${secs}초`;
+    return `${minutes}분 ${secs < 10 ? '0' + secs : secs}초`;
   };
 
   return (
@@ -73,12 +76,20 @@ const RandomBoxModal = ({ onClose }) => {
           </div>
         <div className={styles.boxContainer}>
           {boxes.map((box) => (
-            <div key={box.id} className={styles.box} onClick={() => handleBoxClick(box.id)}>
-              <Image src={box.image} width={278} height={198} layout="fixed" alt={`Box ${box.id}`} />
-            </div>
+            visibleBoxes.includes(box.id) && ( // 현재 보이는 박스만 렌더링
+              <div key={box.id} className={`${styles.box} ${box.className}`} onClick={() => handleBoxClick(box.id)}>
+                <Image src={box.image} width={230} height={200} layout="fixed" alt={`Box ${box.id}`} />
+              </div>
+            )
           ))}
         </div>
-        {selectedBox !== null && <p>축하합니다! {points} 포인트를 획득하셨습니다!</p>}
+        {selectedBox !== null && (
+          <p className={styles.congratulations}>
+            <span className={styles.congratulationsText}>🎉 축하합니다! </span>
+            <span className={styles.point}>{points} </span>
+            <span className={styles.congratulationsEndText}> 포인트를 획득하셨습니다!</span>
+            </p>
+          )}
         </div>
       </div>
     )
