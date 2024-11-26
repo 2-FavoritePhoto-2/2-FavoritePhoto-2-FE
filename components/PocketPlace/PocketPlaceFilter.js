@@ -7,36 +7,61 @@ import Soldout from "../Common/Dropdown/Sort/Soldout";
 import Sort from "../Common/Dropdown/Sort/Sort";
 import MultiFilterModal from "../Common/Modal/MultiFilter";
 import icon_exchange from "@/public/assets/icon_exchange.svg";
+import { useState } from "react";
 
-export default function PocketPlaceFilter() {
+export default function PocketPlaceFilter({ onSearch, onFilterChange }) {
+  const [reset, setReset] = useState(false);
+  const handleSearch = (term) => {
+    onSearch(term);
+  };
+
+  const handleFilterChange = (filterType, value) => {
+    setReset((prev) => !prev);
+    onFilterChange(filterType, value);
+  };
+
+  const handleResetFilters = () => {
+    onFilterChange(null, null);
+  };
+
   return (
     <>
       <div className={styles.container}>
         <div className={styles.search_filters}>
           <div className={styles.searchBar_container}>
-            <SearchBar />
+            <SearchBar onSearch={handleSearch} />
           </div>
           <div className={styles.line}></div>
           <div className={styles.filters}>
             <div className={`${styles.desktopOnly} ${styles.rating}`}>
-              <Rating />
+              <Rating sortType={(value) => handleFilterChange("rating", value)} reset={reset} />
             </div>
             <div className={styles.desktopOnly}>
-              <Attribute />
+              <Attribute
+                sortType={(value) => handleFilterChange("attribute", value)}
+                reset={reset}
+              />
             </div>
             <div className={styles.desktopOnly}>
               <Soldout />
             </div>
           </div>
           <div className={styles.desktopOnly}>
-            <Image src={icon_exchange} alt="새로고침" width={20} className={styles.refreshIcon} />
+            <Image
+              src={icon_exchange}
+              alt="새로고침"
+              width={20}
+              className={styles.refreshIcon}
+              onClick={handleResetFilters}
+              style={{ cursor: "pointer" }}
+            />
           </div>
           <div className={styles.filters_mobile}>
             <div className={styles.mobileOnly}>
-              <MultiFilterModal filterKeys={["등급", "속성", "매진여부"]} />
+              <MultiFilterModal filterKeys={["등급", "속성", "매진여부"]} reset={reset} />
             </div>
             <div className={styles.sort}>
-              <Sort />
+              <Sort sortType={(value) => handleFilterChange("soldout", value)} />
             </div>
           </div>
         </div>
