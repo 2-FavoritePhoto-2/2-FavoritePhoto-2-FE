@@ -65,7 +65,7 @@ export default function CardList() {
         <div className={styles.card_list}>
           {data.map((card) => (
             <div key={card.id} onClick={() => handleCardClick(card)}>
-              <PhotoCard data={{ card }} />
+              <PhotoCard type="내카드" data={card} />
             </div>
           ))}
         </div>

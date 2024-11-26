@@ -1,6 +1,5 @@
 import styles from "./PhotoCardExchange.module.css";
 import Image from "next/image";
-import logo from "@/public/assets/logo.svg";
 import Grade from "../Grade/Grade";
 
 export default function PhotoCardExchange({ data, type = "buyer" }) {
@@ -9,7 +8,7 @@ export default function PhotoCardExchange({ data, type = "buyer" }) {
   return (
     <div className={styles.card_container}>
       <div className={styles.img_wrap}>
-        <Image className={styles.img} src={logo} fill alt="카드 이미지" priority />
+        <Image className={styles.img} src={data.image} fill alt="카드 이미지" priority />
       </div>
       <div className={styles.card_info}>
         <div className={styles.card_header}>
@@ -32,13 +31,14 @@ export default function PhotoCardExchange({ data, type = "buyer" }) {
               <p className={styles.bought}>
                 <span className={styles.point}>{data.price} P</span> 에 구매
               </p>
-              <p className={styles.seller}>{data.seller.nickname}</p>
+              {/* 수정필요 */}
+              <p className={styles.seller}>판매자</p>
             </div>
           </div>
         </div>
         <div className={styles.card_line}></div>
         <div className={styles.card_description}>
-          <p>{data.exchangeDetails}</p>
+          <p>{data.description}</p>
         </div>
       </div>
       <div className={styles.buttons}>
