@@ -20,19 +20,23 @@ export async function getServerSideProps(context) {
       notFound: true,
     };
   }
-  const response = await axios.get(`/shop`);
-  let cardList = response.data.list;
+  const response = await axios.get(`/user/cards`, {
+    headers: {
+      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlNmNkMDVjNi0zNGQ1LTQ4NzEtODJjMS1mODgyOTg4ZDBlY2UiLCJpYXQiOjE3MzI1OTkxMjgsImV4cCI6MTczMjY4NTUyOH0.Yn-L5z72RUkgchTAf7oVHYL7dkDP9viCL0Zwe3IH2Ac`,
+    },
+  });
+  let myCardList = response.data;
   // props로 전달할 데이터를 반환합니다.
   return {
     props: {
       data,
-      cardList,
+      myCardList,
     },
   };
 }
 
 //구매자 기준 상세페이지
-export default function CardDetail({ data, cardList }) {
+export default function CardDetail({ data, myCardList }) {
   const [isOwner, setIsOwner] = useState(false);
   const [myOffer, setMyOffer] = useState(false);
   const [exchangeModal, setExchangeModal] = useState(false);
@@ -117,7 +121,7 @@ export default function CardDetail({ data, cardList }) {
           )}
         </div>
       </div>
-      {exchangeModal && <Exchange data={cardList} onClose={exchangeModalClose} />}
+      {exchangeModal && <Exchange data={myCardList} onClose={exchangeModalClose} />}
     </>
   );
 }

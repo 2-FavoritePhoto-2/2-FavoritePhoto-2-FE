@@ -69,9 +69,9 @@ export default function Exchange({ data, onClose }) {
               </div>
             </div>
             <div className={styles.photocard_content}>
-              {data.map((photo) => (
+              {data.card.map((photo) => (
                  <div key={photo.id} onClick={() => handleSelectPhoto(photo)}>
-                  <PhotoCard data={photo} />
+                  <PhotoCard type="내카드" data={photo} />
                 </div>
               ))}
             </div>

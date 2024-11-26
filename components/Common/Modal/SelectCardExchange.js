@@ -60,7 +60,7 @@ export default function SelectCardExchange({ data, onClose }) {
             <p className={styles.exchange_name}>{data.card.name}</p>
             <div className={styles.photocard_content}>
               <div className={styles.photocard_size}>
-                <PhotoCard data={data ?? {}} exchange={true} />
+                <PhotoCard type="내카드" data={data ?? {}} exchange={true} />
               </div>
               <div className={styles.select_table}>
                 <div className={styles.input_size}>

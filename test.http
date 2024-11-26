@@ -1,5 +1,9 @@
 GET https://pikapick.onrender.com/shop
 
+###로컬 서버
+
+GET http://localhost:3100/shop
+
 ###
 
 GET https://pikapick.onrender.com/shop?exclude=523b755f-af48-4726-83a2-0a9ec7400776
@@ -21,18 +25,25 @@ POST https://pikapick.onrender.com/auth/login
 Content-Type: application/json
 
 {
-"email": "string",
-"password": "string"
+"email": "test2@hanmail.com",
+"password": "1234"
 }
 
-### 카드상세조회
-###  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlMDZiNGI4Zi01NTZlLTQzMDMtYmQ1Ni1kZTAwZDIxNzM2ZDkiLCJpYXQiOjE3MzIyNDkzODgsImV4cCI6MTczMjI1Mjk4OH0.zhAYDsVraNcshynhGRc8hn6fuY9pXagpmnwPQjLK7XM"
-### refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlMDZiNGI4Zi01NTZlLTQzMDMtYmQ1Ni1kZTAwZDIxNzM2ZDkiLCJpYXQiOjE3MzIyNDkzODgsImV4cCI6MTczMzQ1ODk4OH0.9lN8E5L2RiU3f5VrmtOmEywpcbIzIW2KDTcGFne4jQ8;
+### "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlNmNkMDVjNi0zNGQ1LTQ4NzEtODJjMS1mODgyOTg4ZDBlY2UiLCJpYXQiOjE3MzI1OTkxMjgsImV4cCI6MTczMjY4NTUyOH0.Yn-L5z72RUkgchTAf7oVHYL7dkDP9viCL0Zwe3IH2Ac"
+### refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlNmNkMDVjNi0zNGQ1LTQ4NzEtODJjMS1mODgyOTg4ZDBlY2UiLCJpYXQiOjE3MzI1OTkxMjgsImV4cCI6MTczMzgwODcyOH0.I2KO7eBey6cFQ2LQf119-MkmdezYP1rMapc3eHdDG7w;
 
+### 카드상세조회
 GET https://pikapick.onrender.com/shop/3dcf8d43-945a-471b-b6a1-fc064516aa14
-# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlMDZiNGI4Zi01NTZlLTQzMDMtYmQ1Ni1kZTAwZDIxNzM2ZDkiLCJpYXQiOjE3MzIyNDkzODgsImV4cCI6MTczMjI1Mjk4OH0.zhAYDsVraNcshynhGRc8hn6fuY9pXagpmnwPQjLK7XM
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJiYWE3OWIxZS03NzM1LTQ2MmEtYjBkNi04MzkwYTFmZTJlNzciLCJpYXQiOjE3MzI1ODUxMjgsImV4cCI6MTczMjY3MTUyOH0.z1hw5Cm8SIMvWL4lJfVXDjUkdygpt-MOGPenadvs2iw
 
 
 ###
 
 GET https://pikapick.onrender.com/shop?keyword=망키
+
+###
+
+GET https://pikapick.onrender.com/user/cards
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlNmNkMDVjNi0zNGQ1LTQ4NzEtODJjMS1mODgyOTg4ZDBlY2UiLCJpYXQiOjE3MzI1OTkxMjgsImV4cCI6MTczMjY4NTUyOH0.Yn-L5z72RUkgchTAf7oVHYL7dkDP9viCL0Zwe3IH2Ac
+
+###
