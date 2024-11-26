@@ -85,39 +85,31 @@ export default function PocketPlaceList({ searchTerm, activeFilter }) {
     fetchData();
   }, [searchTerm]);
 
-  // 검색
   useEffect(() => {
-    if (searchTerm === "") {
-      setFilteredCards(cardItems);
-      return;
+    let filtered = cardItems;
+
+    if (searchTerm !== "") {
+      filtered = filtered.filter((item) =>
+        item.card.name.toLowerCase().includes(searchTerm.toLowerCase()),
+      );
     }
 
-    const filtered = cardItems.filter((item) =>
-      item.card.name.toLowerCase().includes(searchTerm.toLowerCase()),
-    );
+    if (activeFilter.type) {
+      filtered = filtered.filter((item) => {
+        switch (activeFilter.type) {
+          case "rating":
+            return item.card.grade === activeFilter.value;
+          case "attribute":
+            return item.card.type && item.card.type.includes(activeFilter.value);
+          default:
+            return true;
+        }
+      });
+    }
+
     setFilteredCards(filtered);
-  }, [searchTerm, cardItems]);
-
-  // 필터링
-  useEffect(() => {
-    if (!activeFilter.type) {
-      setFilteredCards(cardItems);
-      return;
-    }
-
-    const newFilteredCards = cardItems.filter((item) => {
-      switch (activeFilter.type) {
-        case "rating":
-          return item.card.grade === activeFilter.value;
-        case "attribute":
-          return item.card.type && item.card.type.includes(activeFilter.value);
-        default:
-          return true;
-      }
-    });
-
-    setFilteredCards(newFilteredCards);
-  }, [activeFilter, cardItems]);
+    setCount(12);
+  }, [searchTerm, activeFilter, cardItems]);
 
   const rows = Array.from({ length: Math.ceil(filteredCards.length / cardPerRow) });
 
@@ -130,9 +122,8 @@ export default function PocketPlaceList({ searchTerm, activeFilter }) {
             .map((item) => (
               <div
                 key={item.listId}
-                className={styles.cardWrapper}
+                className={styles.card_wrapper}
                 onClick={() => handleCardClick(item.listId)}
-                style={{ cursor: "pointer" }}
               >
                 {console.log(item)}
                 <PhotoCard
