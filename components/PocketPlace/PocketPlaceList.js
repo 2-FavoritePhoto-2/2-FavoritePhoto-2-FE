@@ -134,7 +134,14 @@ export default function PocketPlaceList({ searchTerm, activeFilter }) {
                 onClick={() => handleCardClick(item.listId)}
                 style={{ cursor: "pointer" }}
               >
-                <PhotoCard data={item} />
+                {console.log(item)}
+                <PhotoCard
+                  data={{
+                    ...item,
+                    remainingQuantity: item.card.remainingQuantity,
+                    totalQuantity: item.card.totalQuantity,
+                  }}
+                />
               </div>
             ))}
         </div>
