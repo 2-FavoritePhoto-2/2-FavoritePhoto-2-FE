@@ -61,7 +61,12 @@
 
 /* Mobile Only */
 @media (max-width: 743px) {
+    .line {
+        display: none;
+    }
+
     .title_button h1 {
+        display: none;
         font-size: 2em;
         line-height: 2.048rem;
     }

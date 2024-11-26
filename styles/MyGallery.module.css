@@ -16,3 +16,14 @@
 
     gap: 4rem;
 }
+
+/* Mobile Only */
+@media (max-width: 743px) {
+    .container {
+        gap: 2rem;
+    }
+
+    .header {
+        gap: 1.5rem;
+    }
+}
