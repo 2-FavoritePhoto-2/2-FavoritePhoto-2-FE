@@ -1,0 +1,38 @@
+GET https://pikapick.onrender.com/shop
+
+###
+
+GET https://pikapick.onrender.com/shop?exclude=523b755f-af48-4726-83a2-0a9ec7400776
+
+### 회원가입
+
+POST https://pikapick.onrender.com/auth/signup
+Content-Type: application/json
+
+{
+"email": "string",
+"password": "string",
+"nickname": "string"
+}
+
+### 로그인
+
+POST https://pikapick.onrender.com/auth/login
+Content-Type: application/json
+
+{
+"email": "string",
+"password": "string"
+}
+
+### 카드상세조회
+###  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlMDZiNGI4Zi01NTZlLTQzMDMtYmQ1Ni1kZTAwZDIxNzM2ZDkiLCJpYXQiOjE3MzIyNDkzODgsImV4cCI6MTczMjI1Mjk4OH0.zhAYDsVraNcshynhGRc8hn6fuY9pXagpmnwPQjLK7XM"
+### refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlMDZiNGI4Zi01NTZlLTQzMDMtYmQ1Ni1kZTAwZDIxNzM2ZDkiLCJpYXQiOjE3MzIyNDkzODgsImV4cCI6MTczMzQ1ODk4OH0.9lN8E5L2RiU3f5VrmtOmEywpcbIzIW2KDTcGFne4jQ8;
+
+GET https://pikapick.onrender.com/shop/3dcf8d43-945a-471b-b6a1-fc064516aa14
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlMDZiNGI4Zi01NTZlLTQzMDMtYmQ1Ni1kZTAwZDIxNzM2ZDkiLCJpYXQiOjE3MzIyNDkzODgsImV4cCI6MTczMjI1Mjk4OH0.zhAYDsVraNcshynhGRc8hn6fuY9pXagpmnwPQjLK7XM
+
+
+###
+
+GET https://pikapick.onrender.com/shop?keyword=망키

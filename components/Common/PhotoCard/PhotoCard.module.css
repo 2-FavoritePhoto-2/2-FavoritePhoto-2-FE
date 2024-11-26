@@ -204,25 +204,26 @@
     height: 22.6rem;
   }
 
-  .card_container .exchange .card_header h1 {
+  .card_container .exchange .card_info .card_header h1 {
     font-size: 2.2rem;
     line-height: 3.186rem;
   }
 
-  .card_container .exchange .category p,
-  .card_container .exchange .meta_info .seller,
-  .card_container .exchange .label,
-  .card_container .exchange .card_price .point {
+  .card_container .exchange .card_info .card_header .meta_info .category p,
+  .card_container .exchange .card_info .card_header .meta_info .seller,
+  .card_container .exchange .card_info .card_price_quantity .card_price .label,
+  .card_container .exchange .card_info .card_price_quantity .card_quantity .label {
     font-size: 1.6rem;
     line-height: 2.317rem;
   }
 
-  .card_container .exchange .card_quantity .value {
+  .card_container .exchange .card_info .card_price_quantity .card_price .point,
+  .card_container .exchange .card_info .card_price_quantity .card_quantity .value {
     font-size: 1.8rem;
     line-height: 2.606rem;
   }
 
-  .card_container .exchange .logo {
+  .card_container .exchange .logo_wrap .logo {
     display: block;
   }
 }
