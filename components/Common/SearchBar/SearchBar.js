@@ -14,6 +14,12 @@ export default function SearchBar({ onSearch }) {
     onSearch(searchTerm);
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSearchClick();
+    }
+  };
+
   return (
     <>
       <div className={styles.searchBar_container}>
@@ -23,6 +29,7 @@ export default function SearchBar({ onSearch }) {
           value={searchTerm}
           onChange={handleSearchChange}
           className={styles.input_container}
+          onKeyDown={handleKeyDown}
         />
         <Image src={icon_search} alt="검색아이콘" onClick={handleSearchClick} />
       </div>
