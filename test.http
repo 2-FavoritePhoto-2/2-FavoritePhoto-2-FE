@@ -1,8 +1,6 @@
 GET https://pikapick.onrender.com/shop
 
-###로컬 서버
 
-GET http://localhost:3100/shop
 
 ###
 
@@ -47,3 +45,22 @@ GET https://pikapick.onrender.com/user/cards
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlNmNkMDVjNi0zNGQ1LTQ4NzEtODJjMS1mODgyOTg4ZDBlY2UiLCJpYXQiOjE3MzI1OTkxMjgsImV4cCI6MTczMjY4NTUyOH0.Yn-L5z72RUkgchTAf7oVHYL7dkDP9viCL0Zwe3IH2Ac
 
 ###
+###로컬 서버
+
+GET http://localhost:3100/shop
+
+###
+
+POST http://localhost:3100/auth/login
+Content-Type: application/json
+
+{
+"email": "test2@hanmail.com",
+"password": "1234"
+}
+### 로컬 로그인
+###   "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlNmNkMDVjNi0zNGQ1LTQ4NzEtODJjMS1mODgyOTg4ZDBlY2UiLCJpYXQiOjE3MzI2MDQ1ODIsImV4cCI6MTczMjY5MDk4Mn0.q6nhui7c9T62GipBjSQyf9Vk9NxUDJ8w8rAuC0F7aiI"
+### refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlNmNkMDVjNi0zNGQ1LTQ4NzEtODJjMS1mODgyOTg4ZDBlY2UiLCJpYXQiOjE3MzI2MDQ1ODIsImV4cCI6MTczMzgxNDE4Mn0.8YhIoZ-nZluDjyEuYV-Qe726_k2hXpoiC6Pw5T_3oBs; 
+
+GET http://localhost:3100/user/cards
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlNmNkMDVjNi0zNGQ1LTQ4NzEtODJjMS1mODgyOTg4ZDBlY2UiLCJpYXQiOjE3MzI2MDQ1ODIsImV4cCI6MTczMjY5MDk4Mn0.q6nhui7c9T62GipBjSQyf9Vk9NxUDJ8w8rAuC0F7aiI

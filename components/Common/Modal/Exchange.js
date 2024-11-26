@@ -7,11 +7,15 @@ import MultiFilterModal from "./MultiFilter.js";
 import PhotoCard from "../PhotoCard/PhotoCard.js";
 import SelectCardExchange from "./SelectCardExchange.js";
 
-export default function Exchange({ data, onClose }) {
+export default function Exchange({ data, onClose, onSearch }) {
   const [isOpen, setIsOpen] = useState(true);
   const [isSliding, setIsSliding] = useState(false);
   const [isToggle, setIsToggle] = useState(false);
   const [selectPhoto, setSelectPhoto] = useState();
+
+  const handleSearch = (searchTerm) => {
+    onSearch(searchTerm);
+  };
 
   const handleToggleModal = () => {
     setIsToggle(!isToggle);
@@ -61,7 +65,7 @@ export default function Exchange({ data, onClose }) {
                 <MultiFilterModal filterKeys={["등급", "속성"]} />
               </div>
               <div className={styles.searchbar}>
-                <SearchBar />
+                <SearchBar onSearch={handleSearch} />
               </div>
               <div className={styles.filter_table}>
                 <Rating />
@@ -70,7 +74,7 @@ export default function Exchange({ data, onClose }) {
             </div>
             <div className={styles.photocard_content}>
               {data.card.map((photo) => (
-                 <div key={photo.id} onClick={() => handleSelectPhoto(photo)}>
+                <div key={photo.id} onClick={() => handleSelectPhoto(photo)}>
                   <PhotoCard type="내카드" data={photo} />
                 </div>
               ))}

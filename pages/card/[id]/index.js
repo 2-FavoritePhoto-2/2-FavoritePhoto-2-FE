@@ -41,6 +41,7 @@ export default function CardDetail({ data, myCardList }) {
   const [myOffer, setMyOffer] = useState(false);
   const [exchangeModal, setExchangeModal] = useState(false);
   const [relatedCards, setRelatedCards] = useState([]); // 관련 카드 상태 추가
+  const [filteredMyCards, setFilteredMyCards] = useState(myCardList);
 
   const card = data.card;
   const exchangeGrade = data.exchangeGrade;
@@ -48,6 +49,18 @@ export default function CardDetail({ data, myCardList }) {
   const exchangeModalOpen = () => setExchangeModal(true);
   const exchangeModalClose = () => setExchangeModal(false);
 
+  const handleSearch = async (searchTerm) => {
+    try {
+      const response = await axios.get(`/user/cards?keyword=${encodeURIComponent(searchTerm)}`, {
+        headers: {
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlNmNkMDVjNi0zNGQ1LTQ4NzEtODJjMS1mODgyOTg4ZDBlY2UiLCJpYXQiOjE3MzI1OTkxMjgsImV4cCI6MTczMjY4NTUyOH0.Yn-L5z72RUkgchTAf7oVHYL7dkDP9viCL0Zwe3IH2Ac`,
+        },
+      });
+      setFilteredMyCards(response.data);
+    } catch (error) {
+      console.error("Error searching cards:", error);
+    }
+  };
   // card.name을 기반으로 관련 카드 검색
   useEffect(() => {
     const fetchRelatedCards = async () => {
@@ -121,7 +134,9 @@ export default function CardDetail({ data, myCardList }) {
           )}
         </div>
       </div>
-      {exchangeModal && <Exchange data={myCardList} onClose={exchangeModalClose} />}
+      {exchangeModal && (
+        <Exchange data={filteredMyCards} onSearch={handleSearch} onClose={exchangeModalClose} />
+      )}
     </>
   );
 }
