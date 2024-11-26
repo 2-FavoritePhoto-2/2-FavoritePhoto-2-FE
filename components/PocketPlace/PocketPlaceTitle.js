@@ -1,12 +1,17 @@
 import styles from "./PocketPlaceTitle.module.css";
 import { useState } from "react";
 import CardList from "../Common/Modal/CardList";
+import Modal from "../Common/Modal/Modal";
 
 export default function PocketPlaceTitle() {
-  const [showCardSell, setShowCardSell] = useState(false);
+  const [showCardList, setShowCardList] = useState(false);
 
   const handleClickList = () => {
-    setShowCardSell(true);
+    setShowCardList(true);
+  };
+
+  const closeModal = () => {
+    setShowCardList(false);
   };
 
   return (
@@ -20,7 +25,11 @@ export default function PocketPlaceTitle() {
         </div>
       </div>
       <div className={styles.line}></div>
-      {showCardSell && <CardList />}
+      {showCardList && (
+        <Modal isOpen={showCardList} closeModal={closeModal}>
+          <CardList />
+        </Modal>
+      )}
     </div>
   );
 }

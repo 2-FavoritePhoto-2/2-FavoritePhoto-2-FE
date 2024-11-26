@@ -5,8 +5,24 @@ import Attribute from "../Dropdown/Sort/Attribute";
 import PhotoCard from "@/components/Common/PhotoCard/PhotoCard";
 import MultiFilterModal from "./MultiFilter";
 import data from "@/public/mockData.json";
+import { useState } from "react";
+import Modal from "./Modal";
+import CardSell from "./CardSell";
 
 export default function CardList() {
+  const [selectedCard, setSelectedCard] = useState(null);
+  const [showCardSell, setShowCardSell] = useState(false);
+
+  const handleCardClick = (card) => {
+    setSelectedCard(card);
+    setShowCardSell(true);
+  };
+
+  const closeModal = () => {
+    setShowCardSell(false);
+    setSelectedCard(null);
+  };
+
   return (
     <div className={styles.list_wrapper}>
       <div className={styles.list_header}>
@@ -31,12 +47,17 @@ export default function CardList() {
       <div className={styles.card_list_wrapper}>
         <div className={styles.card_list}>
           {data.map((card) => (
-            <div key={card.id}>
+            <div key={card.id} onClick={() => handleCardClick(card)}>
               <PhotoCard card={card} />
             </div>
           ))}
         </div>
       </div>
+      {showCardSell && (
+        <Modal isOpen={showCardSell} closeModal={closeModal}>
+          <CardSell card={selectedCard} />
+        </Modal>
+      )}
     </div>
   );
 }
