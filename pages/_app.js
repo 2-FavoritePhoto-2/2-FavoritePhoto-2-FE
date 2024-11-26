@@ -1,10 +1,10 @@
-import '@/styles/globals.css';
-import { Noto_Sans_KR } from 'next/font/google';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import GlobalNavigationBar from '@/lib/gnb/gnb';
-import Head from 'next/head';
+import "@/styles/globals.css";
+import { Noto_Sans_KR } from "next/font/google";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Head from "next/head";
+import GlobalNavigationBar from "@/lib/gnb/gnb";
 
-const noto = Noto_Sans_KR({ subsets: ['latin'] });
+const noto = Noto_Sans_KR({ subsets: ["latin"] });
 
 const queryClient = new QueryClient();
 
@@ -15,7 +15,6 @@ export default function App({ Component, pageProps }) {
         <title>피카픽포토</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      
       <div className={noto.className}>
         <GlobalNavigationBar />
         <Component {...pageProps} />
