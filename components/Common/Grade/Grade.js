@@ -4,7 +4,7 @@ export default function Grade({ grade, detail, quantity, border }) {
   const gradeClass = styles[`grade_${grade.toLowerCase().replace(/\s+/g, "-")}`];
   const gradeDetail = detail ? styles.grade_detail : "";
   const borderClass = border ? styles.grade_border : "";
-  const showQuantity = quantity ? `${quantity}장` : "";
+  const showQuantity = quantity ? `${quantity}장` : quantity === 0 ? "0장" : "";
 
   return (
     <div className={`${styles.grade} ${gradeClass} ${gradeDetail} ${borderClass}`}>

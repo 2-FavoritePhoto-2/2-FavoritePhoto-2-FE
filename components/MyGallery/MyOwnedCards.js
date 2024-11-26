@@ -1,19 +1,32 @@
 import Grade from "../Common/Grade/Grade";
 import styles from "./MyOwnedCards.module.css";
 
-export default function MyOwnedCards() {
+export default function MyOwnedCards({ myCardList }) {
   const grades = ["COMMON", "RARE", "SUPER RARE", "LEGENDARY"];
+
+  const gradeCount = {
+    COMMON: 0,
+    RARE: 0,
+    SUPER_RARE: 0,
+    LEGENDARY: 0,
+  };
+
+  myCardList.card.forEach((card) => {
+    if (gradeCount[card.grade] !== undefined) {
+      gradeCount[card.grade]++;
+    }
+  });
 
   return (
     <div className={styles.container}>
       <div className={styles.info}>
         <p className={styles.owner}>소유자님이 보유한 포토카드</p>
-        <p className={styles.total_count}>(40장)</p>
+        <p className={styles.total_count}>({myCardList.totalCount}장)</p>
       </div>
       <div className={styles.grade_count}>
         {grades.map((grade, index) => (
           <div key={index}>
-            <Grade grade={grade} quantity={10} border={true} />
+            <Grade grade={grade} quantity={gradeCount[grade] || 0} border={true} />
           </div>
         ))}
       </div>
