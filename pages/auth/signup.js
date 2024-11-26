@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Input from '@/components/Common/Input/Input';
 import styles from '@/styles/Signup.module.css';
-import { signup } from '@/lib/api/auth';
+import { signup, checkEmailDuplicate, checkNicknameDuplicate } from '@/lib/api/auth';
 
 
 export default function Signup() {
@@ -15,11 +15,23 @@ export default function Signup() {
     password: '',
     confirmPassword: '',
   });
+  const [emailError, setEmailError] = useState('');
+  const [nicknameError, setNicknameError] = useState('');
   const router = useRouter();
 
-    const handleChange = (e) => {
-      const { name, value } = e.target;
+  const handleChange = async (e) => {
+    const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+
+    if (name === 'email') {
+      const isDuplicate = await checkEmailDuplicate(value);
+      setEmailError(isDuplicate ? '이미 사용 중인 이메일입니다.' : '');
+    }
+
+    if (name === 'nickname') {
+      const isDuplicate = await checkNicknameDuplicate(value);
+      setNicknameError(isDuplicate ? '이미 사용 중인 닉네임입니다.' : '');
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -34,17 +46,20 @@ export default function Signup() {
       return;
     }
 
+    if (emailError || nicknameError) {
+      alert('중복된 정보가 있습니다. 다시 확인해 주세요.');
+      return;
+    }
+
     try {
       const data = await signup(formData.email, formData.password, formData.nickname);
       console.log('회원가입 성공:', data);
       router.push('/auth/login');
-
     } catch (error) {
       console.error('회원가입 실패:', error);
       alert('회원가입에 실패했습니다. 다시 시도해 주세요.');
     }
   };
-
 
   return (
     <div className={styles.container}>
@@ -109,4 +124,4 @@ export default function Signup() {
       </main>
     </div>
   );
-}
+} 
