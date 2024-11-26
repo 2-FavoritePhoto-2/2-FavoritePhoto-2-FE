@@ -14,20 +14,20 @@ export default function PhotoCard({ data, type = "판매카드", exchange }) {
     type === "내카드" ? (
       <>
         <div className={`${styles.img_wrap} ${exchangeImgClass}`}>
-          <Image className={styles.img} src={data.card.image} fill alt="카드 이미지" priority />
+          <Image className={styles.img} src={data.image} fill alt="카드 이미지" priority />
         </div>
         <div className={styles.card_info}>
           <div className={styles.card_header}>
-            <h1 className={exchangeHeaderClass}>{data.card.name}</h1>
+            <h1 className={exchangeHeaderClass}>{data.name}</h1>
             <div className={styles.meta_info}>
               <div className={styles.category}>
-                <Grade grade={data.card.grade} />
+                <Grade grade={data.grade} />
                 <p className={`${styles.vert_line} ${exchangeClass}`}>|</p>
-                <p className={`${styles.type} ${exchangeClass}`}>{data.card.type[0]}</p>
-                {data.card.type[1] ? (
+                <p className={`${styles.type} ${exchangeClass}`}>{data.type[0]}</p>
+                {data.type[1] ? (
                   <>
                     <p className={`${styles.vert_line} ${exchangeClass}`}>|</p>
-                    <p className={`${styles.type} ${exchangeClass}`}>{data.card.type[1]}</p>
+                    <p className={`${styles.type} ${exchangeClass}`}>{data.type[1]}</p>
                   </>
                 ) : (
                   ""
@@ -41,11 +41,11 @@ export default function PhotoCard({ data, type = "판매카드", exchange }) {
           <div className={styles.card_price_quantity}>
             <div className={styles.card_price}>
               <p className={`${styles.label} ${exchangeClass}`}>가격</p>
-              <p className={`${styles.point} ${exchangeValueClass}`}>{data.card.price}p</p>
+              <p className={`${styles.point} ${exchangeValueClass}`}>{data.price}p</p>
             </div>
             <div className={styles.card_quantity}>
               <p className={`${styles.label} ${exchangeClass}`}>수량</p>
-              <p className={`${styles.value} ${exchangeValueClass}`}>{data.card.quantity}</p>
+              <p className={`${styles.value} ${exchangeValueClass}`}>{data.quantity}</p>
             </div>
           </div>
         </div>
