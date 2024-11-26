@@ -75,7 +75,7 @@ export default function MyGallery({ myCardList }) {
     <div className={styles.container}>
       <div className={styles.header}>
         <MyGalleryTitle />
-        <MyOwnedCards myCardList={myCardList || []} />
+        <MyOwnedCards myCardList={myCards || []} />
         <MyGalleryFilter />
       </div>
       <MyGalleryList myCardList={myCards || []} />
