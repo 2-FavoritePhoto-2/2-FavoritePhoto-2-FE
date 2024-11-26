@@ -4,14 +4,14 @@ import CardList from "../Common/Modal/CardList";
 import Modal from "../Common/Modal/Modal";
 
 export default function PocketPlaceTitle() {
-  const [showCardSell, setShowCardSell] = useState(false);
+  const [showCardList, setShowCardList] = useState(false);
 
   const handleClickList = () => {
-    setShowCardSell(true);
+    setShowCardList(true);
   };
 
   const closeModal = () => {
-    setShowCardSell(false);
+    setShowCardList(false);
   };
 
   return (
@@ -25,8 +25,8 @@ export default function PocketPlaceTitle() {
         </div>
       </div>
       <div className={styles.line}></div>
-      {showCardSell && (
-        <Modal isOpen={showCardSell} closeModal={closeModal}>
+      {showCardList && (
+        <Modal isOpen={showCardList} closeModal={closeModal}>
           <CardList />
         </Modal>
       )}
