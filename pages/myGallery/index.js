@@ -1,8 +1,11 @@
 import styles from "@/styles/MyGallery.module.css";
 import MyGalleryTitle from "@/components/MyGallery/MyGalleryTitle";
 import MyOwnedCards from "@/components/MyGallery/MyOwnedCards";
-import MyGalleryFilter from "@/components/MyGallery/MyGalleryFilter";
 import MyGalleryList from "@/components/MyGallery/MyGalleryList";
+import MultiFilterModal from "@/components/Common/Modal/MultiFilter";
+import SearchBar from "@/components/Common/SearchBar/SearchBar";
+import Rating from "@/components/Common/Dropdown/Sort/Rating";
+import Attribute from "@/components/Common/Dropdown/Sort/Attribute";
 import { getMyPhotoCardList } from "@/lib/api/UserService";
 import { useState, useEffect } from "react";
 
@@ -26,6 +29,31 @@ export default function MyGallery({ myCardList }) {
   const [page, setPage] = useState(2);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  // 검색어 변경 시 처리 함수
+  const handleSearch = async (keyword) => {
+    setSearchTerm(keyword);
+
+    try {
+      const filter = {
+        type: "keyword",
+        value: keyword,
+      };
+
+      const searchResults = await getMyPhotoCardList({
+        page: 1,
+        pageSize: 9,
+        filter,
+      });
+
+      setMyCards(searchResults.card || []);
+      setHasMore(searchResults.card.length === 9);
+      setPage(2);
+    } catch (err) {
+      console.error("검색 중 오류 발생:", err);
+    }
+  };
 
   // 스크롤 이벤트 처리 함수
   const handleScroll = () => {
@@ -47,7 +75,7 @@ export default function MyGallery({ myCardList }) {
         page,
         pageSize: 9,
         filter: "",
-        keyword: "",
+        keyword: searchTerm,
       });
 
       if (newCardList.card.length > 0) {
@@ -76,7 +104,21 @@ export default function MyGallery({ myCardList }) {
       <div className={styles.header}>
         <MyGalleryTitle />
         <MyOwnedCards myCardList={myCards || []} />
-        <MyGalleryFilter />
+        <div className={styles.filter}>
+          <div className={styles.line}></div>
+          <div className={styles.search_filters}>
+            <div className={styles.mobile_filter}>
+              <MultiFilterModal filterKeys={["등급", "속성"]} />
+            </div>
+            <div className={styles.search}>
+              <SearchBar onSearch={handleSearch} />
+            </div>
+            <div className={styles.filters}>
+              <Rating />
+              <Attribute />
+            </div>
+          </div>
+        </div>
       </div>
       <MyGalleryList myCardList={myCards || []} />
     </div>
