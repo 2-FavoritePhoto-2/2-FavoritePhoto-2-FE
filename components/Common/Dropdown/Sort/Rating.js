@@ -37,7 +37,7 @@ export default function Rating({ sortType }) {
             <li className={styles.dropDown_item} onClick={() => handleSelect("RARE")}>
               RARE
             </li>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("SUPER RARE")}>
+            <li className={styles.dropDown_item} onClick={() => handleSelect("SUPER_RARE")}>
               SUPER RARE
             </li>
             <li className={styles.dropDown_item} onClick={() => handleSelect("LEGENDARY")}>
