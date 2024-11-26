@@ -47,7 +47,7 @@ export default function MyCardDetail({ data }) {
         </div>
         <div className={styles.quantity}>
           <p className={styles.label}>보유량</p>
-          <p className={styles.value}>{data.remainingQuantity}</p>
+          <p className={styles.value}>{data.quantity}</p>
         </div>
       </div>
       <button className={styles.sell} onClick={handleClick}>
