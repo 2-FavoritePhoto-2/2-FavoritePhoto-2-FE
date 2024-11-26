@@ -5,8 +5,41 @@ import Attribute from "../Dropdown/Sort/Attribute";
 import PhotoCard from "@/components/Common/PhotoCard/PhotoCard";
 import MultiFilterModal from "./MultiFilter";
 import data from "@/public/mockData.json";
+import { useState, useEffect } from "react";
+import Modal from "./Modal";
+import CardSell from "./CardSell";
 
 export default function CardList() {
+  const [cardData, setCardData] = useState([]);
+  const [selectedCard, setSelectedCard] = useState(null);
+  const [showCardSell, setShowCardSell] = useState(false);
+
+  const handleCardClick = (card) => {
+    setSelectedCard(card);
+    setShowCardSell(true);
+  };
+
+  const closeModal = () => {
+    setShowCardSell(false);
+    setSelectedCard(null);
+  };
+
+  // useEffect(() => {
+  // const fetchCardData = async () => {
+  // try {
+  // const response = await fetch("/user/cards");
+  // if (!response.ok) throw new Error("데이터 패치 실패");
+  //
+  // const data = await response.json();
+  // setCardData(data || []);
+  // } catch (error) {
+  // console.error(error);
+  // }
+  // };
+  //
+  // fetchCardData();
+  // }, []);
+
   return (
     <div className={styles.list_wrapper}>
       <div className={styles.list_header}>
@@ -31,12 +64,17 @@ export default function CardList() {
       <div className={styles.card_list_wrapper}>
         <div className={styles.card_list}>
           {data.map((card) => (
-            <div key={card.id}>
-              <PhotoCard card={card} />
+            <div key={card.id} onClick={() => handleCardClick(card)}>
+              <PhotoCard type="내카드" data={card} />
             </div>
           ))}
         </div>
       </div>
+      {showCardSell && (
+        <Modal isOpen={showCardSell} closeModal={closeModal}>
+          <CardSell data={selectedCard} />
+        </Modal>
+      )}
     </div>
   );
 }
