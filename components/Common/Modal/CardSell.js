@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useRouter } from "next/router";
 import styles from "./CardSell.module.css";
 import Image from "next/image";
 import Dropdown from "../Input/Dropdown";
@@ -11,6 +12,15 @@ export default function CardSell() {
   const [selectedType1, setSelectedType1] = useState("");
   const [selectedType2, setSelectedType2] = useState("");
   const [exchange, setExchange] = useState("");
+
+  const router = useRouter();
+
+  const handleSellClick = () => {
+    router.push({
+      pathname: "/SuccessFail",
+      query: { type: "register_success" },
+    });
+  };
 
   return (
     <div className={styles.card_info_wrapper}>
@@ -67,7 +77,9 @@ export default function CardSell() {
       <div className={styles.thin_line}></div>
       <div className={styles.buttons}>
         <button className={styles.cancel}>취소하기</button>
-        <button className={styles.sell}>판매하기</button>
+        <button className={styles.sell} onClick={handleSellClick}>
+          판매하기
+        </button>
       </div>
     </div>
   );

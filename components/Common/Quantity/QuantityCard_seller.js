@@ -3,8 +3,7 @@ import icon_exchange from "@/public/assets/icon_exchange.svg";
 import styles from "./QuantityCard.module.css";
 
 export default function QuantityCardSeller({ data }) {
-
-  const card = data.card
+  const card = data.card;
   const gradeClass = card.grade;
   const modifiedString = gradeClass.replace(/_/g, " ");
   const exchangeGrade = data.exchangeGrade;
@@ -38,8 +37,8 @@ export default function QuantityCardSeller({ data }) {
           <p className={styles.exchange_name}>교환 희망 정보</p>
         </div>
         <div className={styles.exchange_card_rating_table}>
-           <p className={`${styles.card_rating} ${styles[exchangeGrade]}`}>{exchangeGrade}</p>
-                <p className={styles.card_attribute}>{data.exchangeType}</p>
+          <p className={`${styles.card_rating} ${styles[exchangeGrade]}`}>{exchangeGrade}</p>
+          <p className={styles.card_attribute}>{data.exchangeType}</p>
         </div>
       </div>
       <p className={styles.exchange_content}>{data.exchangeDetails}</p>
