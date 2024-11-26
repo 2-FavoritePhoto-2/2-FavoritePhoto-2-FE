@@ -1,9 +1,12 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import Input from '@/components/Common/Input/Input';
 import styles from '@/styles/Signup.module.css';
+import { signup } from '@/lib/api/auth';
+
 
 export default function Signup() {
   const [formData, setFormData] = useState({
@@ -12,29 +15,36 @@ export default function Signup() {
     password: '',
     confirmPassword: '',
   });
+  const router = useRouter();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+    const handleChange = (e) => {
+      const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // 회원가입 로직 추가..
     if (formData.password !== formData.confirmPassword) {
       alert('비밀번호가 일치하지 않습니다.');
       return;
     }
-  
-    // 이메일이나 닉네임이 비어 있으면 알림
+
     if (!formData.email || !formData.nickname) {
       alert('모든 칸을 채워주세요!!');
       return;
     }
-  
-    // 회원가입 로직 호출
-    console.log('회원가입 데이터:', formData);
+
+    try {
+      const data = await signup(formData.email, formData.password, formData.nickname);
+      console.log('회원가입 성공:', data);
+      router.push('/auth/login');
+
+    } catch (error) {
+      console.error('회원가입 실패:', error);
+      alert('회원가입에 실패했습니다. 다시 시도해 주세요.');
+    }
   };
+
 
   return (
     <div className={styles.container}>
@@ -45,9 +55,8 @@ export default function Signup() {
       </Head>
 
       <main className={styles.main}>
-        <Image src="/assets/logo.svg" width={337} height={75} alt="홈 로고" className={styles.logoImage} />
+        <Image src="/assets/logo.svg" width={375} height={75} alt="홈 로고" className={styles.logoImage} />
         <form className={styles.form} onSubmit={handleSubmit}>
-
           <div className={styles.inputContainer}>
           <Input
             label="이메일"
@@ -91,7 +100,7 @@ export default function Signup() {
           
           <button type="submit" className={styles.button}>가입하기</button>
         </form>
-        <p>
+        <p className={styles.signupText}>
           이미 피카픽 포토 회원이신가요?{' '}
           <Link href="/auth/login" className={styles.link}>
             로그인하기
