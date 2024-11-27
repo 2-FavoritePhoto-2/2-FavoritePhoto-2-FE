@@ -104,7 +104,7 @@ export default function CardList() {
       </div>
       {showCardSell && (
         <Modal isOpen={showCardSell} closeModal={closeModal}>
-          <CardSell data={selectedCard} />
+          <CardSell data={selectedCard} closeModal={closeModal} />
         </Modal>
       )}
     </div>
