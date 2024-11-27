@@ -41,7 +41,7 @@ export default function Dropdown({ label, name, value, setValue, option }) {
 
   return (
     <div className={styles.group}>
-      <label htmlFor={name}>{label}</label>
+      <p className={styles.label}>{label}</p>
       <div className={styles.dropdown_container}>
         <div className={styles.dropdown} onClick={toggleDropdown}>
           <p>{value || `${label}을 선택하세요`}</p>
