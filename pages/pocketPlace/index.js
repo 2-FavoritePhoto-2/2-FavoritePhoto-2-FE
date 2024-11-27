@@ -7,6 +7,7 @@ import { useState } from "react";
 export default function PocketPlace() {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeFilter, setActiveFilter] = useState({ type: null, value: null });
+  const [filterCounts, setFilterCounts] = useState({ grade: {}, type: {} });
 
   const handleSearch = (term) => {
     setSearchTerm(term);
@@ -16,6 +17,10 @@ export default function PocketPlace() {
     setActiveFilter({ type: filterType, value });
   };
 
+  const handleFilterCountChange = (counts) => {
+    setFilterCounts(counts);
+  };
+
   return (
     <>
       <div className={styles.pocketPlace_container}>
@@ -23,7 +28,12 @@ export default function PocketPlace() {
           <PocketPlaceTitle />
           <PocketPlaceFilter onSearch={handleSearch} onFilterChange={handleFilterChange} />
         </div>
-        <PocketPlaceList searchTerm={searchTerm} activeFilter={activeFilter} />
+        <PocketPlaceList
+          searchTerm={searchTerm}
+          activeFilter={activeFilter}
+          onFilterCountChange={handleFilterCountChange}
+          filterCounts={filterCounts}
+        />
       </div>
     </>
   );

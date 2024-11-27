@@ -4,7 +4,8 @@ import icon_filter from "@/public/assets/icon_filter.svg";
 import icon_exchange from "@/public/assets/icon_exchange.svg";
 import styles from "./MultiFilter.module.css";
 
-export default function MultiFilterModal({ filterKeys }) {
+export default function MultiFilterModal({ filterKeys, reset, filterCounts = {}, onFilterChange }) {
+  // filterCounts의 기본값을 빈 객체로 설정
   const [activeTab, setActiveTab] = useState("등급");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -12,7 +13,15 @@ export default function MultiFilterModal({ filterKeys }) {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  const resetSelect = () => setSelectedItem(null);
+  const resetSelect = () => {
+    setSelectedItem(null);
+    onFilterChange(null, null);
+  };
+
+  const handleFilterSelect = (item) => {
+    setSelectedItem(item);
+    onFilterChange(activeTab === "등급" ? "rating" : "attribute", item);
+  };
 
   const filterData = {
     등급: ["COMMON", "RARE", "SUPER RARE", "LEGENDARY"],
@@ -47,6 +56,8 @@ export default function MultiFilterModal({ filterKeys }) {
     LEGENDARY: "var(--color-pink)",
   };
 
+  const activeFilterCounts = filterCounts[activeTab] || {};
+
   useEffect(() => {
     if (!filterKeys.includes(activeTab)) {
       setActiveTab(filterKeys[0] || "등급");
@@ -80,9 +91,7 @@ export default function MultiFilterModal({ filterKeys }) {
                     <button
                       key={tab}
                       onClick={() => setActiveTab(tab)}
-                      className={`${styles.tab_button} ${
-                        activeTab === tab ? `${styles.active}` : ""
-                      }`}
+                      className={`${styles.tab_button} ${activeTab === tab ? styles.active : ""}`}
                     >
                       {tab}
                     </button>
@@ -96,9 +105,9 @@ export default function MultiFilterModal({ filterKeys }) {
                         key={index}
                         className={selectedItem === item ? styles.selected : ""}
                         style={{ color: colorMapping[item] }}
-                        onClick={() => setSelectedItem(item)}
+                        onClick={() => handleFilterSelect(item)}
                       >
-                        {item}
+                        {item} ({activeFilterCounts[item] || 0})
                       </li>
                     ))}
                   </ul>
@@ -110,7 +119,11 @@ export default function MultiFilterModal({ filterKeys }) {
                     className={styles.reset_button}
                     onClick={resetSelect}
                   />
-                  <button className={styles.filterPhoto_button}>개 포토보기</button>
+                  <button className={styles.filterPhoto_button}>
+                    {selectedItem
+                      ? `(${activeFilterCounts[selectedItem] || 0})개 포토보기`
+                      : `포토보기`}
+                  </button>
                 </div>
               </div>
             </div>

@@ -6,15 +6,18 @@ import throttle from "lodash/throttle";
 import { getCards } from "@/lib/api/pocketPlaceAPI";
 import { useRouter } from "next/router";
 
-export default function PocketPlaceList({ searchTerm, activeFilter }) {
+export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCountChange }) {
   const [cardItems, setCardItems] = useState([]);
   const [filteredCards, setFilteredCards] = useState([]);
   const [count, setCount] = useState(12);
   const [loading, setLoading] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
+  const [gradeCounts, setGradeCounts] = useState({});
+  const [typeCounts, setTypeCounts] = useState({});
 
   const router = useRouter();
 
+  //무한 스크롤링
   const handleScroll = throttle(() => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 
@@ -35,6 +38,14 @@ export default function PocketPlaceList({ searchTerm, activeFilter }) {
     }
   }, 50);
 
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [handleScroll]);
+
   const handleCardClick = (cardId) => {
     const accessToken = localStorage.getItem("accessToken");
     if (!accessToken) {
@@ -45,19 +56,11 @@ export default function PocketPlaceList({ searchTerm, activeFilter }) {
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [handleScroll]);
-
-  useEffect(() => {
     const fetchData = async () => {
       try {
         const query = searchTerm ? `?keyword=${searchTerm}` : "";
         const data = await getCards("/shop" + query);
-        console.log(data);
+        // console.log(data);
 
         const cards = data.list.map((item) => ({
           listId: item.id,
@@ -109,6 +112,30 @@ export default function PocketPlaceList({ searchTerm, activeFilter }) {
     setFilteredCards(filtered);
     setCount(12);
   }, [searchTerm, activeFilter, cardItems]);
+
+  //멀티필터용 타입별 개수 세기
+  useEffect(() => {
+    const updateCounts = () => {
+      const gradeCountData = {};
+      const typeCountData = {};
+
+      filteredCards.forEach((item) => {
+        const grade = item.card.grade;
+        gradeCountData[grade] = gradeCountData[grade] + 1;
+
+        const types = item.card.type || [];
+
+        types.forEach((type) => {
+          typeCountData[type] = typeCountData[type] + 1;
+        });
+      });
+
+      setGradeCounts(gradeCountData);
+      setTypeCounts(typeCountData);
+    };
+
+    updateCounts();
+  }, [filteredCards]);
 
   const closeNotification = () => {
     setShowNotification(false);

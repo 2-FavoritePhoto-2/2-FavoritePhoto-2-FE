@@ -9,7 +9,7 @@ import MultiFilterModal from "../Common/Modal/MultiFilter";
 import icon_exchange from "@/public/assets/icon_exchange.svg";
 import { useState } from "react";
 
-export default function PocketPlaceFilter({ onSearch, onFilterChange }) {
+export default function PocketPlaceFilter({ onSearch, onFilterChange, filterCounts }) {
   const [reset, setReset] = useState(false);
 
   const handleSearch = (term) => {
@@ -59,7 +59,11 @@ export default function PocketPlaceFilter({ onSearch, onFilterChange }) {
           </div>
           <div className={styles.filters_mobile}>
             <div className={styles.mobileOnly}>
-              <MultiFilterModal filterKeys={["등급", "속성", "매진여부"]} reset={reset} />
+              <MultiFilterModal
+                filterKeys={["등급", "속성", "매진여부"]}
+                reset={reset}
+                filterCounts={filterCounts}
+              />
             </div>
             <div className={styles.sort}>
               <Sort sortType={(value) => handleFilterChange("soldout", value)} />
