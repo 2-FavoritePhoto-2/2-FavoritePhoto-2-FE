@@ -11,6 +11,7 @@ import { useState } from "react";
 
 export default function PocketPlaceFilter({ onSearch, onFilterChange }) {
   const [reset, setReset] = useState(false);
+
   const handleSearch = (term) => {
     onSearch(term);
   };
