@@ -7,7 +7,7 @@ export default function Landing() {
   const router = useRouter();
 
   const handleButtonClick = () => {
-    router.push("/pocket_place"); // 임시로 이동
+    router.push("/auth/login");
   };
 
   return (
