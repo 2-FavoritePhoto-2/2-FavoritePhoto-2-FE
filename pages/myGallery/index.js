@@ -25,7 +25,7 @@ export async function getServerSideProps() {
 }
 
 export default function MyGallery({ myCardList }) {
-  const [myCards, setMyCards] = useState(myCardList.card || []);
+  const [myCards, setMyCards] = useState(myCardList?.card || []);
   const [page, setPage] = useState(2);
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -55,27 +55,35 @@ export default function MyGallery({ myCardList }) {
   // 필터와 검색어가 바뀔 때 데이터를 불러오는 함수
   const loadFilteredData = async (pageNumber = 1) => {
     try {
+      setLoading(true);
+
       const filters = [];
 
       if (searchTerm) filters.push({ type: "keyword", value: searchTerm });
       if (gradeFilter) filters.push({ type: "grade", value: gradeFilter });
       if (typeFilter) filters.push({ type: "type", value: typeFilter });
 
+      const filter = filters[0] || {};
+
       const filteredResults = await getMyPhotoCardList({
         page: pageNumber,
         pageSize: 9,
-        filterType: filters[0].type,
-        filterValue: filters[0].value,
+        filterType: filter.type,
+        filterValue: filter.value,
       });
 
+      if (!filteredResults.card || filteredResults.card.length === 0) {
+        setHasMore(false);
+        return;
+      }
       if (pageNumber === 1) {
-        setMyCards(filteredResults.card || []);
-        setHasMore(filteredResults.card.length === 9);
-        setPage(2);
+        setMyCards(filteredResults.card);
       } else {
         setMyCards((prevCards) => [...prevCards, ...filteredResults.card]);
-        setHasMore(filteredResults.card.length === 9);
       }
+
+      setHasMore(filteredResults.card.length === 9);
+      setPage(pageNumber + 1);
     } catch (err) {
       console.error("필터링 중 오류 발생:", err);
     } finally {
@@ -88,18 +96,19 @@ export default function MyGallery({ myCardList }) {
     if (loading || !hasMore) return;
 
     if (
-      window.innerHeight + document.documentElement.scrollTop ===
-      document.documentElement.offsetHeight
+      window.innerHeight + document.documentElement.scrollTop >=
+      document.documentElement.scrollHeight
     ) {
       setLoading(true);
       loadFilteredData(page);
-      setPage((prevPage) => prevPage + 1);
     }
   };
 
   // 필터가 바뀔 때 데이터를 자동으로 새로 불러오기
   useEffect(() => {
     setPage(2);
+    setHasMore(true);
+    setMyCards([]);
     loadFilteredData(1);
   }, [searchTerm, gradeFilter, typeFilter]);
 

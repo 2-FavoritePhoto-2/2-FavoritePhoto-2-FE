@@ -4,7 +4,7 @@ import Grade from "../Grade/Grade";
 import Quantity from "../Quantity/Quantity";
 import Input from "../Input/Input";
 
-export default function CardSellInfo() {
+export default function CardSellInfo({ data }) {
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [point, setPoint] = useState("");
 
@@ -12,11 +12,17 @@ export default function CardSellInfo() {
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.category}>
-          <Grade grade="SUPER RARE" detail={true} />
+          <Grade grade={data.grade} detail={true} />
           <p>|</p>
-          <p>전기</p>
-          <p>|</p>
-          <p>풀</p>
+          <p>{data.type[0]}</p>
+          {data.type[1] ? (
+            <>
+              <p>|</p>
+              <p>{data.type[1]}</p>
+            </>
+          ) : (
+            ""
+          )}
         </div>
         <p className={styles.seller}>판매자</p>
       </div>
@@ -27,14 +33,14 @@ export default function CardSellInfo() {
           <div className={styles.quantity}>
             <Quantity
               onChange={(newQuantity) => setSelectedQuantity(newQuantity)}
-              maxQuantity={3}
+              maxQuantity={data.quantity}
             />
             <div className={styles.max_quantity}>
               <p className={styles.max_count}>
-                /<span>3</span>
+                /<span>{data.quantity}</span>
               </p>
               <p className={styles.max_notice}>
-                최대 <span>3</span>장
+                최대 <span>{data.quantity}</span>장
               </p>
             </div>
           </div>
