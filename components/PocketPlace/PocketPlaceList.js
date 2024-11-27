@@ -1,5 +1,6 @@
 import styles from "./PocketPlaceList.module.css";
 import PhotoCard from "../Common/PhotoCard/PhotoCard";
+import Notification from "../Common/Modal/Notification";
 import { useState, useEffect } from "react";
 import throttle from "lodash/throttle";
 import { getCards } from "@/lib/api/pocketPlaceAPI";
@@ -11,6 +12,7 @@ export default function PocketPlaceList({ searchTerm, activeFilter }) {
   const [filteredCards, setFilteredCards] = useState([]);
   const [count, setCount] = useState(12);
   const [loading, setLoading] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
 
   const router = useRouter();
 
@@ -39,7 +41,12 @@ export default function PocketPlaceList({ searchTerm, activeFilter }) {
   }, 50);
 
   const handleCardClick = (cardId) => {
-    router.push(`/card/${cardId}`);
+    const accessToken = localStorage.getItem("accessToken");
+    if (!accessToken) {
+      setShowNotification(true);
+    } else {
+      router.push(`/card/${cardId}`);
+    }
   };
 
   useEffect(() => {
@@ -113,6 +120,10 @@ export default function PocketPlaceList({ searchTerm, activeFilter }) {
 
   const rows = Array.from({ length: Math.ceil(filteredCards.length / cardPerRow) });
 
+  const closeNotification = () => {
+    setShowNotification(false);
+  };
+
   return (
     <div className={styles.pocketItem_container}>
       {rows.map((_, rowIndex) => (
@@ -137,6 +148,13 @@ export default function PocketPlaceList({ searchTerm, activeFilter }) {
             ))}
         </div>
       ))}
+      {showNotification && (
+        <Notification
+          type="login"
+          onClose={closeNotification}
+          onButtonClick={() => (window.location.href = "/auth/login")}
+        />
+      )}
     </div>
   );
 }

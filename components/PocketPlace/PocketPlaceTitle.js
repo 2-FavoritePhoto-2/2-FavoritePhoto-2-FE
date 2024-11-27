@@ -2,16 +2,27 @@ import styles from "./PocketPlaceTitle.module.css";
 import { useState } from "react";
 import CardList from "../Common/Modal/CardList";
 import Modal from "../Common/Modal/Modal";
+import Notification from "../Common/Modal/Notification";
 
 export default function PocketPlaceTitle() {
   const [showCardList, setShowCardList] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
 
   const handleClickList = () => {
-    setShowCardList(true);
+    const accessToken = localStorage.getItem("accessToken");
+    if (!accessToken) {
+      setShowNotification(true);
+    } else {
+      setShowCardList(true);
+    }
   };
 
   const closeModal = () => {
     setShowCardList(false);
+  };
+
+  const closeNotification = () => {
+    setShowNotification(false);
   };
 
   return (
@@ -25,6 +36,13 @@ export default function PocketPlaceTitle() {
         </div>
       </div>
       <div className={styles.line}></div>
+      {showNotification && (
+        <Notification
+          type="login"
+          onClose={closeNotification}
+          onButtonClick={() => (window.location.href = "/auth/login")}
+        />
+      )}
       {showCardList && (
         <Modal isOpen={showCardList} closeModal={closeModal}>
           <CardList />
