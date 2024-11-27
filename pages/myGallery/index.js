@@ -11,7 +11,7 @@ import { useState, useEffect } from "react";
 
 export async function getServerSideProps() {
   try {
-    const myCardList = await getMyPhotoCardList({ page: 1, pageSize: 9, keyword: "" });
+    const myCardList = await getMyPhotoCardList({ page: 1, pageSize: 9 });
 
     return {
       props: {
@@ -27,31 +27,64 @@ export async function getServerSideProps() {
 export default function MyGallery({ myCardList }) {
   const [myCards, setMyCards] = useState(myCardList.card || []);
   const [page, setPage] = useState(2);
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const [gradeFilter, setGradeFilter] = useState("");
+  const [typeFilter, setTypeFilter] = useState("");
+
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
-  const [searchTerm, setSearchTerm] = useState("");
 
   // 검색어 변경 시 처리 함수
   const handleSearch = async (keyword) => {
     setSearchTerm(keyword);
+  };
 
+  // 등급 필터 변경 처리 함수
+  const handleGradeFilter = (grade) => {
+    setGradeFilter(grade);
+    setTypeFilter("");
+  };
+
+  // 속성 필터 변경 처리 함수
+  const handleTypeFilter = (type) => {
+    setTypeFilter(type);
+    setGradeFilter("");
+  };
+
+  // 필터와 검색어가 바뀔 때 데이터를 불러오는 함수
+  const loadFilteredData = async (pageNumber = 1) => {
     try {
-      const filter = {
-        type: "keyword",
-        value: keyword,
-      };
+      const filters = [];
 
-      const searchResults = await getMyPhotoCardList({
-        page: 1,
+      if (searchTerm) filters.push({ type: "keyword", value: searchTerm });
+      if (gradeFilter) {
+        filters.push({ type: "grade", value: gradeFilter });
+      } else if (typeFilter) {
+        filters.push({ type: "type", value: typeFilter });
+      }
+
+      const filter = filters[0] || {};
+
+      const filteredResults = await getMyPhotoCardList({
+        page: pageNumber,
         pageSize: 9,
-        filter,
+        filterType: filter.type,
+        filterValue: filter.value,
       });
 
-      setMyCards(searchResults.card || []);
-      setHasMore(searchResults.card.length === 9);
-      setPage(2);
+      if (pageNumber === 1) {
+        setMyCards(filteredResults.card || []);
+        setHasMore(filteredResults.card.length === 9);
+        setPage(2);
+      } else {
+        setMyCards((prevCards) => [...prevCards, ...filteredResults.card]);
+        setHasMore(filteredResults.card.length === 9);
+      }
     } catch (err) {
-      console.error("검색 중 오류 발생:", err);
+      console.error("필터링 중 오류 발생:", err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -64,32 +97,16 @@ export default function MyGallery({ myCardList }) {
       document.documentElement.offsetHeight
     ) {
       setLoading(true);
-      loadMoreData();
+      loadFilteredData(page);
+      setPage((prevPage) => prevPage + 1);
     }
   };
 
-  // 추가 데이터 불러오기 함수
-  const loadMoreData = async () => {
-    try {
-      const newCardList = await getMyPhotoCardList({
-        page,
-        pageSize: 9,
-        filter: "",
-        keyword: searchTerm,
-      });
-
-      if (newCardList.card.length > 0) {
-        setMyCards((prevCards) => [...prevCards, ...newCardList.card]);
-        setPage((prevPage) => prevPage + 1);
-      } else {
-        setHasMore(false);
-      }
-    } catch (err) {
-      console.error("데이터를 불러오는 중 에러가 발생했습니다.", err);
-    } finally {
-      setLoading(false);
-    }
-  };
+  // 필터가 바뀔 때 데이터를 자동으로 새로 불러오기
+  useEffect(() => {
+    setPage(2);
+    loadFilteredData(1);
+  }, [searchTerm, gradeFilter, typeFilter]);
 
   // 컴포넌트가 마운트될 때 스크롤 이벤트 리스너 추가
   useEffect(() => {
@@ -114,8 +131,8 @@ export default function MyGallery({ myCardList }) {
               <SearchBar onSearch={handleSearch} />
             </div>
             <div className={styles.filters}>
-              <Rating />
-              <Attribute />
+              <Rating sortType={handleGradeFilter} />
+              <Attribute sortType={handleTypeFilter} />
             </div>
           </div>
         </div>
