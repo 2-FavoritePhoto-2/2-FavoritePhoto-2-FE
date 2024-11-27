@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { signup, checkEmailDuplicate, checkNicknameDuplicate } from '@/lib/api/auth';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import Input from '@/components/Common/Input/Input';
 import styles from '@/styles/Signup.module.css';
-import { signup, checkEmailDuplicate, checkNicknameDuplicate } from '@/lib/api/auth';
-
 
 export default function Signup() {
   const [formData, setFormData] = useState({
