@@ -63,6 +63,7 @@ export default function PocketPlaceFilter({ onSearch, onFilterChange, filterCoun
                 filterKeys={["등급", "속성", "매진여부"]}
                 reset={reset}
                 filterCounts={filterCounts}
+                onFilterChange={handleFilterChange}
               />
             </div>
             <div className={styles.sort}>

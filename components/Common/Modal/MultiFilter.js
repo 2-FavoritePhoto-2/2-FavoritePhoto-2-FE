@@ -4,13 +4,21 @@ import icon_filter from "@/public/assets/icon_filter.svg";
 import icon_exchange from "@/public/assets/icon_exchange.svg";
 import styles from "./MultiFilter.module.css";
 
-export default function MultiFilterModal({ filterKeys, reset, filterCounts, onFilterChange }) {
+export default function MultiFilterModal({
+  filterKeys,
+  filterCounts,
+  onFilterChange,
+  onCloseModal,
+}) {
   const [activeTab, setActiveTab] = useState("등급");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
   const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const closeModal = () => {
+    setIsModalOpen(false);
+    onCloseModal();
+  };
 
   const resetSelect = () => {
     setSelectedItem(null);
@@ -153,7 +161,7 @@ export default function MultiFilterModal({ filterKeys, reset, filterCounts, onFi
                     className={styles.reset_button}
                     onClick={resetSelect}
                   />
-                  <button className={styles.filterPhoto_button}>
+                  <button className={styles.filterPhoto_button} onClick={closeModal}>
                     {selectedItem
                       ? `${activeFilterCounts[selectedItem] || 0}개 포토보기`
                       : `${totalCount}개 포토보기`}
