@@ -7,7 +7,6 @@ import { getCards } from "@/lib/api/pocketPlaceAPI";
 import { useRouter } from "next/router";
 
 export default function PocketPlaceList({ searchTerm, activeFilter }) {
-  const [cardPerRow, setCardPerRow] = useState(3);
   const [cardItems, setCardItems] = useState([]);
   const [filteredCards, setFilteredCards] = useState([]);
   const [count, setCount] = useState(12);
@@ -15,10 +14,6 @@ export default function PocketPlaceList({ searchTerm, activeFilter }) {
   const [showNotification, setShowNotification] = useState(false);
 
   const router = useRouter();
-
-  const updateCardPerRow = () => {
-    setCardPerRow(window.innerWidth <= 1199 ? 2 : 3);
-  };
 
   const handleScroll = throttle(() => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
@@ -50,12 +45,9 @@ export default function PocketPlaceList({ searchTerm, activeFilter }) {
   };
 
   useEffect(() => {
-    updateCardPerRow();
-    window.addEventListener("resize", updateCardPerRow);
     window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener("resize", updateCardPerRow);
       window.removeEventListener("scroll", handleScroll);
     };
   }, [handleScroll]);
@@ -118,36 +110,28 @@ export default function PocketPlaceList({ searchTerm, activeFilter }) {
     setCount(12);
   }, [searchTerm, activeFilter, cardItems]);
 
-  const rows = Array.from({ length: Math.ceil(filteredCards.length / cardPerRow) });
-
   const closeNotification = () => {
     setShowNotification(false);
   };
 
   return (
     <div className={styles.pocketItem_container}>
-      {rows.map((_, rowIndex) => (
-        <div className={styles.row} key={rowIndex}>
-          {filteredCards
-            .slice(rowIndex * cardPerRow, rowIndex * cardPerRow + cardPerRow)
-            .map((item) => (
-              <div
-                key={item.listId}
-                className={styles.card_wrapper}
-                onClick={() => handleCardClick(item.listId)}
-              >
-                {console.log(item)}
-                <PhotoCard
-                  data={{
-                    ...item,
-                    remainingQuantity: item.card.remainingQuantity,
-                    totalQuantity: item.card.totalQuantity,
-                  }}
-                />
-              </div>
-            ))}
+      {filteredCards.map((item) => (
+        <div
+          key={item.listId}
+          className={styles.card_wrapper}
+          onClick={() => handleCardClick(item.listId)}
+        >
+          <PhotoCard
+            data={{
+              ...item,
+              remainingQuantity: item.card.remainingQuantity,
+              totalQuantity: item.card.totalQuantity,
+            }}
+          />
         </div>
       ))}
+
       {showNotification && (
         <Notification
           type="login"
