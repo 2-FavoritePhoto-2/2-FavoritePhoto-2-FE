@@ -2,12 +2,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: black; 
+  color: var(--color-black); 
   margin-top: 0.625rem; 
   margin-bottom: 0.625rem;
   padding: 1rem 2rem;
 }
-
 
 .logoImage {
 width: 13.894rem;
@@ -33,7 +32,8 @@ height: 2.51rem;
 }
 
 .nickname {
-color:#dddddd;
+position: relative;
+color:var(--color-gray-200);
 margin-right: 1.875rem; 
 font-size: 1.8rem;
 cursor: pointer; 
@@ -44,7 +44,6 @@ letter-spacing: -0.03em;
 text-align: left;
 text-underline-position: from-font;
 text-decoration-skip-ink: none;
-
 }
 
 .separator {
