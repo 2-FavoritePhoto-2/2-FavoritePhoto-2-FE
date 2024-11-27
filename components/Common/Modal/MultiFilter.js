@@ -56,7 +56,12 @@ export default function MultiFilterModal({ filterKeys }) {
   return (
     <div>
       <div className={styles.filterButton_wrapper}>
-        <Image src={icon_filter} onClick={openModal} className={styles.filter_button} />
+        <Image
+          src={icon_filter}
+          onClick={openModal}
+          alt="필터아이콘"
+          className={styles.filter_button}
+        />
       </div>
       <div className={styles.filterModal_container}>
         {isModalOpen && (
