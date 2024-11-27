@@ -7,7 +7,6 @@ import Image from 'next/image';
 import Input from '@/components/Common/Input/Input';
 import styles from '@/styles/Signup.module.css';
 
-
 export default function Signup() {
   const [formData, setFormData] = useState({
     email: '',
@@ -70,9 +69,8 @@ export default function Signup() {
       </Head>
 
       <main className={styles.main}>
-        <Image src="/assets/logo.svg" width={337} height={75} alt="홈 로고" className={styles.logoImage} />
+        <Image src="/assets/logo.svg" width={375} height={75} alt="홈 로고" className={styles.logoImage} />
         <form className={styles.form} onSubmit={handleSubmit}>
-
           <div className={styles.inputContainer}>
           <Input
             label="이메일"
@@ -116,7 +114,7 @@ export default function Signup() {
           
           <button type="submit" className={styles.button}>가입하기</button>
         </form>
-        <p>
+        <p className={styles.signupText}>
           이미 피카픽 포토 회원이신가요?{' '}
           <Link href="/auth/login" className={styles.link}>
             로그인하기
@@ -125,4 +123,4 @@ export default function Signup() {
       </main>
     </div>
   );
-}
+} 
