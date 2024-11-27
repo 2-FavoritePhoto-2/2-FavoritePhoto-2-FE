@@ -58,19 +58,14 @@ export default function MyGallery({ myCardList }) {
       const filters = [];
 
       if (searchTerm) filters.push({ type: "keyword", value: searchTerm });
-      if (gradeFilter) {
-        filters.push({ type: "grade", value: gradeFilter });
-      } else if (typeFilter) {
-        filters.push({ type: "type", value: typeFilter });
-      }
-
-      const filter = filters[0] || {};
+      if (gradeFilter) filters.push({ type: "grade", value: gradeFilter });
+      if (typeFilter) filters.push({ type: "type", value: typeFilter });
 
       const filteredResults = await getMyPhotoCardList({
         page: pageNumber,
         pageSize: 9,
-        filterType: filter.type,
-        filterValue: filter.value,
+        filterType: filters[0].type,
+        filterValue: filters[0].value,
       });
 
       if (pageNumber === 1) {
