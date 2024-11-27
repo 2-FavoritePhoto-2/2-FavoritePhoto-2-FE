@@ -64,8 +64,8 @@ export default function MyGallery({ myCardList }) {
       const filteredResults = await getMyPhotoCardList({
         page: pageNumber,
         pageSize: 9,
-        filterType: filters[0].type,
-        filterValue: filters[0].value,
+        filterType: filters[0]?.type || {},
+        filterValue: filters[0]?.value || {},
       });
 
       if (pageNumber === 1) {

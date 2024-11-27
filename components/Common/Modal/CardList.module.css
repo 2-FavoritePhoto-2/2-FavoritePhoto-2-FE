@@ -76,7 +76,7 @@
   grid-template-columns: repeat(2, 1fr);
 
   width: 100%;
-  height: 100%;
+  height: 50rem;
 
   padding-right: 4rem;
   gap: 2rem;
@@ -106,15 +106,12 @@
 /* Tablet + Mobile */
 @media (min-width: 375px) and (max-width: 1199px) {
   .card_list {
+    grid-template-columns: repeat(2, minmax(17rem, 1fr));
     padding-right: 0;
   }
 
   .card_list::-webkit-scrollbar {
-    width: 0;
-  }
-
-  .card_list::-webkit-scrollbar-thumb {
-    background-color: transparent;
+    display: none;
   }
 }
 
@@ -147,7 +144,11 @@
   }
 
   .card_list_wrapper {
-    width: 70.4rem;
+    width: 100%;
+  }
+
+  .card_list {
+    height: 65rem;
   }
 }
 
@@ -187,11 +188,12 @@
   }
 
   .card_list_wrapper {
-    width: 34.5rem;
+    width: 100%;
     height: 55rem;
   }
 
   .card_list {
+    height: 55rem;
     gap: 0.5rem;
   }
 }
