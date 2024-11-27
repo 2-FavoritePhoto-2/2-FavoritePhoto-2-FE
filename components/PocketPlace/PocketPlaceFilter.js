@@ -7,7 +7,7 @@ import Soldout from "../Common/Dropdown/Sort/Soldout";
 import Sort from "../Common/Dropdown/Sort/Sort";
 import MultiFilterModal from "../Common/Modal/MultiFilter";
 import icon_exchange from "@/public/assets/icon_exchange.svg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function PocketPlaceFilter({ onSearch, onFilterChange, filterCounts }) {
   const [reset, setReset] = useState(false);

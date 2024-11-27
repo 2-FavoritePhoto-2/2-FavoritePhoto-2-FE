@@ -121,17 +121,19 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
 
       filteredCards.forEach((item) => {
         const grade = item.card.grade;
-        gradeCountData[grade] = gradeCountData[grade] + 1;
+        gradeCountData[grade] = (gradeCountData[grade] || 0) + 1;
 
         const types = item.card.type || [];
 
         types.forEach((type) => {
-          typeCountData[type] = typeCountData[type] + 1;
+          typeCountData[type] = (typeCountData[type] || 0) + 1;
         });
       });
 
       setGradeCounts(gradeCountData);
       setTypeCounts(typeCountData);
+
+      onFilterCountChange({ grade: gradeCountData, type: typeCountData });
     };
 
     updateCounts();

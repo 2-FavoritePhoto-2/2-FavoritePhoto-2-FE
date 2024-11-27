@@ -26,7 +26,11 @@ export default function PocketPlace() {
       <div className={styles.pocketPlace_container}>
         <div className={styles.header}>
           <PocketPlaceTitle />
-          <PocketPlaceFilter onSearch={handleSearch} onFilterChange={handleFilterChange} />
+          <PocketPlaceFilter
+            onSearch={handleSearch}
+            onFilterChange={handleFilterChange}
+            filterCounts={filterCounts}
+          />
         </div>
         <PocketPlaceList
           searchTerm={searchTerm}
