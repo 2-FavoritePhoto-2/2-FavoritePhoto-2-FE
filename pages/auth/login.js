@@ -21,8 +21,7 @@ const LoginPage = ({ setIsLoggedIn, handleLogin }) => {
         setAccessToken(data.accessToken);
         await handleLogin();
         router.push('/pocketPlace');
-      } else {
-      }
+      } 
     } catch (error) {
     }
   };
