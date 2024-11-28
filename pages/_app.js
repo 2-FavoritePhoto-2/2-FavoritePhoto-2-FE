@@ -37,7 +37,7 @@ export default function App({ Component, pageProps }) {
    const handleLogout = () => {
     setIsLoggedIn(false);
     localStorage.removeItem('isLoggedIn'); 
-   }
+   };
 
  useEffect(() => {
     const storedIsLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
