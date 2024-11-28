@@ -19,6 +19,7 @@
 
 .modal_content {
   width: 92rem;
+  margin: 0 auto;
 }
 .slidebar_table {
   display: none;
@@ -94,7 +95,7 @@
     transition: transform 0.3s ease; /* 애니메이션 추가 */
   }
   .sliding {
-    transform: translateY(100%); /* 아래로 슬라이드 */
+    transform: translateY(100%);
   }
   .modal_table {
     position: relative;
@@ -108,7 +109,7 @@
   .modal_content {
     display: flex;
     flex-direction: column;
-    width: 70.4rem;
+    width: 70.8rem;
   }
   .slidebar_table {
     display: flex;
@@ -133,11 +134,11 @@
     gap: 2.5rem;
   }
   .searchbar {
-    width: 20rem;
+    width: 21rem;
   }
   .photocard_content {
     gap: 2rem;
-    width: 70.4rem;
+    width: 70.8rem;
     max-height: 820px;
     height: auto;
     overflow-y: scroll;
@@ -192,7 +193,7 @@
     width: 29rem;
   }
   .photocard_content {
-    width: 34.5rem;
+    width: 34.9rem;
     gap: 0.5rem;
     padding-bottom: 2rem;
   }
