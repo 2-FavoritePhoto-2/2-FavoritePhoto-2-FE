@@ -24,10 +24,10 @@ export default function SelectCardExchange({ data, onClose }) {
   if (!isOpen && !isSliding) return null;
   return (
     <>
-      <div className={`${styles.container} ${isSliding ? styles.sliding : ""}`}>
-        <div className={styles.modal_table}>
+      {/* <div className={`${styles.container} ${isSliding ? styles.sliding : ""}`}>
+        <div className={styles.modal_table}> */}
           <div className={styles.modal_content}>
-            <div className={styles.mobile_header}>
+            {/* <div className={styles.mobile_header}>
               <img
                 src="/assets/btn_backarrow.png"
                 alt="backarrow"
@@ -35,28 +35,28 @@ export default function SelectCardExchange({ data, onClose }) {
                 onClick={closeModal}
               />
               <img src="/assets/icon_photofont.png" alt="photofont" className={styles.photofont} />
-            </div>
-            <div className={styles.slidebar_table}>
+            </div> */}
+            {/* <div className={styles.slidebar_table}>
               <img
                 src="/assets/btn_crossbar.png"
                 alt="slidebutton"
                 className={styles.crossbutton}
                 onClick={slideCloseModal}
-              />
-            </div>
-            <div className={styles.photoexchange_table}>
-              <img
+              /> */}
+            {/* </div> */}
+            {/* <div className={styles.photoexchange_table}> */}
+              {/* <img
                 src="/assets/icon_photoexchange.png"
                 alt="photoexchange"
                 className={styles.photoexchange}
-              />
-              <img
+              /> */}
+              {/* <img
                 src="/assets/icon_close.svg"
                 alt="close_button"
                 className={styles.close_button}
                 onClick={closeModal}
-              />
-            </div>
+              /> */}
+            {/* </div> */}
             <p className={styles.exchange_name}>{data.name}</p>
             <div className={styles.photocard_content}>
               <div className={styles.photocard_size}>
@@ -81,8 +81,8 @@ export default function SelectCardExchange({ data, onClose }) {
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        {/* </div> */}
+      {/*  </div> */}
     </>
   );
 }

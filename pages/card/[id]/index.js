@@ -13,6 +13,7 @@ import Modal from "@/components/Common/Modal/Modal";
 export async function getServerSideProps(context) {
   const shopId = context.params["id"];
   let data;
+  
   try {
     const res = await axios.get(`/shop/${shopId}`);
     data = res.data;
@@ -21,37 +22,47 @@ export async function getServerSideProps(context) {
       notFound: true,
     };
   }
-  const response = await axios.get(`/user/cards`, {
-    headers: {
-      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI3NTQxNDgsImV4cCI6MTczMjg0MDU0OH0.szwdYg8O48-eEcVJVtFWtcrtdRBJyOtFOnstGgHDR1I`,
-    },
-  });
-  let myCardList = response.data;
-  // props로 전달할 데이터를 반환합니다.
+
   return {
     props: {
       data,
-      myCardList,
     },
   };
 }
 
-//구매자 기준 상세페이지
-export default function CardDetail({ data, myCardList }) {
+export default function CardDetail({ data }) {
+  const [myCardList, setMyCardList] = useState([]);
+  const [filteredCards, setFilteredCards] = useState([]);
   const [isOwner, setIsOwner] = useState(false);
   const [myOffer, setMyOffer] = useState(false);
   const [exchangeModal, setExchangeModal] = useState(false);
-  const [relatedCards, setRelatedCards] = useState([]); // 관련 카드 상태 추가
-  const [filteredCards, setFilteredCards] = useState(myCardList);
+  const [relatedCards, setRelatedCards] = useState([]);
   const [filters, setFilters] = useState({
     type: "",
     value: "",
   });
 
-  const accessToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI3NTQxNDgsImV4cCI6MTczMjg0MDU0OH0.szwdYg8O48-eEcVJVtFWtcrtdRBJyOtFOnstGgHDR1I";
   const card = data.card;
   const exchangeGrade = data.exchangeGrade;
+
+  useEffect(() => {
+    const fetchMyCards = async () => {
+      try {
+        const accessToken = localStorage.getItem("accessToken");
+        const response = await axios.get(`/user/cards`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+        setMyCardList(response.data);
+        setFilteredCards(response.data);
+      } catch (error) {
+        console.error("Error fetching cards:", error);
+      }
+    };
+
+    fetchMyCards();
+  }, []);
 
   const handleSearch = async (searchTerm) => {
     const newFilters = { type: "keyword", value: searchTerm };
@@ -202,7 +213,7 @@ export default function CardDetail({ data, myCardList }) {
         </div>
       </div>
       {exchangeModal && (
-        // <Modal isOpen={exchangeModalOpen} closeModal={exchangeModalClose}>
+        <Modal isOpen={exchangeModalOpen} closeModal={exchangeModalClose}>
         <Exchange
           data={filteredCards}
           onClose={exchangeModalClose}
@@ -210,7 +221,7 @@ export default function CardDetail({ data, myCardList }) {
           onFilterChange={handleFilterChange}
           onPageChange={handlePageChange}
         />
-        // </Modal>
+      </Modal>
       )}
     </>
   );
