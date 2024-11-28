@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import GlobalNavigationBar from "@/lib/gnb/gnb";
 import Head from "next/head";
 import { useState } from "react";
+import { useEffect } from "react";
 import { getUserProfile } from "@/lib/api/auth"; 
 
 const noto = Noto_Sans_KR({ subsets: ["latin"] });
@@ -21,9 +22,17 @@ export default function App({ Component, pageProps }) {
       setPoints(profile.point); 
       setNickname(profile.nickname); 
     } catch (error) {
-      console.error("프로필 조회 실패:", error);
     }
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+    console.log('토큰 확인:', token); 
+    if (token) {
+      setIsLoggedIn(true);
+      fetchUserProfile(); 
+    }
+  }, []);
 
   // 로그인 성공 후 프로필 정보 가져오기...
   const handleLogin = async () => {
