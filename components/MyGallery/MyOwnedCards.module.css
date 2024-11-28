@@ -52,6 +52,10 @@
 
 /* Mobile Only */
 @media (max-width: 743px) {
+    .container {
+        gap: 1.5rem;
+    }
+
     .info .owner {
         font-size: 1.4rem;
         line-height: 2.027rem;
@@ -68,14 +72,6 @@
     }
 
     .grade_count::-webkit-scrollbar {
-        width: 0;
-    }
-
-    .grade_count::-webkit-scrollbar-thumb {
-        background-color: transparent;
-    }
-
-    .grade_count::-webkit-scrollbar-track {
-        background: transparent;
+        display: none;
     }
 }

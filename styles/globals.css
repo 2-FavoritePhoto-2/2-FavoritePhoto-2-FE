@@ -49,6 +49,10 @@ body {
   padding: 0 22rem;
 }
 
+.body_container {
+  margin: 5rem 0;
+}
+
 @media (min-width: 744px) and (max-width: 1199px) {
   body {
     padding: 0 2rem;

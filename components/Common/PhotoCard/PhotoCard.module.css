@@ -195,6 +195,7 @@
     line-height: 1.448rem;
   }
 
+  .logo_wrap,
   .logo {
     display: none;
   }

@@ -49,8 +49,8 @@
 
 .total_quantity {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 8rem;
 }
 
 .quantity {
@@ -62,12 +62,12 @@
 
 .price {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 10.5rem;
 }
 
 .point_input {
-    width: 24.5rem;
+    width: 100%;
 }
 
 .label,
