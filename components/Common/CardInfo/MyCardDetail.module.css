@@ -4,7 +4,7 @@
 
     max-width: 44rem;
     width: 100%;
-    height: 39.7rem;
+    height: 100%;
 
     gap: 3rem;
 }
@@ -96,7 +96,6 @@
 @media (min-width: 744px) and (max-width: 1199px) {
     .container {
         max-width: 34.2rem;
-        height: 36.5rem;
     }
 
     .category {
@@ -133,7 +132,6 @@
 @media (max-width: 743px) {
     .container {
         max-width: 34.5rem;
-        height: 36.5rem;
     }
 
     .category p:not(:first-child),

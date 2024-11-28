@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { signup, checkEmailDuplicate, checkNicknameDuplicate } from '@/lib/api/auth';
+import { signup } from '@/lib/api/auth';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -14,24 +14,15 @@ export default function Signup() {
     password: '',
     confirmPassword: '',
   });
+
   const [emailError, setEmailError] = useState('');
   const [nicknameError, setNicknameError] = useState('');
   const router = useRouter();
 
-  const handleChange = async (e) => {
+    const handleChange = async (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-
-    if (name === 'email') {
-      const isDuplicate = await checkEmailDuplicate(value);
-      setEmailError(isDuplicate ? '이미 사용 중인 이메일입니다.' : '');
-    }
-
-    if (name === 'nickname') {
-      const isDuplicate = await checkNicknameDuplicate(value);
-      setNicknameError(isDuplicate ? '이미 사용 중인 닉네임입니다.' : '');
-    }
-  };
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,6 +31,7 @@ export default function Signup() {
       return;
     }
 
+    //중복된 데이터 api 요청..?
     if (!formData.email || !formData.nickname) {
       alert('모든 칸을 채워주세요!!');
       return;
@@ -51,8 +43,7 @@ export default function Signup() {
     }
 
     try {
-      const data = await signup(formData.email, formData.password, formData.nickname);
-      console.log('회원가입 성공:', data);
+      await signup(formData.email, formData.password, formData.nickname);
       router.push('/auth/login');
     } catch (error) {
       console.error('회원가입 실패:', error);

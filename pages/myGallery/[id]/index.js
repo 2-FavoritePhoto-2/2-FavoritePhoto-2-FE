@@ -1,5 +1,7 @@
 import styles from "@/styles/MyGalleryDetail.module.css";
+import Link from "next/link";
 import Image from "next/image";
+import back from "@/public/assets/icon_back.svg";
 import MyCardDetail from "@/components/Common/CardInfo/MyCardDetail";
 import { getMyPhotoCard } from "@/lib/api/UserService";
 import { useState, useEffect } from "react";
@@ -49,6 +51,11 @@ export default function MyGalleryDetail() {
 
   return (
     <div className={styles.container}>
+      <div className={styles.back_icon}>
+        <Link href="/myGallery">
+          <Image src={back} width={22} height={22} alt="뒤로가기 아이콘" />
+        </Link>
+      </div>
       <div className={styles.title}>
         <h1>{myCard.name}</h1>
         <div className={styles.line}></div>

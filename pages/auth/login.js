@@ -6,21 +6,21 @@ import Image from "next/image";
 import Link from 'next/link';
 import Input from '@/components/Common/Input/Input';
 import styles from "@/styles/Login.module.css";
+import { setAccessToken } from '@/lib/utils/token';
 
-const LoginPage = () => {
+const LoginPage = ({ setIsLoggedIn, handleLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
 
-  const handleLogin = async (e) => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
     try {
       const data = await login(email, password);
-      console.log('로그인 성공:', data);
       if (data.accessToken) {
-        localStorage.setItem('accessToken', data.accessToken);
-        console.log('액세스 토큰 저장됨:', data.accessToken); 
-        router.push('/pocketPlace'); 
+        setAccessToken(data.accessToken);
+        await handleLogin();
+        router.push('/pocketPlace');
       } else {
         console.error('액세스 토큰이 없습니다.');
       }
@@ -28,6 +28,7 @@ const LoginPage = () => {
       console.error('로그인 실패:', error);
     }
   };
+
 
   return (
     <div className={styles.container}>
@@ -41,8 +42,7 @@ const LoginPage = () => {
       <Link href="/pocketPlace" className={styles.homeLogo}>
         <Image src="/assets/logo.svg" width={337} height={75} alt="홈 로고" className={styles.logoImage} />
         </Link>
-
-        <form className={styles.form} onSubmit={handleLogin}>
+        <form className={styles.form} onSubmit={handleLoginSubmit}>
           <div className={styles.inputContainer}>
           <Input
             label="이메일"
@@ -60,7 +60,7 @@ const LoginPage = () => {
               name="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="8자 이상 입력해 주세요"
+              placeholder="비밀번호를 입력해 주세요"
             />
           </div>
 
