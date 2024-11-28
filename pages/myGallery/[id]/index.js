@@ -47,8 +47,6 @@ export default function MyGalleryDetail() {
     return <div>카드를 찾을 수 없습니다.</div>;
   }
 
-  console.log(myCard);
-
   return (
     <div className={styles.container}>
       <div className={styles.back_icon}>

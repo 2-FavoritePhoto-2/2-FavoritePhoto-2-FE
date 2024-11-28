@@ -42,13 +42,6 @@ export default function MyGallery() {
     try {
       setLoading(true);
 
-      const token = localStorage.getItem("accessToken");
-
-      if (!token) {
-        console.error("토큰이 없습니다. 로그인 상태를 확인하세요.");
-        return;
-      }
-
       const filteredResults = await getMyPhotoCardList({
         page: pageNumber,
         pageSize: 9,
