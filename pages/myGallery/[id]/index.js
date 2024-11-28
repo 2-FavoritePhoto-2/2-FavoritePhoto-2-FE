@@ -2,25 +2,51 @@ import styles from "@/styles/MyGalleryDetail.module.css";
 import Image from "next/image";
 import MyCardDetail from "@/components/Common/CardInfo/MyCardDetail";
 import { getMyPhotoCard } from "@/lib/api/UserService";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
-export async function getServerSideProps(context) {
-  try {
-    const myCardId = context.params["id"];
+export default function MyGalleryDetail() {
+  const router = useRouter();
+  const cardId = router.query["id"];
 
-    const myCard = await getMyPhotoCard(myCardId);
+  const [myCard, setMyCard] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-    return {
-      props: {
-        myCard,
-      },
+  useEffect(() => {
+    if (!cardId) {
+      return;
+    }
+
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const fetchCardData = await getMyPhotoCard(cardId);
+        setMyCard(fetchCardData);
+      } catch (err) {
+        setError("상품 목록을 불러오는 데 실패했습니다.");
+      } finally {
+        setLoading(false);
+      }
     };
-  } catch (err) {
-    console.error("데이터를 불러오는 중 문제가 발생하였습니다.", err.message);
-    throw new Error("서버에서 데이터를 가져오는 중 문제가 발생했습니다." + err.message);
-  }
-}
 
-export default function MyGalleryDetail({ myCard }) {
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return <div>로딩 중...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  if (!myCard) {
+    return <div>카드를 찾을 수 없습니다.</div>;
+  }
+
+  console.log(myCard);
+
   return (
     <div className={styles.container}>
       <div className={styles.title}>

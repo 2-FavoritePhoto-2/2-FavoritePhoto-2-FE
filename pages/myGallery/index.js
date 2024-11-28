@@ -9,23 +9,8 @@ import Attribute from "@/components/Common/Dropdown/Sort/Attribute";
 import { getMyPhotoCardList } from "@/lib/api/UserService";
 import { useState, useEffect } from "react";
 
-export async function getServerSideProps() {
-  try {
-    const myCardList = await getMyPhotoCardList({ page: 1, pageSize: 9 });
-
-    return {
-      props: {
-        myCardList,
-      },
-    };
-  } catch (err) {
-    console.error("데이터를 불러오는 중 문제가 발생하였습니다.", err);
-    throw new Error("서버에서 데이터를 가져오는 중 문제가 발생했습니다." + err.message);
-  }
-}
-
-export default function MyGallery({ myCardList }) {
-  const [myCards, setMyCards] = useState(myCardList?.card || []);
+export default function MyGallery() {
+  const [myCards, setMyCards] = useState([]);
   const [page, setPage] = useState(2);
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -56,6 +41,13 @@ export default function MyGallery({ myCardList }) {
   const loadFilteredData = async (pageNumber = 1) => {
     try {
       setLoading(true);
+
+      const token = localStorage.getItem("accessToken");
+
+      if (!token) {
+        console.error("토큰이 없습니다. 로그인 상태를 확인하세요.");
+        return;
+      }
 
       const filteredResults = await getMyPhotoCardList({
         page: pageNumber,
