@@ -21,11 +21,8 @@ const LoginPage = ({ setIsLoggedIn, handleLogin }) => {
         setAccessToken(data.accessToken);
         await handleLogin();
         router.push('/pocketPlace');
-      } else {
-        console.error('액세스 토큰이 없습니다.');
-      }
+      } 
     } catch (error) {
-      console.error('로그인 실패:', error);
     }
   };
 

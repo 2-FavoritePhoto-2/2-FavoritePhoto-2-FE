@@ -14,8 +14,7 @@ const queryClient = new QueryClient();
 export default function App({ Component, pageProps }) {
   const router = useRouter();
   const [isMobile, setIsMobile] = useState(false);
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false); 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [points, setPoints] = useState(0); 
   const [nickname, setNickname] = useState(""); 
 
@@ -29,13 +28,25 @@ export default function App({ Component, pageProps }) {
     }
   };
 
-  // 로그인 성공 후 프로필 정보 가져오기...
   const handleLogin = async () => {
     setIsLoggedIn(true);
+    localStorage.setItem('isLoggedIn', 'true'); 
     await fetchUserProfile(); 
   };
 
-  useEffect(() => {
+   const handleLogout = () => {
+    setIsLoggedIn(false);
+    localStorage.removeItem('isLoggedIn'); 
+   };
+
+ useEffect(() => {
+    const storedIsLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    setIsLoggedIn(storedIsLoggedIn);
+
+    if (storedIsLoggedIn) {
+      fetchUserProfile(); //로그인 상태일 때 프로필 정보 가져오기
+    }
+
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 743);
     };
@@ -69,7 +80,8 @@ export default function App({ Component, pageProps }) {
           setIsLoggedIn={setIsLoggedIn}
           points={points}
           nickname={nickname}
-        /> 
+          handleLogout={handleLogout}
+         /> 
             )}
         <div className="body_container">
           <Component {...pageProps} handleLogin={handleLogin} />
