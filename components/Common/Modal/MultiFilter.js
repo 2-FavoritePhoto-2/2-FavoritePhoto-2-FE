@@ -4,12 +4,7 @@ import icon_filter from "@/public/assets/icon_filter.svg";
 import icon_exchange from "@/public/assets/icon_exchange.svg";
 import styles from "./MultiFilter.module.css";
 
-export default function MultiFilterModal({
-  filterKeys,
-  filterCounts,
-  onFilterChange,
-  onCloseModal,
-}) {
+export default function MultiFilterModal({ filterKeys, filterCounts, onFilterChange }) {
   const [activeTab, setActiveTab] = useState("등급");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -17,7 +12,6 @@ export default function MultiFilterModal({
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => {
     setIsModalOpen(false);
-    onCloseModal();
   };
 
   const resetSelect = () => {
@@ -33,9 +27,9 @@ export default function MultiFilterModal({
     setSelectedItem(item);
     const filterType =
       activeTab === "등급"
-        ? "rating"
+        ? "grade"
         : activeTab === "속성"
-        ? "attribute"
+        ? "type"
         : activeTab === "판매여부"
         ? "sale"
         : activeTab === "매진여부"
@@ -82,16 +76,33 @@ export default function MultiFilterModal({
       ? filterCounts?.grade || {}
       : activeTab === "속성"
       ? filterCounts?.type || {}
-      : activeTab === "판매여부"
+      : activeTab === "판매방법"
       ? filterCounts?.sale || {}
       : activeTab === "매진여부"
       ? filterCounts?.soldOut || {}
       : {};
 
-  const totalCount = Object.values(filterCounts?.grade || {}).reduce(
-    (total, count) => total + count,
-    0,
-  );
+  //멀티 필터에서 총 개수 계산하는 부분
+  const calculateTotalCount = () => {
+    if (activeTab === "등급") {
+      return Object.values(filterCounts?.grade || {}).reduce((total, count) => total + count, 0);
+    }
+    if (activeTab === "속성") {
+      return Object.values(filterCounts?.type || {}).reduce((total, count) => total + count, 0);
+    }
+    if (activeTab === "판매방법") {
+      return Object.values(filterCounts?.available || {}).reduce(
+        (total, count) => total + count,
+        0,
+      );
+    }
+    if (activeTab === "매진여부") {
+      return Object.values(filterCounts?.soldout || {}).reduce((total, count) => total + count, 0);
+    }
+    return 0;
+  };
+
+  const totalCount = calculateTotalCount();
 
   useEffect(() => {
     if (!filterKeys.includes(activeTab)) {

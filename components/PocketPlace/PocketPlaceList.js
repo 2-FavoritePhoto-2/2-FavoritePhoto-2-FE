@@ -17,6 +17,10 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
 
   const router = useRouter();
 
+  const closeNotification = () => {
+    setShowNotification(false);
+  };
+
   //무한 스크롤링
   const handleScroll = throttle(() => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
@@ -46,6 +50,7 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
     };
   }, [handleScroll]);
 
+  //로그인 여부
   const handleCardClick = (cardId) => {
     const accessToken = localStorage.getItem("accessToken");
     if (!accessToken) {
@@ -55,6 +60,7 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
     }
   };
 
+  //검색
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -87,6 +93,9 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
     fetchData();
   }, [searchTerm]);
 
+  /* 필터링
+   * 1. 매진여부 추가하기
+   */
   useEffect(() => {
     let filtered = cardItems;
 
@@ -99,9 +108,9 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
     if (activeFilter.type) {
       filtered = filtered.filter((item) => {
         switch (activeFilter.type) {
-          case "rating":
+          case "grade":
             return item.card.grade === activeFilter.value;
-          case "attribute":
+          case "type":
             return item.card.type && item.card.type.includes(activeFilter.value);
           default:
             return true;
@@ -113,35 +122,33 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
     setCount(12);
   }, [searchTerm, activeFilter, cardItems]);
 
-  //멀티필터용 타입별 개수 세기
+  /*멀티필터용 타입별 개수 세기
+   * 1. 매진 여부 추가하기
+   */
   useEffect(() => {
     const updateCounts = () => {
-      const gradeCountData = {};
-      const typeCountData = {};
+      const gradeCount = {};
+      const typeCount = {};
 
       filteredCards.forEach((item) => {
         const grade = item.card.grade;
-        gradeCountData[grade] = (gradeCountData[grade] || 0) + 1;
+        gradeCount[grade] = (gradeCount[grade] || 0) + 1;
 
         const types = item.card.type || [];
 
         types.forEach((type) => {
-          typeCountData[type] = (typeCountData[type] || 0) + 1;
+          typeCount[type] = (typeCount[type] || 0) + 1;
         });
       });
 
-      setGradeCounts(gradeCountData);
-      setTypeCounts(typeCountData);
+      setGradeCounts(gradeCount);
+      setTypeCounts(typeCount);
 
-      onFilterCountChange({ grade: gradeCountData, type: typeCountData });
+      onFilterCountChange({ grade: gradeCount, type: typeCount });
     };
 
     updateCounts();
   }, [filteredCards]);
-
-  const closeNotification = () => {
-    setShowNotification(false);
-  };
 
   return (
     <div className={styles.pocketItem_container}>

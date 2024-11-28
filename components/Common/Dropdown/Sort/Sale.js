@@ -6,7 +6,7 @@ import { useState } from "react";
 
 export default function Sale({ sortType }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectValue, setSelectValue] = useState("판매여부");
+  const [selectValue, setSelectValue] = useState("판매방법");
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
