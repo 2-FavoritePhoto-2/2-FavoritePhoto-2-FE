@@ -13,7 +13,6 @@ import Modal from "@/components/Common/Modal/Modal";
 export async function getServerSideProps(context) {
   const shopId = context.params["id"];
   let data;
-  
   try {
     const res = await axios.get(`/shop/${shopId}`);
     data = res.data;
@@ -22,7 +21,6 @@ export async function getServerSideProps(context) {
       notFound: true,
     };
   }
-
   return {
     props: {
       data,
@@ -30,13 +28,15 @@ export async function getServerSideProps(context) {
   };
 }
 
+//구매자 기준 상세페이지
 export default function CardDetail({ data }) {
+  const accessToken = localStorage.getItem("accessToken");
   const [myCardList, setMyCardList] = useState([]);
   const [filteredCards, setFilteredCards] = useState([]);
   const [isOwner, setIsOwner] = useState(false);
   const [myOffer, setMyOffer] = useState(false);
   const [exchangeModal, setExchangeModal] = useState(false);
-  const [relatedCards, setRelatedCards] = useState([]);
+  const [relatedCards, setRelatedCards] = useState([]); // 관련 카드 상태 추가
   const [filters, setFilters] = useState({
     type: "",
     value: "",
@@ -48,7 +48,6 @@ export default function CardDetail({ data }) {
   useEffect(() => {
     const fetchMyCards = async () => {
       try {
-        const accessToken = localStorage.getItem("accessToken");
         const response = await axios.get(`/user/cards`, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -88,28 +87,25 @@ export default function CardDetail({ data }) {
   const fetchCards = async (options = {}) => {
     try {
       const { pageNumber, filters } = options;
-      
-      // 필터가 없고 페이지 번호도 없는 경우
+
       if (!filters?.type && !pageNumber) {
         setFilteredCards(myCardList);
         return;
       }
 
-      // URL 파라미터 구성
       const params = new URLSearchParams();
-      if (pageNumber) params.append('page', pageNumber);
-      
-      // 필터 타입에 따라 적절한 파라미터 추가
+      if (pageNumber) params.append("page", pageNumber);
+
       if (filters?.type) {
         switch (filters.type) {
-          case 'keyword':
-            params.append('keyword', filters.value);
+          case "keyword":
+            params.append("keyword", filters.value);
             break;
-          case 'grade':
-            params.append('grade', filters.value);
+          case "grade":
+            params.append("grade", filters.value);
             break;
-          case 'type':
-            params.append('type', filters.value);
+          case "type":
+            params.append("type", filters.value);
             break;
         }
       }
@@ -214,14 +210,14 @@ export default function CardDetail({ data }) {
       </div>
       {exchangeModal && (
         <Modal isOpen={exchangeModalOpen} closeModal={exchangeModalClose}>
-        <Exchange
-          data={filteredCards}
-          onClose={exchangeModalClose}
-          onSearch={handleSearch}
-          onFilterChange={handleFilterChange}
-          onPageChange={handlePageChange}
-        />
-      </Modal>
+          <Exchange
+            data={filteredCards}
+            onClose={exchangeModalClose}
+            onSearch={handleSearch}
+            onFilterChange={handleFilterChange}
+            onPageChange={handlePageChange}
+          />
+        </Modal>
       )}
     </>
   );
