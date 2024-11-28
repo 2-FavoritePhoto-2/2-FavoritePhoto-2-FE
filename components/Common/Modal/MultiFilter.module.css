@@ -110,6 +110,11 @@
   cursor: pointer;
 }
 
+.item_wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
 .button_wrapper {
   display: flex;
   align-items: center;

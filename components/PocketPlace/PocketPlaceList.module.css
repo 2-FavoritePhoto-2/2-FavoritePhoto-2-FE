@@ -1,11 +1,8 @@
-.row {
+.pocketItem_container {
   display: grid;
-  gap: 2vw;
-  overflow-x: auto;
-  padding-bottom: 2rem;
   grid-template-columns: repeat(3, 1fr);
+  gap: 5rem;
 }
-
 .card_wrapper {
   cursor: pointer;
 }
@@ -28,8 +25,16 @@
   background-color: var(--color-gray-300);
 }
 
-@media (min-width: 375px) and (max-width: 1199px) {
-  .row {
+@media (min-width: 744px) and (max-width: 1199px) {
+  .pocketItem_container {
     grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 743px) {
+  .pocketItem_container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
   }
 }

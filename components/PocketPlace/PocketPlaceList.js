@@ -6,20 +6,22 @@ import throttle from "lodash/throttle";
 import { getCards } from "@/lib/api/pocketPlaceAPI";
 import { useRouter } from "next/router";
 
-export default function PocketPlaceList({ searchTerm, activeFilter }) {
-  const [cardPerRow, setCardPerRow] = useState(3);
+export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCountChange }) {
   const [cardItems, setCardItems] = useState([]);
   const [filteredCards, setFilteredCards] = useState([]);
   const [count, setCount] = useState(12);
   const [loading, setLoading] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
+  const [gradeCounts, setGradeCounts] = useState({});
+  const [typeCounts, setTypeCounts] = useState({});
 
   const router = useRouter();
 
-  const updateCardPerRow = () => {
-    setCardPerRow(window.innerWidth <= 1199 ? 2 : 3);
+  const closeNotification = () => {
+    setShowNotification(false);
   };
 
+  //무한 스크롤링
   const handleScroll = throttle(() => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 
@@ -40,6 +42,15 @@ export default function PocketPlaceList({ searchTerm, activeFilter }) {
     }
   }, 50);
 
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [handleScroll]);
+
+  //로그인 여부
   const handleCardClick = (cardId) => {
     const accessToken = localStorage.getItem("accessToken");
     if (!accessToken) {
@@ -49,23 +60,30 @@ export default function PocketPlaceList({ searchTerm, activeFilter }) {
     }
   };
 
-  useEffect(() => {
-    updateCardPerRow();
-    window.addEventListener("resize", updateCardPerRow);
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("resize", updateCardPerRow);
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [handleScroll]);
-
+  //검색, 정렬, 필터
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const query = searchTerm ? `?keyword=${searchTerm}` : "";
-        const data = await getCards("/shop" + query);
-        console.log(data);
+        const queryParams = new URLSearchParams();
+
+        if (searchTerm) {
+          queryParams.append("keyword", searchTerm);
+        }
+
+        if (activeFilter.orderBy) {
+          queryParams.append("orderBy", activeFilter.orderBy);
+        }
+
+        if (activeFilter.grade) {
+          queryParams.append("grade", activeFilter.grade);
+        }
+
+        if (activeFilter.type) {
+          queryParams.append("type", activeFilter.type);
+        }
+
+        const queryString = queryParams.toString() ? `?${queryParams.toString()}` : "";
+        const data = await getCards("/shop" + queryString);
 
         const cards = data.list.map((item) => ({
           listId: item.id,
@@ -85,69 +103,60 @@ export default function PocketPlaceList({ searchTerm, activeFilter }) {
 
         setCardItems(cards);
         setFilteredCards(cards);
+        setCount(12);
       } catch (error) {
         console.error("패치 실패", error);
       }
     };
     fetchData();
-  }, [searchTerm]);
+  }, [searchTerm, activeFilter]);
 
+  /*멀티필터용 타입별 개수 세기
+   * 1. 매진 여부 추가하기
+   */
   useEffect(() => {
-    let filtered = cardItems;
+    const updateCounts = () => {
+      const gradeCount = {};
+      const typeCount = {};
 
-    if (searchTerm !== "") {
-      filtered = filtered.filter((item) =>
-        item.card.name.toLowerCase().includes(searchTerm.toLowerCase()),
-      );
-    }
+      filteredCards.forEach((item) => {
+        const grade = item.card.grade;
+        gradeCount[grade] = (gradeCount[grade] || 0) + 1;
 
-    if (activeFilter.type) {
-      filtered = filtered.filter((item) => {
-        switch (activeFilter.type) {
-          case "rating":
-            return item.card.grade === activeFilter.value;
-          case "attribute":
-            return item.card.type && item.card.type.includes(activeFilter.value);
-          default:
-            return true;
-        }
+        const types = item.card.type || [];
+
+        types.forEach((type) => {
+          typeCount[type] = (typeCount[type] || 0) + 1;
+        });
       });
-    }
 
-    setFilteredCards(filtered);
-    setCount(12);
-  }, [searchTerm, activeFilter, cardItems]);
+      setGradeCounts(gradeCount);
+      setTypeCounts(typeCount);
 
-  const rows = Array.from({ length: Math.ceil(filteredCards.length / cardPerRow) });
+      onFilterCountChange({ grade: gradeCount, type: typeCount });
+    };
 
-  const closeNotification = () => {
-    setShowNotification(false);
-  };
+    updateCounts();
+  }, [filteredCards]);
 
   return (
     <div className={styles.pocketItem_container}>
-      {rows.map((_, rowIndex) => (
-        <div className={styles.row} key={rowIndex}>
-          {filteredCards
-            .slice(rowIndex * cardPerRow, rowIndex * cardPerRow + cardPerRow)
-            .map((item) => (
-              <div
-                key={item.listId}
-                className={styles.card_wrapper}
-                onClick={() => handleCardClick(item.listId)}
-              >
-                {console.log(item)}
-                <PhotoCard
-                  data={{
-                    ...item,
-                    remainingQuantity: item.card.remainingQuantity,
-                    totalQuantity: item.card.totalQuantity,
-                  }}
-                />
-              </div>
-            ))}
+      {filteredCards.map((item) => (
+        <div
+          key={item.listId}
+          className={styles.card_wrapper}
+          onClick={() => handleCardClick(item.listId)}
+        >
+          <PhotoCard
+            data={{
+              ...item,
+              remainingQuantity: item.card.remainingQuantity,
+              totalQuantity: item.card.totalQuantity,
+            }}
+          />
         </div>
       ))}
+
       {showNotification && (
         <Notification
           type="login"
