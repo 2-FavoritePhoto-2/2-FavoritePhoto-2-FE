@@ -57,19 +57,12 @@ export default function MyGallery({ myCardList }) {
     try {
       setLoading(true);
 
-      const filters = [];
-
-      if (searchTerm) filters.push({ type: "keyword", value: searchTerm });
-      if (gradeFilter) filters.push({ type: "grade", value: gradeFilter });
-      if (typeFilter) filters.push({ type: "type", value: typeFilter });
-
-      const filter = filters[0] || {};
-
       const filteredResults = await getMyPhotoCardList({
         page: pageNumber,
         pageSize: 9,
-        filterType: filter.type,
-        filterValue: filter.value,
+        grade: gradeFilter,
+        type: typeFilter,
+        keyword: searchTerm,
       });
 
       if (!filteredResults.card || filteredResults.card.length === 0) {

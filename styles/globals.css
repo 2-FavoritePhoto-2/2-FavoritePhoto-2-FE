@@ -63,4 +63,8 @@ body {
   body {
     padding: 0 1.5rem;
   }
+
+  .body_container {
+    margin: 0 0 5rem;
+  }
 }

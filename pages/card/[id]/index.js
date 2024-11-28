@@ -8,6 +8,7 @@ import { useUser } from "@/hooks/contexts/UserContext";
 import axios from "@/lib/api/api.js";
 import PhotoCard from "@/components/Common/PhotoCard/PhotoCard";
 import Exchange from "@/components/Common/Modal/Exchange";
+import Modal from "@/components/Common/Modal/Modal";
 
 export async function getServerSideProps(context) {
   const shopId = context.params["id"];
@@ -20,31 +21,114 @@ export async function getServerSideProps(context) {
       notFound: true,
     };
   }
-  const response = await axios.get(`/shop`);
-  let cardList = response.data.list;
+  const response = await axios.get(`/user/cards`, {
+    headers: {
+      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI3NTQxNDgsImV4cCI6MTczMjg0MDU0OH0.szwdYg8O48-eEcVJVtFWtcrtdRBJyOtFOnstGgHDR1I`,
+    },
+  });
+  let myCardList = response.data;
   // props로 전달할 데이터를 반환합니다.
   return {
     props: {
       data,
-      cardList,
+      myCardList,
     },
   };
 }
 
 //구매자 기준 상세페이지
-export default function CardDetail({ data, cardList }) {
+export default function CardDetail({ data, myCardList }) {
   const [isOwner, setIsOwner] = useState(false);
   const [myOffer, setMyOffer] = useState(false);
   const [exchangeModal, setExchangeModal] = useState(false);
   const [relatedCards, setRelatedCards] = useState([]); // 관련 카드 상태 추가
+  const [filteredCards, setFilteredCards] = useState(myCardList);
+  const [filters, setFilters] = useState({
+    type: "",
+    value: "",
+  });
 
+  const accessToken =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI3NTQxNDgsImV4cCI6MTczMjg0MDU0OH0.szwdYg8O48-eEcVJVtFWtcrtdRBJyOtFOnstGgHDR1I";
   const card = data.card;
   const exchangeGrade = data.exchangeGrade;
 
-  const exchangeModalOpen = () => setExchangeModal(true);
-  const exchangeModalClose = () => setExchangeModal(false);
+  const handleSearch = async (searchTerm) => {
+    const newFilters = { type: "keyword", value: searchTerm };
+    setFilters(newFilters);
+    await fetchFilteredCards(newFilters);
+  };
+  const handleFilterChange = async (filterType, value) => {
+    let type = "";
+    switch (filterType) {
+      case "attribute":
+        type = "type";
+        break;
+      case "rating":
+        type = "grade";
+        break;
+      default:
+        type = filterType;
+    }
+    const newFilters = { type, value };
+    setFilters(newFilters);
+    await fetchCards({ filters: newFilters });
+  };
+  const fetchCards = async (options = {}) => {
+    try {
+      const { pageNumber, filters } = options;
+      
+      // 필터가 없고 페이지 번호도 없는 경우
+      if (!filters?.type && !pageNumber) {
+        setFilteredCards(myCardList);
+        return;
+      }
 
-  // card.name을 기반으로 관련 카드 검색
+      // URL 파라미터 구성
+      const params = new URLSearchParams();
+      if (pageNumber) params.append('page', pageNumber);
+      
+      // 필터 타입에 따라 적절한 파라미터 추가
+      if (filters?.type) {
+        switch (filters.type) {
+          case 'keyword':
+            params.append('keyword', filters.value);
+            break;
+          case 'grade':
+            params.append('grade', filters.value);
+            break;
+          case 'type':
+            params.append('type', filters.value);
+            break;
+        }
+      }
+
+      const response = await axios.get(`/user/cards?${params.toString()}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      setFilteredCards(response.data);
+    } catch (error) {
+      console.error("Error fetching cards:", error);
+    }
+  };
+
+  const handlePageChange = (pageNumber) => {
+    fetchCards({ pageNumber, filters });
+  };
+
+  const fetchFilteredCards = (currentFilters) => {
+    fetchCards({ filters: currentFilters });
+  };
+
+  const exchangeModalOpen = () => setExchangeModal(true);
+  const exchangeModalClose = () => {
+    setExchangeModal(false);
+    setFilteredCards(myCardList); // 필터링된 카드 목록 초기화
+    setFilters({ type: "", value: "" }); // 필터 상태 초기화
+  };
+
   useEffect(() => {
     const fetchRelatedCards = async () => {
       try {
@@ -117,7 +201,17 @@ export default function CardDetail({ data, cardList }) {
           )}
         </div>
       </div>
-      {exchangeModal && <Exchange data={cardList} onClose={exchangeModalClose} />}
+      {exchangeModal && (
+        // <Modal isOpen={exchangeModalOpen} closeModal={exchangeModalClose}>
+        <Exchange
+          data={filteredCards}
+          onClose={exchangeModalClose}
+          onSearch={handleSearch}
+          onFilterChange={handleFilterChange}
+          onPageChange={handlePageChange}
+        />
+        // </Modal>
+      )}
     </>
   );
 }
