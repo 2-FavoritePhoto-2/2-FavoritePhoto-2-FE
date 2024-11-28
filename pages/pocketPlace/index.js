@@ -43,7 +43,6 @@ export default function PocketPlace() {
           searchTerm={searchTerm}
           activeFilter={activeFilter}
           onFilterCountChange={handleFilterCountChange}
-          filterCounts={filterCounts}
         />
       </div>
     </>

@@ -22,7 +22,10 @@ export default function PocketPlaceFilter({ onSearch, onFilterChange, filterCoun
   };
 
   const handleResetFilters = () => {
-    onFilterChange(null, null);
+    onFilterChange("type", null);
+    onFilterChange("grade", null);
+    onFilterChange("orderBy", "priceLowest");
+    setReset(true);
   };
 
   return (
@@ -59,6 +62,7 @@ export default function PocketPlaceFilter({ onSearch, onFilterChange, filterCoun
                 filterKeys={["등급", "속성", "매진여부"]}
                 filterCounts={filterCounts}
                 onFilterChange={handleFilterChange}
+                reset={reset}
               />
             </div>
             <div className={styles.sort}>

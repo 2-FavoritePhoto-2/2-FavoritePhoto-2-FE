@@ -60,7 +60,7 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
     }
   };
 
-  //검색 및 정렬
+  //검색, 정렬, 필터
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -72,6 +72,14 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
 
         if (activeFilter.orderBy) {
           queryParams.append("orderBy", activeFilter.orderBy);
+        }
+
+        if (activeFilter.grade) {
+          queryParams.append("grade", activeFilter.grade);
+        }
+
+        if (activeFilter.type) {
+          queryParams.append("type", activeFilter.type);
         }
 
         const queryString = queryParams.toString() ? `?${queryParams.toString()}` : "";
@@ -95,41 +103,13 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
 
         setCardItems(cards);
         setFilteredCards(cards);
+        setCount(12);
       } catch (error) {
         console.error("패치 실패", error);
       }
     };
     fetchData();
   }, [searchTerm, activeFilter]);
-
-  /* 필터링
-   * 1. 매진여부 추가하기
-   */
-  useEffect(() => {
-    let filtered = cardItems;
-
-    if (searchTerm !== "") {
-      filtered = filtered.filter((item) =>
-        item.card.name.toLowerCase().includes(searchTerm.toLowerCase()),
-      );
-    }
-
-    if (activeFilter.type) {
-      filtered = filtered.filter((item) => {
-        switch (activeFilter.type) {
-          case "grade":
-            return item.card.grade === activeFilter.value;
-          case "type":
-            return item.card.type && item.card.type.includes(activeFilter.value);
-          default:
-            return true;
-        }
-      });
-    }
-
-    setFilteredCards(filtered);
-    setCount(12);
-  }, [searchTerm, activeFilter, cardItems]);
 
   /*멀티필터용 타입별 개수 세기
    * 1. 매진 여부 추가하기

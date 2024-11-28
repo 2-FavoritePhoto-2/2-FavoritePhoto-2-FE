@@ -4,19 +4,20 @@ import icon_filter from "@/public/assets/icon_filter.svg";
 import icon_exchange from "@/public/assets/icon_exchange.svg";
 import styles from "./MultiFilter.module.css";
 
-export default function MultiFilterModal({ filterKeys, filterCounts, onFilterChange }) {
+export default function MultiFilterModal({ filterKeys, filterCounts, onFilterChange, reset }) {
   const [activeTab, setActiveTab] = useState("등급");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
   const openModal = () => setIsModalOpen(true);
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+  const closeModal = () => setIsModalOpen(false);
 
   const resetSelect = () => {
     setSelectedItem(null);
-    onFilterChange(null, null);
+    onFilterChange("grade", null);
+    onFilterChange("type", null);
+    onFilterChange("sale", null);
+    onFilterChange("available", null);
   };
 
   // useEffect(() => { 멀티필터 잘 가져오는 지 확인용
@@ -79,7 +80,7 @@ export default function MultiFilterModal({ filterKeys, filterCounts, onFilterCha
       : activeTab === "판매방법"
       ? filterCounts?.sale || {}
       : activeTab === "매진여부"
-      ? filterCounts?.soldOut || {}
+      ? filterCounts?.available || {}
       : {};
 
   //멀티 필터에서 총 개수 계산하는 부분
@@ -91,13 +92,13 @@ export default function MultiFilterModal({ filterKeys, filterCounts, onFilterCha
       return Object.values(filterCounts?.type || {}).reduce((total, count) => total + count, 0);
     }
     if (activeTab === "판매방법") {
+      return Object.values(filterCounts?.sale || {}).reduce((total, count) => total + count, 0);
+    }
+    if (activeTab === "매진여부") {
       return Object.values(filterCounts?.available || {}).reduce(
         (total, count) => total + count,
         0,
       );
-    }
-    if (activeTab === "매진여부") {
-      return Object.values(filterCounts?.soldout || {}).reduce((total, count) => total + count, 0);
     }
     return 0;
   };
