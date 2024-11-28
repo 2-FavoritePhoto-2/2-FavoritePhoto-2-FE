@@ -2,7 +2,8 @@ import { useState } from "react";
 import styles from "./MyCardDetail.module.css";
 import Grade from "../Grade/Grade";
 import Modal from "../Modal/Modal";
-import CardSell from "@/components/Common/Modal/CardSell";
+// import CardSell from "@/components/Common/Modal/CardSell";
+import SelectCardExchange from "../Modal/SelectCardExchange";
 
 export default function MyCardDetail({ data }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -55,7 +56,7 @@ export default function MyCardDetail({ data }) {
       </button>
       {isOpen && (
         <Modal isOpen={isOpen} closeModal={handleClose}>
-          <CardSell data={data} closeModal={handleClose} />
+          <SelectCardExchange data={data} closeModal={handleClose} />
         </Modal>
       )}
     </div>

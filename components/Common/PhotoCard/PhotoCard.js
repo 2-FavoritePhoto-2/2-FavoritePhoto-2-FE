@@ -21,7 +21,7 @@ export default function PhotoCard({ data, type = "판매카드", exchange }) {
             <h1 className={exchangeHeaderClass}>{data.name}</h1>
             <div className={styles.meta_info}>
               <div className={styles.category}>
-                <Grade grade={data.grade} />
+                <Grade className={exchangeClass} grade={data.grade} />
                 <p className={`${styles.vert_line} ${exchangeClass}`}>|</p>
                 <p className={`${styles.type} ${exchangeClass}`}>{data.type[0]}</p>
                 {data.type[1] ? (
