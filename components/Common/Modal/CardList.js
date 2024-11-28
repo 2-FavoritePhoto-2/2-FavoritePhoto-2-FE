@@ -49,19 +49,12 @@ export default function CardList() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const filters = [];
-
-        if (searchTerm) filters.push({ type: "keyword", value: searchTerm });
-        if (gradeFilter) filters.push({ type: "grade", value: gradeFilter });
-        if (typeFilter) filters.push({ type: "type", value: typeFilter });
-
-        const filter = filters[0] || {};
-
         const fetchCardData = await getMyPhotoCardList({
           page: 1,
           pageSize: 30,
-          filterType: filter.type,
-          filterValue: filter.value,
+          grade: gradeFilter,
+          type: typeFilter,
+          keyword: searchTerm,
         });
         setCardData(fetchCardData.card);
       } catch (err) {
