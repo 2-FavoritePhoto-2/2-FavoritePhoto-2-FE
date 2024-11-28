@@ -2,9 +2,9 @@ import styles from "./Sort.module.css";
 import Image from "next/image";
 import icon_up from "@/public/assets/icon_up.svg";
 import icon_down from "@/public/assets/icon_down.svg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function Sale({ sortType }) {
+export default function Sale({ sortType, reset }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectValue, setSelectValue] = useState("판매방법");
 
@@ -12,8 +12,6 @@ export default function Sale({ sortType }) {
     setIsOpen(!isOpen);
   };
 
-  /* TODO
-   *sortType 함수 -> 부모 컴포넌트에서 정렬하는 함수를 정의해야함 */
   const handleSelect = (value) => {
     setSelectValue(value);
     setIsOpen(false);
@@ -21,6 +19,12 @@ export default function Sale({ sortType }) {
       sortType(value);
     }
   };
+
+  useEffect(() => {
+    if (reset) {
+      setSelectValue("판매방법");
+    }
+  }, [reset]);
 
   return (
     <div

@@ -17,7 +17,7 @@ export default function PocketPlaceFilter({ onSearch, onFilterChange, filterCoun
   };
 
   const handleFilterChange = (filterType, value) => {
-    setReset((prev) => !prev);
+    setReset(false);
     onFilterChange(filterType, value);
   };
 
