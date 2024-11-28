@@ -17,7 +17,13 @@ const LoginPage = () => {
     try {
       const data = await login(email, password);
       console.log('로그인 성공:', data);
-      router.push('/pocketPlace');
+      if (data.accessToken) {
+        localStorage.setItem('accessToken', data.accessToken);
+        console.log('액세스 토큰 저장됨:', data.accessToken); 
+        router.push('/pocketPlace'); 
+      } else {
+        console.error('액세스 토큰이 없습니다.');
+      }
     } catch (error) {
       console.error('로그인 실패:', error);
     }
@@ -32,7 +38,10 @@ const LoginPage = () => {
       </Head>
 
       <main className={styles.main}>
+      <Link href="/pocketPlace" className={styles.homeLogo}>
         <Image src="/assets/logo.svg" width={337} height={75} alt="홈 로고" className={styles.logoImage} />
+        </Link>
+
         <form className={styles.form} onSubmit={handleLogin}>
           <div className={styles.inputContainer}>
           <Input
