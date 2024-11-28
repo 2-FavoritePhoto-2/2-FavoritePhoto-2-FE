@@ -26,14 +26,14 @@ export default function SuccessFail({ type, data }) {
       title: "구매",
       status: "성공",
       description: "장 구매에 성공했습니다!",
-      //   description: `[${data.rate} | ${data.title}] ${data.count}장\n 구매에 성공했습니다!`,
+        description: `[${data.grade} | ${data.name}] ${data.quantity}장\n 구매에 성공했습니다!`,
       buttonText: "마이갤러리에서 확인하기",
     },
     purchase_fail: {
       title: "구매",
       status: "실패",
       description: "장 구매에 실패했습니다.",
-      //   description: `[${data.rate} | ${data.title}] ${data.count}장\n 구매에 실패했습니다.`,
+        description: `[${data.grade} | ${data.name}] ${data.quantity}장\n 구매에 실패했습니다.`,
       buttonText: "포켓플레이스로 돌아가기",
     },
     exchange_success: {

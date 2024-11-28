@@ -34,12 +34,12 @@ export default function App({ Component, pageProps }) {
     await fetchUserProfile(); 
   };
 
-  const handleLogout = () => {
+   const handleLogout = () => {
     setIsLoggedIn(false);
     localStorage.removeItem('isLoggedIn'); 
-  };
+   }
 
-  useEffect(() => {
+ useEffect(() => {
     const storedIsLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     setIsLoggedIn(storedIsLoggedIn);
 
@@ -81,7 +81,7 @@ export default function App({ Component, pageProps }) {
           points={points}
           nickname={nickname}
           handleLogout={handleLogout}
-        /> 
+         /> 
             )}
         <div className="body_container">
           <Component {...pageProps} handleLogin={handleLogin} />

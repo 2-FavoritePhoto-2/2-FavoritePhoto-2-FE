@@ -9,23 +9,8 @@ import Attribute from "@/components/Common/Dropdown/Sort/Attribute";
 import { getMyPhotoCardList } from "@/lib/api/UserService";
 import { useState, useEffect } from "react";
 
-export async function getServerSideProps() {
-  try {
-    const myCardList = await getMyPhotoCardList({ page: 1, pageSize: 9 });
-
-    return {
-      props: {
-        myCardList,
-      },
-    };
-  } catch (err) {
-    console.error("데이터를 불러오는 중 문제가 발생하였습니다.", err);
-    throw new Error("서버에서 데이터를 가져오는 중 문제가 발생했습니다." + err.message);
-  }
-}
-
-export default function MyGallery({ myCardList }) {
-  const [myCards, setMyCards] = useState(myCardList?.card || []);
+export default function MyGallery() {
+  const [myCards, setMyCards] = useState([]);
   const [page, setPage] = useState(2);
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -57,19 +42,12 @@ export default function MyGallery({ myCardList }) {
     try {
       setLoading(true);
 
-      const filters = [];
-
-      if (searchTerm) filters.push({ type: "keyword", value: searchTerm });
-      if (gradeFilter) filters.push({ type: "grade", value: gradeFilter });
-      if (typeFilter) filters.push({ type: "type", value: typeFilter });
-
-      const filter = filters[0] || {};
-
       const filteredResults = await getMyPhotoCardList({
         page: pageNumber,
         pageSize: 9,
-        filterType: filter.type,
-        filterValue: filter.value,
+        grade: gradeFilter,
+        type: typeFilter,
+        keyword: searchTerm,
       });
 
       if (!filteredResults.card || filteredResults.card.length === 0) {

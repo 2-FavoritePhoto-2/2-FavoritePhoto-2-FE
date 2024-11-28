@@ -57,10 +57,10 @@ export default function SelectCardExchange({ data, onClose }) {
                 onClick={closeModal}
               />
             </div>
-            <p className={styles.exchange_name}>{data.card.name}</p>
+            <p className={styles.exchange_name}>{data.name}</p>
             <div className={styles.photocard_content}>
               <div className={styles.photocard_size}>
-                <PhotoCard data={data ?? {}} exchange={true} />
+                <PhotoCard type="내카드" data={data ?? {}} exchange={true} />
               </div>
               <div className={styles.select_table}>
                 <div className={styles.input_size}>
