@@ -5,6 +5,7 @@ import GlobalNavigationBar from "@/lib/gnb/gnb";
 import Head from "next/head";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { getUserProfile } from "@/lib/api/auth"; 
 
 const noto = Noto_Sans_KR({ subsets: ["latin"] });
 
@@ -14,13 +15,24 @@ export default function App({ Component, pageProps }) {
   const router = useRouter();
   const [isMobile, setIsMobile] = useState(false);
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태 관리
-  const points = 1540; // 보유 포인트
-  const nickname = "유디"; // 닉네임
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
+  const [points, setPoints] = useState(0); 
+  const [nickname, setNickname] = useState(""); 
 
-  // 인증 상태 변경 함수
-  const handleAuthChange = () => {
-    setIsLoggedIn((prev) => !prev); // 로그인 상태 반전
+  const fetchUserProfile = async () => {
+    try {
+      const profile = await getUserProfile(); 
+      setPoints(profile.point); 
+      setNickname(profile.nickname); 
+    } catch (error) {
+      console.error("프로필 조회 실패:", error);
+    }
+  };
+
+  // 로그인 성공 후 프로필 정보 가져오기...
+  const handleLogin = async () => {
+    setIsLoggedIn(true);
+    await fetchUserProfile(); 
   };
 
   useEffect(() => {
@@ -52,17 +64,16 @@ export default function App({ Component, pageProps }) {
 
       <div className={noto.className}>
         {!(isMobile && isMobilePage) && (
-          <GlobalNavigationBar
-            isLoggedin={isLoggedIn}
-            setIsLoggedIn={setIsLoggedIn}
-            points={points}
-            nickname={nickname}
-            handleAuthChange={handleAuthChange}
-          />
-        )}
+        <GlobalNavigationBar
+          isLoggedin={isLoggedIn}
+          setIsLoggedIn={setIsLoggedIn}
+          points={points}
+          nickname={nickname}
+        /> 
+            )}
         <div className="body_container">
-          <Component {...pageProps} />
-        </div>
+          <Component {...pageProps} handleLogin={handleLogin} />
+        </div> 
       </div>
     </QueryClientProvider>
   );

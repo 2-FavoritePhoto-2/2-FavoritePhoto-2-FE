@@ -4,12 +4,12 @@ import { useRouter } from "next/router";
 
 export default function SuccessFailPage() {
   const router = useRouter();
-  const { type } = router.query;
+  const { type, ...data } = router.query;
 
   return (
     <>
       <div className={styles.successFail_container}>
-        <SuccessFail type={type} />
+        <SuccessFail type={type} data={data} />
       </div>
     </>
   );

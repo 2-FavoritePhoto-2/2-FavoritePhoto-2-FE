@@ -1,5 +1,7 @@
 GET https://pikapick.onrender.com/shop
 
+
+
 ###
 
 GET https://pikapick.onrender.com/shop?exclude=523b755f-af48-4726-83a2-0a9ec7400776
@@ -21,18 +23,79 @@ POST https://pikapick.onrender.com/auth/login
 Content-Type: application/json
 
 {
-"email": "string",
-"password": "string"
+"email": "test3@gmail.com",
+"password": "1234"
 }
 
-### 카드상세조회
-###  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlMDZiNGI4Zi01NTZlLTQzMDMtYmQ1Ni1kZTAwZDIxNzM2ZDkiLCJpYXQiOjE3MzIyNDkzODgsImV4cCI6MTczMjI1Mjk4OH0.zhAYDsVraNcshynhGRc8hn6fuY9pXagpmnwPQjLK7XM"
-### refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlMDZiNGI4Zi01NTZlLTQzMDMtYmQ1Ni1kZTAwZDIxNzM2ZDkiLCJpYXQiOjE3MzIyNDkzODgsImV4cCI6MTczMzQ1ODk4OH0.9lN8E5L2RiU3f5VrmtOmEywpcbIzIW2KDTcGFne4jQ8;
+###  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI3NTQxNDgsImV4cCI6MTczMjg0MDU0OH0.szwdYg8O48-eEcVJVtFWtcrtdRBJyOtFOnstGgHDR1I"
+### refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI3NTQxNDgsImV4cCI6MTczMzk2Mzc0OH0.4sJOanW8Nz_k0kjcLb6nMTi-yOwV8UgL_mmHCcPJAdU
 
+POST https://pikapick.onrender.com/auth/token/refresh
+Content-Type: application/json
+Cookie: refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI3NTQxNDgsImV4cCI6MTczMzk2Mzc0OH0.4sJOanW8Nz_k0kjcLb6nMTi-yOwV8UgL_mmHCcPJAdU
+
+
+### 카드상세조회
 GET https://pikapick.onrender.com/shop/3dcf8d43-945a-471b-b6a1-fc064516aa14
-# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlMDZiNGI4Zi01NTZlLTQzMDMtYmQ1Ni1kZTAwZDIxNzM2ZDkiLCJpYXQiOjE3MzIyNDkzODgsImV4cCI6MTczMjI1Mjk4OH0.zhAYDsVraNcshynhGRc8hn6fuY9pXagpmnwPQjLK7XM
+### Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJiYWE3OWIxZS03NzM1LTQ2MmEtYjBkNi04MzkwYTFmZTJlNzciLCJpYXQiOjE3MzI1ODUxMjgsImV4cCI6MTczMjY3MTUyOH0.z1hw5Cm8SIMvWL4lJfVXDjUkdygpt-MOGPenadvs2iw
 
 
 ###
 
 GET https://pikapick.onrender.com/shop?keyword=망키
+
+###
+
+GET https://pikapick.onrender.com/user/cards
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI3NTQxNDgsImV4cCI6MTczMjg0MDU0OH0.szwdYg8O48-eEcVJVtFWtcrtdRBJyOtFOnstGgHDR1I
+
+###
+
+GET https://pikapick.onrender.com/user/cards?keyword=폭음룡
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI3NTQxNDgsImV4cCI6MTczMjg0MDU0OH0.szwdYg8O48-eEcVJVtFWtcrtdRBJyOtFOnstGgHDR1I
+
+###
+
+GET https://pikapick.onrender.com/user/cards?type=물
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI3NTQxNDgsImV4cCI6MTczMjg0MDU0OH0.szwdYg8O48-eEcVJVtFWtcrtdRBJyOtFOnstGgHDR1I
+
+###
+
+GET https://pikapick.onrender.com/user/cards?grade=COMMON
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI3NTQxNDgsImV4cCI6MTczMjg0MDU0OH0.szwdYg8O48-eEcVJVtFWtcrtdRBJyOtFOnstGgHDR1I
+
+###
+POST https://pikapick.onrender.com/shop/3dcf8d43-945a-471b-b6a1-fc064516aa14/purchase
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI2ODc2NDUsImV4cCI6MTczMjc3NDA0NX0.88m1jXFq3ISQROyHOrGWYCkS29gqXohcLDHpz1eYiLU
+
+{
+    "quantity":1,
+    "totalPrice":5
+}
+
+###
+###로컬 서버
+
+GET http://localhost:3100/shop
+
+###
+
+POST http://localhost:3100/auth/login
+Content-Type: application/json
+
+{
+"email": "test3@gmail.com",
+"password": "1234"
+}
+### 로컬 로그인
+###   "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI3MDEyNTksImV4cCI6MTczMjc4NzY1OX0.glSkF5Q3bW3i7208jvDSND3-mOTV93X1cE1i00R2TpM"
+### refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI3MDEyNTksImV4cCI6MTczMzkxMDg1OX0.99H2Fr2noHUW4yf5-mQ_lldycRhZa9kF3SZBzVZs6MI
+
+GET http://localhost:3100/user/cards
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI3MDEyNTksImV4cCI6MTczMjc4NzY1OX0.glSkF5Q3bW3i7208jvDSND3-mOTV93X1cE1i00R2TpM
+
+###
+
+GET http://localhost:3100/user/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI3MDEyNTksImV4cCI6MTczMjc4NzY1OX0.glSkF5Q3bW3i7208jvDSND3-mOTV93X1cE1i00R2TpM
