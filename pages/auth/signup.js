@@ -62,14 +62,16 @@ export default function Signup() {
 
   return (
     <div className={styles.container}>
-      <Head>
+      <Head>  
         <title>회원가입 페이지</title>
         <meta name="description" content="회원가입 페이지" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
+      <Link href="/" className={styles.homeLogo}>
         <Image src="/assets/logo.svg" width={375} height={75} alt="홈 로고" className={styles.logoImage} />
+      </Link>
         <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.inputContainer}>
           <Input
