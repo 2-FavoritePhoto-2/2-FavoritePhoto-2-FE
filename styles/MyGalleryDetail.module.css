@@ -46,15 +46,8 @@
     height: 100%;
 }
 
-.info {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    width: 30%;
-
-    font-size: 2rem;
-    background-color: var(--color-gray-300);
+.back_icon {
+    display: none;
 }
 
 /* Tablet Only */
@@ -82,6 +75,15 @@
 @media (max-width: 743px) {
     .container {
         max-width: 34.5rem;
+        gap: 2rem;
+    }
+
+    .back_icon {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        padding: 2rem 0;
     }
 
     .title h1 {
