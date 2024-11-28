@@ -1,11 +1,11 @@
+import { useRouter } from "next/router";
 import styles from "./SuccessFail.module.css";
 import Image from "next/image";
 import icon_close from "@/public/assets/icon_close.svg";
 import icon_back from "@/public/assets/icon_back.svg";
-import { useState } from "react";
 
-export default function SuccessFail({ type, onButtonClick, data }) {
-  const [isOpen, setIsOpen] = useState(true);
+export default function SuccessFail({ type, data }) {
+  const router = useRouter();
 
   const SuccessFailContent = {
     register_success: {
@@ -26,14 +26,14 @@ export default function SuccessFail({ type, onButtonClick, data }) {
       title: "구매",
       status: "성공",
       description: "장 구매에 성공했습니다!",
-      //   description: `[${data.rate} | ${data.title}] ${data.count}장\n 구매에 성공했습니다!`,
+        description: `[${data.grade} | ${data.name}] ${data.quantity}장\n 구매에 성공했습니다!`,
       buttonText: "마이갤러리에서 확인하기",
     },
     purchase_fail: {
       title: "구매",
       status: "실패",
       description: "장 구매에 실패했습니다.",
-      //   description: `[${data.rate} | ${data.title}] ${data.count}장\n 구매에 실패했습니다.`,
+        description: `[${data.grade} | ${data.name}] ${data.quantity}장\n 구매에 실패했습니다.`,
       buttonText: "포켓플레이스로 돌아가기",
     },
     exchange_success: {
@@ -66,9 +66,29 @@ export default function SuccessFail({ type, onButtonClick, data }) {
 
   const content = SuccessFailContent[type];
 
-  const closeModal = () => setIsOpen(false);
+  const handleButtonClick = () => {
+    switch (content.buttonText) {
+      case "나의 판매 포토카드에서 확인하기":
+        router.push("/myShop");
+        break;
+      case "마이갤러리에서 확인하기":
+        router.push("/myGallery");
+        break;
+      case "마이갤러리로 돌아가기":
+        router.push("/myGallery");
+        break;
+      case "포켓플레이스로 돌아가기":
+        router.push("/pocketPlace");
+        break;
+      default:
+        router.push("/");
+        break;
+    }
+  };
 
-  if (!isOpen) return null;
+  const closeModal = () => {
+    router.push("/pocketPlace");
+  };
 
   return (
     <>
@@ -90,7 +110,7 @@ export default function SuccessFail({ type, onButtonClick, data }) {
             </div>
           </div>
           <div className={styles.successFail_description}>{content.description}</div>
-          <button className={styles.successFail_button} onClick={onButtonClick}>
+          <button className={styles.successFail_button} onClick={handleButtonClick}>
             {content.buttonText}
           </button>
         </div>

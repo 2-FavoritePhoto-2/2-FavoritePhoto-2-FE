@@ -38,18 +38,8 @@ export default function PocketPlaceList({ searchTerm, activeFilter }) {
     }
   }, 50);
 
-  const handleCardClick = (card) => {
-    router.push(`/card/${card.listId}`);
-  };
-
-  const handleFilterChange = (filterType, value) => {
-    if (!filterType) {
-      setFilteredCards(cardItems);
-      setActiveFilter({});
-      return;
-    }
-
-    setActiveFilter({ type: filterType, value });
+  const handleCardClick = (cardId) => {
+    router.push(`/card/${cardId}`);
   };
 
   useEffect(() => {
@@ -68,12 +58,24 @@ export default function PocketPlaceList({ searchTerm, activeFilter }) {
       try {
         const query = searchTerm ? `?keyword=${searchTerm}` : "";
         const data = await getCards("/shop" + query);
+        console.log(data);
 
         const cards = data.list.map((item) => ({
           listId: item.id,
-          listPrice: item.price,
-          ...item.card,
+          card: {
+            image: item.card.image,
+            name: item.card.name,
+            grade: item.card.grade,
+            type: item.card.type,
+            price: item.price,
+            remainingQuantity: item.remainingQuantity,
+            totalQuantity: item.totalQuantity,
+          },
+          seller: {
+            nickname: item.seller.nickname,
+          },
         }));
+
         setCardItems(cards);
         setFilteredCards(cards);
       } catch (error) {
@@ -83,14 +85,17 @@ export default function PocketPlaceList({ searchTerm, activeFilter }) {
     fetchData();
   }, [searchTerm]);
 
-  //검색
+  // 검색
   useEffect(() => {
     if (searchTerm === "") {
       setFilteredCards(cardItems);
-      setFilteredCards(
-        cardItems.filter((item) => item.name.toLowerCase().includes(searchTerm.toLowerCase())),
-      );
+      return;
     }
+
+    const filtered = cardItems.filter((item) =>
+      item.card.name.toLowerCase().includes(searchTerm.toLowerCase()),
+    );
+    setFilteredCards(filtered);
   }, [searchTerm, cardItems]);
 
   // 필터링
@@ -100,14 +105,12 @@ export default function PocketPlaceList({ searchTerm, activeFilter }) {
       return;
     }
 
-    const newFilteredCards = cardItems.filter((card) => {
+    const newFilteredCards = cardItems.filter((item) => {
       switch (activeFilter.type) {
         case "rating":
-          return card.grade === activeFilter.value;
+          return item.card.grade === activeFilter.value;
         case "attribute":
-          return card.type && card.type.includes(activeFilter.value);
-        // case "soldout":
-        // return card.soldout === activeFilter.value;
+          return item.card.type && item.card.type.includes(activeFilter.value);
         default:
           return true;
       }
@@ -124,18 +127,16 @@ export default function PocketPlaceList({ searchTerm, activeFilter }) {
         <div className={styles.row} key={rowIndex}>
           {filteredCards
             .slice(rowIndex * cardPerRow, rowIndex * cardPerRow + cardPerRow)
-            .map((item) => {
-              return (
-                <div
-                  key={item.listId}
-                  className={styles.cardWrapper}
-                  onClick={() => handleCardClick(item.listId)}
-                  style={{ cursor: "pointer" }}
-                >
-                  <PhotoCard card={item} />
-                </div>
-              );
-            })}
+            .map((item) => (
+              <div
+                key={item.listId}
+                className={styles.cardWrapper}
+                onClick={() => handleCardClick(item.listId)}
+                style={{ cursor: "pointer" }}
+              >
+                <PhotoCard data={item} />
+              </div>
+            ))}
         </div>
       ))}
     </div>

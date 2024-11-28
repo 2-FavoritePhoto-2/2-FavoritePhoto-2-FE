@@ -6,12 +6,16 @@ import { useState } from "react";
 import MultiFilterModal from "./MultiFilter.js";
 import PhotoCard from "../PhotoCard/PhotoCard.js";
 import SelectCardExchange from "./SelectCardExchange.js";
+import Pagination from '../Pagination/Pagination';
 
-export default function Exchange({ data, onClose, onSearch }) {
+export default function Exchange({ data, onClose, onFilterChange, onSearch, onPageChange }) {
   const [isOpen, setIsOpen] = useState(true);
   const [isSliding, setIsSliding] = useState(false);
   const [isToggle, setIsToggle] = useState(false);
   const [selectPhoto, setSelectPhoto] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  const totalPages = Math.ceil(data.totalCount / itemsPerPage);
 
   const handleSearch = (searchTerm) => {
     onSearch(searchTerm);
@@ -23,10 +27,10 @@ export default function Exchange({ data, onClose, onSearch }) {
 
   const slideCloseModal = () => {
     setIsSliding(true);
+    setIsOpen(false);
+    setIsSliding(false);
+    onClose();
     setTimeout(() => {
-      setIsOpen(false);
-      setIsSliding(false);
-      onClose();
     }, 300); // 애니메이션 시간과 일치시킴
   };
 
@@ -35,11 +39,20 @@ export default function Exchange({ data, onClose, onSearch }) {
     setIsToggle(true); // SelectCardExchange 모달 열기
   };
 
+  const handleFilterChange = (filterType, value) => {
+    onFilterChange(filterType, value);
+  };
+
+  const handlePageChange = async (pageNumber) => {
+    setCurrentPage(pageNumber);
+    await onPageChange(pageNumber);
+  };
+
   if (!isOpen && !isSliding) return null;
   return (
     <>
       <div className={`${styles.container} ${isSliding ? styles.sliding : ""}`}>
-        <div className={styles.modal_table}>
+        <div className={styles.modal_table}> 
           <div className={styles.modal_content}>
             <div className={styles.slidebar_table}>
               <img
@@ -68,8 +81,8 @@ export default function Exchange({ data, onClose, onSearch }) {
                 <SearchBar onSearch={handleSearch} />
               </div>
               <div className={styles.filter_table}>
-                <Rating />
-                <Attribute />
+                <Rating sortType={(value) => handleFilterChange("rating", value)} />
+                <Attribute sortType={(value) => handleFilterChange("attribute", value)} />
               </div>
             </div>
             <div className={styles.photocard_content}>
@@ -79,9 +92,14 @@ export default function Exchange({ data, onClose, onSearch }) {
                 </div>
               ))}
             </div>
+            <Pagination 
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+            />
           </div>
-        </div>
-      </div>
+         </div>
+      </div> 
       {isToggle && <SelectCardExchange data={selectPhoto} onClose={handleToggleModal} />}
     </>
   );

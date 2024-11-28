@@ -2,12 +2,15 @@ import { useState } from "react";
 import Quantity from "./Quantity";
 import styles from "./QuantityCard.module.css";
 import Notification from "../Modal/Notification";
+import axios from "@/lib/api/api.js";
+import { useRouter } from "next/router";
 
 export default function QuantityCardBuyer({ data }) {
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [confirmPurchase, setConfirmPurchase] = useState(false);
-  
-  const response = data.card
+  const router = useRouter();
+
+  const response = data.card;
   const gradeClass = response.grade;
   const modifiedString = gradeClass.replace(/_/g, " ");
 
@@ -20,9 +23,52 @@ export default function QuantityCardBuyer({ data }) {
   };
 
   const closeModal = () => setConfirmPurchase(false);
-  
 
+  const totalPrice = selectedQuantity * response.price;
+  const accessToken =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI2ODc2NDUsImV4cCI6MTczMjc3NDA0NX0.88m1jXFq3ISQROyHOrGWYCkS29gqXohcLDHpz1eYiLU";
+  const handlePurchaseCard = async () => {
+    const profile = await axios.get(`/user/profile`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    const myPoint = profile.data.point;
 
+    if (myPoint > totalPrice && myPoint > 0) {
+      await axios.post(
+        `/shop/${data.id}/purchase`,
+        {
+          quantity: selectedQuantity,
+          totalPrice: totalPrice,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+      router.push({
+        pathname: "/SuccessFail",
+        query: {
+          type: "purchase_success",
+          name: data.card.name,
+          quantity: selectedQuantity,
+          grade: data.card.grade,
+        },
+      });
+    } else {
+      router.push({
+        pathname: "/SuccessFail",
+        query: {
+          type: "purchase_fail",
+          name: data.card.name,
+          quantity: selectedQuantity,
+          grade: data.card.grade,
+        },
+      });
+    }
+  };
 
   return (
     <>
@@ -56,7 +102,7 @@ export default function QuantityCardBuyer({ data }) {
           <div className={styles.totalprice_contain}>
             <p className={styles.quantity_font}>총 가격</p>
             <div className={styles.totalprice_table}>
-              <p className={styles.price}> {selectedQuantity * response.price} P</p>
+              <p className={styles.price}> {totalPrice} P</p>
               <p className={styles.price_name}>{`(${selectedQuantity}장)`}</p>
             </div>
           </div>
@@ -65,7 +111,14 @@ export default function QuantityCardBuyer({ data }) {
           포토카드 구매하기
         </button>
       </div>
-      {confirmPurchase && <Notification type={"purchase"} onClose={closeModal} />}
+      {confirmPurchase && (
+        <Notification
+          type="purchase"
+          data={{ name: data.card.name, grade: data.card.grade, quantity: selectedQuantity }}
+          onClose={closeModal}
+          onButtonClick={handlePurchaseCard}
+        />
+      )}
     </>
   );
 }

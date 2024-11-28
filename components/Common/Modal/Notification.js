@@ -5,6 +5,7 @@ import { useState } from "react";
 
 export default function Notification({ type, onButtonClick, onClose, data }) {
   const [isOpen, setIsOpen] = useState(true);
+  const { name, grade, quantity } = data;
 
   /*TODO
    * data props 받아서 description 바꾸기
@@ -18,7 +19,7 @@ export default function Notification({ type, onButtonClick, onClose, data }) {
     purchase: {
       title: "포토카드 구매",
       description: `장을 구매하시겠습니까?`,
-      // description: `[${data.rate} | ${data.title}] ${data.count}장을 구매하시겠습니까?`,
+      description: `[${grade} | ${name}] ${quantity}장을 구매하시겠습니까?`,
       buttonText: "구매하기",
     },
     exchange_cancel: {

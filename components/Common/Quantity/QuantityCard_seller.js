@@ -38,8 +38,8 @@ export default function QuantityCardSeller({ data }) {
           <p className={styles.exchange_name}>교환 희망 정보</p>
         </div>
         <div className={styles.exchange_card_rating_table}>
-           <p className={`${styles.card_rating} ${styles[exchangeGrade]}`}>{exchangeGrade}</p>
-                <p className={styles.card_attribute}>{data.exchangeType}</p>
+          <p className={`${styles.card_rating} ${styles[exchangeGrade]}`}>{exchangeGrade}</p>
+          <p className={styles.card_attribute}>{data.exchangeType}</p>
         </div>
       </div>
       <p className={styles.exchange_content}>{data.exchangeDetails}</p>
