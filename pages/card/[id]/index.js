@@ -23,7 +23,7 @@ export async function getServerSideProps(context) {
   }
   const response = await axios.get(`/user/cards`, {
     headers: {
-      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI2ODc2NDUsImV4cCI6MTczMjc3NDA0NX0.88m1jXFq3ISQROyHOrGWYCkS29gqXohcLDHpz1eYiLU`,
+      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI3NTQxNDgsImV4cCI6MTczMjg0MDU0OH0.szwdYg8O48-eEcVJVtFWtcrtdRBJyOtFOnstGgHDR1I`,
     },
   });
   let myCardList = response.data;
@@ -49,7 +49,7 @@ export default function CardDetail({ data, myCardList }) {
   });
 
   const accessToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI2ODc2NDUsImV4cCI6MTczMjc3NDA0NX0.88m1jXFq3ISQROyHOrGWYCkS29gqXohcLDHpz1eYiLU";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI3NTQxNDgsImV4cCI6MTczMjg0MDU0OH0.szwdYg8O48-eEcVJVtFWtcrtdRBJyOtFOnstGgHDR1I";
   const card = data.card;
   const exchangeGrade = data.exchangeGrade;
 
@@ -60,7 +60,6 @@ export default function CardDetail({ data, myCardList }) {
   };
   const handleFilterChange = async (filterType, value) => {
     let type = "";
-    // filterType에 따라 API 요청 타입 설정
     switch (filterType) {
       case "attribute":
         type = "type";
@@ -73,7 +72,7 @@ export default function CardDetail({ data, myCardList }) {
     }
     const newFilters = { type, value };
     setFilters(newFilters);
-    await fetchFilteredCards(newFilters);
+    await fetchCards({ filters: newFilters });
   };
   const fetchCards = async (options = {}) => {
     try {
@@ -88,9 +87,20 @@ export default function CardDetail({ data, myCardList }) {
       // URL 파라미터 구성
       const params = new URLSearchParams();
       if (pageNumber) params.append('page', pageNumber);
+      
+      // 필터 타입에 따라 적절한 파라미터 추가
       if (filters?.type) {
-        params.append('filter[type]', filters.type);
-        params.append('filter[value]', filters.value);
+        switch (filters.type) {
+          case 'keyword':
+            params.append('keyword', filters.value);
+            break;
+          case 'grade':
+            params.append('grade', filters.value);
+            break;
+          case 'type':
+            params.append('type', filters.value);
+            break;
+        }
       }
 
       const response = await axios.get(`/user/cards?${params.toString()}`, {
