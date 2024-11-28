@@ -60,13 +60,22 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
     }
   };
 
-  //검색
+  //검색 및 정렬
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const query = searchTerm ? `?keyword=${searchTerm}` : "";
-        const data = await getCards("/shop" + query);
-        // console.log(data);
+        const queryParams = new URLSearchParams();
+
+        if (searchTerm) {
+          queryParams.append("keyword", searchTerm);
+        }
+
+        if (activeFilter.orderBy) {
+          queryParams.append("orderBy", activeFilter.orderBy);
+        }
+
+        const queryString = queryParams.toString() ? `?${queryParams.toString()}` : "";
+        const data = await getCards("/shop" + queryString);
 
         const cards = data.list.map((item) => ({
           listId: item.id,
@@ -91,7 +100,7 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
       }
     };
     fetchData();
-  }, [searchTerm]);
+  }, [searchTerm, activeFilter]);
 
   /* 필터링
    * 1. 매진여부 추가하기

@@ -62,7 +62,7 @@ export default function PocketPlaceFilter({ onSearch, onFilterChange, filterCoun
               />
             </div>
             <div className={styles.sort}>
-              <Sort sortType={(value) => handleFilterChange("available", value)} />
+              <Sort sortType={(value) => handleFilterChange("orderBy", value)} />
             </div>
           </div>
         </div>
