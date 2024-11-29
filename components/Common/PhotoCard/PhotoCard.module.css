@@ -260,6 +260,11 @@
     line-height: 2.317rem;
   }
 
+  .card_container .exchange p {
+    font-size: 1.6rem;
+    line-height: 2.317rem;
+  }
+
   .card_container .exchange_value {
     font-size: 1.8rem;
     line-height: 2.606rem;
