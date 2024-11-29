@@ -30,12 +30,12 @@ export default function useValidate(initialValues) {
 
     if (!values.quantity || values.quantity.length < 1 || isNaN(values.quantity)) {
       isValid = false;
-      newError.price = "숫자로 입력해주세요.";
+      newError.quantity = "숫자로 입력해주세요.";
     }
 
-    if (!values.image) {
+    if (!values.fileData) {
       isValid = false;
-      newError.type = "이미지를 선택해주세요.";
+      newError.image = "이미지를 선택해주세요.";
     }
 
     if (!values.description || values.description.length < 10 || values.description.length > 100) {
@@ -47,11 +47,11 @@ export default function useValidate(initialValues) {
     return isValid;
   };
 
-  const handleChange = (e) => {
-    setValues({
-      ...values,
-      [e.target.id]: e.target.value,
-    });
+  const handleChange = (name, value) => {
+    setValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
   };
 
   return {
