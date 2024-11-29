@@ -26,6 +26,33 @@
   height: 27rem;
 }
 
+.badge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+
+  padding: 0.4rem 1rem;
+  border-radius: 0.2rem;
+
+  background: rgba(0, 0, 0, 0.5);
+
+  z-index: 1;
+}
+
+.badge p {
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 2.317rem;
+}
+
+.shop_badge {
+  color: var(--color-white);
+}
+
+.exchange_badge {
+  color: var(--color-main);
+}
+
 .img {
   object-fit: cover;
   width: 100%;
@@ -158,6 +185,15 @@
     width: 30.2rem;
     height: 22.6rem;
   }
+
+  .badge {
+    padding: 0.4rem 0.8rem;
+  }
+
+  .badge p {
+    font-size: 1.4rem;
+    line-height: 2.027rem;
+  }
 }
 
 /* Mobile Only */
@@ -169,6 +205,15 @@
   .img_wrap {
     width: 15rem;
     height: 11.2rem;
+  }
+
+  .badge {
+    padding: 0.4rem 0.8rem;
+  }
+
+  .badge p {
+    font-size: 1rem;
+    line-height: 1.448rem;
   }
 
   .card_header h1 {

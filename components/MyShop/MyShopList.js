@@ -1,13 +1,12 @@
 import styles from "./MyShopList.module.css";
 import PhotoCard from "../Common/PhotoCard/PhotoCard";
-import data from "@/public/mockData.json";
 
-export default function MyShopList() {
+export default function MyShopList({ mySales = [] }) {
   return (
     <div className={styles.card_list}>
-      {data.map((card) => (
-        <div key={card.id}>
-          <PhotoCard data={card} type="내카드" />
+      {mySales.map((card, i) => (
+        <div key={i}>
+          <PhotoCard data={card} type="내판매카드" />
         </div>
       ))}
     </div>
