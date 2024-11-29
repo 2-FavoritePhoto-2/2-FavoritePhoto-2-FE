@@ -18,6 +18,8 @@ export default function MyShop() {
   const [searchTerm, setSearchTerm] = useState("");
   const [gradeFilter, setGradeFilter] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
+  const [modeFilter, setModeFilter] = useState("");
+  const [availableFilter, setAvailavleFilter] = useState("");
 
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
@@ -31,12 +33,32 @@ export default function MyShop() {
   const handleGradeFilter = (grade) => {
     setGradeFilter(grade);
     setTypeFilter("");
+    setModeFilter("");
+    setAvailavleFilter("");
   };
 
   // 속성 필터 변경 처리 함수
   const handleTypeFilter = (type) => {
     setTypeFilter(type);
     setGradeFilter("");
+    setModeFilter("");
+    setAvailavleFilter("");
+  };
+
+  // 판매방법 필터 변경 처리 함수
+  const handleModeFilter = (mode) => {
+    setModeFilter(mode);
+    setGradeFilter("");
+    setTypeFilter("");
+    setAvailavleFilter("");
+  };
+
+  // 매진여부 필터 변경 처리 함수
+  const handleAvailableFilter = (available) => {
+    setAvailavleFilter(available);
+    setGradeFilter("");
+    setTypeFilter("");
+    setModeFilter("");
   };
 
   // 필터와 검색어가 바뀔 때 데이터를 불러오는 함수
@@ -49,6 +71,8 @@ export default function MyShop() {
         pageSize: 9,
         grade: gradeFilter,
         type: typeFilter,
+        available: availableFilter,
+        mode: modeFilter,
         keyword: searchTerm,
       });
 
@@ -112,13 +136,13 @@ export default function MyShop() {
               <MultiFilterModal filterKeys={["등급", "속성", "판매여부", "매진여부"]} />
             </div>
             <div className={styles.search}>
-              <SearchBar />
+              <SearchBar onSearch={handleSearch} />
             </div>
             <div className={styles.filters}>
-              <Rating />
-              <Attribute />
-              <Sale />
-              <Soldout />
+              <Rating sortType={handleGradeFilter} />
+              <Attribute sortType={handleTypeFilter} />
+              <Sale sortType={handleModeFilter} />
+              <Soldout sortType={handleAvailableFilter} />
             </div>
           </div>
         </div>
