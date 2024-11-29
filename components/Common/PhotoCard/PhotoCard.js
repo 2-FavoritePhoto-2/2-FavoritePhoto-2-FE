@@ -42,7 +42,7 @@ export default function PhotoCard({ data, type = "판매카드", exchange }) {
         </div>
         <div className={styles.card_info}>
           <div className={styles.card_header}>
-            <h1>{data.name}</h1>
+            <h1>{data.cardName}</h1>
             <div className={styles.meta_info}>
               <div className={styles.category}>
                 <Grade grade={data.grade} />
