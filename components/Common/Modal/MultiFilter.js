@@ -34,7 +34,7 @@ export default function MultiFilterModal({ filterKeys, filterCounts, onFilterCha
         : activeTab === "판매여부"
         ? "sale"
         : activeTab === "매진여부"
-        ? "soldOut"
+        ? "available"
         : null;
     onFilterChange(filterType, item);
   };

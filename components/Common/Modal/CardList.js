@@ -17,6 +17,7 @@ export default function CardList() {
   const [searchTerm, setSearchTerm] = useState("");
   const [gradeFilter, setGradeFilter] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
+  const [error, setError] = useState("");
 
   const handleCardClick = (card) => {
     setSelectedCard(card);

@@ -64,17 +64,20 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
         orderBy: activeFilter.orderBy || "",
         grade: activeFilter.grade || "",
         type: activeFilter.type || "",
+        available: activeFilter.available || "",
       });
 
       const data = await getCards(`/shop?${queryParams.toString()}`);
+      console.log(data);
       const newCards = data.list.map((item) => ({
         listId: item.id,
+        available: item.available,
         card: {
           image: item.card.image,
           name: item.card.name,
           grade: item.card.grade,
           type: item.card.type,
-          price: item.price,
+          price: item.card.price,
           remainingQuantity: item.remainingQuantity,
           totalQuantity: item.totalQuantity,
         },
@@ -102,6 +105,7 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
       const data = await getCards(`/shop?${queryParams.toString()}&pageSize=10000`);
       const allItems = data.list.map((item) => ({
         listId: item.id,
+        available: item.available,
         card: {
           grade: item.card.grade,
           type: item.card.type,
@@ -113,22 +117,13 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
     }
   };
 
-  // 필터링된 카드
-  useEffect(() => {
-    const filtered = cardItems.filter((item) => {
-      if (activeFilter.grade && item.card.grade !== activeFilter.grade) return false;
-      if (activeFilter.type && !item.card.type.includes(activeFilter.type)) return false;
-      return true;
-    });
-    setFilteredCards(filtered);
-  }, [cardItems, activeFilter]);
-
   // 필터 개수 계산
   useEffect(() => {
     if (!allCards.length) return;
 
     const gradeCount = {};
     const typeCount = {};
+    const availableCount = { true: 0, false: 0 };
 
     allCards.forEach((item) => {
       const grade = item.card.grade;
@@ -138,13 +133,26 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
       types.forEach((type) => {
         typeCount[type] = (typeCount[type] || 0) + 1;
       });
+      availableCount[item.available] = (availableCount[item.available] || 0) + 1;
     });
 
     setGradeCounts(gradeCount);
     setTypeCounts(typeCount);
 
-    onFilterCountChange({ grade: gradeCount, type: typeCount });
+    onFilterCountChange({ grade: gradeCount, type: typeCount, available: availableCount });
   }, [allCards]);
+
+  // 필터링된 카드
+  useEffect(() => {
+    const filtered = cardItems.filter((item) => {
+      if (activeFilter.grade && item.card.grade !== activeFilter.grade) return false;
+      if (activeFilter.type && !item.card.type.includes(activeFilter.type)) return false;
+      if (activeFilter.available !== undefined && item.available !== activeFilter.available)
+        return false;
+      return true;
+    });
+    setFilteredCards(filtered);
+  }, [cardItems, activeFilter]);
 
   // 초기 데이터 및 전체 데이터
   useEffect(() => {
