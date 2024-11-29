@@ -1,8 +1,24 @@
 import Grade from "../Common/Grade/Grade";
 import styles from "./MyOwnedCards.module.css";
+import { useState, useEffect } from "react";
+import { getUserProfile } from "@/lib/api/UserService";
 
 export default function MyOwnedCards({ myCardList }) {
   const grades = ["COMMON", "RARE", "SUPER_RARE", "LEGENDARY"];
+  const [profile, setProfile] = useState({});
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const fetchProfile = await getUserProfile();
+        setProfile(fetchProfile);
+      } catch (err) {
+        console.error("프로필 정보를 불러오는데 실패했습니다.", err);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const gradeCount = {
     COMMON: 0,
@@ -20,7 +36,7 @@ export default function MyOwnedCards({ myCardList }) {
   return (
     <div className={styles.container}>
       <div className={styles.info}>
-        <p className={styles.owner}>소유자님이 보유한 포토카드</p>
+        <p className={styles.owner}>{profile.nickname}님이 보유한 포토카드</p>
         <p className={styles.total_count}>({myCardList.length}장)</p>
       </div>
       <div className={styles.grade_count}>
