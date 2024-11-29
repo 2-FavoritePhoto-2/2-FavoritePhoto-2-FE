@@ -128,7 +128,7 @@ export default function MyShop() {
     <div className={styles.container}>
       <div className={styles.header}>
         <MyShopTitle />
-        <MySaleCards />
+        <MySaleCards mySales={mySales} />
         <div className={styles.filter}>
           <div className={styles.line}></div>
           <div className={styles.search_filters}>
