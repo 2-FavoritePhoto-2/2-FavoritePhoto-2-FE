@@ -22,11 +22,11 @@ export default function PocketPlaceFilter({ onSearch, onFilterChange, filterCoun
   };
 
   const handleResetFilters = () => {
-    onFilterChange("type", null);
-    onFilterChange("grade", null);
-    onFilterChange("available", null);
-    onFilterChange("orderBy", "priceLowest");
     setReset(true);
+  onFilterChange("type", null);
+  onFilterChange("grade", null);
+  onFilterChange("available", null);
+  onFilterChange("orderBy", "priceLowest");
   };
 
   return (

@@ -68,7 +68,6 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
       });
 
       const data = await getCards(`/shop?${queryParams.toString()}`);
-      console.log(data);
       const newCards = data.list.map((item) => ({
         listId: item.id,
         available: item.available,
@@ -85,6 +84,7 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
           nickname: item.seller.nickname,
         },
       }));
+      console.log("NEW CARD:", newCards);
 
       setCardItems((prevItems) => (reset ? newCards : [...prevItems, ...newCards]));
     } catch (error) {
@@ -103,14 +103,17 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
       });
 
       const data = await getCards(`/shop?${queryParams.toString()}&pageSize=10000`);
+      // console.log("ALL CARD:", data);
+
       const allItems = data.list.map((item) => ({
         listId: item.id,
-        available: item.available,
+        available: item.available ?? false,
         card: {
           grade: item.card.grade,
           type: item.card.type,
         },
       }));
+
       setAllCards(allItems);
     } catch (error) {
       console.error(error);
@@ -133,7 +136,12 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
       types.forEach((type) => {
         typeCount[type] = (typeCount[type] || 0) + 1;
       });
-      availableCount[item.available] = (availableCount[item.available] || 0) + 1;
+
+      if (item.available === true) {
+        availableCount[true] += 1;
+      } else if (item.available === false) {
+        availableCount[false] += 1;
+      }
     });
 
     setGradeCounts(gradeCount);
@@ -156,10 +164,10 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
 
   // 초기 데이터 및 전체 데이터
   useEffect(() => {
-    if (currentPage === 1) {
-      fetchData(1, true);
-      fetchAllData();
-    }
+    setCurrentPage(1); 
+    setCardItems([]); 
+    fetchData(1, true);
+    fetchAllData();
   }, [searchTerm, activeFilter]);
 
   useEffect(() => {
@@ -185,7 +193,6 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
           />
         </div>
       ))}
-
       {showNotification && (
         <Notification
           type="login"
