@@ -19,7 +19,7 @@ export default function MyShop() {
   const [gradeFilter, setGradeFilter] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
   const [modeFilter, setModeFilter] = useState("");
-  const [availableFilter, setAvailavleFilter] = useState("");
+  const [availableFilter, setAvailableFilter] = useState("");
 
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
@@ -34,7 +34,7 @@ export default function MyShop() {
     setGradeFilter(grade);
     setTypeFilter("");
     setModeFilter("");
-    setAvailavleFilter("");
+    setAvailableFilter("");
   };
 
   // 속성 필터 변경 처리 함수
@@ -42,20 +42,20 @@ export default function MyShop() {
     setTypeFilter(type);
     setGradeFilter("");
     setModeFilter("");
-    setAvailavleFilter("");
+    setAvailableFilter("");
   };
 
   // 판매방법 필터 변경 처리 함수
   const handleModeFilter = (mode) => {
-    setModeFilter(mode);
+    setModeFilter(mode === "판매중" ? "shop" : "exchange");
     setGradeFilter("");
     setTypeFilter("");
-    setAvailavleFilter("");
+    setAvailableFilter("");
   };
 
   // 매진여부 필터 변경 처리 함수
   const handleAvailableFilter = (available) => {
-    setAvailavleFilter(available);
+    setAvailableFilter(available === "매진안됨" ? true : false);
     setGradeFilter("");
     setTypeFilter("");
     setModeFilter("");
@@ -114,7 +114,7 @@ export default function MyShop() {
     setHasMore(true);
     setMySales([]);
     loadFilteredData(1);
-  }, [searchTerm, gradeFilter, typeFilter]);
+  }, [searchTerm, gradeFilter, typeFilter, modeFilter, availableFilter]);
 
   // 컴포넌트가 마운트될 때 스크롤 이벤트 리스너 추가
   useEffect(() => {
@@ -147,7 +147,7 @@ export default function MyShop() {
           </div>
         </div>
       </div>
-      <MyShopList data={mySales} />
+      <MyShopList mySales={mySales} />
     </div>
   );
 }
