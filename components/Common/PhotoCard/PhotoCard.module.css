@@ -186,6 +186,10 @@
     height: 22.6rem;
   }
 
+  .badge {
+    padding: 0.4rem 0.8rem;
+  }
+
   .badge p {
     font-size: 1.4rem;
     line-height: 2.027rem;
@@ -201,6 +205,10 @@
   .img_wrap {
     width: 15rem;
     height: 11.2rem;
+  }
+
+  .badge {
+    padding: 0.4rem 0.8rem;
   }
 
   .badge p {
