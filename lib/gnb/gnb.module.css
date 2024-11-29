@@ -69,8 +69,6 @@ text-decoration-skip-ink: none;
   cursor: pointer;
 }
 
-/* 83.37x15.12 로고사이즈 */
-
 .menu button:hover,
 .menu a:hover {
 color: var(--color-main);
@@ -87,7 +85,7 @@ color: var(--color-main);
 
 .loginLink:hover,
 .signupLink:hover {
-  color: var(--color-main); /* 호버 효과 */
+  color: var(--color-main);
 }
 
 
