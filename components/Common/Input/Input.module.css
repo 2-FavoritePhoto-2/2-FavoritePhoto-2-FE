@@ -127,10 +127,6 @@
         height: 5.5rem;
     }
 
-    .password {
-        width: 44rem;
-    }
-
     .point input {
         height: 4.5rem;
     }
@@ -144,10 +140,6 @@
 @media (max-width: 743px) {
     .group input {
         height: 5.5rem;
-    }
-
-    .password {
-        width: 34.5rem;
     }
 
     .point input {
