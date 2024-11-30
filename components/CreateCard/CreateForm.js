@@ -32,15 +32,12 @@ export default function CreateForm() {
     handleChange("type", newType);
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setValues({
-        ...values,
-        image: file.name,
-        fileData: file,
-      });
-    }
+  const handleImageChange = (file) => {
+    setValues({
+      ...values,
+      image: file,
+      fileData: file.name,
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -58,14 +55,12 @@ export default function CreateForm() {
     formData.append("type", values.type[1]);
     formData.append("price", values.price);
     formData.append("quantity", values.quantity);
+    formData.append("image", values.image);
     formData.append("description", values.description);
-
-    if (values.fileData) {
-      formData.append("image", values.fileData);
-    }
 
     try {
       await createPhotoCard(formData);
+      console.log(formData);
       return router.push("/myGallery");
     } catch (err) {
       console.error("상품 등록에 실패하였습니다.", err.message);
@@ -139,7 +134,7 @@ export default function CreateForm() {
           <FileInput
             label="사진 업로드"
             name="image"
-            value={values.image}
+            value={values.fileData || ""}
             onChange={handleImageChange}
           />
           {errors.image && <div className={styles.error}>{errors.image}</div>}
