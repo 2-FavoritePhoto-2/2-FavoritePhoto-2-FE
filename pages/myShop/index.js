@@ -13,13 +13,20 @@ import { getSaleList } from "@/lib/api/UserService";
 
 export default function MyShop() {
   const [mySales, setMySales] = useState([]);
-  const [page, setPage] = useState(2);
+  const [filteredSales, setFilteredSales] = useState([]);
+  const [page, setPage] = useState(1);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [gradeFilter, setGradeFilter] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
   const [modeFilter, setModeFilter] = useState("");
   const [availableFilter, setAvailableFilter] = useState("");
+  const [filterCounts, setFilterCounts] = useState({
+    grade: {},
+    type: {},
+    mode: {},
+    available: {},
+  });
 
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
@@ -61,37 +68,86 @@ export default function MyShop() {
     setModeFilter("");
   };
 
+  // 멀티 필터 변경 처리 함수
+  const handleFilterChange = (filterType, value) => {
+    if (filterType === "grade") {
+      setGradeFilter(value);
+      setTypeFilter("");
+      setModeFilter("");
+      setAvailableFilter("");
+    } else if (filterType === "type") {
+      setTypeFilter(value);
+      setGradeFilter("");
+      setModeFilter("");
+      setAvailableFilter("");
+    } else if (filterType === "mode") {
+      setModeFilter(value === "판매중" ? "shop" : "exchange");
+      setGradeFilter("");
+      setTypeFilter("");
+      setAvailableFilter("");
+    } else if (filterType === "available") {
+      setAvailableFilter(value === "매진안됨" ? true : false);
+      setGradeFilter("");
+      setTypeFilter("");
+      setModeFilter("");
+    }
+  };
+
   // 필터와 검색어가 바뀔 때 데이터를 불러오는 함수
-  const loadFilteredData = async (pageNumber = 1) => {
+  const loadFilteredData = async () => {
     try {
       setLoading(true);
 
+      const res = await getSaleList({ page: 1 });
       const filteredResults = await getSaleList({
-        page: pageNumber,
-        pageSize: 9,
+        page: 1,
+        pageSize: res.totalCount,
         grade: gradeFilter,
         type: typeFilter,
-        available: availableFilter,
         mode: modeFilter,
+        available: availableFilter,
         keyword: searchTerm,
       });
 
-      if (!filteredResults.card || filteredResults.card.length === 0) {
-        setHasMore(false);
-        return;
-      }
-      if (pageNumber === 1) {
-        setMySales(filteredResults.card);
-      } else {
-        setMySales((prevCards) => [...prevCards, ...filteredResults.card]);
-      }
+      setFilteredSales(filteredResults.card || []);
 
-      setHasMore(filteredResults.card.length === 9);
-      setPage(pageNumber + 1);
+      const newFilterCounts = {
+        grade: {},
+        type: {},
+        mode: {},
+        available: {},
+      };
+
+      filteredResults.card.forEach((card) => {
+        const { grade, type, mode, available } = card;
+
+        newFilterCounts.grade[grade] = (newFilterCounts.grade[grade] || 0) + 1;
+        newFilterCounts.type[type] = (newFilterCounts.type[type] || 0) + 1;
+        newFilterCounts.mode[mode] = (newFilterCounts.mode[mode] || 0) + 1;
+        newFilterCounts.available[available] = (newFilterCounts.available[available] || 0) + 1;
+      });
+
+      setFilterCounts(newFilterCounts);
+      setMySales(filteredResults.card.slice(0, 9));
+      setHasMore(filteredResults.card.length > 9);
     } catch (err) {
       console.error("필터링 중 오류 발생:", err);
     } finally {
       setLoading(false);
+    }
+  };
+
+  // 페이지네이션을 위한 데이터 로드
+  const loadMoreCards = () => {
+    const nextPage = page + 1;
+    const startIdx = page * 9;
+    const nextCards = filteredSales.slice(startIdx, startIdx + 9);
+
+    if (nextCards.length === 0) {
+      setHasMore(false);
+    } else {
+      setMySales((prevCards) => [...prevCards, ...nextCards]);
+      setPage(nextPage);
     }
   };
 
@@ -104,16 +160,15 @@ export default function MyShop() {
       document.documentElement.scrollHeight
     ) {
       setLoading(true);
-      loadFilteredData(page);
+      loadMoreCards();
     }
   };
 
   // 필터가 바뀔 때 데이터를 자동으로 새로 불러오기
   useEffect(() => {
-    setPage(2);
-    setHasMore(true);
+    setPage(1);
     setMySales([]);
-    loadFilteredData(1);
+    loadFilteredData();
   }, [searchTerm, gradeFilter, typeFilter, modeFilter, availableFilter]);
 
   // 컴포넌트가 마운트될 때 스크롤 이벤트 리스너 추가
@@ -128,12 +183,22 @@ export default function MyShop() {
     <div className={styles.container}>
       <div className={styles.header}>
         <MyShopTitle />
-        <MySaleCards mySales={mySales} />
+        <MySaleCards mySales={filteredSales || []} />
         <div className={styles.filter}>
           <div className={styles.line}></div>
           <div className={styles.search_filters}>
             <div className={styles.mobile_filter}>
-              <MultiFilterModal filterKeys={["등급", "속성", "판매여부", "매진여부"]} />
+              <MultiFilterModal
+                filterKeys={["등급", "속성", "판매여부", "매진여부"]}
+                onFilterChange={handleFilterChange}
+                filterCounts={filterCounts}
+                reset={() => {
+                  setGradeFilter("");
+                  setTypeFilter("");
+                  setModeFilter("");
+                  setAvailableFilter("");
+                }}
+              />
             </div>
             <div className={styles.search}>
               <SearchBar onSearch={handleSearch} />
@@ -147,7 +212,7 @@ export default function MyShop() {
           </div>
         </div>
       </div>
-      <MyShopList mySales={mySales} />
+      <MyShopList mySales={mySales || []} />
     </div>
   );
 }
