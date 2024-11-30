@@ -138,18 +138,24 @@ export default function MyShop() {
   };
 
   // 페이지네이션을 위한 데이터 로드
-  const loadMoreCards = () => {
-    const nextPage = page + 1;
-    const startIdx = page * 9;
-    const nextCards = filteredSales.slice(startIdx, startIdx + 9);
+  const loadMoreCards = async () => {
+    const startIdx = myCards.length;
 
-    if (nextCards.length === 0) {
+    if (startIdx >= filteredCards.length) {
       setHasMore(false);
-    } else {
-      setMySales((prevCards) => [...prevCards, ...nextCards]);
-      setPage(nextPage);
+      return;
     }
+
+    const nextCards = filteredCards.slice(startIdx, startIdx + 9);
+    setMyCards((prevCards) => [...prevCards, ...nextCards]);
+    setLoading(false);
   };
+
+  useEffect(() => {
+    if (page > 1) {
+      loadMoreCards();
+    }
+  }, [page]);
 
   // 스크롤 이벤트 처리 함수
   const handleScroll = () => {
@@ -160,7 +166,7 @@ export default function MyShop() {
       document.documentElement.scrollHeight
     ) {
       setLoading(true);
-      loadMoreCards();
+      setPage((prevPage) => prevPage + 1);
     }
   };
 

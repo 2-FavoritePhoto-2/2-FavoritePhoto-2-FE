@@ -1,4 +1,6 @@
 import styles from "@/styles/MyGallery.module.css";
+import Image from "next/image";
+import resetIcon from "@/public/assets/icon_exchange.svg";
 import MyGalleryTitle from "@/components/MyGallery/MyGalleryTitle";
 import MyOwnedCards from "@/components/MyGallery/MyOwnedCards";
 import MyGalleryList from "@/components/MyGallery/MyGalleryList";
@@ -14,6 +16,8 @@ export default function MyGallery() {
   const [filteredCards, setFilteredCards] = useState([]);
   const [page, setPage] = useState(1);
 
+  const [gradeReset, setGradeReset] = useState(false);
+  const [typeReset, setTypeReset] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [gradeFilter, setGradeFilter] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
@@ -34,12 +38,16 @@ export default function MyGallery() {
   const handleGradeFilter = (grade) => {
     setGradeFilter(grade);
     setTypeFilter("");
+    setTypeReset(true);
+    setGradeReset(false);
   };
 
   // 속성 필터 변경 처리 함수
   const handleTypeFilter = (type) => {
     setTypeFilter(type);
     setGradeFilter("");
+    setGradeReset(true);
+    setTypeReset(false);
   };
 
   // 멀티 필터 변경 처리 함수
@@ -51,6 +59,19 @@ export default function MyGallery() {
       setTypeFilter(value);
       setGradeFilter("");
     }
+  };
+
+  // 필터 리셋 처리 함수
+  const handleFilterReset = () => {
+    setGradeFilter("");
+    setTypeFilter("");
+    setGradeReset(true);
+    setTypeReset(true);
+
+    setTimeout(() => {
+      setGradeReset(false);
+      setTypeReset(false);
+    }, 1000);
   };
 
   // 필터와 검색어가 바뀔 때 데이터를 불러오는 함수
@@ -82,6 +103,7 @@ export default function MyGallery() {
       });
 
       setFilterCounts(newFilterCounts);
+
       setMyCards(filteredResults.card.slice(0, 9));
       setHasMore(filteredResults.card.length > 9);
     } catch (err) {
@@ -92,18 +114,24 @@ export default function MyGallery() {
   };
 
   // 페이지네이션을 위한 데이터 로드
-  const loadMoreCards = () => {
-    const nextPage = page + 1;
-    const startIdx = page * 9;
-    const nextCards = filteredCards.slice(startIdx, startIdx + 9);
+  const loadMoreCards = async () => {
+    const startIdx = myCards.length;
 
-    if (nextCards.length === 0) {
+    if (startIdx >= filteredCards.length) {
       setHasMore(false);
-    } else {
-      setMyCards((prevCards) => [...prevCards, ...nextCards]);
-      setPage(nextPage);
+      return;
     }
+
+    const nextCards = filteredCards.slice(startIdx, startIdx + 9);
+    setMyCards((prevCards) => [...prevCards, ...nextCards]);
+    setLoading(false);
   };
+
+  useEffect(() => {
+    if (page > 1) {
+      loadMoreCards();
+    }
+  }, [page]);
 
   // 스크롤 이벤트 처리 함수
   const handleScroll = () => {
@@ -114,7 +142,7 @@ export default function MyGallery() {
       document.documentElement.scrollHeight
     ) {
       setLoading(true);
-      loadMoreCards();
+      setPage((prevPage) => prevPage + 1);
     }
   };
 
@@ -156,8 +184,15 @@ export default function MyGallery() {
               <SearchBar onSearch={handleSearch} />
             </div>
             <div className={styles.filters}>
-              <Rating sortType={handleGradeFilter} />
-              <Attribute sortType={handleTypeFilter} />
+              <Rating sortType={handleGradeFilter} reset={gradeReset} />
+              <Attribute sortType={handleTypeFilter} reset={typeReset} />
+              <Image
+                src={resetIcon}
+                width={24}
+                height={24}
+                onClick={handleFilterReset}
+                alt="리셋 아이콘"
+              />
             </div>
           </div>
         </div>
