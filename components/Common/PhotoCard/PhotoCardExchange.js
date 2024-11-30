@@ -3,13 +3,28 @@ import Image from "next/image";
 import Grade from "../Grade/Grade";
 import axios from "@/lib/api/api.js";
 
-
 export default function PhotoCardExchange({ data, type = "buyer" }) {
   const accessToken = typeof window !== "undefined" ? localStorage.getItem("accessToken") : "";
   const buttonType = type === "seller";
 
   const handleCancelClick = async () => {
-    const res = await axios.delete(`/cards/exchange/${data.id}/cancel`, {
+    await axios.delete(`/cards/exchange/${data.id}/cancel`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  };
+
+  const handleRefuse = async () => {
+    await axios.delete(`/cards/exchange/${data.id}/refuse`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  };
+
+  const handleApprove = async () => {
+    await axios.post(`/cards/exchange/${data.id}/accept`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -48,8 +63,8 @@ export default function PhotoCardExchange({ data, type = "buyer" }) {
       <div className={styles.buttons}>
         {buttonType ? (
           <>
-            <button className={styles.refuse}></button>
-            <button className={styles.approve}></button>
+            <button className={styles.refuse} onClick={handleRefuse}></button>
+            <button className={styles.approve} onClick={handleApprove}></button>
           </>
         ) : (
           <button className={styles.cancel} onClick={handleCancelClick}>

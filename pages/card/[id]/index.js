@@ -65,7 +65,7 @@ export default function CardDetail({ data }) {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      setMyOffer(()=>res.data);
+      setMyOffer(() => res.data);
     } catch (error) {
       console.error("비상비상오류발생", error);
     }
@@ -95,7 +95,7 @@ export default function CardDetail({ data }) {
     fetchMyCards();
     fetchMyState();
     fetchExchangeSubmitCard();
-  }, [isOwner,myOffer]);
+  }, [isOwner, myOffer]);
 
   const handleSearch = async (searchTerm) => {
     const newFilters = { type: "keyword", value: searchTerm };
@@ -196,12 +196,17 @@ export default function CardDetail({ data }) {
         </div>
         <div className={styles.exchange_container}>
           {isOwner ? (
-            <div className={styles.exchange_present_table}>
-              <p className={styles.exchange_present}>교환제시 목록</p>
-              <div className={styles.exchange_present_list}>
-                <PhotoCardExchange type="seller" />
+            myOffer &&
+            myOffer.length > 0 && (
+              <div className={styles.exchange_present_table}>
+                <p className={styles.exchange_present}>교환제시 목록</p>
+                <div className={styles.exchange_present_list}>
+                  {myOffer.map((offer) => (
+                    <PhotoCardExchange key={offer.id} type="seller" data={offer ?? {}} />
+                  ))}
+                </div>
               </div>
-            </div>
+            )
           ) : (
             <>
               <div className={styles.exchange_table}>
@@ -218,7 +223,7 @@ export default function CardDetail({ data }) {
               <button className={styles.exchange_button_mobile} onClick={exchangeModalOpen}>
                 포토카드 교환하기
               </button>
-              {myOffer && myOffer.length > 0 && (
+              {myOffer && myOffer.length > 0 && !isOwner && (
                 <div className={styles.my_exchange_present_table}>
                   <p className={styles.exchange_present}>내가 제시한 교환 목록</p>
                   <div className={styles.exchange_present_list}>
@@ -228,7 +233,6 @@ export default function CardDetail({ data }) {
                   </div>
                 </div>
               )}
-
               <div className={styles.recommendcard_table}>
                 <p className={styles.recommendcard_name}>비슷한 카드 추천</p>
               </div>
