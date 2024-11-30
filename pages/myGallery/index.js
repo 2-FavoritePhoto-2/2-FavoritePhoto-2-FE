@@ -18,6 +18,7 @@ export default function MyGallery() {
 
   const [gradeReset, setGradeReset] = useState(false);
   const [typeReset, setTypeReset] = useState(false);
+
   const [searchTerm, setSearchTerm] = useState("");
   const [gradeFilter, setGradeFilter] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
@@ -38,16 +39,18 @@ export default function MyGallery() {
   const handleGradeFilter = (grade) => {
     setGradeFilter(grade);
     setTypeFilter("");
-    setTypeReset(true);
+
     setGradeReset(false);
+    setTypeReset(true);
   };
 
   // 속성 필터 변경 처리 함수
   const handleTypeFilter = (type) => {
     setTypeFilter(type);
     setGradeFilter("");
-    setGradeReset(true);
+
     setTypeReset(false);
+    setGradeReset(true);
   };
 
   // 멀티 필터 변경 처리 함수

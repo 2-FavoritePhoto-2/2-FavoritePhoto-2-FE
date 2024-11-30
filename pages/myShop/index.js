@@ -1,4 +1,6 @@
 import styles from "@/styles/MyShop.module.css";
+import Image from "next/image";
+import resetIcon from "@/public/assets/icon_exchange.svg";
 import MyShopTitle from "@/components/MyShop/MyShopTitle";
 import MySaleCards from "@/components/MyShop/MySaleCards";
 import MyShopList from "@/components/MyShop/MyShopList";
@@ -15,6 +17,11 @@ export default function MyShop() {
   const [mySales, setMySales] = useState([]);
   const [filteredSales, setFilteredSales] = useState([]);
   const [page, setPage] = useState(1);
+
+  const [gradeReset, setGradeReset] = useState(false);
+  const [typeReset, setTypeReset] = useState(false);
+  const [modeReset, setModeReset] = useState(false);
+  const [availableReset, setAvailableReset] = useState(false);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [gradeFilter, setGradeFilter] = useState("");
@@ -42,6 +49,11 @@ export default function MyShop() {
     setTypeFilter("");
     setModeFilter("");
     setAvailableFilter("");
+
+    setGradeReset(false);
+    setTypeReset(true);
+    setModeReset(true);
+    setAvailableReset(true);
   };
 
   // 속성 필터 변경 처리 함수
@@ -50,6 +62,11 @@ export default function MyShop() {
     setGradeFilter("");
     setModeFilter("");
     setAvailableFilter("");
+
+    setGradeReset(true);
+    setTypeReset(false);
+    setModeReset(true);
+    setAvailableReset(true);
   };
 
   // 판매방법 필터 변경 처리 함수
@@ -58,6 +75,11 @@ export default function MyShop() {
     setGradeFilter("");
     setTypeFilter("");
     setAvailableFilter("");
+
+    setGradeReset(true);
+    setTypeReset(true);
+    setModeReset(false);
+    setAvailableReset(true);
   };
 
   // 매진여부 필터 변경 처리 함수
@@ -66,6 +88,11 @@ export default function MyShop() {
     setGradeFilter("");
     setTypeFilter("");
     setModeFilter("");
+
+    setGradeReset(true);
+    setTypeReset(true);
+    setModeReset(true);
+    setAvailableReset(false);
   };
 
   // 멀티 필터 변경 처리 함수
@@ -91,6 +118,25 @@ export default function MyShop() {
       setTypeFilter("");
       setModeFilter("");
     }
+  };
+
+  // 필터 리셋 처리 함수
+  const handleFilterReset = () => {
+    setGradeFilter("");
+    setTypeFilter("");
+    setModeFilter("");
+    setAvailableFilter("");
+    setGradeReset(true);
+    setTypeReset(true);
+    setModeReset(true);
+    setAvailableReset(true);
+
+    setTimeout(() => {
+      setGradeReset(false);
+      setTypeReset(false);
+      setModeReset(false);
+      setAvailableReset(false);
+    }, 1000);
   };
 
   // 필터와 검색어가 바뀔 때 데이터를 불러오는 함수
@@ -210,10 +256,17 @@ export default function MyShop() {
               <SearchBar onSearch={handleSearch} />
             </div>
             <div className={styles.filters}>
-              <Rating sortType={handleGradeFilter} />
-              <Attribute sortType={handleTypeFilter} />
-              <Sale sortType={handleModeFilter} />
-              <Soldout sortType={handleAvailableFilter} />
+              <Rating sortType={handleGradeFilter} reset={gradeReset} />
+              <Attribute sortType={handleTypeFilter} reset={typeReset} />
+              <Sale sortType={handleModeFilter} reset={modeReset} />
+              <Soldout sortType={handleAvailableFilter} reset={availableReset} />
+              <Image
+                src={resetIcon}
+                width={24}
+                height={24}
+                onClick={handleFilterReset}
+                alt="리셋 아이콘"
+              />
             </div>
           </div>
         </div>
