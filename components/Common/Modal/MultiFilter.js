@@ -23,6 +23,7 @@ export default function MultiFilterModal({ filterKeys, filterCounts, onFilterCha
     Object.keys(resetFilters).forEach(key => {
       onFilterChange(key, resetFilters[key]);
     });
+
   };
 
   // useEffect(() => {
