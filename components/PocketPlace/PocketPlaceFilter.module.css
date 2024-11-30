@@ -44,6 +44,10 @@
   width: 100%;
 }
 
+.refreshIcon {
+  cursor: pointer;
+}
+
 @media (max-width: 1199px) {
   .searchBar_container {
     width: 22rem;

@@ -6,14 +6,26 @@ import { useState } from "react";
 
 export default function PocketPlace() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [activeFilter, setActiveFilter] = useState({ type: null, value: null });
+  const [activeFilter, setActiveFilter] = useState({
+    type: null,
+    value: null,
+    orderBy: "priceLowest",
+  });
+  const [filterCounts, setFilterCounts] = useState({ grade: {}, type: {} });
 
   const handleSearch = (term) => {
     setSearchTerm(term);
   };
 
   const handleFilterChange = (filterType, value) => {
-    setActiveFilter({ type: filterType, value });
+    setActiveFilter((prev) => ({
+      ...prev,
+      [filterType]: value,
+    }));
+  };
+
+  const handleFilterCountChange = (counts) => {
+    setFilterCounts(counts);
   };
 
   return (
@@ -21,9 +33,17 @@ export default function PocketPlace() {
       <div className={styles.pocketPlace_container}>
         <div className={styles.header}>
           <PocketPlaceTitle />
-          <PocketPlaceFilter onSearch={handleSearch} onFilterChange={handleFilterChange} />
+          <PocketPlaceFilter
+            onSearch={handleSearch}
+            onFilterChange={handleFilterChange}
+            filterCounts={filterCounts}
+          />
         </div>
-        <PocketPlaceList searchTerm={searchTerm} activeFilter={activeFilter} />
+        <PocketPlaceList
+          searchTerm={searchTerm}
+          activeFilter={activeFilter}
+          onFilterCountChange={handleFilterCountChange}
+        />
       </div>
     </>
   );
