@@ -9,9 +9,7 @@ import SelectCardExchange from "./SelectCardExchange.js";
 import Pagination from "../Pagination/Pagination";
 import Modal from "./Modal.js";
 
-export default function Exchange({ data, onClose, onFilterChange, onSearch, onPageChange }) {
-  const [isOpen, setIsOpen] = useState(true);
-  const [isSliding, setIsSliding] = useState(false);
+export default function Exchange({ data, shopId, onFilterChange, onSearch, onPageChange }) {
   const [isToggle, setIsToggle] = useState(false);
   const [selectPhoto, setSelectPhoto] = useState();
   const [currentPage, setCurrentPage] = useState(1);
@@ -24,14 +22,6 @@ export default function Exchange({ data, onClose, onFilterChange, onSearch, onPa
 
   const handleToggleModal = () => {
     setIsToggle(!isToggle);
-  };
-
-  const slideCloseModal = () => {
-    setIsSliding(true);
-    setIsOpen(false);
-    setIsSliding(false);
-    onClose();
-    setTimeout(() => {}, 300); // 애니메이션 시간과 일치시킴
   };
 
   const handleSelectPhoto = (photo) => {
@@ -48,10 +38,10 @@ export default function Exchange({ data, onClose, onFilterChange, onSearch, onPa
     await onPageChange(pageNumber);
   };
 
-  if (!isOpen && !isSliding) return null;
+  const cardData = data;
   return (
     <>
-      <div className={`${isToggle ? 'modal-open' : ''}`}>
+      <div className={`${isToggle ? "modal-open" : ""}`}>
         <div className={styles.modal_content}>
           <div className={styles.mygallery_table}>
             <img src="/assets/icon_mygallery.png" alt="mygallery" className={styles.mygallery} />
@@ -71,7 +61,7 @@ export default function Exchange({ data, onClose, onFilterChange, onSearch, onPa
             </div>
           </div>
           <div className={styles.photocard_content}>
-            {data.card.map((photo) => (
+            {cardData.card.map((photo) => (
               <div key={photo.id} onClick={() => handleSelectPhoto(photo)}>
                 <PhotoCard type="내카드" data={photo} />
               </div>
@@ -85,7 +75,7 @@ export default function Exchange({ data, onClose, onFilterChange, onSearch, onPa
         </div>
         {isToggle && (
           <Modal isOpen={isToggle} closeModal={handleToggleModal}>
-            <SelectCardExchange data={selectPhoto} onClose={handleToggleModal} />
+            <SelectCardExchange data={selectPhoto} shopId={shopId} onClose={handleToggleModal} />
           </Modal>
         )}
       </div>

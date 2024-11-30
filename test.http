@@ -27,12 +27,12 @@ Content-Type: application/json
 "password": "1234"
 }
 
-###  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI3NTQxNDgsImV4cCI6MTczMjg0MDU0OH0.szwdYg8O48-eEcVJVtFWtcrtdRBJyOtFOnstGgHDR1I"
-### refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI3NTQxNDgsImV4cCI6MTczMzk2Mzc0OH0.4sJOanW8Nz_k0kjcLb6nMTi-yOwV8UgL_mmHCcPJAdU
+###    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI4NjEzMzAsImV4cCI6MTczMjk0NzczMH0.hiJmpiaen3GVmASc-4MMYJ7iOjEN_QIflDSTZZqEPdg"
+
 
 POST https://pikapick.onrender.com/auth/token/refresh
 Content-Type: application/json
-Cookie: refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI3NTQxNDgsImV4cCI6MTczMzk2Mzc0OH0.4sJOanW8Nz_k0kjcLb6nMTi-yOwV8UgL_mmHCcPJAdU
+Cookie: refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI3ODc0NTQsImV4cCI6MTczMzk5NzA1NH0.U4GtBqMovgU0xuDJe7gwpJOnH9ZxKGEyOLYSChE6VLo
 
 
 ### 카드상세조회
@@ -47,7 +47,7 @@ GET https://pikapick.onrender.com/shop?keyword=망키
 ###
 
 GET https://pikapick.onrender.com/user/cards
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI3NTQxNDgsImV4cCI6MTczMjg0MDU0OH0.szwdYg8O48-eEcVJVtFWtcrtdRBJyOtFOnstGgHDR1I
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI4NDcwMDksImV4cCI6MTczMjkzMzQwOX0.xpWae8U8sLfFlHVTKIx2R3jkbHymKJr1TzrhvedBMiU
 
 ###
 
@@ -75,6 +75,27 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhM
 }
 
 ###
+
+POST https://pikapick.onrender.com/cards/dfc28fdf-35a4-4475-a550-673653c044e3/exchange
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI5NDM2MzgsImV4cCI6MTczMzAzMDAzOH0.Y95q_OiMFhWqA7viWlnRlNKqBee4Oho7gpUT1gusfog
+
+{
+"buyerCardId": "a3ca6862-e4a4-484d-bf86-693cb4cea0d7",
+"description": "교환을 신청합니다"
+}
+
+###
+
+GET https://pikapick.onrender.com/user/exchanges/dfc28fdf-35a4-4475-a550-673653c044e3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI5NDM2MzgsImV4cCI6MTczMzAzMDAzOH0.Y95q_OiMFhWqA7viWlnRlNKqBee4Oho7gpUT1gusfog
+
+###
+
+GET https://pikapick.onrender.com/user/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI4NjEzMzAsImV4cCI6MTczMjk0NzczMH0.hiJmpiaen3GVmASc-4MMYJ7iOjEN_QIflDSTZZqEPdg
+
+###
 ###로컬 서버
 
 GET http://localhost:3100/shop
@@ -98,4 +119,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhM
 ###
 
 GET http://localhost:3100/user/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI3MDEyNTksImV4cCI6MTczMjc4NzY1OX0.glSkF5Q3bW3i7208jvDSND3-mOTV93X1cE1i00R2TpM
+
+####
+
+GET http://localhost:3100/user/exchanges/dfc28fdf-35a4-4475-a550-673653c044e3
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI3MDEyNTksImV4cCI6MTczMjc4NzY1OX0.glSkF5Q3bW3i7208jvDSND3-mOTV93X1cE1i00R2TpM

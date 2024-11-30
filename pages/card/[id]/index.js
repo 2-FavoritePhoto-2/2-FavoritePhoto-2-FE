@@ -30,11 +30,11 @@ export async function getServerSideProps(context) {
 
 //구매자 기준 상세페이지
 export default function CardDetail({ data }) {
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = typeof window !== "undefined" ? localStorage.getItem("accessToken") : "";
   const [myCardList, setMyCardList] = useState([]);
   const [filteredCards, setFilteredCards] = useState([]);
   const [isOwner, setIsOwner] = useState(false);
-  const [myOffer, setMyOffer] = useState(false);
+  const [myOffer, setMyOffer] = useState([]);
   const [exchangeModal, setExchangeModal] = useState(false);
   const [relatedCards, setRelatedCards] = useState([]); // 관련 카드 상태 추가
   const [filters, setFilters] = useState({
@@ -45,23 +45,57 @@ export default function CardDetail({ data }) {
   const card = data.card;
   const exchangeGrade = data.exchangeGrade;
 
-  useEffect(() => {
-    const fetchMyCards = async () => {
-      try {
-        const response = await axios.get(`/user/cards`, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-        setMyCardList(response.data);
-        setFilteredCards(response.data);
-      } catch (error) {
-        console.error("Error fetching cards:", error);
-      }
-    };
+  const fetchMyCards = async () => {
+    try {
+      const response = await axios.get(`/user/cards`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      setMyCardList(response.data);
+      setFilteredCards(response.data);
+    } catch (error) {
+      console.error("Error fetching cards:", error);
+    }
+  };
+  const fetchExchangeSubmitCard = async () => {
+    try {
+      const res = await axios.get(`/user/exchanges/${data.id}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      setMyOffer(()=>res.data);
+    } catch (error) {
+      console.error("비상비상오류발생", error);
+    }
+  };
 
+  const fetchMyState = async () => {
+    try {
+      const res = await axios.get("/user/profile", {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      setIsOwner(() => {
+        if (res.data.nickname === data.seller.nickname) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+    } catch (error) {
+      console.error("Error fetching cards:", error);
+      setIsOwner(false);
+    }
+  };
+
+  useEffect(() => {
     fetchMyCards();
-  }, []);
+    fetchMyState();
+    fetchExchangeSubmitCard();
+  }, [isOwner,myOffer]);
 
   const handleSearch = async (searchTerm) => {
     const newFilters = { type: "keyword", value: searchTerm };
@@ -152,7 +186,7 @@ export default function CardDetail({ data }) {
   }, [card.name]); // card.name이 변경될 때마다 호출
 
   return (
-    <>
+    <div>
       <div className={styles.details_container}>
         <img src="/assets/icon_poketplace.png" className={styles.poketplace} />
         <div className={styles.title}>{card.name}</div>
@@ -184,14 +218,17 @@ export default function CardDetail({ data }) {
               <button className={styles.exchange_button_mobile} onClick={exchangeModalOpen}>
                 포토카드 교환하기
               </button>
-              {myOffer && (
+              {myOffer && myOffer.length > 0 && (
                 <div className={styles.my_exchange_present_table}>
                   <p className={styles.exchange_present}>내가 제시한 교환 목록</p>
                   <div className={styles.exchange_present_list}>
-                    <PhotoCardExchange />
+                    {myOffer.map((offer) => (
+                      <PhotoCardExchange key={offer.id} data={offer ?? {}} />
+                    ))}
                   </div>
                 </div>
               )}
+
               <div className={styles.recommendcard_table}>
                 <p className={styles.recommendcard_name}>비슷한 카드 추천</p>
               </div>
@@ -212,13 +249,13 @@ export default function CardDetail({ data }) {
         <Modal isOpen={exchangeModalOpen} closeModal={exchangeModalClose}>
           <Exchange
             data={filteredCards}
-            onClose={exchangeModalClose}
+            shopId={data.id}
             onSearch={handleSearch}
             onFilterChange={handleFilterChange}
             onPageChange={handlePageChange}
           />
         </Modal>
       )}
-    </>
+    </div>
   );
 }
