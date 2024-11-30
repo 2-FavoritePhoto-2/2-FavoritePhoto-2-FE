@@ -153,10 +153,15 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
   // 필터링된 카드
   useEffect(() => {
     const filtered = cardItems.filter((item) => {
+      // activeFilter의 값이 없으면 모든 카드를 보여줌
+      if (!activeFilter.grade && !activeFilter.type && activeFilter.available === undefined) {
+        return true;
+      }
+      
+      // 각 필터 조건 체크
       if (activeFilter.grade && item.card.grade !== activeFilter.grade) return false;
       if (activeFilter.type && !item.card.type.includes(activeFilter.type)) return false;
-      if (activeFilter.available !== undefined && item.available !== activeFilter.available)
-        return false;
+      if (activeFilter.available !== undefined && item.available !== activeFilter.available) return false;
       return true;
     });
     setFilteredCards(filtered);

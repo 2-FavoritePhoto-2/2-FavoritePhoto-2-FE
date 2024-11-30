@@ -13,13 +13,16 @@ export default function MultiFilterModal({ filterKeys, filterCounts, onFilterCha
   const closeModal = () => setIsModalOpen(false);
 
   const resetSelect = () => {
-    setSelectedItem(null);
-    onFilterChange("grade", null);
-    onFilterChange("type", null);
-    onFilterChange("sale", null);
-    onFilterChange("available", null);
-    onFilterChange("orderBy", "priceLowest");
-  closeModal();
+    const resetFilters = {
+      grade: undefined,
+      type: undefined,
+      available: undefined,
+      orderBy: undefined
+    };
+
+    Object.keys(resetFilters).forEach(key => {
+      onFilterChange(key, resetFilters[key]);
+    });
   };
 
   // useEffect(() => {
