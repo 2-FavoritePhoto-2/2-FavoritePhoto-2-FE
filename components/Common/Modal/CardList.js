@@ -13,6 +13,7 @@ export default function CardList() {
   const [cardData, setCardData] = useState([]);
   const [selectedCard, setSelectedCard] = useState(null);
   const [showCardSell, setShowCardSell] = useState(false);
+  const [error, setError] = useState("");
 
   const [searchTerm, setSearchTerm] = useState("");
   const [gradeFilter, setGradeFilter] = useState("");
