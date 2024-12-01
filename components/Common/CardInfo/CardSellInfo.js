@@ -4,9 +4,15 @@ import Grade from "../Grade/Grade";
 import Quantity from "../Quantity/Quantity";
 import Input from "../Input/Input";
 
-export default function CardSellInfo({ data }) {
-  const [selectedQuantity, setSelectedQuantity] = useState(1);
-  const [point, setPoint] = useState("");
+export default function CardSellInfo({ 
+  data, 
+  point,          
+  setPoint,      
+  selectedQuantity,
+  setSelectedQuantity  }) {
+
+
+  console.log("CardSellInfo props:", { point, selectedQuantity });
 
   return (
     <div className={styles.container}>
@@ -32,6 +38,7 @@ export default function CardSellInfo({ data }) {
           <p className={styles.label}>총 판매 수량</p>
           <div className={styles.quantity}>
             <Quantity
+            value={selectedQuantity} 
               onChange={(newQuantity) => setSelectedQuantity(newQuantity)}
               maxQuantity={data.quantity}
             />
