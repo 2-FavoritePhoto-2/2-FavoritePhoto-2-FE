@@ -6,6 +6,7 @@ import Dropdown from "../Input/Dropdown";
 import Input from "../Input/Input";
 import CardSellInfo from "../CardInfo/CardSellInfo";
 import { createPhotoCard } from "@/lib/api/UserService";
+import axios from "axios";
 
 export default function CardSell({ data, closeModal }) {
   const [selectedGrade, setSelectedGrade] = useState("");
@@ -23,10 +24,6 @@ export default function CardSell({ data, closeModal }) {
 
   const handleSellClick = async () => {
     try {
-    const imageResponse = await fetch(data.image);
-    const blob = await imageResponse.blob();
-    const imageFile = new File([blob], 'card-image.jpg', { type: 'image/jpeg' });
-  
       if (!selectedGrade) {
         alert("등급을 선택해주세요.");
         return;
@@ -39,8 +36,20 @@ export default function CardSell({ data, closeModal }) {
         alert("수량을 선택해주세요.");
         return;
       }
+
+      const imageResponse = await fetch(data.image, {
+        mode: 'no-cors',  
+        cache: 'no-cache'
+      });
   
-      // FormData 생성
+      const fileName = data.image.split('/').pop();
+
+      const blob = await imageResponse.blob();
+      const imageFile = new File([blob], fileName, { 
+      type: 'image/jpeg' 
+    });
+
+  
       const formData = new FormData();
       formData.append('image', imageFile);
       formData.append('name', data.name);
@@ -49,20 +58,23 @@ export default function CardSell({ data, closeModal }) {
       formData.append('quantity', parseInt(selectedQuantity));
       formData.append('type', JSON.stringify([selectedType1, selectedType2].filter(Boolean)));
       formData.append('description', exchange || "");
-  
-      const result = await createPhotoCard(formData);
-      
+
+    const result = await createPhotoCard(formData);
+    console.log('업로드 결과:', result);
+
+
       router.push({
         pathname: "/SuccessFail",
         query: { type: "register_success" },
       });
     } catch (error) {
+      console.error(error.response?.data || error);
       router.push({
         pathname: "/SuccessFail",
         query: { type: "register_fail" },
       });
     }
-  };
+};
 
   return (
     <div className={styles.card_info_wrapper}>
