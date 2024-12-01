@@ -22,16 +22,17 @@ Content-Type: application/json
 POST https://pikapick.onrender.com/auth/login
 Content-Type: application/json
 
-# {
-# "email": "test3@gmail.com",
-# "password": "1234"
-# }
 {
-    "email": "test1@naver.com",
+"email": "test3@gmail.com",
 "password": "1234"
 }
 
-###    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI4NjEzMzAsImV4cCI6MTczMjk0NzczMH0.hiJmpiaen3GVmASc-4MMYJ7iOjEN_QIflDSTZZqEPdg"
+# {
+#     "email": "test1@naver.com",
+# "password": "1234"
+# }
+
+###    "accessToken":eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzMwMzU5OTMsImV4cCI6MTczMzEyMjM5M30.1zyTCbhp2DUT6BWcIF6jwwaIspImDSDa2N3nOMktucE
 
 
 POST https://pikapick.onrender.com/auth/token/refresh
@@ -100,6 +101,16 @@ GET https://pikapick.onrender.com/user/profile
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI4NjEzMzAsImV4cCI6MTczMjk0NzczMH0.hiJmpiaen3GVmASc-4MMYJ7iOjEN_QIflDSTZZqEPdg
 
 ###
+PATCH https://pikapick.onrender.com/shop/d6d34f94-337e-4cb7-a73a-3c37ff9448b8
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzMwMzU5OTMsImV4cCI6MTczMzEyMjM5M30.1zyTCbhp2DUT6BWcIF6jwwaIspImDSDa2N3nOMktucE
+
+{
+    "exchangeType":"불꽃"
+}
+
+
+###
 ###로컬 서버
 
 GET http://localhost:3100/shop
@@ -109,21 +120,21 @@ GET http://localhost:3100/shop
 POST http://localhost:3100/auth/login
 Content-Type: application/json
 
-{
-    "email": "test1@naver.com",
-"password": "1234"
-}
-
 # {
-# "email": "test3@gmail.com",
+#     "email": "test1@naver.com",
 # "password": "1234"
 # }
+
+{
+"email": "test3@gmail.com",
+"password": "1234"
+}
 ### 로컬 로그인
-###   "accessToken": eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1M2ExMGFkNS01YzdhLTQ0MTUtOTY4My1hMTUxYjg2MWIyNmQiLCJpYXQiOjE3MzI5NjcyNTQsImV4cCI6MTczMzA1MzY1NH0.jFXtHBRetknzQE1wKgl0X6d7slASc6lN7TeprHK0k6M
+###   "accessToken": eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1M2ExMGFkNS01YzdhLTQ0MTUtOTY4My1hMTUxYjg2MWIyNmQiLCJpYXQiOjE3MzI5ODc2MzksImV4cCI6MTczMzA3NDAzOX0.GxySrh_96nEw2VVnyHCTsKJ-JJxclL2UWHMUVRiV790
 
 
 GET http://localhost:3100/user/cards
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1M2ExMGFkNS01YzdhLTQ0MTUtOTY4My1hMTUxYjg2MWIyNmQiLCJpYXQiOjE3MzI5NjcyNTQsImV4cCI6MTczMzA1MzY1NH0.jFXtHBRetknzQE1wKgl0X6d7slASc6lN7TeprHK0k6M
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI5ODgxNzEsImV4cCI6MTczMzA3NDU3MX0.OSQch02PTm9GAxKNSW5jCo5LLtA0FFwxi6vk9X4e2xI
 
 ###
 
@@ -132,13 +143,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1M2ExM
 
 ####
 
-GET http://localhost:3100/user/exchanges/dfc28fdf-35a4-4475-a550-673653c044e3
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1M2ExMGFkNS01YzdhLTQ0MTUtOTY4My1hMTUxYjg2MWIyNmQiLCJpYXQiOjE3MzI5NjcyNTQsImV4cCI6MTczMzA1MzY1NH0.jFXtHBRetknzQE1wKgl0X6d7slASc6lN7TeprHK0k6M
+GET http://localhost:3100/user/exchanges/d6d34f94-337e-4cb7-a73a-3c37ff9448b8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI5ODgxNzEsImV4cCI6MTczMzA3NDU3MX0.OSQch02PTm9GAxKNSW5jCo5LLtA0FFwxi6vk9X4e2xI
 
 ###
 
-POST http://localhost:3100/cards/exchange/f5260fcc-86f5-402f-90ea-e49f158f938e/accept
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1M2ExMGFkNS01YzdhLTQ0MTUtOTY4My1hMTUxYjg2MWIyNmQiLCJpYXQiOjE3MzI5NjcyNTQsImV4cCI6MTczMzA1MzY1NH0.jFXtHBRetknzQE1wKgl0X6d7slASc6lN7TeprHK0k6M
+POST http://localhost:3100/cards/exchange/eb8bac25-83a7-4990-9734-67eb0ba04bf8/accept
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI5ODgxNzEsImV4cCI6MTczMzA3NDU3MX0.OSQch02PTm9GAxKNSW5jCo5LLtA0FFwxi6vk9X4e2xI
 
 
 ###

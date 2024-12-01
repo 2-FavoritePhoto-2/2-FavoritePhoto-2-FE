@@ -13,6 +13,7 @@ export default function PhotoCardExchange({ data, type = "buyer" }) {
         Authorization: `Bearer ${accessToken}`,
       },
     });
+    window.location.reload();
   };
 
   const handleRefuse = async () => {
@@ -21,14 +22,20 @@ export default function PhotoCardExchange({ data, type = "buyer" }) {
         Authorization: `Bearer ${accessToken}`,
       },
     });
+    window.location.reload();
   };
 
   const handleApprove = async () => {
-    await axios.post(`/cards/exchange/${data.id}/accept`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
+    await axios.post(
+      `/cards/exchange/${data.id}/accept`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
       },
-    });
+    );
+    window.location.reload();
   };
 
   return (

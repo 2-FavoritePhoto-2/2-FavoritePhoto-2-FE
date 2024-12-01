@@ -1,30 +1,34 @@
-import { useState } from "react";
 import styles from "./CardSellInfo.module.css";
 import Grade from "../Grade/Grade";
 import Quantity from "../Quantity/Quantity";
 import Input from "../Input/Input";
 
-export default function CardSellInfo({ data }) {
-  const [selectedQuantity, setSelectedQuantity] = useState(1);
-  const [point, setPoint] = useState("");
+export default function CardSellInfo({ data, setSelectedQuantity, setPrice }) {
+  const handleQuantityChange = (newQuantity) => {
+    setSelectedQuantity(newQuantity);
+  };
+
+  const handlePriceChange = (value) => {
+    setPrice(value);
+  };
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.category}>
-          <Grade grade={data.grade} detail={true} />
+          <Grade grade={data.card.grade} detail={true} />
           <p>|</p>
-          <p>{data.type[0]}</p>
-          {data.type[1] ? (
+          <p>{data.card.type[0]}</p>
+          {data.card.type[1] ? (
             <>
               <p>|</p>
-              <p>{data.type[1]}</p>
+              <p>{data.card.type[1]}</p>
             </>
           ) : (
             ""
           )}
         </div>
-        <p className={styles.seller}>판매자</p>
+        <p className={styles.seller}>{data.seller.nickname}</p>
       </div>
       <div className={styles.line}></div>
       <div className={styles.quantity_price}>
@@ -32,15 +36,15 @@ export default function CardSellInfo({ data }) {
           <p className={styles.label}>총 판매 수량</p>
           <div className={styles.quantity}>
             <Quantity
-              onChange={(newQuantity) => setSelectedQuantity(newQuantity)}
-              maxQuantity={data.quantity}
+              onChange={handleQuantityChange}
+              maxQuantity={data.card.quantity}
             />
             <div className={styles.max_quantity}>
               <p className={styles.max_count}>
-                /<span>{data.quantity}</span>
+                /<span>{data.card.quantity}</span>
               </p>
               <p className={styles.max_notice}>
-                최대 <span>{data.quantity}</span>장
+                최대 <span>{data.card.quantity}</span>장
               </p>
             </div>
           </div>
@@ -51,8 +55,7 @@ export default function CardSellInfo({ data }) {
             <Input
               type="point"
               name="point"
-              value={point}
-              onChange={(e) => setPoint(e.target.value)}
+              onChange={(e) => handlePriceChange(e.target.value)}
               placeholder="숫자만 입력"
             />
           </div>

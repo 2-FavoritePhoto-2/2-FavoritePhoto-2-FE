@@ -28,14 +28,14 @@ export async function getServerSideProps(context) {
   };
 }
 
-//구매자 기준 상세페이지
 export default function CardDetail({ data }) {
   const accessToken = typeof window !== "undefined" ? localStorage.getItem("accessToken") : "";
+  const [isOwner, setIsOwner] = useState(false);
+  const [exchangeModal, setExchangeModal] = useState(false);
+
   const [myCardList, setMyCardList] = useState([]);
   const [filteredCards, setFilteredCards] = useState([]);
-  const [isOwner, setIsOwner] = useState(false);
   const [myOffer, setMyOffer] = useState([]);
-  const [exchangeModal, setExchangeModal] = useState(false);
   const [relatedCards, setRelatedCards] = useState([]); // 관련 카드 상태 추가
   const [filters, setFilters] = useState({
     type: "",
@@ -65,7 +65,9 @@ export default function CardDetail({ data }) {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      setMyOffer(() => res.data);
+      if (JSON.stringify(res.data) !== JSON.stringify(myOffer)) {
+        setMyOffer(res.data);
+      }
     } catch (error) {
       console.error("비상비상오류발생", error);
     }
@@ -94,8 +96,11 @@ export default function CardDetail({ data }) {
   useEffect(() => {
     fetchMyCards();
     fetchMyState();
+  }, [isOwner]);
+
+  useEffect(() => {
     fetchExchangeSubmitCard();
-  }, [isOwner, myOffer]);
+  }, []);
 
   const handleSearch = async (searchTerm) => {
     const newFilters = { type: "keyword", value: searchTerm };

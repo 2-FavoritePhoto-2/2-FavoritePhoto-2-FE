@@ -1,15 +1,22 @@
 import Image from "next/image";
 import icon_exchange from "@/public/assets/icon_exchange.svg";
 import styles from "./QuantityCard.module.css";
+import Modal from "../Modal/Modal";
+import CardEdit from "../Modal/CardEdit";
+import { useState } from "react";
 
 export default function QuantityCardSeller({ data }) {
-
+  const [editModal, setEditModal] = useState(false);
   const response = data.card
   const gradeClass = response.grade;
   const modifiedString = gradeClass.replace(/_/g, " ");
   const exchangeGrade = data.exchangeGrade;
 
+  const editModalOpen = () => setEditModal(true);
+  const editModalClose = () => setEditModal(false);
+
   return (
+    <>
     <div className={styles.card_details}>
       <div className={styles.card_details_header}>
         <div className={styles.card_rating_table}>
@@ -43,8 +50,14 @@ export default function QuantityCardSeller({ data }) {
         </div>
       </div>
       <p className={styles.exchange_content}>{data.exchangeDetails}</p>
-      <button className={styles.patch_button}>수정하기</button>
+      <button className={styles.patch_button} onClick={editModalOpen}>수정하기</button>
       <button className={styles.dont_sell_button}>판매 내리기</button>
     </div>
+    
+    {editModal && (
+      <Modal  isOpen={editModalOpen} closeModal={editModalClose}>
+      <CardEdit data={data} onClose={editModalClose} />
+    </Modal>)}
+    </>
   );
 }
