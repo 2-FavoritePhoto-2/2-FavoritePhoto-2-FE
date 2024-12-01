@@ -15,38 +15,45 @@ export default function Signup() {
     confirmPassword: '',
   });
 
-  const [emailError, setEmailError] = useState('');
-  const [nicknameError, setNicknameError] = useState('');
+  const [errors, setErrors] = useState({});
   const router = useRouter();
 
-    const handleChange = async (e) => {
+    const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-  }
+  };
+
+  const validate = () => {
+    const newErrors = {};
+    if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = '이메일 형식이 올바르지 않습니다!';
+    }
+    if (formData.password.length < 8) {
+      newErrors.password = '비밀번호를 8자 이상 입력해주세요!';
+    }
+    if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = '비밀번호가 일치하지 않습니다!';
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (formData.password !== formData.confirmPassword) {
-      alert('비밀번호가 일치하지 않습니다.');
-      return;
-    }
-
-    //중복된 데이터 api 요청..?
-    if (!formData.email || !formData.nickname) {
-      alert('모든 칸을 채워주세요!!');
-      return;
-    }
-
-    if (emailError || nicknameError) {
-      alert('중복된 정보가 있습니다. 다시 확인해 주세요.');
-      return;
-    }
+    if (!validate()) return;
 
     try {
       await signup(formData.email, formData.password, formData.nickname);
+      alert('회원가입이 완료되었습니다.\n로그인 페이지로 이동합니다.');
       router.push('/auth/login');
     } catch (error) {
-      alert('회원가입에 실패했습니다. 다시 시도해 주세요.');
+      alert('회원가입에 실패했습니다.\n다시 시도해 주세요.');
+      setFormData({
+        email: '',
+        nickname: '',
+        password: '',
+        confirmPassword: ''
+      });
     }
   };
 
@@ -72,6 +79,7 @@ export default function Signup() {
             onChange={handleChange}
             placeholder="이메일을 입력해 주세요"
           />
+          {errors.email && <div className={styles.errorMessage}>{errors.email}</div>}
           </div>
           <div className={styles.inputContainer}>
           <Input
@@ -83,6 +91,7 @@ export default function Signup() {
             placeholder="닉네임을 입력해 주세요"
           />
           </div>
+          
           <div className={styles.inputContainer}>
             <Input
               label="비밀번호"
@@ -92,7 +101,9 @@ export default function Signup() {
               onChange={handleChange}
               placeholder="8자 이상 입력해 주세요"
             />
+            {errors.password && <div className={styles.errorMessage}>{errors.password}</div>}
           </div>
+
           <div className={styles.inputContainer}>
             <Input
               label="비밀번호 확인"
@@ -102,6 +113,7 @@ export default function Signup() {
               onChange={handleChange}
               placeholder="비밀번호를 한번 더 입력해 주세요"
             />
+            {errors.confirmPassword && <div className={styles.errorMessage}>{errors.confirmPassword}</div>}
           </div>
           
           <button type="submit" className={styles.button}>가입하기</button>

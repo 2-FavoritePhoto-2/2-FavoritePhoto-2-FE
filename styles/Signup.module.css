@@ -28,6 +28,14 @@
   font-weight: 400;
 }
 
+.errorMessage {
+  color: var(--color-pink); 
+  padding: 0.5rem; 
+  border-radius: 0.5rem; 
+  margin-top: 1.5rem; 
+  font-size: 1.8rem;
+}
+
 .button {
   width: 100%;
   padding: 1rem;

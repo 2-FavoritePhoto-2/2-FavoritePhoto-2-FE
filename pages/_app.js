@@ -21,42 +21,54 @@ export default function App({ Component, pageProps }) {
   const fetchUserProfile = async () => {
     try {
       const profile = await getUserProfile(); 
-      setPoints(profile.point); 
+      setPoints(profile.point);
       setNickname(profile.nickname); 
     } catch (error) {
-      console.error("프로필 조회 실패:", error);
+      handleLogout();
     }
   };
-
+  
   const handleLogin = async () => {
     setIsLoggedIn(true);
     localStorage.setItem('isLoggedIn', 'true'); 
     await fetchUserProfile(); 
   };
-
-   const handleLogout = () => {
+  
+  const handleLogout = () => {
     setIsLoggedIn(false);
-    localStorage.removeItem('isLoggedIn'); 
-   };
-
- useEffect(() => {
-    const storedIsLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-    setIsLoggedIn(storedIsLoggedIn);
-
-    if (storedIsLoggedIn) {
-      fetchUserProfile(); //로그인 상태일 때 프로필 정보 가져오기
+    setPoints(0);
+    setNickname("");
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('accessToken');
+  };
+  
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('accessToken');
+      const storedIsLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+  
+      if (token && storedIsLoggedIn) {
+        setIsLoggedIn(true);
+        fetchUserProfile();
+      } else if (!token && storedIsLoggedIn) {
+        handleLogout();
+      }
     }
+  }, []);
 
+  useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 743);
     };
 
-    window.addEventListener("resize", handleResize);
-    handleResize();
+    if (typeof window !== 'undefined') {
+      window.addEventListener("resize", handleResize);
+      handleResize();
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    }
   }, []);
 
   const isMobilePage =
@@ -81,7 +93,7 @@ export default function App({ Component, pageProps }) {
           points={points}
           nickname={nickname}
           handleLogout={handleLogout}
-         /> 
+      /> 
             )}
         <div className="body_container">
           <Component {...pageProps} handleLogin={handleLogin} />
