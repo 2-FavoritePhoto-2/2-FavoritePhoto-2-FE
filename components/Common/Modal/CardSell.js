@@ -5,8 +5,7 @@ import Image from "next/image";
 import Dropdown from "../Input/Dropdown";
 import Input from "../Input/Input";
 import CardSellInfo from "../CardInfo/CardSellInfo";
-import { createPhotoCard } from "@/lib/api/UserService";
-import axios from "axios";
+import { createCardSale } from "@/lib/api/pocketPlaceAPI";
 
 export default function CardSell({ data, closeModal }) {
   const [selectedGrade, setSelectedGrade] = useState("");
@@ -36,33 +35,20 @@ export default function CardSell({ data, closeModal }) {
         alert("수량을 선택해주세요.");
         return;
       }
-
-      const imageResponse = await fetch(data.image, {
-        mode: 'no-cors',  
-        cache: 'no-cache'
-      });
   
-      const fileName = data.image.split('/').pop();
-
-      const blob = await imageResponse.blob();
-      const imageFile = new File([blob], fileName, { 
-      type: 'image/jpeg' 
-    });
-
+      const saleData = {
+        price: Number(point),
+        quantity: parseInt(selectedQuantity),
+        exchangeGrade: selectedGrade,
+        exchangeType: selectedType1,
+        selectedType2: selectedType2, 
+        exchangeDetails: exchange || "",
+        cardId: data.id
+      };
   
-      const formData = new FormData();
-      formData.append('image', imageFile);
-      formData.append('name', data.name);
-      formData.append('price', Number(point));
-      formData.append('grade', selectedGrade);
-      formData.append('quantity', parseInt(selectedQuantity));
-      formData.append('type', JSON.stringify([selectedType1, selectedType2].filter(Boolean)));
-      formData.append('description', exchange || "");
-
-    const result = await createPhotoCard(formData);
-    console.log('업로드 결과:', result);
-
-
+      const result = await createCardSale(saleData);
+      console.log('판매 등록 결과:', result);
+  
       router.push({
         pathname: "/SuccessFail",
         query: { type: "register_success" },
@@ -74,7 +60,7 @@ export default function CardSell({ data, closeModal }) {
         query: { type: "register_fail" },
       });
     }
-};
+  };
 
   return (
     <div className={styles.card_info_wrapper}>
