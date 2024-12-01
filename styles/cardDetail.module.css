@@ -1,6 +1,7 @@
 .details_container {
-  margin: 14rem auto;
+  margin: 0 auto;
   width: 148rem;
+  
 }
 .poketplace {
   margin-bottom: 6rem;
@@ -262,7 +263,7 @@
 /* 태블릿사이즈 */
 @media (max-width: 1199px) {
   .details_container {
-    margin: 11rem auto;
+    margin: 0 auto;
     width: 70.4rem;
   }
   .poketplace {
@@ -335,7 +336,7 @@
 /* 모바일 사이즈 */
 @media (max-width: 743px) {
   .details_container {
-    margin: 8rem auto 0;
+    margin: 0 auto 0;
     max-width: 34.5rem;
     width: 100%;
   }

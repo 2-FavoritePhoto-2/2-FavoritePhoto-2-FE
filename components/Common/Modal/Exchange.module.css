@@ -68,7 +68,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   width: 96rem;
-  height: 63.8rem;
+  height: 42rem;
   padding-right: 10rem;
 }
 .photocard_content::-webkit-scrollbar {
@@ -139,8 +139,7 @@
   .photocard_content {
     gap: 2rem;
     width: 70.8rem;
-    max-height: 820px;
-    height: auto;
+    height: 59rem;
     overflow-y: scroll;
     padding: 0;
     padding-bottom: 5rem;
@@ -194,6 +193,7 @@
   }
   .photocard_content {
     width: 34.9rem;
+    height: 65rem;
     gap: 0.5rem;
     padding-bottom: 2rem;
   }

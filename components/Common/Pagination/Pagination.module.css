@@ -4,6 +4,8 @@
   align-items: center;
   margin: 20px 0;
   gap: 16px;
+  position: relative;
+  z-index: 1;
 }
 
 /* 숫자 버튼 (포켓볼 디자인) */
@@ -163,4 +165,48 @@
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
+}
+
+/* 반응형 스타일 */
+@media (max-width: 1199px) {
+  .pagination {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    margin: 0;
+    padding: 0 20px;
+    background: transparent;
+    z-index: 1000;
+  }
+
+  .pageButton {
+    width: 35px;
+    height: 35px;
+    font-size: 14px;
+  }
+
+  .pageButton:first-child,
+  .pageButton:last-child {
+    width: 50px;
+    height: 30px;
+    font-size: 14px;
+  }
+
+  .pageButton .centerCircle {
+    width: 10px;
+    height: 10px;
+  }
+
+  /* 미디어쿼리에서도 모달 오픈 시 페이지네이션 숨기기 규칙 추가 */
+  .modal-open .pagination {
+    visibility: hidden;
+    z-index: -1;
+  }
+}
+
+/* Exchange 모달에서 두 번째 모달이 열릴 때 페이지네이션 숨기기 */
+:global(.modal-open) .pagination {
+  visibility: hidden;
+  z-index: -1;
 }

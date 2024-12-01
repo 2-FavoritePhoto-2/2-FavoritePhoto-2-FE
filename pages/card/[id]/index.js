@@ -21,37 +21,81 @@ export async function getServerSideProps(context) {
       notFound: true,
     };
   }
-  const response = await axios.get(`/user/cards`, {
-    headers: {
-      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI3NTQxNDgsImV4cCI6MTczMjg0MDU0OH0.szwdYg8O48-eEcVJVtFWtcrtdRBJyOtFOnstGgHDR1I`,
-    },
-  });
-  let myCardList = response.data;
-  // props로 전달할 데이터를 반환합니다.
   return {
     props: {
       data,
-      myCardList,
     },
   };
 }
 
 //구매자 기준 상세페이지
-export default function CardDetail({ data, myCardList }) {
+export default function CardDetail({ data }) {
+  const accessToken = typeof window !== "undefined" ? localStorage.getItem("accessToken") : "";
+  const [myCardList, setMyCardList] = useState([]);
+  const [filteredCards, setFilteredCards] = useState([]);
   const [isOwner, setIsOwner] = useState(false);
-  const [myOffer, setMyOffer] = useState(false);
+  const [myOffer, setMyOffer] = useState([]);
   const [exchangeModal, setExchangeModal] = useState(false);
   const [relatedCards, setRelatedCards] = useState([]); // 관련 카드 상태 추가
-  const [filteredCards, setFilteredCards] = useState(myCardList);
   const [filters, setFilters] = useState({
     type: "",
     value: "",
   });
 
-  const accessToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI3NTQxNDgsImV4cCI6MTczMjg0MDU0OH0.szwdYg8O48-eEcVJVtFWtcrtdRBJyOtFOnstGgHDR1I";
   const card = data.card;
   const exchangeGrade = data.exchangeGrade;
+
+  const fetchMyCards = async () => {
+    try {
+      const response = await axios.get(`/user/cards`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      setMyCardList(response.data);
+      setFilteredCards(response.data);
+    } catch (error) {
+      console.error("Error fetching cards:", error);
+    }
+  };
+  const fetchExchangeSubmitCard = async () => {
+    try {
+      const res = await axios.get(`/user/exchanges/${data.id}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      setMyOffer(() => res.data);
+    } catch (error) {
+      console.error("비상비상오류발생", error);
+    }
+  };
+
+  const fetchMyState = async () => {
+    try {
+      const res = await axios.get("/user/profile", {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      setIsOwner(() => {
+        if (res.data.nickname === data.seller.nickname) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+    } catch (error) {
+      console.error("Error fetching cards:", error);
+      setIsOwner(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchMyCards();
+    fetchMyState();
+    fetchExchangeSubmitCard();
+  }, [isOwner, myOffer]);
 
   const handleSearch = async (searchTerm) => {
     const newFilters = { type: "keyword", value: searchTerm };
@@ -77,28 +121,25 @@ export default function CardDetail({ data, myCardList }) {
   const fetchCards = async (options = {}) => {
     try {
       const { pageNumber, filters } = options;
-      
-      // 필터가 없고 페이지 번호도 없는 경우
+
       if (!filters?.type && !pageNumber) {
         setFilteredCards(myCardList);
         return;
       }
 
-      // URL 파라미터 구성
       const params = new URLSearchParams();
-      if (pageNumber) params.append('page', pageNumber);
-      
-      // 필터 타입에 따라 적절한 파라미터 추가
+      if (pageNumber) params.append("page", pageNumber);
+
       if (filters?.type) {
         switch (filters.type) {
-          case 'keyword':
-            params.append('keyword', filters.value);
+          case "keyword":
+            params.append("keyword", filters.value);
             break;
-          case 'grade':
-            params.append('grade', filters.value);
+          case "grade":
+            params.append("grade", filters.value);
             break;
-          case 'type':
-            params.append('type', filters.value);
+          case "type":
+            params.append("type", filters.value);
             break;
         }
       }
@@ -145,7 +186,7 @@ export default function CardDetail({ data, myCardList }) {
   }, [card.name]); // card.name이 변경될 때마다 호출
 
   return (
-    <>
+    <div>
       <div className={styles.details_container}>
         <img src="/assets/icon_poketplace.png" className={styles.poketplace} />
         <div className={styles.title}>{card.name}</div>
@@ -155,12 +196,17 @@ export default function CardDetail({ data, myCardList }) {
         </div>
         <div className={styles.exchange_container}>
           {isOwner ? (
-            <div className={styles.exchange_present_table}>
-              <p className={styles.exchange_present}>교환제시 목록</p>
-              <div className={styles.exchange_present_list}>
-                <PhotoCardExchange type="seller" />
+            myOffer &&
+            myOffer.length > 0 && (
+              <div className={styles.exchange_present_table}>
+                <p className={styles.exchange_present}>교환제시 목록</p>
+                <div className={styles.exchange_present_list}>
+                  {myOffer.map((offer) => (
+                    <PhotoCardExchange key={offer.id} type="seller" data={offer ?? {}} />
+                  ))}
+                </div>
               </div>
-            </div>
+            )
           ) : (
             <>
               <div className={styles.exchange_table}>
@@ -177,11 +223,13 @@ export default function CardDetail({ data, myCardList }) {
               <button className={styles.exchange_button_mobile} onClick={exchangeModalOpen}>
                 포토카드 교환하기
               </button>
-              {myOffer && (
+              {myOffer && myOffer.length > 0 && !isOwner && (
                 <div className={styles.my_exchange_present_table}>
                   <p className={styles.exchange_present}>내가 제시한 교환 목록</p>
                   <div className={styles.exchange_present_list}>
-                    <PhotoCardExchange />
+                    {myOffer.map((offer) => (
+                      <PhotoCardExchange key={offer.id} data={offer ?? {}} />
+                    ))}
                   </div>
                 </div>
               )}
@@ -202,16 +250,16 @@ export default function CardDetail({ data, myCardList }) {
         </div>
       </div>
       {exchangeModal && (
-        // <Modal isOpen={exchangeModalOpen} closeModal={exchangeModalClose}>
-        <Exchange
-          data={filteredCards}
-          onClose={exchangeModalClose}
-          onSearch={handleSearch}
-          onFilterChange={handleFilterChange}
-          onPageChange={handlePageChange}
-        />
-        // </Modal>
+        <Modal isOpen={exchangeModalOpen} closeModal={exchangeModalClose}>
+          <Exchange
+            data={filteredCards}
+            shopId={data.id}
+            onSearch={handleSearch}
+            onFilterChange={handleFilterChange}
+            onPageChange={handlePageChange}
+          />
+        </Modal>
       )}
-    </>
+    </div>
   );
 }
