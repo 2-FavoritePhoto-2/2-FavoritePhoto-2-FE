@@ -22,10 +22,11 @@ export default function PocketPlaceFilter({ onSearch, onFilterChange, filterCoun
   };
 
   const handleResetFilters = () => {
-    onFilterChange("type", null);
-    onFilterChange("grade", null);
-    onFilterChange("orderBy", "priceLowest");
     setReset(true);
+  onFilterChange("type", null);
+  onFilterChange("grade", null);
+  onFilterChange("available", null);
+  onFilterChange("orderBy", "priceLowest");
   };
 
   return (
@@ -44,7 +45,7 @@ export default function PocketPlaceFilter({ onSearch, onFilterChange, filterCoun
               <Attribute sortType={(value) => handleFilterChange("type", value)} reset={reset} />
             </div>
             <div className={styles.desktopOnly}>
-              <Soldout />
+              <Soldout sortType={(value) => handleFilterChange("available", value)} reset={reset} />
             </div>
           </div>
           <div className={styles.desktopOnly}>

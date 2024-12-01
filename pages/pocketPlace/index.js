@@ -11,7 +11,7 @@ export default function PocketPlace() {
     value: null,
     orderBy: "priceLowest",
   });
-  const [filterCounts, setFilterCounts] = useState({ grade: {}, type: {} });
+  const [filterCounts, setFilterCounts] = useState({ grade: {}, type: {}, available: {} });
 
   const handleSearch = (term) => {
     setSearchTerm(term);

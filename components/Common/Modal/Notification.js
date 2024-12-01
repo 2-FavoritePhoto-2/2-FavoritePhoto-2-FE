@@ -5,7 +5,7 @@ import { useState } from "react";
 
 export default function Notification({ type, onButtonClick, onClose, data }) {
   const [isOpen, setIsOpen] = useState(true);
-  const { name, grade, quantity } = data;
+  const { name, grade, quantity } = data || {};
 
   /*TODO
    * data props 받아서 description 바꾸기
