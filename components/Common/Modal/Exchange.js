@@ -22,6 +22,10 @@ export default function Exchange({ data, shopId, onFilterChange, onSearch, onPag
     search: ""
   });
   const [reset, setReset] = useState(false);
+  const [filterCounts, setFilterCounts] = useState({
+    grade: {},
+    type: {},
+  });
 
   const handleResetFilters = () => {
     setFilters({
@@ -29,10 +33,15 @@ export default function Exchange({ data, shopId, onFilterChange, onSearch, onPag
       type: null,
       search: ""
     });
+
+    calculateFilterCounts(data.card);
+    
     setReset(true);  
     setTimeout(() => {
       setReset(false);
     }, 100);
+
+    setFilteredData(data.card);
   };
 
   useEffect(() => {
@@ -99,7 +108,38 @@ export default function Exchange({ data, shopId, onFilterChange, onSearch, onPag
     await onPageChange(pageNumber);
   };
 
-  
+  //멀티 필터용
+  const calculateFilterCounts = (cards) => {
+    const counts = {
+      grade: {},
+      type: {},
+    };
+
+    cards.forEach(card => {
+      if (card.grade) {
+        counts.grade[card.grade] = (counts.grade[card.grade] || 0) + 1;
+      }
+
+      if (Array.isArray(card.type)) {
+        card.type.forEach(type => {
+          counts.type[type] = (counts.type[type] || 0) + 1;
+        });
+      }
+    });
+
+    setFilterCounts(counts);
+  };
+
+  useEffect(() => {
+    calculateFilterCounts(data.card);
+  }, [data.card]);
+
+  const handleMultiFilterChange = (filterType, value) => {
+    setFilters(prev => ({
+      ...prev,
+      [filterType]: value
+    }));
+  };
 
   return (
     <>
@@ -112,7 +152,10 @@ export default function Exchange({ data, shopId, onFilterChange, onSearch, onPag
           <p className={styles.exchange_name}>포토카드 교환하기</p>
           <div className={styles.search_menu}>
             <div className={styles.multi_filter}>
-              <MultiFilterModal filterKeys={["등급", "속성"]} />
+              <MultiFilterModal filterKeys={["등급", "속성"]} 
+              filterCounts={filterCounts}
+              onFilterChange={handleMultiFilterChange}
+              reset={reset}/>
             </div>
             <div className={styles.searchbar}>
               <SearchBar onSearch={handleSearch} />
