@@ -11,9 +11,6 @@ export default function CardSellInfo({
   selectedQuantity,
   setSelectedQuantity  }) {
 
-
-  console.log("CardSellInfo props:", { point, selectedQuantity });
-
   return (
     <div className={styles.container}>
       <div className={styles.header}>

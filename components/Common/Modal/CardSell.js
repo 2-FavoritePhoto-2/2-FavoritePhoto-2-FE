@@ -23,12 +23,7 @@ export default function CardSell({ data, closeModal }) {
 
   const handleSellClick = async () => {
     try {
-      console.log("이미지 데이터 확인:", {
-        imageUrl: data.image,
-        imageType: typeof data.image
-      });
-
-      const imageResponse = await fetch(data.image);
+    const imageResponse = await fetch(data.image);
     const blob = await imageResponse.blob();
     const imageFile = new File([blob], 'card-image.jpg', { type: 'image/jpeg' });
   
@@ -55,25 +50,17 @@ export default function CardSell({ data, closeModal }) {
       formData.append('type', JSON.stringify([selectedType1, selectedType2].filter(Boolean)));
       formData.append('description', exchange || "");
   
-      console.log("전송할 데이터");
-      for (let [key, value] of formData.entries()) {
-        if (key === 'image') {
-          console.log('image:', value.name, value.type, value.size);
-        } else {
-          console.log(`${key}:`, value);
-        }
-      }
-  
       const result = await createPhotoCard(formData);
-      console.log("응답 결과:", result);
       
       router.push({
         pathname: "/SuccessFail",
         query: { type: "register_success" },
       });
     } catch (error) {
-      console.error("에러 상세:", error.response?.data || error);
-      alert(error.response?.data?.error || "카드 등록에 실패했습니다.");
+      router.push({
+        pathname: "/SuccessFail",
+        query: { type: "register_fail" },
+      });
     }
   };
 
