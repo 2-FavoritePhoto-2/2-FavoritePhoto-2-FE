@@ -2,21 +2,76 @@ import Attribute from "../Dropdown/Sort/Attribute.js";
 import Rating from "../Dropdown/Sort/Rating.js";
 import SearchBar from "../SearchBar/SearchBar.js";
 import styles from "./Exchange.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MultiFilterModal from "./MultiFilter.js";
 import PhotoCard from "../PhotoCard/PhotoCard.js";
 import SelectCardExchange from "./SelectCardExchange.js";
 import Pagination from "../Pagination/Pagination";
 import Modal from "./Modal.js";
+import Image from "next/image.js";
+import icon_exchange from "@/public/assets/icon_exchange.svg";
 
 export default function Exchange({ data, shopId, onFilterChange, onSearch, onPageChange }) {
   const [isToggle, setIsToggle] = useState(false);
   const [selectPhoto, setSelectPhoto] = useState();
   const [currentPage, setCurrentPage] = useState(1);
+  const [filteredData, setFilteredData] = useState(data.card);
+  const [filters, setFilters] = useState({
+    grade: null,
+    type: null,
+    search: ""
+  });
+  const [reset, setReset] = useState(false);
+
+  const handleResetFilters = () => {
+    setFilters({
+      grade: null,
+      type: null,
+      search: ""
+    });
+    setReset(true);  
+    setTimeout(() => {
+      setReset(false);
+    }, 100);
+  };
+
+  useEffect(() => {
+    if (reset) {
+      setFilteredData(data.card);
+    }
+  }, [reset, data.card]);
+  
   const itemsPerPage = 10;
   const totalPages = Math.ceil(data.totalCount / itemsPerPage);
 
+  useEffect(() => {
+    let result = [...data.card];
+
+    if (filters.grade) {
+      result = result.filter(card => card.grade === filters.grade);
+    }
+
+    if (filters.type) {
+      result = result.filter(card => card.type.includes(filters.type));
+    }
+
+    if (filters.search) {
+      result = result.filter(card => 
+        card.name.toLowerCase().includes(filters.search.toLowerCase())
+      );
+    }
+
+    setFilteredData(result);
+  }, [filters, data.card]);
+
+  
+
   const handleSearch = (searchTerm) => {
+    setFilters(prev => ({
+      ...prev,
+      search: searchTerm
+    }));
+    setCurrentPage(1);
     onSearch(searchTerm);
   };
 
@@ -30,7 +85,13 @@ export default function Exchange({ data, shopId, onFilterChange, onSearch, onPag
   };
 
   const handleFilterChange = (filterType, value) => {
-    onFilterChange(filterType, value);
+
+    const newValue = value === "등급" || value === "속성" ? null : value;
+    
+    setFilters(prev => ({
+      ...prev,
+      [filterType]: newValue
+    }));
   };
 
   const handlePageChange = async (pageNumber) => {
@@ -38,7 +99,8 @@ export default function Exchange({ data, shopId, onFilterChange, onSearch, onPag
     await onPageChange(pageNumber);
   };
 
-  const cardData = data;
+  
+
   return (
     <>
       <div className={`${isToggle ? "modal-open" : ""}`}>
@@ -56,12 +118,19 @@ export default function Exchange({ data, shopId, onFilterChange, onSearch, onPag
               <SearchBar onSearch={handleSearch} />
             </div>
             <div className={styles.filter_table}>
-              <Rating sortType={(value) => handleFilterChange("rating", value)} />
-              <Attribute sortType={(value) => handleFilterChange("attribute", value)} />
+              <Rating sortType={(value) => handleFilterChange("grade", value)} reset={reset}/>
+              <Attribute sortType={(value) => handleFilterChange("type", value)} reset={reset}/>
+              <Image
+              src={icon_exchange}
+              alt="새로고침"
+              width={20}
+              className={styles.refreshIcon}
+              onClick={handleResetFilters}
+            />
             </div>
           </div>
           <div className={styles.photocard_content}>
-            {cardData.card.map((photo) => (
+            {filteredData.map((photo) => (
               <div key={photo.id} onClick={() => handleSelectPhoto(photo)}>
                 <PhotoCard type="내카드" data={photo} />
               </div>
