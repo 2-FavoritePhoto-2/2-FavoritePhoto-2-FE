@@ -27,6 +27,10 @@ export default function CardSell({ data, closeModal }) {
         imageUrl: data.image,
         imageType: typeof data.image
       });
+
+      const imageResponse = await fetch(data.image);
+    const blob = await imageResponse.blob();
+    const imageFile = new File([blob], 'card-image.jpg', { type: 'image/jpeg' });
   
       if (!selectedGrade) {
         alert("등급을 선택해주세요.");
@@ -43,17 +47,21 @@ export default function CardSell({ data, closeModal }) {
   
       // FormData 생성
       const formData = new FormData();
+      formData.append('image', imageFile);
       formData.append('name', data.name);
       formData.append('price', Number(point));
       formData.append('grade', selectedGrade);
       formData.append('quantity', parseInt(selectedQuantity));
       formData.append('type', JSON.stringify([selectedType1, selectedType2].filter(Boolean)));
       formData.append('description', exchange || "");
-      formData.append('imageUrl', data.image); 
   
-      console.log("FormData 내용 확인:");
+      console.log("전송할 데이터");
       for (let [key, value] of formData.entries()) {
-        console.log(`${key}: ${value}`);
+        if (key === 'image') {
+          console.log('image:', value.name, value.type, value.size);
+        } else {
+          console.log(`${key}:`, value);
+        }
       }
   
       const result = await createPhotoCard(formData);
