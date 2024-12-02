@@ -1,12 +1,19 @@
 import { useState } from 'react';
 import styles from './AlertModals.module.css';
+import { updateNotification } from '@/lib/api/notifications';
 
-const AlertModals = ({ notifications, accessToken }) => {
+const AlertModals = ({ notifications, accessToken, onUpdate }) => {
 
   const handleNotificationClick = async (notificationId) => {
     if (!notificationId) return;
 
-    await updateNotification(notificationId, accessToken);
+    const token = localStorage.getItem('accessToken');
+  if (!token) return;
+
+    const updatedNotification = await updateNotification(notificationId, token);
+    if (updatedNotification) {
+      onUpdate(); 
+    }
   };
 
   const formatTimeAgo = (date) => {
@@ -51,7 +58,7 @@ const AlertModals = ({ notifications, accessToken }) => {
       </div>
     );
   }
-  const recentNotifications = notifications.slice(0, 5);
+  const recentNotifications = notifications.slice(0, 10);
 
   return (
     <div className={styles.alertContainer}>
@@ -59,7 +66,7 @@ const AlertModals = ({ notifications, accessToken }) => {
         {recentNotifications.map((notification) => (
           <div key={notification.id}>
             <div 
-              className={`${styles.alertItem} ${!notification.isRead ? styles.unread : ''}`}
+              className={`${styles.alertItem} ${notification.isRead ? styles.read : ''}`}
               onClick={() => handleNotificationClick(notification.id)}
             >
               <div className={`${styles.alertType} ${styles[notification.type?.toLowerCase()] || ''}`}>
