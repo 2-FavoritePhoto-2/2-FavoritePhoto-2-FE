@@ -86,6 +86,10 @@
   background: var(--color-gray-300);
 }
 
+.refreshIcon{
+  cursor: pointer;
+}
+
 /* 태블릿사이즈 미디어쿼리만 구현 ->공통컴포넌트의 미디어쿼리 적용시 재구현예정 */
 @media (max-width: 1199px) {
   .container {
