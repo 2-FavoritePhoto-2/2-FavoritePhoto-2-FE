@@ -39,6 +39,14 @@
     background-color: var(--color-main);
 }
 
+.error {
+    margin-top: 1rem;
+
+    color: var(--color-pink);
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
 /* Tablet Only */
 @media (min-width: 744px) and (max-width: 1199px) {
     .container {
