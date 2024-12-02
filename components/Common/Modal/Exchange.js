@@ -36,7 +36,7 @@ export default function Exchange({ data, shopId, onFilterChange, onSearch, onPag
         const profile = await getUserProfile();
         setNickname(profile.nickname);
       } catch (error) {
-        console.error("Failed to fetch user profile:", error);
+        console.error(error);
       }
     }
 
@@ -46,7 +46,6 @@ export default function Exchange({ data, shopId, onFilterChange, onSearch, onPag
   useEffect(() => {
     setAllCards(data.card);
   }, [data.card]);
-
 
 
   const handleResetFilters = () => {
