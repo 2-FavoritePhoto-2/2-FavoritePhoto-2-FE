@@ -32,24 +32,11 @@
   height: 100%;
 }
 
-.soldout {
-  position: relative;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.soldout_icon {
+  position: absolute;
 
   width: 100%;
   height: 27rem;
-}
-
-.soldout_icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 100%;
-  height: 100%;
 
   background-color: rgba(0, 0, 0, 0.5);
 
@@ -210,6 +197,11 @@
     height: 22.6rem;
   }
 
+  .soldout_icon {
+    width: 30.2rem;
+    height: 22.6rem;
+  }
+
   .badge {
     padding: 0.4rem 0.8rem;
   }
@@ -227,6 +219,11 @@
   }
 
   .img_wrap {
+    width: 15rem;
+    height: 11.2rem;
+  }
+
+  .soldout_icon {
     width: 15rem;
     height: 11.2rem;
   }
