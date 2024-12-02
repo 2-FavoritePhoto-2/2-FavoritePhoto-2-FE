@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getSaleList } from "@/lib/api/UserService";
+import { getSaleList, getUserProfile } from "@/lib/api/UserService";
 import styles from "@/styles/MyShop.module.css";
 import Image from "next/image";
 import resetIcon from "@/public/assets/icon_exchange.svg";
@@ -37,6 +37,21 @@ export default function MyShop() {
 
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
+
+  const [profile, setProfile] = useState({});
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const fetchProfile = await getUserProfile();
+        setProfile(fetchProfile);
+      } catch (err) {
+        console.error("프로필 정보를 불러오는데 실패했습니다.", err);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   // 검색어 변경 시 처리 함수
   const handleSearch = async (keyword) => {
@@ -235,7 +250,7 @@ export default function MyShop() {
     <div className={styles.container}>
       <div className={styles.header}>
         <MyShopTitle />
-        <MySaleCards mySales={filteredSales || []} />
+        <MySaleCards mySales={filteredSales || []} profile={profile} />
         <div className={styles.filter}>
           <div className={styles.line}></div>
           <div className={styles.search_filters}>
@@ -271,7 +286,7 @@ export default function MyShop() {
           </div>
         </div>
       </div>
-      <MyShopList mySales={mySales || []} />
+      <MyShopList mySales={mySales || []} profile={profile} />
     </div>
   );
 }

@@ -1,26 +1,10 @@
 import styles from "./PhotoCard.module.css";
 import Image from "next/image";
 import logo from "@/public/assets/logo.svg";
+import soldout from "@/public/assets/soldout.svg";
 import Grade from "../Grade/Grade";
-import { useState, useEffect } from "react";
-import { getUserProfile } from "@/lib/api/UserService";
 
-export default function PhotoCard({ data, type = "판매카드", exchange }) {
-  const [profile, setProfile] = useState({});
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const fetchProfile = await getUserProfile();
-        setProfile(fetchProfile);
-      } catch (err) {
-        console.error("프로필 정보를 불러오는데 실패했습니다.", err);
-      }
-    };
-
-    fetchData();
-  }, []);
-
+export default function PhotoCard({ data, profile, type = "판매카드", exchange }) {
   const exchangeHeaderClass = exchange ? styles.exchange_header : "";
   const exchangeClass = exchange ? styles.exchange : "";
   const exchangeValueClass = exchange ? styles.exchange_value : "";
@@ -30,16 +14,23 @@ export default function PhotoCard({ data, type = "판매카드", exchange }) {
   const cardType =
     type === "내판매카드" ? (
       <>
-        <div className={`${styles.img_wrap}`}>
-          <div
-            className={`${styles.badge} ${
-              data.mode === "shop" ? styles.shop_badge : styles.exchange_badge
-            }`}
-          >
-            <p>{data.mode === "shop" ? "판매 중" : "교환 제시 대기 중"}</p>
+        {data.quantity === 0 ? (
+          <div className={styles.soldout}>
+            <Image className={styles.img} src={data.image} fill alt="카드 이미지" priority />
+            <Image className={styles.soldout_icon} src={soldout} alt="soldout 아이콘" />
           </div>
-          <Image className={styles.img} src={data.image} fill alt="카드 이미지" priority />
-        </div>
+        ) : (
+          <div className={styles.img_wrap}>
+            <div
+              className={`${styles.badge} ${
+                data.mode === "shop" ? styles.shop_badge : styles.exchange_badge
+              }`}
+            >
+              <p>{data.mode === "shop" ? "판매 중" : "교환 제시 대기 중"}</p>
+            </div>
+            <Image className={styles.img} src={data.image} fill alt="카드 이미지" priority />
+          </div>
+        )}
         <div className={styles.card_info}>
           <div className={styles.card_header}>
             <h1>{data.cardName}</h1>
@@ -113,9 +104,16 @@ export default function PhotoCard({ data, type = "판매카드", exchange }) {
       </>
     ) : (
       <>
-        <div className={styles.img_wrap}>
-          <Image className={styles.img} src={data.card.image} fill alt="카드 이미지" priority />
-        </div>
+        {data.card.remainingQuantity === 0 ? (
+          <div className={styles.soldout}>
+            <Image className={styles.img} src={data.card.image} fill alt="카드 이미지" priority />
+            <Image className={styles.soldout_icon} src={soldout} alt="soldout 아이콘" />
+          </div>
+        ) : (
+          <div className={styles.img_wrap}>
+            <Image className={styles.img} src={data.card.image} fill alt="카드 이미지" priority />
+          </div>
+        )}
         <div className={styles.card_info}>
           <div className={styles.card_header}>
             <h1>{data.card.name}</h1>
