@@ -77,7 +77,7 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
           name: item.card.name,
           grade: item.card.grade,
           type: item.card.type,
-          price: item.card.price,
+          price: item.price,
           remainingQuantity: item.remainingQuantity,
           totalQuantity: item.totalQuantity,
         },
