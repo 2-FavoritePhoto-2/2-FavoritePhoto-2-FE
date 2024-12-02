@@ -68,6 +68,7 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
       });
 
       const data = await getCards(`/shop?${queryParams.toString()}`);
+
       const newCards = data.list.map((item) => ({
         listId: item.id,
         available: item.available,
@@ -76,7 +77,7 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
           name: item.card.name,
           grade: item.card.grade,
           type: item.card.type,
-          price: item.card.price,
+          price: item.price,
           remainingQuantity: item.remainingQuantity,
           totalQuantity: item.totalQuantity,
         },
@@ -84,7 +85,6 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
           nickname: item.seller.nickname,
         },
       }));
-      console.log("NEW CARD:", newCards);
 
       setCardItems((prevItems) => (reset ? newCards : [...prevItems, ...newCards]));
     } catch (error) {
