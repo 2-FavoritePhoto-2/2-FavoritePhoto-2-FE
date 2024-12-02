@@ -13,14 +13,24 @@ export default function MultiFilterModal({ filterKeys, filterCounts, onFilterCha
   const closeModal = () => setIsModalOpen(false);
 
   const resetSelect = () => {
-    setSelectedItem(null);
-    onFilterChange("grade", null);
-    onFilterChange("type", null);
-    onFilterChange("sale", null);
-    onFilterChange("available", null);
+    setSelectedItem(null); 
+
+    const resetFilters = {
+      grade: undefined,
+      type: undefined,
+      available: undefined,
+      orderBy: undefined
+    };
+
+    Object.keys(resetFilters).forEach(key => {
+      onFilterChange(key, null);
+    });
+
+    setActiveTab(filterKeys[0] || "등급");
+    
   };
 
-  // useEffect(() => { 멀티필터 잘 가져오는 지 확인용
+  // useEffect(() => {
   // console.log("MultiFilterModal", filterCounts);
   // }, [filterCounts]);
 
@@ -31,12 +41,16 @@ export default function MultiFilterModal({ filterKeys, filterCounts, onFilterCha
         ? "grade"
         : activeTab === "속성"
         ? "type"
-        : activeTab === "판매여부"
+        : activeTab === "판매방법"
         ? "sale"
         : activeTab === "매진여부"
-        ? "soldOut"
+        ? "available"
         : null;
-    onFilterChange(filterType, item);
+
+    const filterValue =
+      activeTab === "매진여부" ? (item === "잔여" ? true : item === "매진" ? false : null) : item;
+
+    onFilterChange(filterType, filterValue);
   };
 
   const filterData = {
@@ -62,7 +76,7 @@ export default function MultiFilterModal({ filterKeys, filterCounts, onFilterCha
       "페어리",
     ],
     판매여부: ["판매중", "대기중"],
-    매진여부: ["매진", "잔여"],
+    매진여부: ["잔여", "매진"],
   };
 
   const colorMapping = {
@@ -80,7 +94,7 @@ export default function MultiFilterModal({ filterKeys, filterCounts, onFilterCha
       : activeTab === "판매방법"
       ? filterCounts?.sale || {}
       : activeTab === "매진여부"
-      ? filterCounts?.available || {}
+      ? { 잔여: filterCounts?.available?.true || 0, 매진: filterCounts?.available?.false || 0 }
       : {};
 
   //멀티 필터에서 총 개수 계산하는 부분

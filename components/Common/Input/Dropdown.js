@@ -3,11 +3,11 @@ import styles from "./Dropdown.module.css";
 import Image from "next/image";
 import arrowDown from "@/public/assets/icon_down.svg";
 
-export default function Dropdown({ label, name, value, setValue, option }) {
+export default function Dropdown({ label, value, setValue, option }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const options = {
-    등급: ["COMMON", "RARE", "SUPER RARE", "LEGENDARY"],
+    등급: ["COMMON", "RARE", "SUPER_RARE", "LEGENDARY"],
     속성: [
       "노말",
       "불꽃",
@@ -30,6 +30,10 @@ export default function Dropdown({ label, name, value, setValue, option }) {
     ],
   };
 
+  const formatDisplayValue = (value) => {
+    return value.replace(/_/g, " ");
+  };
+
   const toggleDropdown = () => {
     setIsOpen((prev) => !prev);
   };
@@ -41,21 +45,21 @@ export default function Dropdown({ label, name, value, setValue, option }) {
 
   return (
     <div className={styles.group}>
-      <label htmlFor={name}>{label}</label>
+      <p className={styles.label}>{label}</p>
       <div className={styles.dropdown_container}>
         <div className={styles.dropdown} onClick={toggleDropdown}>
-          <p>{value || `${label}을 선택하세요`}</p>
+          <p>{formatDisplayValue(value) || `${label}을 선택하세요`}</p>
           <Image src={arrowDown} width={28} height={28} alt="아래 화살표" />
         </div>
         {isOpen && (
           <div className={styles.dropdown_options}>
-            {options[option].map((option) => (
+            {options[option].map((option, index) => (
               <div
-                key={option.value}
+                key={index}
                 className={styles.dropdown_option}
                 onClick={() => handleOptionClick(option)}
               >
-                <p>{option}</p>
+                <p>{formatDisplayValue(option)}</p>
               </div>
             ))}
           </div>

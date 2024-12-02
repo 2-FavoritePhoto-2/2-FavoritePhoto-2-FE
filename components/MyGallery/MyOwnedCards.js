@@ -1,7 +1,7 @@
 import Grade from "../Common/Grade/Grade";
 import styles from "./MyOwnedCards.module.css";
 
-export default function MyOwnedCards({ myCardList }) {
+export default function MyOwnedCards({ myCardList, profile }) {
   const grades = ["COMMON", "RARE", "SUPER_RARE", "LEGENDARY"];
 
   const gradeCount = {
@@ -20,7 +20,7 @@ export default function MyOwnedCards({ myCardList }) {
   return (
     <div className={styles.container}>
       <div className={styles.info}>
-        <p className={styles.owner}>소유자님이 보유한 포토카드</p>
+        <p className={styles.owner}>{profile.nickname}님이 보유한 포토카드</p>
         <p className={styles.total_count}>({myCardList.length}장)</p>
       </div>
       <div className={styles.grade_count}>

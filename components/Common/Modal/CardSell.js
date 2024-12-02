@@ -4,36 +4,85 @@ import styles from "./CardSell.module.css";
 import Image from "next/image";
 import Dropdown from "../Input/Dropdown";
 import Input from "../Input/Input";
-import data from "@/public/mockData.json";
 import CardSellInfo from "../CardInfo/CardSellInfo";
+import { createCardSale } from "@/lib/api/pocketPlaceAPI";
 
-export default function CardSell() {
+export default function CardSell({ data, closeModal }) {
   const [selectedGrade, setSelectedGrade] = useState("");
   const [selectedType1, setSelectedType1] = useState("");
   const [selectedType2, setSelectedType2] = useState("");
   const [exchange, setExchange] = useState("");
+  const [point, setPoint] = useState("");
+  const [selectedQuantity, setSelectedQuantity] = useState(1);
 
   const router = useRouter();
 
-  const handleSellClick = () => {
-    router.push({
-      pathname: "/SuccessFail",
-      query: { type: "register_success" },
-    });
+  const handlePointChange = (value) => {
+    setPoint(value);
+  };
+
+  const handleSellClick = async () => {
+    try {
+      if (!selectedGrade) {
+        alert("등급을 선택해주세요.");
+        return;
+      }
+      if (!point || isNaN(Number(point))) {
+        alert("가격을 입력해주세요.");
+        return;
+      }
+      if (!selectedQuantity || selectedQuantity < 1) { 
+        alert("수량을 선택해주세요.");
+        return;
+      }
+  
+      const exchangeTypes = [selectedType1];
+    if (selectedType2) {
+      exchangeTypes.push(selectedType2);
+    }
+
+      const saleData = {
+        price: Number(point),
+        quantity: parseInt(selectedQuantity),
+        exchangeGrade: selectedGrade,
+        exchangeType: exchangeTypes,
+        exchangeDetails: exchange || "",
+        cardId: data.id
+      };
+  
+      const result = await createCardSale(saleData);
+  
+      router.push({
+        pathname: "/SuccessFail",
+        query: { type: "register_success" },
+      });
+    } catch (error) {
+      console.error(error.response?.data || error);
+      router.push({
+        pathname: "/SuccessFail",
+        query: { type: "register_fail" },
+      });
+    }
   };
 
   return (
     <div className={styles.card_info_wrapper}>
       <h1 className={styles.modal_title}>나의 포토카드 판매하기</h1>
       <div className={styles.card_title}>
-        <h1>{data[0].name}</h1>
+        <h1>{data.name}</h1>
         <div className={styles.bold_line} />
       </div>
       <div className={styles.card_info}>
         <div className={styles.img_wrap}>
-          <Image className={styles.img} src={data[0].image} fill alt="카드 이미지" />
+          <Image className={styles.img} src={data.image} fill alt="카드 이미지" />
         </div>
-        <CardSellInfo />
+        <CardSellInfo 
+          data={data} 
+          point={point}
+          setPoint={handlePointChange}
+          selectedQuantity={selectedQuantity}
+          setSelectedQuantity={setSelectedQuantity}
+        />
       </div>
       <div className={styles.exchange_info}>
         <div className={styles.exchange_title}>
@@ -76,7 +125,9 @@ export default function CardSell() {
       </div>
       <div className={styles.thin_line}></div>
       <div className={styles.buttons}>
-        <button className={styles.cancel}>취소하기</button>
+        <button className={styles.cancel} onClick={closeModal}>
+          취소하기
+        </button>
         <button className={styles.sell} onClick={handleSellClick}>
           판매하기
         </button>

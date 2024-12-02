@@ -146,15 +146,12 @@
 /* Tablet + Mobile */
 @media (min-width: 375px) and (max-width: 1199px) {
   .card_info_wrapper {
+    margin-bottom: 3rem;
     padding-right: 0;
   }
 
   .card_info_wrapper::-webkit-scrollbar {
-    width: 0;
-  }
-
-  .card_info_wrapper::-webkit-scrollbar-thumb {
-    background-color: transparent;
+    display: none;
   }
 }
 
