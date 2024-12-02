@@ -13,6 +13,8 @@ export default function MultiFilterModal({ filterKeys, filterCounts, onFilterCha
   const closeModal = () => setIsModalOpen(false);
 
   const resetSelect = () => {
+    setSelectedItem(null); 
+
     const resetFilters = {
       grade: undefined,
       type: undefined,
@@ -21,9 +23,11 @@ export default function MultiFilterModal({ filterKeys, filterCounts, onFilterCha
     };
 
     Object.keys(resetFilters).forEach(key => {
-      onFilterChange(key, resetFilters[key]);
+      onFilterChange(key, null);
     });
 
+    setActiveTab(filterKeys[0] || "등급");
+    
   };
 
   // useEffect(() => {
