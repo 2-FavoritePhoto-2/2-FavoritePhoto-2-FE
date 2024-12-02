@@ -36,18 +36,21 @@ export default function CardSell({ data, closeModal }) {
         return;
       }
   
+      const exchangeTypes = [selectedType1];
+    if (selectedType2) {
+      exchangeTypes.push(selectedType2);
+    }
+
       const saleData = {
         price: Number(point),
         quantity: parseInt(selectedQuantity),
         exchangeGrade: selectedGrade,
-        exchangeType: selectedType1,
-        selectedType2: selectedType2, 
+        exchangeType: exchangeTypes,
         exchangeDetails: exchange || "",
         cardId: data.id
       };
   
       const result = await createCardSale(saleData);
-      console.log('판매 등록 결과:', result);
   
       router.push({
         pathname: "/SuccessFail",
