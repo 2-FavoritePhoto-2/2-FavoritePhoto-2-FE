@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+import { getSaleList } from "@/lib/api/UserService";
 import styles from "@/styles/MyShop.module.css";
 import Image from "next/image";
 import resetIcon from "@/public/assets/icon_exchange.svg";
@@ -10,8 +12,6 @@ import Attribute from "@/components/Common/Dropdown/Sort/Attribute";
 import Sale from "@/components/Common/Dropdown/Sort/Sale";
 import Soldout from "@/components/Common/Dropdown/Sort/Soldout";
 import MultiFilterModal from "@/components/Common/Modal/MultiFilter";
-import { useState, useEffect } from "react";
-import { getSaleList } from "@/lib/api/UserService";
 
 export default function MyShop() {
   const [mySales, setMySales] = useState([]);

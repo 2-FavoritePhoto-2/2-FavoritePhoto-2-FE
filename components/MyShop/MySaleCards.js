@@ -1,7 +1,7 @@
-import Grade from "../Common/Grade/Grade";
-import styles from "./MySaleCards.module.css";
 import { useState, useEffect } from "react";
 import { getUserProfile } from "@/lib/api/UserService";
+import styles from "./MySaleCards.module.css";
+import Grade from "../Common/Grade/Grade";
 
 export default function MySaleCards({ mySales }) {
   const grades = ["COMMON", "RARE", "SUPER RARE", "LEGENDARY"];
