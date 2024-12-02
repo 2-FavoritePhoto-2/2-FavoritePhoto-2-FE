@@ -16,15 +16,20 @@ export default function Soldout({ sortType, reset }) {
     setSelectValue(value);
     setIsOpen(false);
     if (sortType) {
-      sortType(value);
+      const availableValue = value === "잔여" ? true : value === "매진" ? false : undefined;
+      sortType(availableValue);
     }
   };
 
   useEffect(() => {
     if (reset) {
       setSelectValue("매진여부");
+
+      if (sortType) {
+        sortType(undefined);
+      }
     }
-  }, [reset]);
+  }, [reset, sortType]);
 
   return (
     <div
@@ -38,11 +43,11 @@ export default function Soldout({ sortType, reset }) {
       {isOpen && (
         <div className={styles.dropDown_wrapper}>
           <ul className={styles.dropDown_list}>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("매진됨")}>
-              매진됨
+            <li className={styles.dropDown_item} onClick={() => handleSelect("매진")}>
+              매진
             </li>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("매진안됨")}>
-              매진안됨
+            <li className={styles.dropDown_item} onClick={() => handleSelect("잔여")}>
+              잔여
             </li>
           </ul>
         </div>
