@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import styles from "./Quantity.module.css";
 
-//수량
-export default function Quantity({ onChange, maxQuantity }) {
-  const [quantity, setQuantity] = useState(1);
+export default function Quantity({ onChange, maxQuantity, defaultQuantity = 1 }) {
+  const [quantity, setQuantity] = useState(defaultQuantity); // 초기값 설정
 
   const increaseQuantity = () => {
     if (quantity < maxQuantity) {
@@ -17,10 +16,11 @@ export default function Quantity({ onChange, maxQuantity }) {
     }
   };
 
-  // quantity가 변경될 때마다 상위 컴포넌트의 함수를 호출(상위컴포넌트에 수량 표시)
   useEffect(() => {
-    onChange(quantity);
-  }, [quantity, onChange]);
+    if (quantity !== defaultQuantity) {
+      onChange(quantity); // 값이 변경된 경우에만 상위로 전달
+    } // quantity가 변경될 때 상위 컴포넌트에 전달
+  }, [quantity, defaultQuantity, onChange]);
 
   return (
     <div className={styles.quantity_table}>
@@ -35,7 +35,7 @@ export default function Quantity({ onChange, maxQuantity }) {
         src="/assets/btn_plus.png"
         className={styles.plus_button}
         onClick={increaseQuantity}
-        disabled={quantity >= maxQuantity} //수량 최대 도달시 버튼 비활성화
+        disabled={quantity >= maxQuantity}
       />
     </div>
   );

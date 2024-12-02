@@ -1,157 +1,181 @@
 .container {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    max-width: 44rem;
-    width: 100%;
-    height: 21.5rem;
+  max-width: 44rem;
+  width: 100%;
+  height: 21.5rem;
 
-    gap: 3rem;
+  gap: 3rem;
 }
 
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .category {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    gap: 1.5rem;
+  gap: 1.5rem;
 }
 
 .category p:not(:first-child) {
-    color: var(--color-gray-300);
-    font-size: 2.4rem;
-    font-weight: 700;
-    line-height: 3.475rem;
+  color: var(--color-gray-300);
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 3.475rem;
 }
 
 .seller {
-    font-size: 2.4rem;
-    font-weight: 700;
-    line-height: 3.475rem;
-    text-decoration: underline;
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 3.475rem;
+  text-decoration: underline;
 }
 
 .line {
-    border: 0.1rem solid var(--color-gray-400);
+  border: 0.1rem solid var(--color-gray-400);
 }
 
 .quantity_price {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    gap: 2rem;
+  gap: 2rem;
 }
 
 .total_quantity {
-    display: flex;
-    align-items: center;
-    gap: 8rem;
+  display: flex;
+  align-items: center;
+  gap: 8rem;
 }
 
 .quantity {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    gap: 2rem;
+  gap: 2rem;
 }
 
 .price {
-    display: flex;
-    align-items: center;
-    gap: 10.5rem;
+  display: flex;
+  align-items: center;
+  gap: 10.5rem;
 }
 
 .point_input {
-    width: 100%;
+  width: 100%;
 }
 
 .label,
 .max_count {
-    font-size: 2rem;
-    font-weight: 400;
-    line-height: 2.896rem;
-    text-wrap: nowrap;
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 2.896rem;
+  text-wrap: nowrap;
 }
 
 .max_quantity {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .max_notice {
-    font-size: 1.4rem;
-    font-weight: 300;
-    line-height: 2.027rem;
-    text-wrap: nowrap;
+  font-size: 1.4rem;
+  font-weight: 300;
+  line-height: 2.027rem;
+  text-wrap: nowrap;
+}
+.remaining_name,
+.remaining_card,
+.quantity_int {
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 2.896rem;
+  color: #a4a4a4;
+}
+.remaining_name,
+.quantity_int {
+  color: white;
 }
 
+.remaining_contain {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.remaining_table {
+  display: flex;
+  align-items: center;
+}
+.remaining_card {
+  font-size: 2.4rem;
+}
 /* Tablet Only */
 @media (min-width: 744px) and (max-width: 1199px) {
-    .container {
-        max-width: 34.2rem;
-        height: 19.6rem;
-    }
+  .container {
+    max-width: 34.2rem;
+    height: 19.6rem;
+  }
 
-    .category {
-        gap: 1rem;
-    }
+  .category {
+    gap: 1rem;
+  }
 
-    .category p:not(:first-child),
-    .seller,
-    .label,
-    .max_count {
-        font-size: 1.8rem;
-        line-height: 2.606rem;
-    }
+  .category p:not(:first-child),
+  .seller,
+  .label,
+  .max_count {
+    font-size: 1.8rem;
+    line-height: 2.606rem;
+  }
 
-    .quantity {
-        width: 20.2rem;
-    }
+  .quantity {
+    width: 20.2rem;
+  }
 
-    .point_input {
-        width: 20.2rem;
-    }
+  .point_input {
+    width: 20.2rem;
+  }
 
-    .max_notice {
-        font-size: 1.2rem;
-        line-height: 1.738rem;
-    }
+  .max_notice {
+    font-size: 1.2rem;
+    line-height: 1.738rem;
+  }
 }
 
 /* Mobile Only */
 @media (max-width: 743px) {
-    .container {
-        max-width: 34.5rem;
-        height: 19.6rem;
-    }
+  .container {
+    max-width: 34.5rem;
+    height: 19.6rem;
+  }
 
-    .category {
-        gap: 1rem;
-    }
+  .category {
+    gap: 1rem;
+  }
 
-    .category p:not(:first-child),
-    .seller,
-    .label,
-    .max_count {
-        font-size: 1.8rem;
-        line-height: 2.606rem;
-    }
+  .category p:not(:first-child),
+  .seller,
+  .label,
+  .max_count {
+    font-size: 1.8rem;
+    line-height: 2.606rem;
+  }
 
-    .quantity {
-        width: 20.2rem;
-    }
+  .quantity {
+    width: 20.2rem;
+  }
 
-    .point_input {
-        width: 20.2rem;
-    }
+  .point_input {
+    width: 20.2rem;
+  }
 
-    .max_notice {
-        font-size: 1.2rem;
-        line-height: 1.738rem;
-    }
+  .max_notice {
+    font-size: 1.2rem;
+    line-height: 1.738rem;
+  }
 }

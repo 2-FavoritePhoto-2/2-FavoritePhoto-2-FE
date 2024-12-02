@@ -32,7 +32,6 @@ export default function CardDetail({ data }) {
   const accessToken = typeof window !== "undefined" ? localStorage.getItem("accessToken") : "";
   const [isOwner, setIsOwner] = useState(false);
   const [exchangeModal, setExchangeModal] = useState(false);
-
   const [myCardList, setMyCardList] = useState([]);
   const [filteredCards, setFilteredCards] = useState([]);
   const [myOffer, setMyOffer] = useState([]);
@@ -42,6 +41,7 @@ export default function CardDetail({ data }) {
     value: "",
   });
 
+  const router = useRouter();
   const card = data.card;
   const exchangeGrade = data.exchangeGrade;
 
@@ -243,7 +243,11 @@ export default function CardDetail({ data }) {
               </div>
               <div className={styles.recommendcard}>
                 {relatedCards.length > 0 ? (
-                  relatedCards.map((photo) => <PhotoCard key={photo.id} data={photo ?? {}} />)
+                  relatedCards.map((photo) => (
+                    <div key={photo.id}>
+                      <PhotoCard  data={photo ?? {}} />
+                    </div>
+                  ))
                 ) : (
                   <p className={styles.nonCardList}>
                     {card.name} 카드와 비슷한 포토카드를 등록해보세요!

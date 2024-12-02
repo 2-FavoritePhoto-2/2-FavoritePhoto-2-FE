@@ -3,30 +3,23 @@ import styles from "./CardEdit.module.css";
 import Image from "next/image";
 import Dropdown from "../Input/Dropdown";
 import Input from "../Input/Input";
-import CardSellInfo from "../CardInfo/CardSellInfo";
 import axios from "@/lib/api/api.js";
+import CardEditInfo from "../CardInfo/CardEditInfo";
 
 const INITIAL_VALUES = {
   price: 0,
   totalQuantity: 1,
   remainingQuantity: 1,
   exchangeGrade: "",
-  exchangeType: "",//배열로 변경예정
+  exchangeType: [],
   exchangeDetails: "",
 };
 
 export default function CardEdit({ data, onClose }) {
   const accessToken = typeof window !== "undefined" ? localStorage.getItem("accessToken") : "";
   const [values, setValues] = useState(INITIAL_VALUES);
-  // const [selectedGrade, setSelectedGrade] = useState("");
-  // const [selectedType1, setSelectedType1] = useState("");
-  // const [selectedType2, setSelectedType2] = useState("");
-  // const [exchange, setExchange] = useState("");
-  // const [selectedQuantity, setSelectedQuantity] = useState(1);
-  // const [price, setPrice] = useState(0);
 
-
-useEffect(() => {
+  useEffect(() => {
     const fetchProductItem = async () => {
       try {
         const response = await axios.get(`/shop/${data.id}`); // 상품 정보 가져오기
@@ -40,13 +33,20 @@ useEffect(() => {
           exchangeDetails: product.exchangeDetails,
         });
       } catch (error) {
-  
         console.error("상품 정보를 불러오는 데 실패했습니다:", error);
       }
     };
 
     fetchProductItem();
   }, [data.id]); // id가 변경될 때마다 이펙트 실행
+
+  const handleQuantityChange = (newRemaining, newTotal) => {
+    setValues((prevValues) => ({
+      ...prevValues,
+      remainingQuantity: newRemaining,
+      totalQuantity: newTotal,
+    }));
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -57,20 +57,31 @@ useEffect(() => {
   };
 
   const handleEditExchange = async () => {
+    const exchangeType =
+      values.exchangeType[0] && values.exchangeType[1]
+        ? values.exchangeType
+        : values.exchangeType[0]
+        ? [values.exchangeType[0]]
+        : undefined;
     const body = {
-      ...(selectedGrade && { exchangeGrade: selectedGrade }),
-      ...(selectedType1 && { exchangeType: selectedType1 }),
-      ...(selectedType2 && { selectedType2 }),
-      ...(selectedQuantity && { totalQuantity: selectedQuantity }),
-      ...(price && { price }),
-      ...(exchange && { exchangeDetails: exchange }),
+      ...(values.exchangeGrade && { exchangeGrade: values.exchangeGrade }), // 값이 존재할 때만 추가
+      ...(exchangeType && { exchangeType }),
+      ...(values.totalQuantity && { totalQuantity: values.totalQuantity }),
+      ...(values.remainingQuantity && { remainingQuantity: values.remainingQuantity }),
+      ...(values.price && { price: values.price }),
+      ...(values.exchangeDetails && { exchangeDetails: values.exchangeDetails }),
     };
-
-    await axios.patch(`/shop/${data.id}`, body, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+    try {
+      await axios.patch(`/shop/${data.id}`, body, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      onClose();
+      window.location.reload();
+    } catch (error) {
+      console.error("수정 실패:", error);
+    }
   };
 
   return (
@@ -84,7 +95,12 @@ useEffect(() => {
         <div className={styles.img_wrap}>
           <Image className={styles.img} src={data.card.image} fill alt="카드 이미지" />
         </div>
-        <CardSellInfo data={data} setSelectedQuantity={setSelectedQuantity} setPrice={setPrice} />
+        <CardEditInfo
+          data={data}
+          priceValue={values.price}
+          onQuantityChange={handleQuantityChange}
+          onPriceChange={handleChange}
+        />
       </div>
       <div className={styles.exchange_info}>
         <div className={styles.exchange_title}>
@@ -95,23 +111,33 @@ useEffect(() => {
           <div className={styles.dropdown}>
             <Dropdown
               label="등급"
-              name="grade"
+              name="exchangeGrade"
               value={values.exchangeGrade}
-              setValue={setSelectedGrade}
+              setValue={handleChange}
               option="등급"
             />
             <Dropdown
               label="속성 ①"
-              name="attribute1"
-              value={selectedType1}
-              setValue={setSelectedType1}
+              name="exchangeType"
+              value={values.exchangeType[0] || ""}
+              setValue={(e) =>
+                setValues((prev) => ({
+                  ...prev,
+                  exchangeType: [e, prev.exchangeType[1] || ""],
+                }))
+              }
               option="속성"
             />
             <Dropdown
               label="속성 ②"
-              name="attribute2"
-              value={selectedType2}
-              setValue={setSelectedType2}
+              name="exchangeType"
+              value={values.exchangeType[1] || ""}
+              setValue={(e) =>
+                setValues((prev) => ({
+                  ...prev,
+                  exchangeType: [prev.exchangeType[0] || "", e],
+                }))
+              }
               option="속성"
             />
           </div>
@@ -119,9 +145,9 @@ useEffect(() => {
             <Input
               label="교환 희망 설명"
               type="textarea"
-              name="exchange"
-              value={exchange}
-              onChange={(e) => setExchange(e.target.value)}
+              name="exchangeDetails"
+              value={values.exchangeDetails}
+              onChange={handleChange}
               placeholder="설명을 입력해 주세요"
             />
           </div>

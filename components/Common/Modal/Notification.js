@@ -18,7 +18,7 @@ export default function Notification({ type, onButtonClick, onClose, data }) {
     },
     purchase: {
       title: "포토카드 구매",
-      description: `장을 구매하시겠습니까?`,
+      // description: `장을 구매하시겠습니까?`,
       description: `[${grade} | ${name}] ${quantity}장을 구매하시겠습니까?`,
       buttonText: "구매하기",
     },
@@ -26,7 +26,7 @@ export default function Notification({ type, onButtonClick, onClose, data }) {
       title: "교환 제시 취소",
       description: ` 교환 제시를 취소하시겠습니까?`,
 
-      // description: `[${data.rate} | ${data.title}] 교환 제시를 취소하시겠습니까?`,
+      description: `[${grade} | ${name}] 교환 제시를 취소하시겠습니까?`,
       buttonText: "취소하기",
     },
     exchange_reject: {

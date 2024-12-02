@@ -32,7 +32,7 @@ Content-Type: application/json
 # "password": "1234"
 # }
 
-###    "accessToken":eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzMwMzU5OTMsImV4cCI6MTczMzEyMjM5M30.1zyTCbhp2DUT6BWcIF6jwwaIspImDSDa2N3nOMktucE
+###    "accessToken":eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzMwNTc1NTQsImV4cCI6MTczMzE0Mzk1NH0.sayKAsuV7LYDLj038AIAAC5B0GsXuIpYQQyrr8dN64o
 
 
 POST https://pikapick.onrender.com/auth/token/refresh

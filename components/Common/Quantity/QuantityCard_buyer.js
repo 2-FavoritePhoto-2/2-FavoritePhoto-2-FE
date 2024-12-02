@@ -84,7 +84,7 @@ export default function QuantityCardBuyer({ data }) {
         <div className={styles.price_contain}>
           <div className={styles.price_table}>
             <p className={styles.price_name}>가격</p>
-            <p className={styles.price}>{response.price} P</p>
+            <p className={styles.price}>{data.price} P</p>
           </div>
           <div className={styles.remaining_contain}>
             <p className={styles.remaining_name}>잔여</p>

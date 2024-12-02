@@ -2,10 +2,16 @@ import styles from "./PhotoCardExchange.module.css";
 import Image from "next/image";
 import Grade from "../Grade/Grade";
 import axios from "@/lib/api/api.js";
+import { useState } from "react";
 
 export default function PhotoCardExchange({ data, type = "buyer" }) {
   const accessToken = typeof window !== "undefined" ? localStorage.getItem("accessToken") : "";
   const buttonType = type === "seller";
+  const [notificationModal, setNotificationModal] = useState(false);
+
+  const toggleNotification = () => {
+    setNotificationModal(!notificationModal);
+  };
 
   const handleCancelClick = async () => {
     await axios.delete(`/cards/exchange/${data.id}/cancel`, {
@@ -74,11 +80,19 @@ export default function PhotoCardExchange({ data, type = "buyer" }) {
             <button className={styles.approve} onClick={handleApprove}></button>
           </>
         ) : (
-          <button className={styles.cancel} onClick={handleCancelClick}>
+          <button className={styles.cancel} onClick={toggleNotification}>
             취소하기
           </button>
         )}
       </div>
+      {notificationModal && (
+        <Notification
+          type="sale_stop"
+          data={{ name: data.buyerCard.name, grade: data.buyerCard.grade }}
+          onClose={toggleNotification}
+          onButtonClick={handleCancelClick}
+        />
+      )}
     </div>
   );
 }
