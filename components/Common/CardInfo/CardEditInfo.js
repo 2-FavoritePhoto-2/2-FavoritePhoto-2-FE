@@ -3,8 +3,9 @@ import Grade from "../Grade/Grade";
 import Quantity from "../Quantity/Quantity";
 import Input from "../Input/Input";
 import { useState } from "react";
+import Test from "./test";
 
-export default function CardEditInfo({ data,priceValue, onPriceChange,onQuantityChange }) {
+export default function CardEditInfo({ data, priceValue, onPriceChange, onQuantityChange }) {
   const [remainingQuantity, setRemainingQuantity] = useState(data.remainingQuantity);
   const [totalQuantity, setTotalQuantity] = useState(data.totalQuantity);
 
@@ -27,7 +28,6 @@ export default function CardEditInfo({ data,priceValue, onPriceChange,onQuantity
     // // Notify the parent component
     onQuantityChange(updatedRemainingQuantity, updatedTotalQuantity);
   };
-
 
   return (
     <div className={styles.container}>

@@ -31,16 +31,16 @@ export default function Notification({ type, onButtonClick, onClose, data }) {
     },
     exchange_reject: {
       title: "교환 제시 거절",
-      description: ` 카드와의 교환을 거절하시겠습니까?`,
+      // description: ` 카드와의 교환을 거절하시겠습니까?`,
 
-      // description: `[${data.rate} | ${data.title}] 카드와의 교환을 거절하시겠습니까?`,
+      description: `[${grade} | ${name}] 카드와의 교환을 거절하시겠습니까?`,
       buttonText: "거절하기",
     },
     exchange_accept: {
       title: "교환 제시 승인",
-      description: `카드와의 교환을 승인하시겠습니까?`,
+      // description: `카드와의 교환을 승인하시겠습니까?`,
 
-      // description: `[${data.rate} | ${data.title}] 카드와의 교환을 승인하시겠습니까?`,
+      description: `[${grade} | ${name}] 카드와의 교환을 승인하시겠습니까?`,
       buttonText: "승인하기",
     },
     sale_stop: {

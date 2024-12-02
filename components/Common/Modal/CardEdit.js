@@ -68,7 +68,7 @@ export default function CardEdit({ data, onClose }) {
       ...(exchangeType && { exchangeType }),
       ...(values.totalQuantity && { totalQuantity: values.totalQuantity }),
       ...(values.remainingQuantity && { remainingQuantity: values.remainingQuantity }),
-      ...(values.price && { price: values.price }),
+      ...(values.price && { price: Number(values.price) }),
       ...(values.exchangeDetails && { exchangeDetails: values.exchangeDetails }),
     };
     try {
@@ -113,7 +113,12 @@ export default function CardEdit({ data, onClose }) {
               label="등급"
               name="exchangeGrade"
               value={values.exchangeGrade}
-              setValue={handleChange}
+              setValue={(e) =>
+                setValues((prev) => ({
+                  ...prev,
+                  exchangeGrade: e,
+                }))
+              }
               option="등급"
             />
             <Dropdown

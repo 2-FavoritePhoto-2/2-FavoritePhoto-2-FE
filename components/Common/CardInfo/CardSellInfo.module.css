@@ -101,7 +101,9 @@
 .quantity_int {
   color: white;
 }
-
+.quantity_int{
+  font-size: 2.4rem;
+}
 .remaining_contain {
   display: flex;
   justify-content: space-between;

@@ -98,7 +98,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhM
 ###
 
 GET https://pikapick.onrender.com/user/profile
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI4NjEzMzAsImV4cCI6MTczMjk0NzczMH0.hiJmpiaen3GVmASc-4MMYJ7iOjEN_QIflDSTZZqEPdg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzMwOTkzODIsImV4cCI6MTczMzE4NTc4Mn0.5W1_BpoUqhvRiuZeYgTXWiyHWfVb6_Wr9cpCFRGrQcw
 
 ###
 PATCH https://pikapick.onrender.com/shop/d6d34f94-337e-4cb7-a73a-3c37ff9448b8
@@ -106,7 +106,7 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzMwMzU5OTMsImV4cCI6MTczMzEyMjM5M30.1zyTCbhp2DUT6BWcIF6jwwaIspImDSDa2N3nOMktucE
 
 {
-    "exchangeType":"불꽃"
+    "price":4
 }
 
 

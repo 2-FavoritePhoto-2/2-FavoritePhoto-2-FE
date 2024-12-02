@@ -3,14 +3,23 @@ import Image from "next/image";
 import Grade from "../Grade/Grade";
 import axios from "@/lib/api/api.js";
 import { useState } from "react";
+import Notification from "../Modal/Notification";
 
 export default function PhotoCardExchange({ data, type = "buyer" }) {
   const accessToken = typeof window !== "undefined" ? localStorage.getItem("accessToken") : "";
   const buttonType = type === "seller";
   const [notificationModal, setNotificationModal] = useState(false);
+  const [refuseModal, setRefuseModal] = useState(false);
+  const [approveModal, setApproveModal] = useState(false);
 
   const toggleNotification = () => {
     setNotificationModal(!notificationModal);
+  };
+  const toggleRefuseModal = () => {
+    setRefuseModal(!refuseModal);
+  };
+  const toggleApproveModal = () => {
+    setApproveModal(!approveModal);
   };
 
   const handleCancelClick = async () => {
@@ -43,7 +52,7 @@ export default function PhotoCardExchange({ data, type = "buyer" }) {
     );
     window.location.reload();
   };
-
+ 
   return (
     <div className={styles.card_container}>
       <div className={styles.img_wrap}>
@@ -76,8 +85,8 @@ export default function PhotoCardExchange({ data, type = "buyer" }) {
       <div className={styles.buttons}>
         {buttonType ? (
           <>
-            <button className={styles.refuse} onClick={handleRefuse}></button>
-            <button className={styles.approve} onClick={handleApprove}></button>
+            <button className={styles.refuse} onClick={toggleRefuseModal}></button>
+            <button className={styles.approve} onClick={toggleApproveModal}></button>
           </>
         ) : (
           <button className={styles.cancel} onClick={toggleNotification}>
@@ -91,6 +100,22 @@ export default function PhotoCardExchange({ data, type = "buyer" }) {
           data={{ name: data.buyerCard.name, grade: data.buyerCard.grade }}
           onClose={toggleNotification}
           onButtonClick={handleCancelClick}
+        />
+      )}
+      {refuseModal && (
+        <Notification
+          type="exchange_reject"
+          data={{ name: data.buyerCard.name, grade: data.buyerCard.grade }}
+          onClose={toggleRefuseModal}
+          onButtonClick={handleRefuse}
+        />
+      )}
+      {approveModal && (
+        <Notification
+          type="exchange_accept"
+          data={{ name: data.buyerCard.name, grade: data.buyerCard.grade }}
+          onClose={toggleApproveModal}
+          onButtonClick={handleApprove}
         />
       )}
     </div>

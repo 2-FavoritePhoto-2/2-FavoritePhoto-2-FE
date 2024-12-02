@@ -179,7 +179,7 @@ export default function CardDetail({ data }) {
     const fetchRelatedCards = async () => {
       try {
         const response = await axios.get(
-          `/shop?keyword=${encodeURIComponent(card.name)}&exclude=${data.id}`,
+          `/shop?keyword=${encodeURIComponent(card.name)}&available=true&exclude=${data.id}`,
         );
         setRelatedCards(response.data.list); // 검색된 카드 목록을 상태에 저장
       } catch (error) {
@@ -245,7 +245,7 @@ export default function CardDetail({ data }) {
                 {relatedCards.length > 0 ? (
                   relatedCards.map((photo) => (
                     <div key={photo.id}>
-                      <PhotoCard  data={photo ?? {}} />
+                      <PhotoCard data={photo ?? {}} />
                     </div>
                   ))
                 ) : (
