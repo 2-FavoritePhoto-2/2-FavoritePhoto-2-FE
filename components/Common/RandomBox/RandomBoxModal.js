@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import styles from './RandomBoxModal.module.css';
+import { fetchRandomPoints, fetchLastDrawTime } from '@/lib/api/randomPoints';
+
 
 const RandomBoxModal = ({ onClose }) => {
   const [selectedBox, setSelectedBox] = useState(null);
@@ -8,6 +10,8 @@ const RandomBoxModal = ({ onClose }) => {
   const [timeLeft, setTimeLeft] = useState(3600);
   const [isModalOpen, setIsModalOpen] = useState(true); //항상 열려 있도록 설정 상태, 변경은 false 
   const [visibleBoxes, setVisibleBoxes] = useState([1, 2, 3]);
+  const [canDraw, setCanDraw] = useState(false);
+  const [error, setError] = useState('');
 
   const boxes = [
     { id: 1, image: '/assets/box_blue.png', className: styles.boxBlue },
@@ -15,32 +19,42 @@ const RandomBoxModal = ({ onClose }) => {
     { id: 3, image: '/assets/box_red.png', className: styles.boxRed },
   ];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIsModalOpen(true);
-      setVisibleBoxes([1, 2, 3]);
-    }, 3600000); 
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}분 ${remainingSeconds}초`;
+  };
 
-    return () => clearInterval(interval);
+  useEffect(() => {
+    const checkLastDrawTime = async () => {
+      try {
+        const lastDrawTime = await fetchLastDrawTime();
+        console.log(lastDrawTime); //자바스크립트 객체로 들어옴. null으로 들어오지 않는다.
+        if (!lastDrawTime.lastDrawTime) {
+          setCanDraw(true);
+          setTimeLeft(3600);
+        } else {
+          const currentTime = new Date().getTime();
+          const drawTime = new Date(lastDrawTime).getTime();
+          const timeElapsed = (currentTime - drawTime) / 1000;
+          const newTimeLeft = Math.max(3600 - timeElapsed, 0);
+          setTimeLeft(newTimeLeft);
+          setCanDraw(newTimeLeft <= 0);
+        }
+      } catch (error) {
+        console.error('Error checking last draw time:', error);
+      }
+    };
+
+    checkLastDrawTime();
+
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => Math.max(prev - 1, 0));
+    }, 1000);
+
+    return () => clearInterval(timer);
   }, []);
 
-
-  useEffect(() => {
-    if (selectedBox !== null) {
-      const timer = setInterval(() => {
-        setTimeLeft((prev) => {
-          if (prev <= 1) {
-            clearInterval(timer);
-            setSelectedBox(null); 
-            return 3600;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-
-      return () => clearInterval(timer);
-    }
-  }, [selectedBox]);
 
   const handleBoxClick = (id) => {
     if (selectedBox === null) {
@@ -49,12 +63,6 @@ const RandomBoxModal = ({ onClose }) => {
       setPoints(randomPoints);
       setVisibleBoxes([id]); 
     }
-  };
-
-  const formatTime = (seconds) => {
-    const minutes = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${minutes}분 ${secs < 10 ? '0' + secs : secs}초`;
   };
 
   return (
