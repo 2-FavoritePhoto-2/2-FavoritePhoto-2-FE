@@ -8,7 +8,7 @@ import MultiFilterModal from "@/components/Common/Modal/MultiFilter";
 import SearchBar from "@/components/Common/SearchBar/SearchBar";
 import Rating from "@/components/Common/Dropdown/Sort/Rating";
 import Attribute from "@/components/Common/Dropdown/Sort/Attribute";
-import { getMyPhotoCardList } from "@/lib/api/UserService";
+import { getMyPhotoCardList, getUserProfile } from "@/lib/api/UserService";
 import { useState, useEffect } from "react";
 
 export default function MyGallery() {
@@ -29,6 +29,21 @@ export default function MyGallery() {
 
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
+
+  const [profile, setProfile] = useState({});
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const fetchProfile = await getUserProfile();
+        setProfile(fetchProfile);
+      } catch (err) {
+        console.error("프로필 정보를 불러오는데 실패했습니다.", err);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   // 검색어 변경 시 처리 함수
   const handleSearch = async (keyword) => {
@@ -168,7 +183,7 @@ export default function MyGallery() {
     <div className={styles.container}>
       <div className={styles.header}>
         <MyGalleryTitle />
-        <MyOwnedCards myCardList={filteredCards || []} />
+        <MyOwnedCards myCardList={filteredCards || []} profile={profile} />
         <div className={styles.filter}>
           <div className={styles.line}></div>
           <div className={styles.search_filters}>
@@ -200,7 +215,7 @@ export default function MyGallery() {
           </div>
         </div>
       </div>
-      <MyGalleryList myCardList={myCards || []} />
+      <MyGalleryList myCardList={myCards || []} profile={profile} />
     </div>
   );
 }
