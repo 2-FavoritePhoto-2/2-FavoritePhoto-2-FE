@@ -1,6 +1,7 @@
 import styles from "./PhotoCard.module.css";
 import Image from "next/image";
 import logo from "@/public/assets/logo.svg";
+import soldout from "@/public/assets/soldout.svg";
 import Grade from "../Grade/Grade";
 
 export default function PhotoCard({ data, profile, type = "판매카드", exchange }) {
@@ -96,9 +97,16 @@ export default function PhotoCard({ data, profile, type = "판매카드", exchan
       </>
     ) : (
       <>
-        <div className={styles.img_wrap}>
-          <Image className={styles.img} src={data.card.image} fill alt="카드 이미지" priority />
-        </div>
+        {data.card.remainingQuantity === 0 ? (
+          <div className={styles.soldout}>
+            <Image className={styles.img} src={data.card.image} fill alt="카드 이미지" priority />
+            <Image className={styles.soldout_icon} src={soldout} alt="soldout 아이콘" />
+          </div>
+        ) : (
+          <div className={styles.img_wrap}>
+            <Image className={styles.img} src={data.card.image} fill alt="카드 이미지" priority />
+          </div>
+        )}
         <div className={styles.card_info}>
           <div className={styles.card_header}>
             <h1>{data.card.name}</h1>
