@@ -2,32 +2,38 @@
   position: relative;
 }
 
-.bellIcon {
-  cursor: pointer;
-  position: relative;
-}
 
 .alertList {
   position: absolute;
-  top: 30px; 
   right: 0;
-  background-color: #333; 
-  color: white; 
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  z-index: 1000; 
-  padding: 10px;
-  width: 300px; 
+  background-color: var(--color-gray-500); 
+  color: var(--color-white); 
+  border-radius: 0.2rem;
+  z-index: 1000;
+  /* padding: 1rem; */
+}
+
+.line {
+  border-bottom: 1px solid var(--color-gray-400);
+  width: 100%;
 }
 
 
 .alertItem {
-  margin-bottom: 10px;
-  padding: 10px; 
-  border-bottom: 1px solid #444; 
-  width: 260px; 
-  height: 67px;
-  opacity: 1; 
+  margin-bottom: 0.1rem;
+  padding: 1rem; 
+  
+  width: 30rem;
+  height: 10.7rem;
+  cursor: pointer;
+  padding: 2rem;
+}
+
+
+.alertType {
+  font-size: 12px;
+  font-weight: bold;
+  
 }
 
 .alertMessage {

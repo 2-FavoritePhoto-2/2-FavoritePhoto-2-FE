@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import styles from './AlertModals.module.css';
 
-const AlertModals = ({ notifications }) => {
-  const [isVisible, setIsVisible] = useState(false);
+const AlertModals = ({ notifications, accessToken }) => {
 
-  const toggleVisibility = () => {
-    setIsVisible((prev) => !prev);
+  const handleNotificationClick = async (notificationId) => {
+    if (!notificationId) return;
+
+    await updateNotification(notificationId, accessToken);
   };
 
   const formatTimeAgo = (date) => {
@@ -39,11 +40,23 @@ const AlertModals = ({ notifications }) => {
   return (
     <div className={styles.alertContainer}>
       <div className={styles.alertList}>
-        {notifications.map((notification, index) => (
-          <div key={index} className={styles.alertItem}>
+      {notifications.map((notification) => (
+        <>
+          <div 
+            key={notification.id} 
+            className={`${styles.alertItem} ${!notification.isRead ? styles.unread : ''}`}
+            onClick={() => handleNotificationClick(notification.id)}
+          >
+            <div className={`${styles.alertType} ${styles[notification.type?.toLowerCase()] || ''}`}>
+              {notification.type}
+            </div>
             <p className={styles.alertMessage}>{notification.message}</p>
-            <span className={styles.alertTime}>{formatTimeAgo(notification.date)}</span>
+            <span className={styles.alertTime}>
+              {formatTimeAgo(notification.createdAt)}
+            </span>
           </div>
+          <div className={styles.line}></div>
+          </>
         ))}
       </div>
     </div>
