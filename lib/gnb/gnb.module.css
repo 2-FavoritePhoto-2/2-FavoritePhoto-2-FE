@@ -23,6 +23,25 @@ height: 2.51rem;
   margin-right: 1.875rem; 
   font-size: 1.4rem;
 }
+.bellContainer {
+  position: relative;
+  margin-right: 1.875rem;
+}
+
+.notificationCount {
+  position: absolute;
+  top: -0.4rem;
+  right: 1.2rem;
+  background-color: var(--color-red);
+  color: white;
+  border-radius: 50%;
+  width: 1.2rem;
+  height: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+}
 
 .bellIcon {
   margin-right: 1.875rem; 

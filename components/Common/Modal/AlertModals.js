@@ -38,19 +38,14 @@ const AlertModals = ({ notifications }) => {
 
   return (
     <div className={styles.alertContainer}>
-      <div className={styles.bellIcon} onClick={toggleVisibility}>
-        <span className={styles.notificationCount}>{notifications.length}</span>
+      <div className={styles.alertList}>
+        {notifications.map((notification, index) => (
+          <div key={index} className={styles.alertItem}>
+            <p className={styles.alertMessage}>{notification.message}</p>
+            <span className={styles.alertTime}>{formatTimeAgo(notification.date)}</span>
+          </div>
+        ))}
       </div>
-      {isVisible && (
-        <div className={styles.alertList}>
-          {notifications.map((notification, index) => (
-            <div key={index} className={styles.alertItem}>
-              <p className={styles.alertMessage}>{notification.message}</p>
-              <span className={styles.alertTime}>{formatTimeAgo(notification.date)}</span>
-            </div>
-          ))}
-        </div>
-      )}
     </div>
   );
 };
