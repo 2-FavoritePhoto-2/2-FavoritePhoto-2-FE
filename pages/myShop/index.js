@@ -185,15 +185,15 @@ export default function MyShop() {
 
   // 페이지네이션을 위한 데이터 로드
   const loadMoreCards = async () => {
-    const startIdx = myCards.length;
+    const startIdx = mySales.length;
 
-    if (startIdx >= filteredCards.length) {
+    if (startIdx >= filteredSales.length) {
       setHasMore(false);
       return;
     }
 
-    const nextCards = filteredCards.slice(startIdx, startIdx + 9);
-    setMyCards((prevCards) => [...prevCards, ...nextCards]);
+    const nextCards = filteredSales.slice(startIdx, startIdx + 9);
+    setMySales((prevCards) => [...prevCards, ...nextCards]);
     setLoading(false);
   };
 
