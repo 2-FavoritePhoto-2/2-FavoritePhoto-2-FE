@@ -1,15 +1,15 @@
-import styles from "@/styles/MyGallery.module.css";
+import { useState, useEffect } from "react";
+import { getMyPhotoCardList, getUserProfile } from "@/lib/api/UserService";
 import Image from "next/image";
 import resetIcon from "@/public/assets/icon_exchange.svg";
 import MyGalleryTitle from "@/components/MyGallery/MyGalleryTitle";
 import MyOwnedCards from "@/components/MyGallery/MyOwnedCards";
 import MyGalleryList from "@/components/MyGallery/MyGalleryList";
-import MultiFilterModal from "@/components/Common/Modal/MultiFilter";
 import SearchBar from "@/components/Common/SearchBar/SearchBar";
 import Rating from "@/components/Common/Dropdown/Sort/Rating";
 import Attribute from "@/components/Common/Dropdown/Sort/Attribute";
-import { getMyPhotoCardList, getUserProfile } from "@/lib/api/UserService";
-import { useState, useEffect } from "react";
+import MultiFilterModal from "@/components/Common/Modal/MultiFilter";
+import styles from "@/styles/MyGallery.module.css";
 
 export default function MyGallery() {
   const [myCards, setMyCards] = useState([]);

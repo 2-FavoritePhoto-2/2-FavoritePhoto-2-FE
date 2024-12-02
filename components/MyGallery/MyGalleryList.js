@@ -1,6 +1,6 @@
-import styles from "./MyGalleryList.module.css";
 import Link from "next/link";
 import PhotoCard from "../Common/PhotoCard/PhotoCard";
+import styles from "./MyGalleryList.module.css";
 
 export default function MyGalleryList({ myCardList = [], profile }) {
   return (

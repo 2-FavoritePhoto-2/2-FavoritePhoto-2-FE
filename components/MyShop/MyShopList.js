@@ -1,5 +1,5 @@
-import styles from "./MyShopList.module.css";
 import PhotoCard from "../Common/PhotoCard/PhotoCard";
+import styles from "./MyShopList.module.css";
 
 export default function MyShopList({ mySales = [], profile }) {
   return (
