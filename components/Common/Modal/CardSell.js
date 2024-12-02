@@ -4,22 +4,62 @@ import styles from "./CardSell.module.css";
 import Image from "next/image";
 import Dropdown from "../Input/Dropdown";
 import Input from "../Input/Input";
-import data from "@/public/mockData.json";
 import CardSellInfo from "../CardInfo/CardSellInfo";
+import { createCardSale } from "@/lib/api/pocketPlaceAPI";
 
 export default function CardSell({ data, closeModal }) {
   const [selectedGrade, setSelectedGrade] = useState("");
   const [selectedType1, setSelectedType1] = useState("");
   const [selectedType2, setSelectedType2] = useState("");
   const [exchange, setExchange] = useState("");
+  const [point, setPoint] = useState("");
+  const [selectedQuantity, setSelectedQuantity] = useState(1);
 
   const router = useRouter();
 
-  const handleSellClick = () => {
-    router.push({
-      pathname: "/SuccessFail",
-      query: { type: "register_success" },
-    });
+  const handlePointChange = (value) => {
+    setPoint(value);
+  };
+
+  const handleSellClick = async () => {
+    try {
+      if (!selectedGrade) {
+        alert("등급을 선택해주세요.");
+        return;
+      }
+      if (!point || isNaN(Number(point))) {
+        alert("가격을 입력해주세요.");
+        return;
+      }
+      if (!selectedQuantity || selectedQuantity < 1) { 
+        alert("수량을 선택해주세요.");
+        return;
+      }
+  
+      const saleData = {
+        price: Number(point),
+        quantity: parseInt(selectedQuantity),
+        exchangeGrade: selectedGrade,
+        exchangeType: selectedType1,
+        selectedType2: selectedType2, 
+        exchangeDetails: exchange || "",
+        cardId: data.id
+      };
+  
+      const result = await createCardSale(saleData);
+      console.log('판매 등록 결과:', result);
+  
+      router.push({
+        pathname: "/SuccessFail",
+        query: { type: "register_success" },
+      });
+    } catch (error) {
+      console.error(error.response?.data || error);
+      router.push({
+        pathname: "/SuccessFail",
+        query: { type: "register_fail" },
+      });
+    }
   };
 
   return (
@@ -33,7 +73,13 @@ export default function CardSell({ data, closeModal }) {
         <div className={styles.img_wrap}>
           <Image className={styles.img} src={data.image} fill alt="카드 이미지" />
         </div>
-        <CardSellInfo data={data} />
+        <CardSellInfo 
+          data={data} 
+          point={point}
+          setPoint={handlePointChange}
+          selectedQuantity={selectedQuantity}
+          setSelectedQuantity={setSelectedQuantity}
+        />
       </div>
       <div className={styles.exchange_info}>
         <div className={styles.exchange_title}>

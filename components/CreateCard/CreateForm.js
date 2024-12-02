@@ -1,91 +1,160 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 import Input from "../Common/Input/Input";
 import styles from "./CreateForm.module.css";
 import Dropdown from "../Common/Input/Dropdown";
+import useValidate from "@/hooks/useValidate";
+import { createPhotoCard } from "@/lib/api/UserService";
+import FileInput from "../Common/Input/FileInput";
 
 export default function CreateForm() {
-  const [name, setName] = useState("");
-  const [grade, setGrade] = useState("");
-  const [type, setType] = useState([]);
-  const [price, setPrice] = useState("");
-  const [totalQuantity, setTotalQuantity] = useState("");
-  const [image, setImage] = useState("");
-  const [description, setDescription] = useState("");
+  const router = useRouter();
+  const { values, setValues, errors, validate, handleChange } = useValidate({
+    name: "",
+    grade: "",
+    type: ["", ""],
+    price: "",
+    quantity: "",
+    image: "",
+    description: "",
+  });
+
+  const [error, setError] = useState("");
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    handleChange(name, value);
+  };
 
   const handleTypeChange = (index, value) => {
-    const newType = [...type];
+    const newType = [...values.type];
     newType[index] = value;
-    setType(newType);
+    handleChange("type", newType);
   };
 
   const handleImageChange = (file) => {
-    setImage(file.name);
+    setValues({
+      ...values,
+      image: file,
+      fileData: file.name,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!validate()) {
+      return;
+    }
+
+    const formData = new FormData();
+
+    formData.append("name", values.name);
+    formData.append("grade", values.grade);
+    formData.append("type", values.type[0]);
+    formData.append("type", values.type[1]);
+    formData.append("price", values.price);
+    formData.append("quantity", values.quantity);
+    formData.append("image", values.image);
+    formData.append("description", values.description);
+
+    try {
+      await createPhotoCard(formData);
+      console.log(formData);
+      return router.push("/myGallery");
+    } catch (err) {
+      console.error("상품 등록에 실패하였습니다.", err.message);
+      setError("상품 등록에 실패하였습니다.");
+    }
   };
 
   return (
     <div className={styles.container}>
-      <form>
-        <Input
-          label="포토카드 이름"
-          type="text"
-          name="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="포토카드 이름을 입력해 주세요"
-        />
-        <Dropdown label="등급" name="grade" value={grade} setValue={setGrade} option="등급" />
-        <div className={styles.types}>
-          <Dropdown
-            label="속성 ①"
-            name="type"
-            value={type[0]}
-            setValue={(value) => handleTypeChange(0, value)}
-            option="속성"
+      <form onSubmit={handleSubmit}>
+        <div>
+          <Input
+            label="포토카드 이름"
+            type="text"
+            name="name"
+            value={values.name}
+            onChange={handleInputChange}
+            placeholder="포토카드 이름을 입력해 주세요"
           />
-          <Dropdown
-            label="속성 ②"
-            name="type"
-            value={type[1]}
-            setValue={(value) => handleTypeChange(1, value)}
-            option="속성"
-          />
+          {errors.name && <div className={styles.error}>{errors.name}</div>}
         </div>
-        <Input
-          label="가격"
-          type="text"
-          name="price"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          placeholder="가격을 입력해 주세요"
-        />
-        <Input
-          label="총 발행량"
-          type="text"
-          name="totalQuantity"
-          value={totalQuantity}
-          onChange={(e) => setTotalQuantity(e.target.value)}
-          placeholder="총 발행량을 입력해 주세요"
-        />
-        <Input
-          label="사진 업로드"
-          type="file"
-          name="image"
-          value={image}
-          onChange={handleImageChange}
-          placeholder="사진 업로드"
-        />
+        <div>
+          <Dropdown
+            label="등급"
+            value={values.grade}
+            setValue={(value) => handleChange("grade", value)}
+            option="등급"
+          />
+          {errors.grade && <div className={styles.error}>{errors.grade}</div>}
+        </div>
+        <div>
+          <div className={styles.types}>
+            <Dropdown
+              label="속성 ①"
+              value={values.type[0]}
+              setValue={(value) => handleTypeChange(0, value)}
+              option="속성"
+            />
+            <Dropdown
+              label="속성 ②"
+              value={values.type[1]}
+              setValue={(value) => handleTypeChange(1, value)}
+              option="속성"
+            />
+          </div>
+          {errors.type && <div className={styles.error}>{errors.type}</div>}
+        </div>
+        <div>
+          <Input
+            label="가격"
+            type="text"
+            name="price"
+            value={values.price}
+            onChange={handleInputChange}
+            placeholder="가격을 입력해 주세요"
+          />
+          {errors.price && <div className={styles.error}>{errors.price}</div>}
+        </div>
+        <div>
+          <Input
+            label="총 발행량"
+            type="text"
+            name="quantity"
+            value={values.quantity}
+            onChange={handleInputChange}
+            placeholder="총 발행량을 입력해 주세요"
+          />
+          {errors.quantity && <div className={styles.error}>{errors.quantity}</div>}
+        </div>
+        <div>
+          <FileInput
+            label="사진 업로드"
+            name="image"
+            value={values.fileData || ""}
+            onChange={handleImageChange}
+          />
+          {errors.image && <div className={styles.error}>{errors.image}</div>}
+        </div>
         <div className={styles.description}>
           <Input
             label="포토카드 설명"
             type="textarea"
             name="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            value={values.description}
+            onChange={handleInputChange}
             placeholder="카드 설명을 입력해 주세요"
           />
+          {errors.description && <div className={styles.error}>{errors.description}</div>}
         </div>
-        <button className={styles.create}>생성하기</button>
+        <button type="submit" className={styles.create}>
+          생성하기
+        </button>
       </form>
+      {error && <div>{error}</div>}
     </div>
   );
 }
