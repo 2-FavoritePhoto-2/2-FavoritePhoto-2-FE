@@ -2,66 +2,51 @@
   position: relative;
 }
 
-.bellIcon {
-  cursor: pointer;
-  position: relative;
-}
 
 .alertList {
   position: absolute;
-  top: 30px; 
   right: 0;
-  background-color: #333; 
-  color: white; 
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  z-index: 1000; 
-  padding: 10px;
-  width: 300px; 
+  background-color: var(--color-gray-500); 
+  color: var(--color-white); 
+  border-radius: 0.2rem;
+  z-index: 1000;
+}
+
+.line {
+  border-bottom: 0.1rem solid var(--color-gray-400);
+  width: 100%;
 }
 
 
 .alertItem {
-  margin-bottom: 10px;
-  padding: 10px; 
-  border-bottom: 1px solid #444; 
-  width: 260px; 
-  height: 67px;
-  opacity: 1; 
+  margin-bottom: 0.1rem;
+  width: 30rem;
+  cursor: pointer;
+  padding: 2rem;
+}
+
+
+.alertType {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  
 }
 
 .alertMessage {
   font-family: 'Noto Sans KR', sans-serif;
-  font-size: 14px; 
+  font-size: 1.4rem; 
   font-weight: 400; 
-  line-height: 20.27px; 
   text-align: left;
-  margin: 0; 
+  margin-bottom: 1rem; 
 }
 
 .alertTime {
   font-family: 'Noto Sans KR', sans-serif;
-  font-size: 14px; 
-  font-weight: 400; 
-  line-height: 20.27px;
-  color: #bbb;
-  margin-top: 5px; 
-}
-
-.bellContainer {
-  position: relative;
-}
-
-.notificationCount {
-  position: absolute;
-  top: -5px; 
-  right: -10px; 
-  background-color: red; 
-  color: white; 
-  border-radius: 50%; 
-  padding: 2px 6px; 
-  font-size: 12px;
-  z-index: 10;
+  font-size: 1.4rem; 
+  font-weight: 300; 
+  color: var(--color-gray-300);
+  /* margin-top: 1rem;  */
 }
 
 
