@@ -1,5 +1,5 @@
-import styles from "./MySaleCards.module.css";
 import Grade from "../Common/Grade/Grade";
+import styles from "./MySaleCards.module.css";
 
 export default function MySaleCards({ mySales, profile }) {
   const grades = ["COMMON", "RARE", "SUPER RARE", "LEGENDARY"];
