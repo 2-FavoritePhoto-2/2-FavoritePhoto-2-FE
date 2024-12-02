@@ -15,9 +15,9 @@ export default function PhotoCard({ data, profile, type = "판매카드", exchan
     type === "내판매카드" ? (
       <>
         {data.quantity === 0 ? (
-          <div className={styles.soldout}>
+          <div className={styles.img_wrap}>
             <Image className={styles.img} src={data.image} fill alt="카드 이미지" priority />
-            <Image className={styles.soldout_icon} src={soldout} alt="soldout 아이콘" />
+            <Image className={styles.soldout_icon} src={soldout} fill alt="soldout 아이콘" />
           </div>
         ) : (
           <div className={styles.img_wrap}>
@@ -105,7 +105,7 @@ export default function PhotoCard({ data, profile, type = "판매카드", exchan
     ) : (
       <>
         {data.card.remainingQuantity === 0 ? (
-          <div className={styles.soldout}>
+          <div className={styles.img_wrap}>
             <Image className={styles.img} src={data.card.image} fill alt="카드 이미지" priority />
             <Image className={styles.soldout_icon} src={soldout} alt="soldout 아이콘" />
           </div>
