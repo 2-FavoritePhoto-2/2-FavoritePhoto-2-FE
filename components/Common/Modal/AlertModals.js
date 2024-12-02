@@ -12,51 +12,66 @@ const AlertModals = ({ notifications, accessToken }) => {
   const formatTimeAgo = (date) => {
     const now = new Date();
     const diff = now - new Date(date);
-    const diffInHours = Math.floor(diff / (1000 * 60 * 60));
 
-    if (diffInHours < 24) {
-      return `${diffInHours}시간 전`;
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const days = Math.floor(hours / 24);
+    const weeks = Math.floor(days / 7);
+    const months = Math.floor(days / 30);
+    const years = Math.floor(months / 12);
+
+    // 1시간~23시간
+    if (hours < 24) {
+      return `${hours}시간 전`;
     }
 
-    const diffInDays = Math.floor(diffInHours / 24);
-    if (diffInDays < 7) {
-      return `${diffInDays}일 전`;
+    // 24시간~6일
+    if (days < 7) {
+      return `${days}일 전`;
     }
 
-    const diffInWeeks = Math.floor(diffInDays / 7);
-    if (diffInWeeks < 4) {
-      return `${diffInWeeks}주일 전`;
+    // 7일~3주
+    if (weeks <= 3) {
+      return `${weeks}주일 전`;
     }
 
-    const diffInMonths = Math.floor(diffInDays / 30);
-    if (diffInMonths < 12) {
-      return `${diffInMonths}개월 전`;
+    // 4주~11개월
+    if (months < 12) {
+      return `${months}개월 전`;
     }
 
-    const diffInYears = Math.floor(diffInMonths / 12);
-    return `${diffInYears}년 전`;
+    // 12개월 이상
+    return `${years}년 전`;
   };
+
+  if (!notifications || notifications.length === 0) {
+    return (
+      <div className={styles.alertContainer}>
+        <div className={styles.emptyAlert}>
+        </div>
+      </div>
+    );
+  }
+  const recentNotifications = notifications.slice(0, 5);
 
   return (
     <div className={styles.alertContainer}>
       <div className={styles.alertList}>
-      {notifications.map((notification) => (
-        <>
-          <div 
-            key={notification.id} 
-            className={`${styles.alertItem} ${!notification.isRead ? styles.unread : ''}`}
-            onClick={() => handleNotificationClick(notification.id)}
-          >
-            <div className={`${styles.alertType} ${styles[notification.type?.toLowerCase()] || ''}`}>
-              {notification.type}
+        {recentNotifications.map((notification) => (
+          <div key={notification.id}>
+            <div 
+              className={`${styles.alertItem} ${!notification.isRead ? styles.unread : ''}`}
+              onClick={() => handleNotificationClick(notification.id)}
+            >
+              <div className={`${styles.alertType} ${styles[notification.type?.toLowerCase()] || ''}`}>
+                {notification.type}
+              </div>
+              <p className={styles.alertMessage}>{notification.content}</p>
+              <span className={styles.alertTime}>
+                {formatTimeAgo(notification.createdAt)}
+              </span>
             </div>
-            <p className={styles.alertMessage}>{notification.message}</p>
-            <span className={styles.alertTime}>
-              {formatTimeAgo(notification.createdAt)}
-            </span>
+            <div className={styles.line}></div>
           </div>
-          <div className={styles.line}></div>
-          </>
         ))}
       </div>
     </div>
