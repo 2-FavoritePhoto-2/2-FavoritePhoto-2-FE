@@ -14,16 +14,23 @@ export default function PhotoCard({ data, profile, type = "판매카드", exchan
   const cardType =
     type === "내판매카드" ? (
       <>
-        <div className={`${styles.img_wrap}`}>
-          <div
-            className={`${styles.badge} ${
-              data.mode === "shop" ? styles.shop_badge : styles.exchange_badge
-            }`}
-          >
-            <p>{data.mode === "shop" ? "판매 중" : "교환 제시 대기 중"}</p>
+        {data.quantity === 0 ? (
+          <div className={styles.soldout}>
+            <Image className={styles.img} src={data.card.image} fill alt="카드 이미지" priority />
+            <Image className={styles.soldout_icon} src={soldout} alt="soldout 아이콘" />
           </div>
-          <Image className={styles.img} src={data.image} fill alt="카드 이미지" priority />
-        </div>
+        ) : (
+          <div className={styles.img_wrap}>
+            <div
+              className={`${styles.badge} ${
+                data.mode === "shop" ? styles.shop_badge : styles.exchange_badge
+              }`}
+            >
+              <p>{data.mode === "shop" ? "판매 중" : "교환 제시 대기 중"}</p>
+            </div>
+            <Image className={styles.img} src={data.image} fill alt="카드 이미지" priority />
+          </div>
+        )}
         <div className={styles.card_info}>
           <div className={styles.card_header}>
             <h1>{data.cardName}</h1>
