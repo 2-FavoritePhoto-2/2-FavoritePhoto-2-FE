@@ -1,8 +1,9 @@
-import { useState } from 'react';
 import styles from './AlertModals.module.css';
 import { updateNotification } from '@/lib/api/notifications';
+import Image from 'next/image';
+import backIcon from '@/public/assets/icon_back.svg';
 
-const AlertModals = ({ notifications, accessToken, onUpdate }) => {
+const AlertModals = ({ notifications, onUpdate, onClose }) => {
 
   const handleNotificationClick = async (notificationId) => {
     if (!notificationId) return;
@@ -58,12 +59,24 @@ const AlertModals = ({ notifications, accessToken, onUpdate }) => {
       </div>
     );
   }
-  const recentNotifications = notifications.slice(0, 10);
+  const isMobile = window.innerWidth <= 743;
+  const displayNotifications = isMobile ? notifications : notifications.slice(0, 5);
 
   return (
     <div className={styles.alertContainer}>
       <div className={styles.alertList}>
-        {recentNotifications.map((notification) => (
+      <div className={styles.mobileHeader}>
+          <Image 
+            src={backIcon}
+            alt="뒤로가기" 
+            width={24} 
+            height={24} 
+            className={styles.backButton}
+            onClick={onClose}
+          />
+          <span className={styles.headerTitle}>알림</span>
+        </div>
+        {displayNotifications.map((notification) => (
           <div key={notification.id}>
             <div 
               className={`${styles.alertItem} ${notification.isRead ? styles.read : ''}`}
