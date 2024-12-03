@@ -8,7 +8,7 @@ const RandomBoxModal = ({ onClose }) => {
   const [selectedBox, setSelectedBox] = useState(null);
   const [points, setPoints] = useState(0);
   const [timeLeft, setTimeLeft] = useState(3600);
-  const [isModalOpen, setIsModalOpen] = useState(true); //항상 열려 있도록 설정 상태, 변경은 false 
+  const [isModalOpen, setIsModalOpen] = useState(true); 
   const [visibleBoxes, setVisibleBoxes] = useState([1, 2, 3]);
   const [canDraw, setCanDraw] = useState(false);
   const [error, setError] = useState('');
@@ -25,43 +25,27 @@ const RandomBoxModal = ({ onClose }) => {
     return `${minutes}분 ${remainingSeconds}초`;
   };
 
-  useEffect(() => {
-    const checkLastDrawTime = async () => {
+  
+
+
+  const handleBoxClick = async (id) => {
+    if (selectedBox === null) {
       try {
-        const lastDrawTime = await fetchLastDrawTime();
-        console.log(lastDrawTime); //자바스크립트 객체로 들어옴. null으로 들어오지 않는다.
-        if (!lastDrawTime.lastDrawTime) {
-          setCanDraw(true);
-          setTimeLeft(3600);
+        const result = await fetchRandomPoints();
+        console.log('API 응답:', result); // 응답 데이터 확인
+        if (result.error) {
+          setError(result.error);
+          console.log('에러 메시지:', result.error); // 에러 메시지 확인
         } else {
-          const currentTime = new Date().getTime();
-          const drawTime = new Date(lastDrawTime).getTime();
-          const timeElapsed = (currentTime - drawTime) / 1000;
-          const newTimeLeft = Math.max(3600 - timeElapsed, 0);
-          setTimeLeft(newTimeLeft);
-          setCanDraw(newTimeLeft <= 0);
+          setSelectedBox(id);
+          setPoints(result.randomPoints); 
+          setVisibleBoxes([id]);
+          console.log('포인트:', result.points); // 포인트 확인
         }
       } catch (error) {
-        console.error('Error checking last draw time:', error);
+        setError('포인트를 가져오는 중 오류가 발생했습니다.');
+        console.error('API 호출 오류:', error); // API 호출 오류 확인
       }
-    };
-
-    checkLastDrawTime();
-
-    const timer = setInterval(() => {
-      setTimeLeft((prev) => Math.max(prev - 1, 0));
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
-
-
-  const handleBoxClick = (id) => {
-    if (selectedBox === null) {
-      const randomPoints = Math.floor(Math.random() * 20) + 1; // 1 to 20 points
-      setSelectedBox(id);
-      setPoints(randomPoints);
-      setVisibleBoxes([id]); 
     }
   };
 
