@@ -7,7 +7,14 @@ export default function Landing() {
   const router = useRouter();
 
   const handleLoginButtonClick = () => {
-    router.push("/auth/login");
+    // 로컬 스토리지에서 액세스 토큰 확인
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      // 액세스 토큰이 있으면 페이지 목록으로 이동
+      router.push("/pocketPlace");
+    } else {
+      router.push("/auth/login");
+    }
   };
 
   const handlePocketPlaceButtonClick = () => {
