@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getMyPhotoCardList, getUserProfile } from "@/lib/api/UserService";
+import { getMyPhotoCardList, getMyPhotoCardListCount, getUserProfile } from "@/lib/api/UserService";
 import Image from "next/image";
 import resetIcon from "@/public/assets/icon_exchange.svg";
 import MyGalleryTitle from "@/components/MyGallery/MyGalleryTitle";
@@ -97,10 +97,10 @@ export default function MyGallery() {
     try {
       setLoading(true);
 
-      const res = await getMyPhotoCardList({ page: 1 });
+      const totalCount = await getMyPhotoCardListCount();
       const filteredResults = await getMyPhotoCardList({
         page: 1,
-        pageSize: res.totalCount,
+        pageSize: totalCount,
         grade: gradeFilter,
         type: typeFilter,
         keyword: searchTerm,

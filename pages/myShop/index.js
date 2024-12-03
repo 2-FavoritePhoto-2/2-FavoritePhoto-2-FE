@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getSaleList, getUserProfile } from "@/lib/api/UserService";
+import { getSaleList, getSaleListCount, getUserProfile } from "@/lib/api/UserService";
 import Image from "next/image";
 import resetIcon from "@/public/assets/icon_exchange.svg";
 import MyShopTitle from "@/components/MyShop/MyShopTitle";
@@ -18,16 +18,20 @@ export default function MyShop() {
   const [filteredSales, setFilteredSales] = useState([]);
   const [page, setPage] = useState(1);
 
-  const [gradeReset, setGradeReset] = useState(false);
-  const [typeReset, setTypeReset] = useState(false);
-  const [modeReset, setModeReset] = useState(false);
-  const [availableReset, setAvailableReset] = useState(false);
+  const [filters, setFilters] = useState({
+    searchTerm: "",
+    grade: "",
+    type: "",
+    mode: "",
+    available: "",
+  });
+  const [resetFlags, setResetFlags] = useState({
+    grade: false,
+    type: false,
+    mode: false,
+    available: false,
+  });
 
-  const [searchTerm, setSearchTerm] = useState("");
-  const [gradeFilter, setGradeFilter] = useState("");
-  const [typeFilter, setTypeFilter] = useState("");
-  const [modeFilter, setModeFilter] = useState("");
-  const [availableFilter, setAvailableFilter] = useState("");
   const [filterCounts, setFilterCounts] = useState({
     grade: {},
     type: {},
@@ -53,104 +57,67 @@ export default function MyShop() {
     fetchData();
   }, []);
 
-  // 검색어 변경 시 처리 함수
-  const handleSearch = async (keyword) => {
-    setSearchTerm(keyword);
-  };
-
-  // 등급 필터 변경 처리 함수
-  const handleGradeFilter = (grade) => {
-    setGradeFilter(grade);
-    setTypeFilter("");
-    setModeFilter("");
-    setAvailableFilter("");
-
-    setGradeReset(false);
-    setTypeReset(true);
-    setModeReset(true);
-    setAvailableReset(true);
-  };
-
-  // 속성 필터 변경 처리 함수
-  const handleTypeFilter = (type) => {
-    setTypeFilter(type);
-    setGradeFilter("");
-    setModeFilter("");
-    setAvailableFilter("");
-
-    setGradeReset(true);
-    setTypeReset(false);
-    setModeReset(true);
-    setAvailableReset(true);
-  };
-
-  // 판매방법 필터 변경 처리 함수
-  const handleModeFilter = (mode) => {
-    setModeFilter(mode === "판매중" ? "shop" : "exchange");
-    setGradeFilter("");
-    setTypeFilter("");
-    setAvailableFilter("");
-
-    setGradeReset(true);
-    setTypeReset(true);
-    setModeReset(false);
-    setAvailableReset(true);
-  };
-
-  // 매진여부 필터 변경 처리 함수
-  const handleAvailableFilter = (available) => {
-    setAvailableFilter(available === "매진안됨" ? true : false);
-    setGradeFilter("");
-    setTypeFilter("");
-    setModeFilter("");
-
-    setGradeReset(true);
-    setTypeReset(true);
-    setModeReset(true);
-    setAvailableReset(false);
-  };
-
-  // 멀티 필터 변경 처리 함수
+  // 필터 변경 처리 함수
   const handleFilterChange = (filterType, value) => {
-    if (filterType === "grade") {
-      setGradeFilter(value);
-      setTypeFilter("");
-      setModeFilter("");
-      setAvailableFilter("");
-    } else if (filterType === "type") {
-      setTypeFilter(value);
-      setGradeFilter("");
-      setModeFilter("");
-      setAvailableFilter("");
-    } else if (filterType === "mode") {
-      setModeFilter(value === "판매중" ? "shop" : "exchange");
-      setGradeFilter("");
-      setTypeFilter("");
-      setAvailableFilter("");
-    } else if (filterType === "available") {
-      setAvailableFilter(value === "매진안됨" ? true : false);
-      setGradeFilter("");
-      setTypeFilter("");
-      setModeFilter("");
+    const newFilters = {
+      searchTerm: filters.searchTerm,
+      grade: "",
+      type: "",
+      mode: "",
+      available: "",
+    };
+
+    switch (filterType) {
+      case "grade":
+        newFilters.grade = value;
+        break;
+      case "type":
+        newFilters.type = value;
+        break;
+      case "mode":
+        newFilters.mode = value === "판매중" ? "shop" : "exchange";
+        if (value === "판매중") {
+          newFilters.available = true;
+        }
+        break;
+      case "available":
+        newFilters.available = value;
+        break;
     }
+
+    const newResetFlags = {
+      grade: filterType !== "grade",
+      type: filterType !== "type",
+      mode: filterType !== "mode",
+      available: filterType !== "available",
+    };
+
+    setFilters(newFilters);
+    setResetFlags(newResetFlags);
   };
 
   // 필터 리셋 처리 함수
   const handleFilterReset = () => {
-    setGradeFilter("");
-    setTypeFilter("");
-    setModeFilter("");
-    setAvailableFilter("");
-    setGradeReset(true);
-    setTypeReset(true);
-    setModeReset(true);
-    setAvailableReset(true);
-
+    setFilters({
+      searchTerm: "",
+      grade: "",
+      type: "",
+      mode: "",
+      available: "",
+    });
+    setResetFlags({
+      grade: true,
+      type: true,
+      mode: true,
+      available: true,
+    });
     setTimeout(() => {
-      setGradeReset(false);
-      setTypeReset(false);
-      setModeReset(false);
-      setAvailableReset(false);
+      setResetFlags({
+        grade: false,
+        type: false,
+        mode: false,
+        available: false,
+      });
     }, 1000);
   };
 
@@ -159,15 +126,15 @@ export default function MyShop() {
     try {
       setLoading(true);
 
-      const res = await getSaleList({ page: 1 });
+      const totalCount = await getSaleListCount();
       const filteredResults = await getSaleList({
         page: 1,
-        pageSize: res.totalCount,
-        grade: gradeFilter,
-        type: typeFilter,
-        mode: modeFilter,
-        available: availableFilter,
-        keyword: searchTerm,
+        pageSize: totalCount,
+        grade: filters.grade,
+        type: filters.type,
+        mode: filters.mode,
+        available: filters.available,
+        keyword: filters.searchTerm,
       });
 
       setFilteredSales(filteredResults.card || []);
@@ -189,6 +156,7 @@ export default function MyShop() {
       });
 
       setFilterCounts(newFilterCounts);
+
       setMySales(filteredResults.card.slice(0, 9));
       setHasMore(filteredResults.card.length > 9);
     } catch (err) {
@@ -216,7 +184,7 @@ export default function MyShop() {
     if (page > 1) {
       loadMoreCards();
     }
-  }, [page]);
+  }, [page, filteredSales, mySales]);
 
   // 스크롤 이벤트 처리 함수
   const handleScroll = () => {
@@ -236,7 +204,7 @@ export default function MyShop() {
     setPage(1);
     setMySales([]);
     loadFilteredData();
-  }, [searchTerm, gradeFilter, typeFilter, modeFilter, availableFilter]);
+  }, [filters.grade, filters.type, filters.mode, filters.available, filters.searchTerm]);
 
   // 컴포넌트가 마운트될 때 스크롤 이벤트 리스너 추가
   useEffect(() => {
@@ -259,22 +227,31 @@ export default function MyShop() {
                 filterKeys={["등급", "속성", "판매여부", "매진여부"]}
                 onFilterChange={handleFilterChange}
                 filterCounts={filterCounts}
-                reset={() => {
-                  setGradeFilter("");
-                  setTypeFilter("");
-                  setModeFilter("");
-                  setAvailableFilter("");
-                }}
+                reset={handleFilterReset}
               />
             </div>
             <div className={styles.search}>
-              <SearchBar onSearch={handleSearch} />
+              <SearchBar
+                onSearch={(keyword) => setFilters((prev) => ({ ...prev, searchTerm: keyword }))}
+              />
             </div>
             <div className={styles.filters}>
-              <Rating sortType={handleGradeFilter} reset={gradeReset} />
-              <Attribute sortType={handleTypeFilter} reset={typeReset} />
-              <Sale sortType={handleModeFilter} reset={modeReset} />
-              <Soldout sortType={handleAvailableFilter} reset={availableReset} />
+              <Rating
+                sortType={(value) => handleFilterChange("grade", value)}
+                reset={resetFlags.grade}
+              />
+              <Attribute
+                sortType={(value) => handleFilterChange("type", value)}
+                reset={resetFlags.type}
+              />
+              <Sale
+                sortType={(value) => handleFilterChange("mode", value)}
+                reset={resetFlags.mode}
+              />
+              <Soldout
+                sortType={(value) => handleFilterChange("available", value)}
+                reset={resetFlags.available}
+              />
               <Image
                 src={resetIcon}
                 width={24}
