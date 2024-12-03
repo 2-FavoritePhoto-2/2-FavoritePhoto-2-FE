@@ -51,6 +51,10 @@
     display: none;
 }
 
+.refreshIcon {
+    cursor: pointer;
+}
+
 /* Tablet Only */
 @media (min-width: 744px) and (max-width: 1199px) {
     .search_filters {

@@ -43,6 +43,11 @@ export default function MyShop() {
   const [hasMore, setHasMore] = useState(true);
 
   const [profile, setProfile] = useState({});
+  const [openDropdown, setOpenDropdown] = useState(null);
+
+  const handleDropdownToggle = (dropdownName) => {
+    setOpenDropdown(openDropdown === dropdownName ? null : dropdownName);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -240,18 +245,26 @@ export default function MyShop() {
               <Rating
                 sortType={(value) => handleFilterChange("grade", value)}
                 reset={resetFlags.grade}
+                isOpen={openDropdown === 'grade'}
+                onToggle={() => handleDropdownToggle('grade')}
               />
               <Attribute
                 sortType={(value) => handleFilterChange("type", value)}
                 reset={resetFlags.type}
+                isOpen={openDropdown === 'type'}
+                onToggle={() => handleDropdownToggle('type')}
               />
               <Sale
                 sortType={(value) => handleFilterChange("mode", value)}
                 reset={resetFlags.mode}
+                isOpen={openDropdown === 'mode'}
+                onToggle={() => handleDropdownToggle('mode')}
               />
               <Soldout
                 sortType={(value) => handleFilterChange("available", value)}
                 reset={resetFlags.available}
+                isOpen={openDropdown === 'available'}
+                onToggle={() => handleDropdownToggle('available')}
               />
               <Image
                 src={resetIcon}
@@ -259,6 +272,7 @@ export default function MyShop() {
                 height={24}
                 onClick={handleFilterReset}
                 alt="리셋 아이콘"
+                className={styles.refreshIcon}
               />
             </div>
           </div>
