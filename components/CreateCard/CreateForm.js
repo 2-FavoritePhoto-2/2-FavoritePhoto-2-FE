@@ -57,10 +57,17 @@ export default function CreateForm() {
 
     try {
       await createPhotoCard(formData);
-      return router.push({
+      router.push({
         pathname: "/SuccessFail",
-        query: { type: "create_success" },
+        query: {
+          type: "create_success",
+          data: {
+            rate: values.grade,
+            title: values.name,
+          },
+        },
       });
+      console.log(query.data);
     } catch (err) {
       console.error("상품 등록에 실패하였습니다.", err.message);
       return router.push({
