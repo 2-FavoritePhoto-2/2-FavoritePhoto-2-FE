@@ -1,5 +1,4 @@
-import { useRouter } from "next/router";
-import styles from "@/styles/cardDetail.module.css";
+import styles from "@/styles/CardDetail.module.css";
 import QuantityCardBuyer from "@/components/Common/Quantity/QuantityCard_buyer";
 import QuantityCardSeller from "@/components/Common/Quantity/QuantityCard_seller";
 import PhotoCardExchange from "@/components/Common/PhotoCard/PhotoCardExchange";
@@ -41,6 +40,7 @@ export default function CardDetail({ data }) {
     type: "",
     value: "",
   });
+
 
   const card = data.card;
   const exchangeGrade = data.exchangeGrade;
@@ -124,6 +124,7 @@ export default function CardDetail({ data }) {
     setFilters(newFilters);
     await fetchCards({ filters: newFilters });
   };
+
   const fetchCards = async (options = {}) => {
     try {
       const { pageNumber, filters } = options;
@@ -247,7 +248,7 @@ export default function CardDetail({ data }) {
               <div className={styles.recommendcard}>
                 {relatedCards.length > 0 ? (
                   relatedCards.map((photo) => (
-                    <div key={photo.id}>
+                    <div key={photo.id} className={styles.relatedcard}>
                       <PhotoCard data={photo ?? {}} />
                     </div>
                   ))

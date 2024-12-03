@@ -5,6 +5,7 @@ import { useState } from "react";
 
 export default function Notification({ type, onButtonClick, onClose, data }) {
   const [isOpen, setIsOpen] = useState(true);
+  const [isButtonClicked, setIsButtonClicked] = useState(false); // 버튼 클릭 상태 추가
   const { name, grade, quantity } = data || {};
 
   /*TODO
@@ -52,6 +53,12 @@ export default function Notification({ type, onButtonClick, onClose, data }) {
 
   const content = notificationContent[type];
 
+  const handleButtonClick = () => {
+    if (isButtonClicked) return; // 이미 클릭된 경우 함수 종료
+    setIsButtonClicked(true); // 버튼 클릭 상태 업데이트
+    onButtonClick(); // 버튼 클릭 핸들러 호출
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -64,7 +71,11 @@ export default function Notification({ type, onButtonClick, onClose, data }) {
         <div className={styles.alert_wrapper}>
           <div className={styles.alert_title}>{content.title}</div>
           <div className={styles.alert_description}>{content.description}</div>
-          <button className={styles.alert_button} onClick={onButtonClick}>
+          <button
+            className={styles.alert_button}
+            onClick={handleButtonClick}
+            disabled={isButtonClicked} // 버튼 클릭 상태에 따라 비활성화
+          >
             {content.buttonText}
           </button>
         </div>
