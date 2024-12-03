@@ -3,10 +3,13 @@ import Image from "next/image";
 import icon_up from "@/public/assets/icon_up.svg";
 import icon_down from "@/public/assets/icon_down.svg";
 import { useState, useEffect } from "react";
+import { useRouter } from 'next/router';
 
 export default function Soldout({ sortType, reset }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectValue, setSelectValue] = useState("매진여부");
+
+  const router = useRouter();
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -25,11 +28,11 @@ export default function Soldout({ sortType, reset }) {
     if (reset) {
       setSelectValue("매진여부");
 
-      // if (sortType) {
-      // sortType(undefined);
-      // }
+      if (sortType && router.pathname === '/pocketPlace') {
+        sortType(undefined);
+      }
     }
-  }, [reset, sortType]);
+  }, [reset, sortType, router.pathname]);
 
   return (
     <div
