@@ -8,6 +8,16 @@
   transform: translate(-50%, -50%);
   width: 100%;
 }
+
+.wrap {
+  display: flex;
+  justify-content: center;
+
+  width: 100%;
+
+  gap: 2rem;
+}
+
 .home {
   font-family: "BR B";
   font-size: 20rem;
@@ -19,6 +29,7 @@
 .home span {
   animation: colorChange 3s infinite alternate;
 }
+
 .pick_wrapper {
   width: 20rem;
   aspect-ratio: 1;
@@ -28,6 +39,7 @@
   width: 100%;
   height: auto;
 }
+
 .home_button {
   display: flex;
   justify-content: center;
@@ -39,6 +51,19 @@
   background-color: var(--color-main);
   border-radius: 1rem;
   margin-top: 5rem;
+}
+
+.img_wrap {
+  position: relative;
+
+  width: 20rem;
+  height: 20rem;
+}
+
+.slider-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 @keyframes colorChange {
@@ -55,9 +80,11 @@
   .home {
     font-size: 10rem;
   }
+
   .pick_wrapper {
     width: 10rem;
   }
+
   .home_button {
     height: 6rem;
   }
@@ -67,9 +94,11 @@
   .home {
     font-size: 8rem;
   }
+
   .pick_wrapper {
     width: 8rem;
   }
+
   .home_button {
     height: 5rem;
   }
