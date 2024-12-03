@@ -25,9 +25,9 @@ export default function Soldout({ sortType, reset }) {
     if (reset) {
       setSelectValue("매진여부");
 
-      if (sortType) {
-        sortType(undefined);
-      }
+      // if (sortType) {
+      // sortType(undefined);
+      // }
     }
   }, [reset, sortType]);
 
