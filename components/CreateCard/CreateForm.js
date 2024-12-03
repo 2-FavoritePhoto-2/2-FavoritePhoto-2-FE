@@ -19,8 +19,6 @@ export default function CreateForm() {
     description: "",
   });
 
-  const [error, setError] = useState("");
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     handleChange(name, value);
@@ -60,11 +58,16 @@ export default function CreateForm() {
 
     try {
       await createPhotoCard(formData);
-      console.log(formData);
-      return router.push("/myGallery");
+      return router.push({
+        pathname: "/SuccessFail",
+        query: { type: "create_success" },
+      });
     } catch (err) {
       console.error("상품 등록에 실패하였습니다.", err.message);
-      setError("상품 등록에 실패하였습니다.");
+      return router.push({
+        pathname: "/SuccessFail",
+        query: { type: "create_fail" },
+      });
     }
   };
 
@@ -154,7 +157,6 @@ export default function CreateForm() {
           생성하기
         </button>
       </form>
-      {error && <div>{error}</div>}
     </div>
   );
 }

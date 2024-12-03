@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getMyPhotoCardList, getUserProfile } from "@/lib/api/UserService";
+import { getMyPhotoCardList, getMyPhotoCardListCount, getUserProfile } from "@/lib/api/UserService";
 import Image from "next/image";
 import resetIcon from "@/public/assets/icon_exchange.svg";
 import MyGalleryTitle from "@/components/MyGallery/MyGalleryTitle";
@@ -31,6 +31,11 @@ export default function MyGallery() {
   const [hasMore, setHasMore] = useState(true);
 
   const [profile, setProfile] = useState({});
+  const [openDropdown, setOpenDropdown] = useState(null);
+
+  const handleDropdownToggle = (dropdownName) => {
+    setOpenDropdown(openDropdown === dropdownName ? null : dropdownName);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -97,10 +102,10 @@ export default function MyGallery() {
     try {
       setLoading(true);
 
-      const res = await getMyPhotoCardList({ page: 1 });
+      const totalCount = await getMyPhotoCardListCount();
       const filteredResults = await getMyPhotoCardList({
         page: 1,
-        pageSize: res.totalCount,
+        pageSize: totalCount,
         grade: gradeFilter,
         type: typeFilter,
         keyword: searchTerm,
@@ -202,14 +207,22 @@ export default function MyGallery() {
               <SearchBar onSearch={handleSearch} />
             </div>
             <div className={styles.filters}>
-              <Rating sortType={handleGradeFilter} reset={gradeReset} />
-              <Attribute sortType={handleTypeFilter} reset={typeReset} />
+              <Rating sortType={handleGradeFilter}
+                reset={gradeReset}
+                isOpen={openDropdown === 'grade'}
+                onToggle={() => handleDropdownToggle('grade')} />
+              <Attribute
+                sortType={handleTypeFilter}
+                reset={typeReset}
+                isOpen={openDropdown === 'type'}
+                onToggle={() => handleDropdownToggle('type')} />
               <Image
                 src={resetIcon}
                 width={24}
                 height={24}
                 onClick={handleFilterReset}
                 alt="리셋 아이콘"
+                className={styles.refreshIcon}
               />
             </div>
           </div>

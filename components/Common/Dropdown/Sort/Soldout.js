@@ -3,38 +3,36 @@ import Image from "next/image";
 import icon_up from "@/public/assets/icon_up.svg";
 import icon_down from "@/public/assets/icon_down.svg";
 import { useState, useEffect } from "react";
+import { useRouter } from 'next/router';
 
-export default function Soldout({ sortType, reset }) {
-  const [isOpen, setIsOpen] = useState(false);
+export default function Soldout({ sortType, reset, isOpen, onToggle }) {
   const [selectValue, setSelectValue] = useState("매진여부");
 
-  const handleToggle = () => {
-    setIsOpen(!isOpen);
-  };
+  const router = useRouter();
 
   const handleSelect = (value) => {
     setSelectValue(value);
-    setIsOpen(false);
     if (sortType) {
       const availableValue = value === "잔여" ? true : value === "매진" ? false : undefined;
       sortType(availableValue);
     }
+    onToggle();
   };
 
   useEffect(() => {
     if (reset) {
       setSelectValue("매진여부");
 
-      if (sortType) {
+      if (sortType && router.pathname === '/pocketPlace') {
         sortType(undefined);
       }
     }
-  }, [reset, sortType]);
+  }, [reset, sortType, router.pathname]);
 
   return (
     <div
       className={`${styles.dropDown_container} ${styles.container_large}`}
-      onClick={handleToggle}
+      onClick={onToggle}
     >
       <div>{selectValue}</div>
       <div className={styles.downIcon_container}>
