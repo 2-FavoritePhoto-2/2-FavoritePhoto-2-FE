@@ -10,6 +10,7 @@ import Pagination from "../Pagination/Pagination";
 import Modal from "./Modal.js";
 import Image from "next/image.js";
 import icon_exchange from "@/public/assets/icon_exchange.svg";
+import { getUserProfile } from "@/lib/api/UserService.js";
 
 export default function Exchange({ data, shopId, onFilterChange, onSearch, onPageChange }) {
   const [isToggle, setIsToggle] = useState(false);
@@ -26,6 +27,26 @@ export default function Exchange({ data, shopId, onFilterChange, onSearch, onPag
     grade: {},
     type: {},
   });
+  const [allCards, setAllCards] = useState([]);
+  const [nickname, setNickname] = useState("");
+
+  useEffect(() => {
+    async function fetchUserProfile() {
+      try {
+        const profile = await getUserProfile();
+        setNickname(profile.nickname);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchUserProfile();
+  }, []);
+
+  useEffect(() => {
+    setAllCards(data.card);
+  }, [data.card]);
+
 
   const handleResetFilters = () => {
     setFilters({
@@ -35,8 +56,8 @@ export default function Exchange({ data, shopId, onFilterChange, onSearch, onPag
     });
 
     calculateFilterCounts(data.card);
-    
-    setReset(true);  
+
+    setReset(true);
     setTimeout(() => {
       setReset(false);
     }, 100);
@@ -44,12 +65,13 @@ export default function Exchange({ data, shopId, onFilterChange, onSearch, onPag
     setFilteredData(data.card);
   };
 
+
   useEffect(() => {
     if (reset) {
       setFilteredData(data.card);
     }
   }, [reset, data.card]);
-  
+
   const itemsPerPage = 10;
   const totalPages = Math.ceil(data.totalCount / itemsPerPage);
 
@@ -65,7 +87,7 @@ export default function Exchange({ data, shopId, onFilterChange, onSearch, onPag
     }
 
     if (filters.search) {
-      result = result.filter(card => 
+      result = result.filter(card =>
         card.name.toLowerCase().includes(filters.search.toLowerCase())
       );
     }
@@ -73,7 +95,7 @@ export default function Exchange({ data, shopId, onFilterChange, onSearch, onPag
     setFilteredData(result);
   }, [filters, data.card]);
 
-  
+
 
   const handleSearch = (searchTerm) => {
     setFilters(prev => ({
@@ -96,7 +118,7 @@ export default function Exchange({ data, shopId, onFilterChange, onSearch, onPag
   const handleFilterChange = (filterType, value) => {
 
     const newValue = value === "등급" || value === "속성" ? null : value;
-    
+
     setFilters(prev => ({
       ...prev,
       [filterType]: newValue
@@ -109,30 +131,34 @@ export default function Exchange({ data, shopId, onFilterChange, onSearch, onPag
   };
 
   //멀티 필터용
-  const calculateFilterCounts = (cards) => {
+  const calculateFilterCounts = () => {
     const counts = {
       grade: {},
       type: {},
     };
 
-    cards.forEach(card => {
-      if (card.grade) {
-        counts.grade[card.grade] = (counts.grade[card.grade] || 0) + 1;
-      }
-
-      if (Array.isArray(card.type)) {
-        card.type.forEach(type => {
-          counts.type[type] = (counts.type[type] || 0) + 1;
-        });
+    allCards.forEach(card => {
+      if (!filters.grade || card.grade === filters.grade) {
+        if (!filters.type || card.type.includes(filters.type)) {
+          if (card.grade) {
+            counts.grade[card.grade] = (counts.grade[card.grade] || 0) + 1;
+          }
+          if (Array.isArray(card.type)) {
+            card.type.forEach(type => {
+              counts.type[type] = (counts.type[type] || 0) + 1;
+            });
+          }
+        }
       }
     });
 
-    setFilterCounts(counts);
+    return counts;
   };
 
   useEffect(() => {
-    calculateFilterCounts(data.card);
-  }, [data.card]);
+    const counts = calculateFilterCounts();
+    setFilterCounts(counts);
+  }, [allCards, filters]);
 
   const handleMultiFilterChange = (filterType, value) => {
     setFilters(prev => ({
@@ -152,30 +178,35 @@ export default function Exchange({ data, shopId, onFilterChange, onSearch, onPag
           <p className={styles.exchange_name}>포토카드 교환하기</p>
           <div className={styles.search_menu}>
             <div className={styles.multi_filter}>
-              <MultiFilterModal filterKeys={["등급", "속성"]} 
-              filterCounts={filterCounts}
-              onFilterChange={handleMultiFilterChange}
-              reset={reset}/>
+              <MultiFilterModal
+                filterKeys={["등급", "속성"]}
+                filterCounts={filterCounts}
+                onFilterChange={handleMultiFilterChange}
+                reset={reset} />
             </div>
             <div className={styles.searchbar}>
               <SearchBar onSearch={handleSearch} />
             </div>
             <div className={styles.filter_table}>
-              <Rating sortType={(value) => handleFilterChange("grade", value)} reset={reset}/>
-              <Attribute sortType={(value) => handleFilterChange("type", value)} reset={reset}/>
+              <Rating sortType={(value) => handleFilterChange("grade", value)} reset={reset} />
+              <Attribute sortType={(value) => handleFilterChange("type", value)} reset={reset} />
               <Image
-              src={icon_exchange}
-              alt="새로고침"
-              width={20}
-              className={styles.refreshIcon}
-              onClick={handleResetFilters}
-            />
+                src={icon_exchange}
+                alt="새로고침"
+                width={20}
+                className={styles.refreshIcon}
+                onClick={handleResetFilters}
+              />
             </div>
           </div>
           <div className={styles.photocard_content}>
             {filteredData.map((photo) => (
               <div key={photo.id} onClick={() => handleSelectPhoto(photo)}>
-                <PhotoCard type="내카드" data={photo} />
+                <PhotoCard
+                  type="내카드"
+                  data={photo}
+                  profile={{ nickname: nickname }}
+                />
               </div>
             ))}
           </div>

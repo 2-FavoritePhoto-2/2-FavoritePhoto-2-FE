@@ -1,4 +1,5 @@
-import styles from "@/styles/MyShop.module.css";
+import { useState, useEffect } from "react";
+import { getSaleList, getUserProfile } from "@/lib/api/UserService";
 import Image from "next/image";
 import resetIcon from "@/public/assets/icon_exchange.svg";
 import MyShopTitle from "@/components/MyShop/MyShopTitle";
@@ -10,8 +11,7 @@ import Attribute from "@/components/Common/Dropdown/Sort/Attribute";
 import Sale from "@/components/Common/Dropdown/Sort/Sale";
 import Soldout from "@/components/Common/Dropdown/Sort/Soldout";
 import MultiFilterModal from "@/components/Common/Modal/MultiFilter";
-import { useState, useEffect } from "react";
-import { getSaleList } from "@/lib/api/UserService";
+import styles from "@/styles/MyShop.module.css";
 
 export default function MyShop() {
   const [mySales, setMySales] = useState([]);
@@ -37,6 +37,21 @@ export default function MyShop() {
 
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
+
+  const [profile, setProfile] = useState({});
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const fetchProfile = await getUserProfile();
+        setProfile(fetchProfile);
+      } catch (err) {
+        console.error("프로필 정보를 불러오는데 실패했습니다.", err);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   // 검색어 변경 시 처리 함수
   const handleSearch = async (keyword) => {
@@ -185,15 +200,15 @@ export default function MyShop() {
 
   // 페이지네이션을 위한 데이터 로드
   const loadMoreCards = async () => {
-    const startIdx = myCards.length;
+    const startIdx = mySales.length;
 
-    if (startIdx >= filteredCards.length) {
+    if (startIdx >= filteredSales.length) {
       setHasMore(false);
       return;
     }
 
-    const nextCards = filteredCards.slice(startIdx, startIdx + 9);
-    setMyCards((prevCards) => [...prevCards, ...nextCards]);
+    const nextCards = filteredSales.slice(startIdx, startIdx + 9);
+    setMySales((prevCards) => [...prevCards, ...nextCards]);
     setLoading(false);
   };
 
@@ -235,7 +250,7 @@ export default function MyShop() {
     <div className={styles.container}>
       <div className={styles.header}>
         <MyShopTitle />
-        <MySaleCards mySales={filteredSales || []} />
+        <MySaleCards mySales={filteredSales || []} profile={profile} />
         <div className={styles.filter}>
           <div className={styles.line}></div>
           <div className={styles.search_filters}>
@@ -271,7 +286,7 @@ export default function MyShop() {
           </div>
         </div>
       </div>
-      <MyShopList mySales={mySales || []} />
+      <MyShopList mySales={mySales || []} profile={profile} />
     </div>
   );
 }

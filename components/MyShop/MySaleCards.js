@@ -1,24 +1,8 @@
 import Grade from "../Common/Grade/Grade";
 import styles from "./MySaleCards.module.css";
-import { useState, useEffect } from "react";
-import { getUserProfile } from "@/lib/api/UserService";
 
-export default function MySaleCards({ mySales }) {
+export default function MySaleCards({ mySales, profile }) {
   const grades = ["COMMON", "RARE", "SUPER RARE", "LEGENDARY"];
-  const [profile, setProfile] = useState({});
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const fetchProfile = await getUserProfile();
-        setProfile(fetchProfile);
-      } catch (err) {
-        console.error("프로필 정보를 불러오는데 실패했습니다.", err);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   const gradeCount = {
     COMMON: 0,

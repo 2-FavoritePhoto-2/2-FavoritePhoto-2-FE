@@ -1,8 +1,8 @@
-import styles from "./MyGalleryTitle.module.css";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 import back from "@/public/assets/icon_back.svg";
-import { useRouter } from "next/router";
+import styles from "./MyGalleryTitle.module.css";
 
 export default function MyGalleryTitle() {
   const router = useRouter();

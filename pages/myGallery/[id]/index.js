@@ -1,11 +1,11 @@
-import styles from "@/styles/MyGalleryDetail.module.css";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import { getMyPhotoCard } from "@/lib/api/UserService";
 import Link from "next/link";
 import Image from "next/image";
 import back from "@/public/assets/icon_back.svg";
 import MyCardDetail from "@/components/Common/CardInfo/MyCardDetail";
-import { getMyPhotoCard } from "@/lib/api/UserService";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import styles from "@/styles/MyGalleryDetail.module.css";
 
 export default function MyGalleryDetail() {
   const router = useRouter();
