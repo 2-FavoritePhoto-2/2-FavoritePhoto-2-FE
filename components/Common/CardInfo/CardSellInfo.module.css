@@ -116,6 +116,42 @@
 .remaining_card {
   font-size: 2.4rem;
 }
+.quantity_font,
+.quantity_count {
+  font-size: 2rem;
+  font-weight: 400;
+  color: white;
+  line-height: 2.896rem;
+}
+.quantity_table {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid white;
+  border-radius: 1px;
+  background-color: black;
+  padding: 1rem 1.2rem;
+  width: 17.6rem;
+  height: 5rem;
+}
+.minus_button,
+.plus_button {
+  width: 2.2rem;
+  height: 2.2rem;
+  cursor: pointer;
+}
+
+@media (max-width: 1199px) {
+  .quantity_table {
+    max-width: 14.4rem;
+    width: 100%;
+    height: 4.5rem;
+  }
+  .quantity_count,
+  .quantity_font {
+    font-size: 1.8rem;
+  }
+}
 /* Tablet Only */
 @media (min-width: 744px) and (max-width: 1199px) {
   .container {

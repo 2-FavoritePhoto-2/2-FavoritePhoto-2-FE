@@ -1,5 +1,9 @@
 GET https://pikapick.onrender.com/shop
 
+###
+
+GET https://pikapick.onrender.com/shop/dfc28fdf-35a4-4475-a550-673653c044e3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzMxMTU5MzcsImV4cCI6MTczMzIwMjMzN30.07cXE93Fc5bVoxukWZahCa_jWjup5pkhykcy-VB7eEg
 
 
 ###

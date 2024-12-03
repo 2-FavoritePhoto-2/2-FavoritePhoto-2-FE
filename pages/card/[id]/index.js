@@ -41,7 +41,6 @@ export default function CardDetail({ data }) {
     value: "",
   });
 
-  const router = useRouter();
   const card = data.card;
   const exchangeGrade = data.exchangeGrade;
 
@@ -222,8 +221,8 @@ export default function CardDetail({ data }) {
               </div>
               <p className={styles.exchange_content}>{data.exchangeDetails}</p>
               <div className={styles.exchange_card_rating_table}>
-                <p className={`${styles.card_rating} ${styles[exchangeGrade]}`}>{exchangeGrade}</p>
-                <p className={styles.card_attribute}>{data.exchangeType}</p>
+                <p className={`${styles.card_rating} ${styles[exchangeGrade]}`}>{exchangeGrade.replace(/_/g, " ")}</p>
+                <p className={styles.card_attribute}>{data.exchangeType.join("ㅣ")}</p>
               </div>
               <button className={styles.exchange_button_mobile} onClick={exchangeModalOpen}>
                 포토카드 교환하기

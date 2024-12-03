@@ -18,6 +18,9 @@ const INITIAL_VALUES = {
 export default function CardEdit({ data, onClose }) {
   const accessToken = typeof window !== "undefined" ? localStorage.getItem("accessToken") : "";
   const [values, setValues] = useState(INITIAL_VALUES);
+  const [remainingQuantity, setRemainingQuantity] = useState(data.remainingQuantity);
+  const [totalQuantity, setTotalQuantity] = useState(data.totalQuantity);
+  const [quantity, setQuantity] = useState(data.remainingQuantity); // 초기값 설정
 
   useEffect(() => {
     const fetchProductItem = async () => {
@@ -67,7 +70,6 @@ export default function CardEdit({ data, onClose }) {
       ...(values.exchangeGrade && { exchangeGrade: values.exchangeGrade }), // 값이 존재할 때만 추가
       ...(exchangeType && { exchangeType }),
       ...(values.totalQuantity && { totalQuantity: values.totalQuantity }),
-      ...(values.remainingQuantity && { remainingQuantity: values.remainingQuantity }),
       ...(values.price && { price: Number(values.price) }),
       ...(values.exchangeDetails && { exchangeDetails: values.exchangeDetails }),
     };
@@ -100,6 +102,12 @@ export default function CardEdit({ data, onClose }) {
           priceValue={values.price}
           onQuantityChange={handleQuantityChange}
           onPriceChange={handleChange}
+          remainingQuantity={remainingQuantity}
+          setRemainingQuantity={setRemainingQuantity}
+          totalQuantity={totalQuantity}
+          setTotalQuantity={setTotalQuantity}
+          quantity={quantity}
+          setQuantity={setQuantity}
         />
       </div>
       <div className={styles.exchange_info}>

@@ -1,32 +1,48 @@
 import styles from "./CardSellInfo.module.css";
 import Grade from "../Grade/Grade";
-import Quantity from "../Quantity/Quantity";
 import Input from "../Input/Input";
-import { useState } from "react";
-import Test from "./test";
 
-export default function CardEditInfo({ data, priceValue, onPriceChange, onQuantityChange }) {
-  const [remainingQuantity, setRemainingQuantity] = useState(data.remainingQuantity);
-  const [totalQuantity, setTotalQuantity] = useState(data.totalQuantity);
 
-  // const handleQuantityChange = (newQuantity) => {
-  //   const difference = newQuantity - remainingQuantity;
+export default function CardEditInfo({
+  data,
+  priceValue,
+  onPriceChange,
+  onQuantityChange,
+  remainingQuantity,
+  setRemainingQuantity,
+  totalQuantity,
+  setTotalQuantity,
+  quantity,
+  setQuantity,
+}) {
+  const increaseQuantity = () => {
+    if (quantity < data.card.quantity + data.remainingQuantity) {
+      setQuantity((prevQuantity) => {
+        const newQuantity = prevQuantity + 1;
+        // 상태 업데이트 후 새로운 값을 사용하여 onQuantityChange 호출
+        const newTotalQuantity = totalQuantity + 1;
+        const newRemainingQuantity = remainingQuantity + 1;
+        onQuantityChange(newRemainingQuantity, newTotalQuantity);
+        return newQuantity; // 새로운 수량 반환
+      });
+      setTotalQuantity((prevQuantity) => prevQuantity + 1);
+      setRemainingQuantity((prevQuantity) => prevQuantity + 1);
+    }
+  };
 
-  //   setRemainingQuantity(newQuantity); // remainingQuantity를 업데이트
-  //   setTotalQuantity((prev) => prev + difference); // 변화량만큼 totalQuantity를 업데이트
-  // };
-  const handleQuantityChange = (newQuantity) => {
-    const difference = newQuantity - remainingQuantity;
-
-    const updatedRemainingQuantity = newQuantity;
-    const updatedTotalQuantity = totalQuantity + difference;
-
-    // Local state update
-    setRemainingQuantity(updatedRemainingQuantity);
-    setTotalQuantity(updatedTotalQuantity);
-
-    // // Notify the parent component
-    onQuantityChange(updatedRemainingQuantity, updatedTotalQuantity);
+  const decreaseQuantity = () => {
+    if (quantity > 1) {
+      setQuantity((prevQuantity) => {
+        const newQuantity = prevQuantity - 1;
+        // 상태 업데이트 후 새로운 값을 사용하여 onQuantityChange 호출
+        const newTotalQuantity = totalQuantity - 1;
+        const newRemainingQuantity = remainingQuantity - 1;
+        onQuantityChange(newRemainingQuantity, newTotalQuantity);
+        return newQuantity; // 새로운 수량 반환
+      });
+      setTotalQuantity((prevQuantity) => prevQuantity - 1);
+      setRemainingQuantity((prevQuantity) => prevQuantity - 1);
+    }
   };
 
   return (
@@ -57,14 +73,29 @@ export default function CardEditInfo({ data, priceValue, onPriceChange, onQuanti
         <div className={styles.total_quantity}>
           <p className={styles.label}>판매수량 수정</p>
           <div className={styles.quantity}>
-            <Quantity
+            <div className={styles.quantity_table}>
+              <img
+                src="/assets/btn_minus.png"
+                className={styles.minus_button}
+                onClick={decreaseQuantity}
+                disabled={quantity < 1}
+              />
+              <p className={styles.quantity_count}>{quantity}</p>
+              <img
+                src="/assets/btn_plus.png"
+                className={styles.plus_button}
+                onClick={increaseQuantity}
+                disabled={quantity >= data.card.quantity + data.remainingQuantity}
+              />
+            </div>
+            {/* <Quantity
               onChange={handleQuantityChange}
-              maxQuantity={data.card.quantity}
+              maxQuantity={data.card.quantity + data.remainingQuantity}
               defaultQuantity={remainingQuantity} // 초기 수량
-            />
+            /> */}
             <div className={styles.max_quantity}>
               <p className={styles.max_count}>
-                /<span>{data.card.quantity}</span>
+                /<span>{data.card.quantity + data.remainingQuantity}</span>
               </p>
               <p className={styles.max_notice}>보유 수량</p>
             </div>

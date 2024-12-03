@@ -65,8 +65,8 @@ export default function PhotoCardExchange({ data, type = "buyer" }) {
             <div className={styles.category}>
               <Grade grade={data.buyerCard.grade} />
               <p className={styles.vert_line}>|</p>
-              {data.buyerCard.type.map((types) => (
-                <p className={styles.type}>{types}</p>
+              {data.buyerCard.type.map((types,index) => (
+                <p key={index} className={styles.type}>{types}</p>
               ))}
             </div>
             <div className={styles.point_seller}>
