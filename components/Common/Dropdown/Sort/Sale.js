@@ -1,8 +1,8 @@
-import styles from "./Sort.module.css";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import icon_up from "@/public/assets/icon_up.svg";
 import icon_down from "@/public/assets/icon_down.svg";
-import { useState, useEffect } from "react";
+import styles from "./Sort.module.css";
 
 export default function Sale({ sortType, reset, isOpen, onToggle }) {
   const [selectValue, setSelectValue] = useState("판매방법");

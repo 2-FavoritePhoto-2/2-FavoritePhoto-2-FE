@@ -1,8 +1,8 @@
-import styles from "./PocketPlaceTitle.module.css";
 import { useState } from "react";
 import CardList from "../Common/Modal/CardList";
 import Modal from "../Common/Modal/Modal";
 import Notification from "../Common/Modal/Notification";
+import styles from "./PocketPlaceTitle.module.css";
 
 export default function PocketPlaceTitle() {
   const [showCardList, setShowCardList] = useState(false);

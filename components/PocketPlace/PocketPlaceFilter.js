@@ -1,17 +1,18 @@
-import styles from "./PocketPlaceFilter.module.css";
-import Image from "next/image";
+import { useState } from "react";
 import SearchBar from "../Common/SearchBar/SearchBar";
 import Rating from "../Common/Dropdown/Sort/Rating";
 import Attribute from "../Common/Dropdown/Sort/Attribute";
 import Soldout from "../Common/Dropdown/Sort/Soldout";
 import Sort from "../Common/Dropdown/Sort/Sort";
 import MultiFilterModal from "../Common/Modal/MultiFilter";
+import Image from "next/image";
 import icon_exchange from "@/public/assets/icon_exchange.svg";
-import { useState } from "react";
+import styles from "./PocketPlaceFilter.module.css";
+
 
 export default function PocketPlaceFilter({ onSearch, onFilterChange, filterCounts }) {
   const [reset, setReset] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState(null);
+  const [openDropdown, setOpenDropdown] = useState(null); // 추가
 
   const handleSearch = (term) => {
     onSearch(term);
@@ -22,7 +23,7 @@ export default function PocketPlaceFilter({ onSearch, onFilterChange, filterCoun
     onFilterChange(filterType, value);
   };
 
-  const handleDropdownToggle = (dropdownName) => {
+  const handleDropdownToggle = (dropdownName) => { //추가
     setOpenDropdown(openDropdown === dropdownName ? null : dropdownName);
   };
 
@@ -46,7 +47,7 @@ export default function PocketPlaceFilter({ onSearch, onFilterChange, filterCoun
             <div className={`${styles.desktopOnly} ${styles.rating}`}>
               <Rating sortType={(value) => handleFilterChange("grade", value)}
                 reset={reset}
-                isOpen={openDropdown === 'grade'}
+                isOpen={openDropdown === 'grade'} //추가
                 onToggle={() => handleDropdownToggle('grade')} />
             </div>
             <div className={styles.desktopOnly}>

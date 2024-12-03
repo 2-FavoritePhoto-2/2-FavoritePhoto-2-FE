@@ -30,10 +30,6 @@ export default function MultiFilterModal({ filterKeys, filterCounts, onFilterCha
 
   };
 
-  // useEffect(() => {
-  // console.log("MultiFilterModal", filterCounts);
-  // }, [filterCounts]);
-
   const handleFilterSelect = (item) => {
     setSelectedItem(item);
     const filterType =
