@@ -4,7 +4,7 @@ import QuantityCardBuyer from "@/components/Common/Quantity/QuantityCard_buyer";
 import QuantityCardSeller from "@/components/Common/Quantity/QuantityCard_seller";
 import PhotoCardExchange from "@/components/Common/PhotoCard/PhotoCardExchange";
 import { useEffect, useState } from "react";
-import { useUser } from "@/hooks/contexts/UserContext";
+
 import axios from "@/lib/api/api.js";
 import PhotoCard from "@/components/Common/PhotoCard/PhotoCard";
 import Exchange from "@/components/Common/Modal/Exchange";
@@ -36,6 +36,7 @@ export default function CardDetail({ data }) {
   const [filteredCards, setFilteredCards] = useState([]);
   const [myOffer, setMyOffer] = useState([]);
   const [relatedCards, setRelatedCards] = useState([]); // 관련 카드 상태 추가
+  const [myNickName, setMyNickName] = useState();
   const [filters, setFilters] = useState({
     type: "",
     value: "",
@@ -79,6 +80,7 @@ export default function CardDetail({ data }) {
           Authorization: `Bearer ${accessToken}`,
         },
       });
+      setMyNickName(res.data)
       setIsOwner(() => {
         if (res.data.nickname === data.seller.nickname) {
           return true;
@@ -221,7 +223,9 @@ export default function CardDetail({ data }) {
               </div>
               <p className={styles.exchange_content}>{data.exchangeDetails}</p>
               <div className={styles.exchange_card_rating_table}>
-                <p className={`${styles.card_rating} ${styles[exchangeGrade]}`}>{exchangeGrade.replace(/_/g, " ")}</p>
+                <p className={`${styles.card_rating} ${styles[exchangeGrade]}`}>
+                  {exchangeGrade.replace(/_/g, " ")}
+                </p>
                 <p className={styles.card_attribute}>{data.exchangeType.join("ㅣ")}</p>
               </div>
               <button className={styles.exchange_button_mobile} onClick={exchangeModalOpen}>
@@ -261,6 +265,7 @@ export default function CardDetail({ data }) {
         <Modal isOpen={exchangeModalOpen} closeModal={exchangeModalClose}>
           <Exchange
             data={filteredCards}
+            profile={myNickName}
             shopId={data.id}
             onSearch={handleSearch}
             onFilterChange={handleFilterChange}
