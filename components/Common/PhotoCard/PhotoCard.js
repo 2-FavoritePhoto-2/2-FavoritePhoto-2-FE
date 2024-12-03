@@ -5,15 +5,12 @@ import soldout from "@/public/assets/soldout.svg";
 import Grade from "../Grade/Grade";
 
 export default function PhotoCard({ data, profile, type = "판매카드", exchange }) {
+
   const exchangeHeaderClass = exchange ? styles.exchange_header : "";
   const exchangeClass = exchange ? styles.exchange : "";
   const exchangeValueClass = exchange ? styles.exchange_value : "";
   const exchangeImgClass = exchange ? styles.exchange_img : "";
   const exchangeLogoClass = exchange ? styles.exchange_logo : "";
-
-  if (!data || !data.type) {
-    return null;
-  }
 
   const cardType =
     type === "내판매카드" ? (
@@ -26,9 +23,8 @@ export default function PhotoCard({ data, profile, type = "판매카드", exchan
         ) : (
           <div className={styles.img_wrap}>
             <div
-              className={`${styles.badge} ${
-                data.mode === "shop" ? styles.shop_badge : styles.exchange_badge
-              }`}
+              className={`${styles.badge} ${data.mode === "shop" ? styles.shop_badge : styles.exchange_badge
+                }`}
             >
               <p>{data.mode === "shop" ? "판매 중" : "교환 제시 대기 중"}</p>
             </div>

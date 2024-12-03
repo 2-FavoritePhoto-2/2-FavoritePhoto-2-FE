@@ -1,15 +1,14 @@
-import { useState } from "react";
 import styles from "./CardSellInfo.module.css";
 import Grade from "../Grade/Grade";
 import Quantity from "../Quantity/Quantity";
 import Input from "../Input/Input";
 
-export default function CardSellInfo({ 
-  data, 
-  point,          
-  setPoint,      
+export default function CardSellInfo({
+  data,
+  point,
+  setPoint,
   selectedQuantity,
-  setSelectedQuantity  }) {
+  setSelectedQuantity }) {
 
   return (
     <div className={styles.container}>
@@ -35,7 +34,7 @@ export default function CardSellInfo({
           <p className={styles.label}>총 판매 수량</p>
           <div className={styles.quantity}>
             <Quantity
-            value={selectedQuantity} 
+              value={selectedQuantity}
               onChange={(newQuantity) => setSelectedQuantity(newQuantity)}
               maxQuantity={data.quantity}
             />

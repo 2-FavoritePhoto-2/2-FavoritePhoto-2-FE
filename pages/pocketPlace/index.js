@@ -1,8 +1,9 @@
+import { useState } from "react";
 import PocketPlaceTitle from "@/components/PocketPlace/PocketPlaceTitle";
 import PocketPlaceFilter from "@/components/PocketPlace/PocketPlaceFilter";
 import PocketPlaceList from "@/components/PocketPlace/PocketPlaceList";
 import styles from "./pocketPlace.module.css";
-import { useState } from "react";
+
 
 export default function PocketPlace() {
   const [searchTerm, setSearchTerm] = useState("");

@@ -85,7 +85,7 @@
 
 .filter_tabs {
   display: flex;
-  gap: 10rem;
+  justify-content: space-around;
 }
 
 .tab_button {
@@ -125,9 +125,11 @@
   gap: 3.5rem;
   width: 100%;
 }
+
 .reset_button {
   cursor: pointer;
 }
+
 .filterPhoto_button {
   width: 27.2rem;
   height: 5.5rem;
