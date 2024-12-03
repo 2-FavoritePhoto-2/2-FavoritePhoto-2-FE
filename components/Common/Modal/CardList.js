@@ -20,6 +20,11 @@ export default function CardList() {
   const [error, setError] = useState("");
 
   const [profile, setProfile] = useState({});
+  const [openDropdown, setOpenDropdown] = useState(null);
+
+  const handleDropdownToggle = (dropdownName) => {
+    setOpenDropdown(openDropdown === dropdownName ? null : dropdownName);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -97,8 +102,14 @@ export default function CardList() {
             <SearchBar onSearch={handleSearch} />
           </div>
           <div className={styles.filters}>
-            <Rating sortType={handleGradeFilter} />
-            <Attribute sortType={handleTypeFilter} />
+            <Rating
+              sortType={handleGradeFilter}
+              isOpen={openDropdown === 'grade'}
+              onToggle={() => handleDropdownToggle('grade')} />
+            <Attribute
+              sortType={handleTypeFilter}
+              isOpen={openDropdown === 'type'}
+              onToggle={() => handleDropdownToggle('type')} />
           </div>
         </div>
       </div>

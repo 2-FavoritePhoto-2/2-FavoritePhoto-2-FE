@@ -29,6 +29,11 @@ export default function Exchange({ data, shopId, onFilterChange, onSearch, onPag
   });
   const [allCards, setAllCards] = useState([]);
   const [nickname, setNickname] = useState("");
+  const [openDropdown, setOpenDropdown] = useState(null);
+
+  const handleDropdownToggle = (dropdownName) => {
+    setOpenDropdown(openDropdown === dropdownName ? null : dropdownName);
+  };
 
   useEffect(() => {
     async function fetchUserProfile() {
@@ -188,8 +193,14 @@ export default function Exchange({ data, shopId, onFilterChange, onSearch, onPag
               <SearchBar onSearch={handleSearch} />
             </div>
             <div className={styles.filter_table}>
-              <Rating sortType={(value) => handleFilterChange("grade", value)} reset={reset} />
-              <Attribute sortType={(value) => handleFilterChange("type", value)} reset={reset} />
+              <Rating sortType={(value) => handleFilterChange("grade", value)}
+                reset={reset}
+                isOpen={openDropdown === 'grade'}
+                onToggle={() => handleDropdownToggle('grade')} />
+              <Attribute sortType={(value) => handleFilterChange("type", value)}
+                reset={reset}
+                isOpen={openDropdown === 'type'}
+                onToggle={() => handleDropdownToggle('type')} />
               <Image
                 src={icon_exchange}
                 alt="새로고침"
