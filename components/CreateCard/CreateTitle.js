@@ -1,7 +1,7 @@
-import styles from "./CreateTitle.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import back from "@/public/assets/icon_back.svg";
+import styles from "./CreateTitle.module.css";
 
 export default function CreateTitle() {
   return (

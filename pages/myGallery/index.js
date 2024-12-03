@@ -1,15 +1,15 @@
-import styles from "@/styles/MyGallery.module.css";
+import { useState, useEffect } from "react";
+import { getMyPhotoCardList, getMyPhotoCardListCount, getUserProfile } from "@/lib/api/UserService";
 import Image from "next/image";
 import resetIcon from "@/public/assets/icon_exchange.svg";
 import MyGalleryTitle from "@/components/MyGallery/MyGalleryTitle";
 import MyOwnedCards from "@/components/MyGallery/MyOwnedCards";
 import MyGalleryList from "@/components/MyGallery/MyGalleryList";
-import MultiFilterModal from "@/components/Common/Modal/MultiFilter";
 import SearchBar from "@/components/Common/SearchBar/SearchBar";
 import Rating from "@/components/Common/Dropdown/Sort/Rating";
 import Attribute from "@/components/Common/Dropdown/Sort/Attribute";
-import { getMyPhotoCardList } from "@/lib/api/UserService";
-import { useState, useEffect } from "react";
+import MultiFilterModal from "@/components/Common/Modal/MultiFilter";
+import styles from "@/styles/MyGallery.module.css";
 
 export default function MyGallery() {
   const [myCards, setMyCards] = useState([]);
@@ -29,6 +29,26 @@ export default function MyGallery() {
 
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
+
+  const [profile, setProfile] = useState({});
+  const [openDropdown, setOpenDropdown] = useState(null);
+
+  const handleDropdownToggle = (dropdownName) => {
+    setOpenDropdown(openDropdown === dropdownName ? null : dropdownName);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const fetchProfile = await getUserProfile();
+        setProfile(fetchProfile);
+      } catch (err) {
+        console.error("프로필 정보를 불러오는데 실패했습니다.", err);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   // 검색어 변경 시 처리 함수
   const handleSearch = async (keyword) => {
@@ -82,10 +102,10 @@ export default function MyGallery() {
     try {
       setLoading(true);
 
-      const res = await getMyPhotoCardList({ page: 1 });
+      const totalCount = await getMyPhotoCardListCount();
       const filteredResults = await getMyPhotoCardList({
         page: 1,
-        pageSize: res.totalCount,
+        pageSize: totalCount,
         grade: gradeFilter,
         type: typeFilter,
         keyword: searchTerm,
@@ -168,7 +188,7 @@ export default function MyGallery() {
     <div className={styles.container}>
       <div className={styles.header}>
         <MyGalleryTitle />
-        <MyOwnedCards myCardList={filteredCards || []} />
+        <MyOwnedCards myCardList={filteredCards || []} profile={profile} />
         <div className={styles.filter}>
           <div className={styles.line}></div>
           <div className={styles.search_filters}>
@@ -187,20 +207,28 @@ export default function MyGallery() {
               <SearchBar onSearch={handleSearch} />
             </div>
             <div className={styles.filters}>
-              <Rating sortType={handleGradeFilter} reset={gradeReset} />
-              <Attribute sortType={handleTypeFilter} reset={typeReset} />
+              <Rating sortType={handleGradeFilter}
+                reset={gradeReset}
+                isOpen={openDropdown === 'grade'}
+                onToggle={() => handleDropdownToggle('grade')} />
+              <Attribute
+                sortType={handleTypeFilter}
+                reset={typeReset}
+                isOpen={openDropdown === 'type'}
+                onToggle={() => handleDropdownToggle('type')} />
               <Image
                 src={resetIcon}
                 width={24}
                 height={24}
                 onClick={handleFilterReset}
                 alt="리셋 아이콘"
+                className={styles.refreshIcon}
               />
             </div>
           </div>
         </div>
       </div>
-      <MyGalleryList myCardList={myCards || []} />
+      <MyGalleryList myCardList={myCards || []} profile={profile} />
     </div>
   );
 }

@@ -1,8 +1,8 @@
-import styles from "./Sort.module.css";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import icon_up from "@/public/assets/icon_up.svg";
 import icon_down from "@/public/assets/icon_down.svg";
-import { useState, useEffect } from "react";
+import styles from "./Sort.module.css";
 
 export default function Sort({ sortType, initSort = "낮은 가격순" }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,8 +16,6 @@ export default function Sort({ sortType, initSort = "낮은 가격순" }) {
     setSelectValue(initSort);
   }, [initSort]);
 
-  /* TODO
-   *sortType 함수 -> 부모 컴포넌트에서 정렬하는 함수를 정의해야함 */
   const handleSelect = (value) => {
     setSelectValue(value);
     setIsOpen(false);

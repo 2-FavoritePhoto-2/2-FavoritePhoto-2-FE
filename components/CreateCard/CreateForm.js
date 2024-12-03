@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import Input from "../Common/Input/Input";
-import styles from "./CreateForm.module.css";
-import Dropdown from "../Common/Input/Dropdown";
-import useValidate from "@/hooks/useValidate";
 import { createPhotoCard } from "@/lib/api/UserService";
+import useValidate from "@/hooks/useValidate";
+import Input from "../Common/Input/Input";
+import Dropdown from "../Common/Input/Dropdown";
 import FileInput from "../Common/Input/FileInput";
+import styles from "./CreateForm.module.css";
 
 export default function CreateForm() {
   const router = useRouter();
@@ -18,8 +18,6 @@ export default function CreateForm() {
     image: "",
     description: "",
   });
-
-  const [error, setError] = useState("");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -60,11 +58,16 @@ export default function CreateForm() {
 
     try {
       await createPhotoCard(formData);
-      console.log(formData);
-      return router.push("/myGallery");
+      return router.push({
+        pathname: "/SuccessFail",
+        query: { type: "create_success" },
+      });
     } catch (err) {
       console.error("상품 등록에 실패하였습니다.", err.message);
-      setError("상품 등록에 실패하였습니다.");
+      return router.push({
+        pathname: "/SuccessFail",
+        query: { type: "create_fail" },
+      });
     }
   };
 
@@ -154,7 +157,6 @@ export default function CreateForm() {
           생성하기
         </button>
       </form>
-      {error && <div>{error}</div>}
     </div>
   );
 }
