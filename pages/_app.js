@@ -35,11 +35,13 @@ export default function App({ Component, pageProps }) {
   };
   
   const handleLogout = () => {
+    console.log("Logging out...");
     setIsLoggedIn(false);
     setPoints(0);
     setNickname("");
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('accessToken');
+    console.log("Logged out:", isLoggedIn);
   };
   
   useEffect(() => {
@@ -54,7 +56,7 @@ export default function App({ Component, pageProps }) {
         handleLogout();
       }
     }
-  }, []);
+  }, [isLoggedIn]);
 
   useEffect(() => {
     const handleResize = () => {
