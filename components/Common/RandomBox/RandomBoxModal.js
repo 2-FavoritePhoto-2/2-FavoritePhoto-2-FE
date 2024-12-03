@@ -1,13 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import styles from './RandomBoxModal.module.css';
+import { fetchRandomPoints, fetchLastDrawTime } from '@/lib/api/randomPoints';
 
 const RandomBoxModal = ({ onClose }) => {
   const [selectedBox, setSelectedBox] = useState(null);
   const [points, setPoints] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(3600);
-  const [isModalOpen, setIsModalOpen] = useState(true); //항상 열려 있도록 설정 상태, 변경은 false 
+  const [timeLeft, setTimeLeft] = useState(3600); 
+  const [isModalOpen, setIsModalOpen] = useState(true); 
   const [visibleBoxes, setVisibleBoxes] = useState([1, 2, 3]);
+  const [error, setError] = useState('');
+  const [canDraw, setCanDraw] = useState(false);
+  const modalRef = useRef(null); // 모달 내부 요소를 참조, 모달 외부 클릭했을 때 모달 닫히게 만들었습니다 
 
   const boxes = [
     { id: 1, image: '/assets/box_blue.png', className: styles.boxBlue },
@@ -15,53 +19,81 @@ const RandomBoxModal = ({ onClose }) => {
     { id: 3, image: '/assets/box_red.png', className: styles.boxRed },
   ];
 
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}분 ${remainingSeconds}초`;
+  };
+
+  const handleBoxClick = async (id) => {
+    if (selectedBox === null && canDraw) {
+      try {
+        const result = await fetchRandomPoints();
+        if (result.error) {
+          setError(result.error);
+        } else {
+          setSelectedBox(id);
+          setPoints(result.randomPoints); 
+          setVisibleBoxes([id]);
+        }
+      } catch (error) {
+        setError('포인트를 가져오는 중 오류가 발생했습니다.');
+      }
+    }
+  };
+
   useEffect(() => {
+    const checkLastDrawTime = async () => {
+      try {
+        const lastDrawTime = await fetchLastDrawTime();
+        if (lastDrawTime.error) {
+          setError(lastDrawTime.error);
+        } else {
+          const lastDrawDate = new Date(lastDrawTime);
+          const now = new Date();
+          const timeDifference = now - lastDrawDate;
+          const remainingTimeInSeconds = Math.max(3600 - Math.floor(timeDifference / 1000), 0);
+          setTimeLeft(remainingTimeInSeconds);
+          setCanDraw(remainingTimeInSeconds <= 0);
+        }
+      } catch (error) {
+        console.error('Error checking last draw time:', error);
+        setError('마지막 뽑기 시간 조회에 실패했습니다.');
+      }
+    };
+
+    checkLastDrawTime();
+
     const interval = setInterval(() => {
-      setIsModalOpen(true);
-      setVisibleBoxes([1, 2, 3]);
-    }, 3600000); 
+      setTimeLeft((prevTime) => Math.max(prevTime - 1, 0));
+    }, 1000);
 
     return () => clearInterval(interval);
   }, []);
 
-
   useEffect(() => {
-    if (selectedBox !== null) {
-      const timer = setInterval(() => {
-        setTimeLeft((prev) => {
-          if (prev <= 1) {
-            clearInterval(timer);
-            setSelectedBox(null); 
-            return 3600;
-          }
-          return prev - 1;
-        });
-      }, 1000);
+    const handleClickOutside = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        handleClose();
+      }
+    };
 
-      return () => clearInterval(timer);
-    }
-  }, [selectedBox]);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [modalRef]);
 
-  const handleBoxClick = (id) => {
-    if (selectedBox === null) {
-      const randomPoints = Math.floor(Math.random() * 20) + 1; // 1 to 20 points
-      setSelectedBox(id);
-      setPoints(randomPoints);
-      setVisibleBoxes([id]); 
-    }
-  };
-
-  const formatTime = (seconds) => {
-    const minutes = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${minutes}분 ${secs < 10 ? '0' + secs : secs}초`;
+  const handleClose = () => {
+    setIsModalOpen(false);
+    onClose();
   };
 
   return (
     isModalOpen && (
     <div className={styles.modal}>
-      <div className={styles.content}>
-      <button onClick={() => { setIsModalOpen(false); onClose(); }} className={styles.closeButton}>
+      <div className={styles.content} ref={modalRef}>
+      <button onClick={handleClose} className={styles.closeButton}>
       <Image src="/assets/icon_close.svg" width={32} height={32} alt="Close" />
           </button>
           <div className={styles.title}>
