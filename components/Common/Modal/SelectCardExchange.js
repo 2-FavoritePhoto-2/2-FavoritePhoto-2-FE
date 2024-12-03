@@ -8,14 +8,23 @@ import { useRouter } from "next/router";
 export default function SelectCardExchange({ data, profile, shopId, onClose }) {
   const accessToken = typeof window !== "undefined" ? localStorage.getItem("accessToken") : "";
   const [inputValue, setInputValue] = useState("");
+  const [errorMessage, setErrorMessage] = useState(""); // 오류 메시지 상태 추가
+  const [isSubmitting, setIsSubmitting] = useState(false); // 제출 상태 추가
 
   const router = useRouter();
 
   const handleChange = (e) => {
     e.preventDefault();
     setInputValue(e.target.value);
+    setErrorMessage(""); // 입력값이 변경될 때 오류 메시지 초기화
   };
   const handleSubmitExchange = async () => {
+    if (!inputValue.trim()) {
+      // 입력값이 비어있으면
+      setErrorMessage("교환 제시 내용을 입력해 주세요."); // 오류 메시지 설정
+      return; // 함수 종료
+    }
+    setIsSubmitting(true); // 제출 시작
     try {
       const requestData = {
         buyerCardId: data.id,
@@ -44,6 +53,8 @@ export default function SelectCardExchange({ data, profile, shopId, onClose }) {
         "교환 요청 중 오류 발생:",
         error.response ? error.response.data : error.message,
       );
+    } finally {
+      setIsSubmitting(false); // 제출 완료
     }
   };
 
@@ -66,12 +77,17 @@ export default function SelectCardExchange({ data, profile, shopId, onClose }) {
                 placeholder="내용을 입력해 주세요."
                 exchange={true}
               />
+              {errorMessage && <p className={styles.error_message}>{errorMessage}</p>}
             </div>
             <div className={styles.button_table}>
               <button className={styles.button_cancel} onClick={onClose}>
                 취소하기
               </button>
-              <button className={styles.button_exchange} onClick={handleSubmitExchange}>
+              <button
+                className={styles.button_exchange}
+                onClick={handleSubmitExchange}
+                disabled={isSubmitting} // 제출 중일 때 버튼 비활성화
+              >
                 교환하기
               </button>
             </div>

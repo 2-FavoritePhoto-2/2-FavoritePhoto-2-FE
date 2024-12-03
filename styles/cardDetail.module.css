@@ -215,10 +215,22 @@
 }
 .exchange_present_list {
   display: flex;
-  flex-wrap: wrap;
+  padding-bottom: 2rem;
   align-items: center;
-  gap: 4rem 8rem;
+  overflow-x: scroll;
+  gap: 3rem;
 }
+.exchange_present_list::-webkit-scrollbar{
+  height: 0.8rem;
+}
+/* .exchange_present_list::-webkit-scrollbar-track {
+  background: var(--color-gray-500);
+} */
+.exchange_present_list::-webkit-scrollbar-thumb {
+  background: var(--color-gray-400);
+  border-radius: 0.8rem;
+}
+
 .COMMON {
   color: var(--color-main);
 }
@@ -260,6 +272,9 @@
   font-weight: 500;
 }
 
+.relatedcard{
+  width: 44rem;
+}
 /* 태블릿사이즈 */
 @media (max-width: 1199px) {
   .details_container {
@@ -331,6 +346,9 @@
   .recommendcard_table{
     margin-bottom: 3rem;
   }
+  .relatedcard{
+    width: 34.2rem;
+  }
 }
 
 /* 모바일 사이즈 */
@@ -401,5 +419,8 @@
   }
   .recommendcard::-webkit-scrollbar{
     height: 0.5rem;
+  }
+  .relatedcard{
+    width: 17rem;
   }
 }
