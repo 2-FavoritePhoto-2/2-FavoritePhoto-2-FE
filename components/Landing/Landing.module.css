@@ -11,13 +11,21 @@
   width: 100%;
 }
 
-.home {
+.title_wrap {
+  display: flex;
+  justify-content: center;
+
+  width: 100%;
+
+  gap: 2rem;
+}
+
+.title {
   font-family: "BR B";
   font-size: 20rem;
   letter-spacing: -3%;
   display: flex;
   gap: 3rem;
-  margin-bottom: 10rem;
 }
 
 .title span {
@@ -34,7 +42,52 @@
   height: auto;
 }
 
-.home_button {
+.img_wrap {
+  position: relative;
+  width: 20rem;
+  height: 20rem;
+}
+
+.pocket_img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.sub_title {
+  margin-bottom: 10rem;
+
+  font-size: 3rem;
+  font-weight: 300;
+}
+
+.btn_wrap {
+  position: relative;
+  width: 60rem;
+  height: 25rem;
+
+  cursor: pointer;
+}
+
+.btn {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+}
+
+.btn_wrap p {
+  position: absolute;
+  left: 50%;
+  bottom: 23%;
+  transform: translate(-50%);
+
+  color: var(--color-black);
+  font-family: BR B;
+  font-size: 4rem;
+  text-wrap: nowrap;
+}
+
+.login_wrap {
   display: flex;
   justify-content: center;
   align-items: center;
