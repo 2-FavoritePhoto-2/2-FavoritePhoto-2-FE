@@ -8,17 +8,20 @@
   transform: translate(-50%, -50%);
   width: 100%;
 }
+
 .home {
   font-family: "BR B";
   font-size: 20rem;
   letter-spacing: -3%;
   display: flex;
   gap: 3rem;
+  margin-bottom: 10rem;
 }
 
 .home span {
   animation: colorChange 3s infinite alternate;
 }
+
 .pick_wrapper {
   width: 20rem;
   aspect-ratio: 1;
@@ -28,6 +31,7 @@
   width: 100%;
   height: auto;
 }
+
 .home_button {
   display: flex;
   justify-content: center;
@@ -55,9 +59,11 @@
   .home {
     font-size: 10rem;
   }
+
   .pick_wrapper {
     width: 10rem;
   }
+
   .home_button {
     height: 6rem;
   }
@@ -67,9 +73,11 @@
   .home {
     font-size: 8rem;
   }
+
   .pick_wrapper {
     width: 8rem;
   }
+
   .home_button {
     height: 5rem;
   }

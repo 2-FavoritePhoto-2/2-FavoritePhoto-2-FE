@@ -6,8 +6,12 @@ import pick from "@/public/assets/pick.gif";
 export default function Landing() {
   const router = useRouter();
 
-  const handleButtonClick = () => {
+  const handleLoginButtonClick = () => {
     router.push("/auth/login");
+  };
+
+  const handlePocketPlaceButtonClick = () => {
+    router.push("/pocketPlace");
   };
 
   return (
@@ -20,7 +24,10 @@ export default function Landing() {
           </div>
           <span>포토</span>
         </h1>
-        <button className={styles.home_button} onClick={handleButtonClick}>
+        <button className={styles.home_button} onClick={handlePocketPlaceButtonClick}>
+          포켓플레이스 구경하기
+        </button>
+        <button className={styles.home_button} onClick={handleLoginButtonClick}>
           로그인하러가기
         </button>
       </div>
