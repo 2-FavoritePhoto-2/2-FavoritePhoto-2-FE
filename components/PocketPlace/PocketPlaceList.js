@@ -44,7 +44,10 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
   }, [handleScroll]);
 
   // 로그인 여부 확인
-  const handleCardClick = (cardId) => {
+  const handleCardClick = (cardId, remainingQuantity) => {
+    if (remainingQuantity === 0) {
+      return;
+    }
     const accessToken = localStorage.getItem("accessToken");
     if (!accessToken) {
       setShowNotification(true);
@@ -192,8 +195,9 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
       {filteredCards.map((item) => (
         <div
           key={item.listId}
-          className={styles.card_wrapper}
-          onClick={() => handleCardClick(item.listId)}
+          className={`${styles.card_wrapper} ${item.card.remainingQuantity === 0 ? styles.disabled : ""
+            }`}
+          onClick={() => handleCardClick(item.listId, item.card.remainingQuantity)}
         >
           <PhotoCard
             data={{
