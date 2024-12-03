@@ -5,7 +5,7 @@ import Input from "../Input/Input";
 import axios from "@/lib/api/api.js";
 import { useRouter } from "next/router";
 
-export default function SelectCardExchange({ data, shopId, onClose }) {
+export default function SelectCardExchange({ data, profile, shopId, onClose }) {
   const accessToken = typeof window !== "undefined" ? localStorage.getItem("accessToken") : "";
   const [inputValue, setInputValue] = useState("");
 
@@ -53,7 +53,7 @@ export default function SelectCardExchange({ data, shopId, onClose }) {
         <p className={styles.exchange_name}>{data.name}</p>
         <div className={styles.photocard_content}>
           <div className={styles.photocard_size}>
-            <PhotoCard type="내카드" data={data ?? {}} exchange={true} />
+            <PhotoCard type="내카드" profile={profile} data={data ?? {}} exchange={true} />
           </div>
           <div className={styles.select_table}>
             <div className={styles.input_size}>
