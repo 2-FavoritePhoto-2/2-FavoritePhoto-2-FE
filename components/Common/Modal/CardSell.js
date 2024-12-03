@@ -5,7 +5,7 @@ import Image from "next/image";
 import Dropdown from "../Input/Dropdown";
 import Input from "../Input/Input";
 import CardSellInfo from "../CardInfo/CardSellInfo";
-import { createCardSale } from "@/lib/api/pocketPlaceAPI";
+import { createCardSale } from "@/lib/api/ShopService";
 
 export default function CardSell({ data, closeModal }) {
   const [selectedGrade, setSelectedGrade] = useState("");
@@ -56,11 +56,9 @@ export default function CardSell({ data, closeModal }) {
         pathname: "/SuccessFail",
         query: {
           type: "register_success",
-          data: {
-            rate: selectedGrade,
-            title: data.name,
-            count: selectedQuantity
-          }
+          rate: selectedGrade,
+          title: data.name,
+          count: selectedQuantity
         },
       });
     } catch (error) {
@@ -69,11 +67,9 @@ export default function CardSell({ data, closeModal }) {
         pathname: "/SuccessFail",
         query: {
           type: "register_fail",
-          data: {
-            rate: selectedGrade,
-            title: data.name,
-            count: selectedQuantity
-          }
+          rate: selectedGrade,
+          title: data.name,
+          count: selectedQuantity
         },
       });
     }

@@ -11,13 +11,13 @@ export default function SuccessFail({ type, data }) {
     register_success: {
       title: "판매 등록",
       status: "성공",
-      description: `[${data.rate} | ${data.title}] ${data.count}장\n 판매 등록에 성공했습니다!`,
+      description: `[${router.query.rate} | ${router.query.title}] ${router.query.count}장\n 판매 등록에 성공했습니다!`,
       buttonText: "나의 판매 포토카드에서 확인하기",
     },
     register_fail: {
       title: "판매 등록",
       status: "실패",
-      description: `[${data.rate} | ${data.title}] ${data.count}장\n 판매 등록에 실패했습니다.`,
+      description: `[${router.query.rate} | ${router.query.title}] ${router.query.count}장\n 판매 등록에 실패했습니다.`,
       buttonText: "포켓플레이스로 돌아가기",
     },
     purchase_success: {
