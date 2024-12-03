@@ -42,7 +42,7 @@ export default function MultiFilterModal({ filterKeys, filterCounts, onFilterCha
         : activeTab === "속성"
           ? "type"
           : activeTab === "판매방법"
-            ? "sale"
+            ? "mode"
             : activeTab === "매진여부"
               ? "available"
               : null;
@@ -92,7 +92,7 @@ export default function MultiFilterModal({ filterKeys, filterCounts, onFilterCha
       : activeTab === "속성"
         ? filterCounts?.type || {}
         : activeTab === "판매방법"
-          ? filterCounts?.sale || {}
+          ? filterCounts?.mode || {}
           : activeTab === "매진여부"
             ? { 잔여: filterCounts?.available?.true || 0, 매진: filterCounts?.available?.false || 0 }
             : {};
@@ -106,7 +106,7 @@ export default function MultiFilterModal({ filterKeys, filterCounts, onFilterCha
       return Object.values(filterCounts?.type || {}).reduce((total, count) => total + count, 0);
     }
     if (activeTab === "판매방법") {
-      return Object.values(filterCounts?.sale || {}).reduce((total, count) => total + count, 0);
+      return Object.values(filterCounts?.mode || {}).reduce((total, count) => total + count, 0);
     }
     if (activeTab === "매진여부") {
       return Object.values(filterCounts?.available || {}).reduce(
