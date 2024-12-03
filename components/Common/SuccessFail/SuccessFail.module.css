@@ -35,11 +35,13 @@
 }
 
 .successFail_title {
+  font-family: "BR B";
   font-size: 4.6rem;
   font-weight: 1000;
   color: var(--color-white);
   display: flex;
 }
+
 .transaction_wrapper {
   margin-right: 1rem;
 }
@@ -52,6 +54,7 @@
   font-size: 2rem;
   font-weight: 400;
 }
+
 .successFail_button {
   padding: 1.5rem 3rem;
   font-size: 1.8rem;
@@ -59,6 +62,7 @@
   background-color: var(--color-black);
   color: var(--color-white);
 }
+
 .closeIcon_back {
   display: none;
 }
@@ -68,25 +72,31 @@
     width: 60rem;
     height: 40rem;
   }
+
   .successFail_description,
   .successFail_button {
     font-size: 1.6rem;
   }
+
   .successFail_title {
     font-size: 3.6rem;
   }
 }
+
 @media (max-width: 743px) {
   .successFail_title {
     font-size: 3rem;
   }
+
   .successFail_description {
     white-space: pre-line;
     text-align: center;
   }
+
   .closeIcon_x {
     display: none;
   }
+
   .closeIcon_back {
     display: block;
     position: fixed;

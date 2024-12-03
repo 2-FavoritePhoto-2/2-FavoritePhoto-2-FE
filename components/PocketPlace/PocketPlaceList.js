@@ -1,10 +1,12 @@
-import styles from "./PocketPlaceList.module.css";
+import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/router";
 import PhotoCard from "../Common/PhotoCard/PhotoCard";
 import Notification from "../Common/Modal/Notification";
-import { useState, useEffect, useRef } from "react";
 import throttle from "lodash/throttle";
 import { getCards } from "@/lib/api/pocketPlaceAPI";
-import { useRouter } from "next/router";
+import styles from "./PocketPlaceList.module.css";
+
+
 
 export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCountChange }) {
   const [cardItems, setCardItems] = useState([]);
@@ -104,7 +106,6 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
       });
 
       const data = await getCards(`/shop?${queryParams.toString()}&pageSize=10000`);
-      // console.log("ALL CARD:", data);
 
       const allItems = data.list.map((item) => ({
         listId: item.id,
