@@ -11,29 +11,27 @@ export default function SuccessFail({ type, data }) {
     register_success: {
       title: "판매 등록",
       status: "성공",
-      description: "판매 등록에 성공했습니다!",
-      //   description: `[${data.rate} | ${data.title}] ${data.count}장\n 판매 등록에 성공했습니다!`,
+      description: `[${data.rate} | ${data.title}] ${data.count}장\n 판매 등록에 성공했습니다!`,
       buttonText: "나의 판매 포토카드에서 확인하기",
     },
     register_fail: {
       title: "판매 등록",
       status: "실패",
-      description: "판매 등록에 실패했습니다.",
-      //   description: `[${data.rate} | ${data.title}] ${data.count}장\n 판매 등록에 실패했습니다.`,
+      description: `[${data.rate} | ${data.title}] ${data.count}장\n 판매 등록에 실패했습니다.`,
       buttonText: "포켓플레이스로 돌아가기",
     },
     purchase_success: {
       title: "구매",
       status: "성공",
       description: "장 구매에 성공했습니다!",
-        description: `[${data.grade} | ${data.name}] ${data.quantity}장\n 구매에 성공했습니다!`,
+      description: `[${data.grade} | ${data.name}] ${data.quantity}장\n 구매에 성공했습니다!`,
       buttonText: "마이갤러리에서 확인하기",
     },
     purchase_fail: {
       title: "구매",
       status: "실패",
       description: "장 구매에 실패했습니다.",
-        description: `[${data.grade} | ${data.name}] ${data.quantity}장\n 구매에 실패했습니다.`,
+      description: `[${data.grade} | ${data.name}] ${data.quantity}장\n 구매에 실패했습니다.`,
       buttonText: "포켓플레이스로 돌아가기",
     },
     exchange_success: {
@@ -102,9 +100,8 @@ export default function SuccessFail({ type, data }) {
           <div className={styles.successFail_title}>
             <div className={styles.transaction_wrapper}>{content.title}</div>
             <div
-              className={`${styles.status_wrapper} ${
-                content.status === "실패" ? styles.status_fail : styles.status_success
-              }`}
+              className={`${styles.status_wrapper} ${content.status === "실패" ? styles.status_fail : styles.status_success
+                }`}
             >
               {content.status}
             </div>

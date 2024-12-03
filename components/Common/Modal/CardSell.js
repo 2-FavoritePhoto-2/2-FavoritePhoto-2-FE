@@ -31,15 +31,15 @@ export default function CardSell({ data, closeModal }) {
         alert("가격을 입력해주세요.");
         return;
       }
-      if (!selectedQuantity || selectedQuantity < 1) { 
+      if (!selectedQuantity || selectedQuantity < 1) {
         alert("수량을 선택해주세요.");
         return;
       }
-  
+
       const exchangeTypes = [selectedType1];
-    if (selectedType2) {
-      exchangeTypes.push(selectedType2);
-    }
+      if (selectedType2) {
+        exchangeTypes.push(selectedType2);
+      }
 
       const saleData = {
         price: Number(point),
@@ -49,18 +49,32 @@ export default function CardSell({ data, closeModal }) {
         exchangeDetails: exchange || "",
         cardId: data.id
       };
-  
-      const result = await createCardSale(saleData);
-  
+
+      await createCardSale(saleData);
+
       router.push({
         pathname: "/SuccessFail",
-        query: { type: "register_success" },
+        query: {
+          type: "register_success",
+          data: {
+            rate: selectedGrade,
+            title: data.name,
+            count: selectedQuantity
+          }
+        },
       });
     } catch (error) {
       console.error(error.response?.data || error);
       router.push({
         pathname: "/SuccessFail",
-        query: { type: "register_fail" },
+        query: {
+          type: "register_fail",
+          data: {
+            rate: selectedGrade,
+            title: data.name,
+            count: selectedQuantity
+          }
+        },
       });
     }
   };
@@ -76,8 +90,8 @@ export default function CardSell({ data, closeModal }) {
         <div className={styles.img_wrap}>
           <Image className={styles.img} src={data.image} fill alt="카드 이미지" />
         </div>
-        <CardSellInfo 
-          data={data} 
+        <CardSellInfo
+          data={data}
           point={point}
           setPoint={handlePointChange}
           selectedQuantity={selectedQuantity}
