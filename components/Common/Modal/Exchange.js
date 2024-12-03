@@ -121,7 +121,7 @@ export default function Exchange({
   const handleSelectPhoto = (photo) => {
     if (photo.quantity === 0) {
       // 수량이 0인 경우 선택하지 않음
-      alert("이 카드는 수량이 없습니다."); // 사용자에게 알림
+      alert("선택한 카드는 수량이 없습니다."); // 사용자에게 알림
       return;
     }
     setSelectPhoto(photo); // 선택된 데이터 저장
