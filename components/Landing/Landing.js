@@ -20,6 +20,8 @@ export default function Landing() {
           </div>
           <span>포토</span>
         </h1>
+        <h1>다양한 포켓몬 카드를 구입하거나 교환할 수 있어요!</h1>
+        <h1>본인 만의 사진첩을 꾸며보세요!</h1>
         <button className={styles.home_button} onClick={handleButtonClick}>
           로그인하러가기
         </button>
