@@ -4,20 +4,15 @@ import icon_up from "@/public/assets/icon_up.svg";
 import icon_down from "@/public/assets/icon_down.svg";
 import { useState, useEffect } from "react";
 
-export default function Sale({ sortType, reset }) {
-  const [isOpen, setIsOpen] = useState(false);
+export default function Sale({ sortType, reset, isOpen, onToggle }) {
   const [selectValue, setSelectValue] = useState("판매방법");
-
-  const handleToggle = () => {
-    setIsOpen(!isOpen);
-  };
 
   const handleSelect = (value) => {
     setSelectValue(value);
-    setIsOpen(false);
     if (sortType) {
       sortType(value);
     }
+    onToggle();
   };
 
   useEffect(() => {
@@ -29,7 +24,7 @@ export default function Sale({ sortType, reset }) {
   return (
     <div
       className={`${styles.dropDown_container} ${styles.container_large}`}
-      onClick={handleToggle}
+      onClick={onToggle}
     >
       <div>{selectValue}</div>
       <div className={styles.downIcon_container}>

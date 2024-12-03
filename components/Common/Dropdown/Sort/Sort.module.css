@@ -8,6 +8,7 @@
   position: relative;
   user-select: none;
   font-weight: 700;
+  cursor: pointer;
 }
 
 .container_large {
@@ -72,6 +73,7 @@
   .dropDown_container {
     font-size: 1.4rem;
   }
+
   .wrapper_box {
     width: 14rem;
   }

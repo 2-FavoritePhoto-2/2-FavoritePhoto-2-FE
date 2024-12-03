@@ -13,8 +13,6 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
-  const [gradeCounts, setGradeCounts] = useState({});
-  const [typeCounts, setTypeCounts] = useState({});
   const isFetching = useRef(false);
 
   const router = useRouter();
@@ -45,6 +43,9 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
 
   // 로그인 여부 확인
   const handleCardClick = (cardId) => {
+    if (remainingQuantity === 0) {
+      return;
+    }
     const accessToken = localStorage.getItem("accessToken");
     if (!accessToken) {
       setShowNotification(true);
@@ -192,8 +193,9 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
       {filteredCards.map((item) => (
         <div
           key={item.listId}
-          className={styles.card_wrapper}
-          onClick={() => handleCardClick(item.listId)}
+          className={`${styles.card_wrapper} ${item.card.remainingQuantity === 0 ? styles.disabled : ""
+            }`}
+          onClick={() => handleCardClick(item.listId, item.card.remainingQuantity)}
         >
           <PhotoCard
             data={{

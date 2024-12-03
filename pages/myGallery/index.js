@@ -31,6 +31,11 @@ export default function MyGallery() {
   const [hasMore, setHasMore] = useState(true);
 
   const [profile, setProfile] = useState({});
+  const [openDropdown, setOpenDropdown] = useState(null);
+
+  const handleDropdownToggle = (dropdownName) => {
+    setOpenDropdown(openDropdown === dropdownName ? null : dropdownName);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -202,14 +207,22 @@ export default function MyGallery() {
               <SearchBar onSearch={handleSearch} />
             </div>
             <div className={styles.filters}>
-              <Rating sortType={handleGradeFilter} reset={gradeReset} />
-              <Attribute sortType={handleTypeFilter} reset={typeReset} />
+              <Rating sortType={handleGradeFilter}
+                reset={gradeReset}
+                isOpen={openDropdown === 'grade'}
+                onToggle={() => handleDropdownToggle('grade')} />
+              <Attribute
+                sortType={handleTypeFilter}
+                reset={typeReset}
+                isOpen={openDropdown === 'type'}
+                onToggle={() => handleDropdownToggle('type')} />
               <Image
                 src={resetIcon}
                 width={24}
                 height={24}
                 onClick={handleFilterReset}
                 alt="리셋 아이콘"
+                className={styles.refreshIcon}
               />
             </div>
           </div>
