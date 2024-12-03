@@ -41,7 +41,6 @@ export default function App({ Component, pageProps }) {
     setNickname("");
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('accessToken');
-    console.log("Logged out:", isLoggedIn);
   };
   
   useEffect(() => {
