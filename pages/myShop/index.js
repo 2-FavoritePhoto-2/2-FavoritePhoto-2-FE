@@ -82,6 +82,7 @@ export default function MyShop() {
         break;
       case "available":
         newFilters.available = value;
+        newFilters.mode = "shop";
         break;
     }
 
