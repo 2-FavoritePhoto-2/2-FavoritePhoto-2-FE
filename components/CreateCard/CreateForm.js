@@ -49,8 +49,7 @@ export default function CreateForm() {
 
     formData.append("name", values.name);
     formData.append("grade", values.grade);
-    formData.append("type", values.type[0]);
-    formData.append("type", values.type[1]);
+    formData.append("type", JSON.stringify(values.type.filter((t) => t !== "")));
     formData.append("price", values.price);
     formData.append("quantity", values.quantity);
     formData.append("image", values.image);
