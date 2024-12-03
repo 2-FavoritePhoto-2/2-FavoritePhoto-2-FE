@@ -13,8 +13,6 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
-  const [gradeCounts, setGradeCounts] = useState({});
-  const [typeCounts, setTypeCounts] = useState({});
   const isFetching = useRef(false);
 
   const router = useRouter();
@@ -44,7 +42,7 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
   }, [handleScroll]);
 
   // 로그인 여부 확인
-  const handleCardClick = (cardId, remainingQuantity) => {
+  const handleCardClick = (cardId) => {
     if (remainingQuantity === 0) {
       return;
     }
