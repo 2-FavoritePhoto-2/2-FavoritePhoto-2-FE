@@ -7,7 +7,7 @@ import MultiFilterModal from "./MultiFilter";
 import { useState, useEffect } from "react";
 import Modal from "./Modal";
 import CardSell from "./CardSell";
-import { getMyPhotoCardList } from "@/lib/api/UserService";
+import { getMyPhotoCardList, getUserProfile } from "@/lib/api/UserService";
 
 export default function CardList() {
   const [cardData, setCardData] = useState([]);
@@ -18,6 +18,21 @@ export default function CardList() {
   const [gradeFilter, setGradeFilter] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
   const [error, setError] = useState("");
+
+  const [profile, setProfile] = useState({});
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const fetchProfile = await getUserProfile();
+        setProfile(fetchProfile);
+      } catch (err) {
+        console.error("프로필 정보를 불러오는데 실패했습니다.", err);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleCardClick = (card) => {
     setSelectedCard(card);
@@ -52,7 +67,7 @@ export default function CardList() {
       try {
         const fetchCardData = await getMyPhotoCardList({
           page: 1,
-          pageSize: 30,
+          pageSize: 50,
           grade: gradeFilter,
           type: typeFilter,
           keyword: searchTerm,
@@ -91,7 +106,7 @@ export default function CardList() {
         <div className={styles.card_list}>
           {cardData.map((card) => (
             <div key={card.id} onClick={() => handleCardClick(card)}>
-              <PhotoCard type="내카드" data={card} />
+              <PhotoCard type="내카드" data={card} profile={profile} />
             </div>
           ))}
         </div>

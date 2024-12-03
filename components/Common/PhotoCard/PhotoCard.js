@@ -11,6 +11,10 @@ export default function PhotoCard({ data, profile, type = "판매카드", exchan
   const exchangeImgClass = exchange ? styles.exchange_img : "";
   const exchangeLogoClass = exchange ? styles.exchange_logo : "";
 
+  if (!data || !data.type) {
+    return null;
+  }
+
   const cardType =
     type === "내판매카드" ? (
       <>
