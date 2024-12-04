@@ -4,7 +4,7 @@ import icon_close from "@/public/assets/icon_close.svg";
 import icon_back from "@/public/assets/icon_back.svg";
 import styles from "./SuccessFail.module.css";
 
-export default function SuccessFail({ type, data }) {
+export default function SuccessFail({ type = '', data }) {
   const router = useRouter();
 
   const SuccessFailContent = {
@@ -61,7 +61,11 @@ export default function SuccessFail({ type, data }) {
   };
 
   const content = SuccessFailContent[type];
-
+  
+  if (!content) {
+    return null;
+  }
+  
   const handleButtonClick = () => {
     switch (content.buttonText) {
       case "나의 판매 포토카드에서 확인하기":
