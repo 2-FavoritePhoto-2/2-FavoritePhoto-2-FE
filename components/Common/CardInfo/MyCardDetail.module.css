@@ -92,6 +92,16 @@
     background-color: var(--color-main);
 }
 
+.none_quantity {
+    margin: 0 auto;
+    padding: 1.2rem;
+    border-radius: 5rem;
+
+    font-size: 1.6rem;
+    font-weight: 500;
+    background-color: var(--color-pink);
+}
+
 /* Tablet Only */
 @media (min-width: 744px) and (max-width: 1199px) {
     .container {
