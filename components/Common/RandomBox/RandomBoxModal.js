@@ -11,7 +11,7 @@ const RandomBoxModal = ({ onClose }) => {
   const [visibleBoxes, setVisibleBoxes] = useState([1, 2, 3]);
   const [error, setError] = useState('');
   const [canDraw, setCanDraw] = useState(false);
-  const modalRef = useRef(null); // 모달 내부 요소를 참조, 모달 외부 클릭했을 때 모달 닫히게 만들었습니다 
+  const modalRef = useRef(null);
 
   const boxes = [
     { id: 1, image: '/assets/box_blue.png', className: styles.boxBlue },
@@ -57,7 +57,6 @@ const RandomBoxModal = ({ onClose }) => {
           setCanDraw(remainingTimeInSeconds <= 0);
         }
       } catch (error) {
-        console.error('Error checking last draw time:', error);
         setError('마지막 뽑기 시간 조회에 실패했습니다.');
       }
     };

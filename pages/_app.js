@@ -54,7 +54,7 @@ export default function App({ Component, pageProps }) {
         handleLogout();
       }
     }
-  }, []);
+  }, [isLoggedIn]);
 
   useEffect(() => {
     const handleResize = () => {

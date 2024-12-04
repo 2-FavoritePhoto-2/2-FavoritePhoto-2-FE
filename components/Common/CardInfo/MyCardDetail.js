@@ -4,7 +4,7 @@ import Grade from "../Grade/Grade";
 import Modal from "../Modal/Modal";
 import CardSell from "@/components/Common/Modal/CardSell";
 
-export default function MyCardDetail({ data }) {
+export default function MyCardDetail({ data, profile }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = () => {
@@ -31,7 +31,7 @@ export default function MyCardDetail({ data }) {
             ""
           )}
         </div>
-        <p className={styles.seller}>판매자</p>
+        <p className={styles.seller}>{profile.nickname}</p>
       </div>
       <div className={styles.line}></div>
       <div className={styles.description}>

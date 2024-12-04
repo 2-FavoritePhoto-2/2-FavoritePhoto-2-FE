@@ -49,8 +49,7 @@ export default function CreateForm() {
 
     formData.append("name", values.name);
     formData.append("grade", values.grade);
-    formData.append("type", values.type[0]);
-    formData.append("type", values.type[1]);
+    formData.append("type", JSON.stringify(values.type.filter((t) => t !== "")));
     formData.append("price", values.price);
     formData.append("quantity", values.quantity);
     formData.append("image", values.image);
@@ -58,10 +57,15 @@ export default function CreateForm() {
 
     try {
       await createPhotoCard(formData);
-      return router.push({
+      router.push({
         pathname: "/SuccessFail",
-        query: { type: "create_success" },
+        query: {
+          type: "create_success",
+          rate: values.grade,
+          title: values.name,
+        },
       });
+      console.log(query.data);
     } catch (err) {
       console.error("상품 등록에 실패하였습니다.", err.message);
       return router.push({

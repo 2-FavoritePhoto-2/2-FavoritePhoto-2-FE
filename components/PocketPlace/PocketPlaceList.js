@@ -6,8 +6,6 @@ import throttle from "lodash/throttle";
 import { getCards } from "@/lib/api/ShopService";
 import styles from "./PocketPlaceList.module.css";
 
-
-
 export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCountChange }) {
   const [cardItems, setCardItems] = useState([]);
   const [filteredCards, setFilteredCards] = useState([]);
@@ -115,8 +113,8 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
           type: item.card.type,
         },
         seller: {
-          nickname: item.seller.nickname
-        }
+          nickname: item.seller.nickname,
+        },
       }));
 
       setAllCards(allItems);
@@ -134,7 +132,8 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
 
       if (activeFilter.grade && item.card.grade !== activeFilter.grade) return false;
       if (activeFilter.type && !item.card.type.includes(activeFilter.type)) return false;
-      if (activeFilter.available !== undefined && item.available !== activeFilter.available) return false;
+      if (activeFilter.available !== undefined && item.available !== activeFilter.available)
+        return false;
       return true;
     });
 
@@ -148,11 +147,9 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
     const availableCount = { true: 0, false: 0 };
 
     allCards.forEach((item) => {
-
       if (!activeFilter.grade || item.card.grade === activeFilter.grade) {
         if (!activeFilter.type || item.card.type.includes(activeFilter.type)) {
           if (activeFilter.available === undefined || item.available === activeFilter.available) {
-
             const grade = item.card.grade;
             gradeCount[grade] = (gradeCount[grade] || 0) + 1;
 
@@ -161,7 +158,7 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
               typeCount[type] = (typeCount[type] || 0) + 1;
             });
 
-            availableCount[item.available ? 'true' : 'false'] += 1;
+            availableCount[item.available ? "true" : "false"] += 1;
           }
         }
       }
@@ -171,7 +168,7 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
       grade: gradeCount,
       type: typeCount,
       available: availableCount,
-      total: allCards.length
+      total: allCards.length,
     });
   }, [allCards, activeFilter]);
 
@@ -194,8 +191,9 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
       {filteredCards.map((item) => (
         <div
           key={item.listId}
-          className={`${styles.card_wrapper} ${item.card.remainingQuantity === 0 ? styles.disabled : ""
-            }`}
+          className={`${styles.card_wrapper} ${
+            item.card.remainingQuantity === 0 ? styles.disabled : ""
+          }`}
           onClick={() => handleCardClick(item.listId, item.card.remainingQuantity)}
         >
           <PhotoCard
