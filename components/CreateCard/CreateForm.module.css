@@ -1,0 +1,76 @@
+.container {
+    width: 52rem;
+
+    margin: 0 auto;
+}
+
+.container form {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+
+    gap: 6rem;
+}
+
+.types {
+    display: flex;
+    align-items: center;
+
+    gap: 1rem;
+}
+
+.description textarea {
+    height: 18rem;
+}
+
+.create {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 52rem;
+    height: 6rem;
+
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 2.606rem;
+
+    background-color: var(--color-main);
+}
+
+.error {
+    margin-top: 1rem;
+
+    color: var(--color-pink);
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+/* Tablet Only */
+@media (min-width: 744px) and (max-width: 1199px) {
+    .container {
+        max-width: 44rem;
+    }
+
+    .create {
+        width: 44rem;
+        height: 5.5rem;
+    }
+}
+
+/* Mobile Only */
+@media (max-width: 743px) {
+    .container {
+        max-width: 34.5rem;
+    }
+
+    .container form {
+        gap: 3rem;
+    }
+
+    .create {
+        width: 34.5rem;
+        height: 5.5rem;
+    }
+}

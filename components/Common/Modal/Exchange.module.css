@@ -1,0 +1,204 @@
+.container {
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+.modal_table {
+  position: relative;
+  margin: 4rem auto; /* 화면 중앙에 위치 */
+  padding: 6rem 12rem;
+  width: 116rem; /* 너비 조정 */
+  height: 100rem;
+  background-color: #161616; /* 배경색 */
+  border-radius: 2px; /* 모서리 둥글게 */
+}
+
+.modal_content {
+  width: 92rem;
+  margin: 0 auto;
+}
+.slidebar_table {
+  display: none;
+  cursor: pointer;
+}
+.mygallery_table {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4rem;
+}
+.close_button {
+  transform: translate(85px, -25px);
+  cursor: pointer;
+}
+.exchange_name {
+  font-size: 4.6rem;
+  font-weight: 400;
+  line-height: 4.71rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid white;
+  margin-bottom: 2rem;
+}
+.search_menu {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 6rem;
+  margin-bottom: 4rem;
+}
+.multi_filter {
+  display: none;
+}
+.searchbar {
+  width: 32rem;
+}
+.filter_table {
+  display: flex;
+  align-items: center;
+  gap: 4.5rem;
+}
+.photocard_content {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 96rem;
+  height: 42rem;
+  padding-right: 10rem;
+}
+.photocard_content::-webkit-scrollbar {
+  width: 0.8rem;
+}
+.photocard_content::-webkit-scrollbar-track {
+  background: var(--color-gray-500);
+}
+.photocard_content::-webkit-scrollbar-thumb {
+  background: var(--color-gray-400);
+  border-radius: 0.8rem;
+}
+
+.photocard_content::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gray-300);
+}
+
+.refreshIcon{
+  cursor: pointer;
+}
+
+/* 태블릿사이즈 미디어쿼리만 구현 ->공통컴포넌트의 미디어쿼리 적용시 재구현예정 */
+@media (max-width: 1199px) {
+  .container {
+    top: auto;
+    bottom: 0;
+    padding-top: 4rem;
+    transition: transform 0.3s ease; /* 애니메이션 추가 */
+  }
+  .sliding {
+    transform: translateY(100%);
+  }
+  .modal_table {
+    position: relative;
+    bottom: 0;
+    height: auto;
+    width: 74.4rem;
+    overflow-x: none;
+    margin: 0 auto;
+    padding: 5rem 2rem 0;
+  }
+  .modal_content {
+    display: flex;
+    flex-direction: column;
+    width: 70.8rem;
+  }
+  .slidebar_table {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(-40px);
+  }
+  .mygallery {
+    width: 7rem;
+    height: 1.6rem;
+  }
+  .close_button {
+    display: none;
+  }
+  .exchange_name {
+    font-size: 4rem;
+  }
+  .search_menu {
+    gap: 3rem;
+  }
+  .filter_table {
+    gap: 2.5rem;
+  }
+  .searchbar {
+    width: 21rem;
+  }
+  .photocard_content {
+    gap: 2rem;
+    width: 70.8rem;
+    height: 59rem;
+    overflow-y: scroll;
+    padding: 0;
+    padding-bottom: 5rem;
+  }
+  .photocard_content::-webkit-scrollbar {
+    width: 0; /* 스크롤 바의 너비를 0으로 설정 */
+    height: 0;
+    background: transparent; /* 배경을 투명하게 설정 */
+  }
+}
+
+/* 모바일 사이즈 */
+@media (max-width: 743px) {
+  .container {
+    padding-top: 3rem;
+  }
+  .modal_table {
+    width: 37.5rem;
+    padding: 5rem 1.5rem 2rem;
+  }
+  .modal_content {
+    width: 100%;
+    height: auto;
+  }
+  .filter_table {
+    display: none;
+  }
+  .mygallery_table {
+    margin-bottom: 1.5rem;
+  }
+  .mygallery {
+    width: 6.1rem;
+    height: 1.4rem;
+  }
+  .exchange_name {
+    font-size: 2.4rem;
+    line-height: 2.662rem;
+    padding: 0;
+    border: none;
+    margin-bottom: 3rem;
+  }
+  .search_menu {
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .multi_filter {
+    display: block;
+  }
+  .searchbar {
+    width: 29rem;
+  }
+  .photocard_content {
+    width: 34.9rem;
+    height: 65rem;
+    gap: 0.5rem;
+    padding-bottom: 2rem;
+  }
+}

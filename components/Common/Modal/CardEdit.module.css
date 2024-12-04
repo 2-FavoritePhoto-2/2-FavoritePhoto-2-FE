@@ -1,0 +1,222 @@
+.card_info_wrapper {
+    display: flex;
+    flex-direction: column;
+
+    max-width: 96.8rem;
+    width: 100%;
+
+    margin: 0 auto;
+    padding-right: 4rem;
+
+    gap: 4rem;
+
+    overflow-y: scroll;
+}
+
+.card_info_wrapper::-webkit-scrollbar {
+    width: 0.8rem
+}
+
+.card_info_wrapper::-webkit-scrollbar-thumb {
+    background-color: var(--color-gray-400);
+    border-radius: 1rem;
+}
+
+.card_info_wrapper::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 1rem;
+}
+
+.modal_title {
+    color: var(--color-gray-300);
+    font-family: BR B;
+    font-size: 2.4rem;
+    font-weight: 400;
+    line-height: 2.458rem;
+    letter-spacing: -0.03em;
+}
+
+.card_title {
+    display: flex;
+    flex-direction: column;
+
+    gap: 2rem;
+}
+
+.card_title h1 {
+    font-family: BR B;
+    font-size: 4.6rem;
+    font-weight: 400;
+    line-height: 4.71rem;
+    letter-spacing: -0.03em;
+}
+
+.bold_line {
+    border: 0.2rem solid var(--color-gray-100);
+}
+
+.card_info {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 4rem;
+}
+
+.img_wrap {
+    position: relative;
+
+    width: 44rem;
+    height: 33rem;
+}
+
+.img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.exchange_info {
+    display: flex;
+    flex-direction: column;
+
+    gap: 4rem;
+}
+
+.exchange_title {
+    display: flex;
+    flex-direction: column;
+
+    gap: 2rem;
+}
+
+.exchange_title h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    line-height: 4.054rem;
+}
+
+.select_exchange_info {
+    display: flex;
+    flex-direction: column;
+
+    gap: 3rem;
+}
+
+.select_exchange_info .dropdown {
+    display: flex;
+    align-items: center;
+
+    gap: 2rem;
+}
+
+.select_exchange_info .description textarea {
+    height: 15.9rem;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.buttons button {
+    width: 44rem;
+    height: 6rem;
+
+    padding: 1.7rem 1.85rem;
+    border-radius: 0.2rem;
+
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 2.606rem;
+}
+
+.buttons .cancel {
+    border: 0.1rem solid var(--color-gray-100);
+
+    color: var(--color-white);
+    background-color: var(--color-gray-500);
+}
+
+.buttons .edit {
+    background-color: var(--color-main);
+}
+
+.thin_line {
+    margin-top: 2rem;
+    border: 0.1rem solid var(--color-gray-400);
+}
+
+/* Tablet + Mobile */
+@media (min-width: 375px) and (max-width: 1199px) {
+    .card_info_wrapper {
+        padding-right: 0;
+    }
+
+    .card_info_wrapper::-webkit-scrollbar {
+        width: 0;
+    }
+
+    .card_info_wrapper::-webkit-scrollbar-thumb {
+        background-color: transparent;
+    }
+}
+
+/* Tablet Only */
+@media (min-width: 744px) and (max-width: 1199px) {
+    .card_info_wrapper {
+        max-width: 70.4rem;
+    }
+
+    .img_wrap {
+        width: 34.2rem;
+        height: 25.65rem;
+    }
+
+    .select_exchange_info .description textarea {
+        height: 15.3rem;
+    }
+
+    .buttons button {
+        width: 34.2rem;
+        height: 5.5rem;
+    }
+}
+
+/* Mobile Only */
+@media (max-width: 743px) {
+    .card_info_wrapper {
+        max-width: 34.5rem;
+    }
+
+    .card_info {
+        flex-direction: column;
+    }
+
+    .card_title {
+        gap: 1rem;
+    }
+
+    .card_title h1 {
+        font-size: 2.4rem;
+        line-height: 3.475rem;
+    }
+
+    .img_wrap {
+        width: 34.5rem;
+        height: 25.87rem;
+    }
+
+    .select_exchange_info .description textarea {
+        height: 17.3rem;
+    }
+
+    .dropdown {
+        flex-direction: column;
+    }
+
+    .buttons button {
+        width: 16.5rem;
+        height: 5.5rem;
+    }
+}

@@ -1,0 +1,129 @@
+.alertContainer {
+  position: relative;
+}
+
+
+.alertList {
+  position: absolute;
+  right: 0;
+  background-color: #222222;
+  color: var(--color-white);
+  border-radius: 0.2rem;
+  z-index: 1000;
+  max-height: 40rem;
+  overflow-y: auto;
+}
+
+.alertList::-webkit-scrollbar {
+  width: 0.6rem;
+}
+
+.alertList::-webkit-scrollbar-track {
+  background: var(--color-gray-500);
+  border-radius: 0.3rem;
+}
+
+.alertList::-webkit-scrollbar-thumb {
+  background: var(--color-gray-400);
+  border-radius: 0.3rem;
+}
+
+.line {
+  border-bottom: 0.1rem solid var(--color-gray-400);
+  width: 100%;
+}
+
+
+.alertItem {
+  margin-bottom: 0.1rem;
+  width: 30rem;
+  cursor: pointer;
+  padding: 2rem;
+  background-color: #222222;
+  color: var(--color-white);
+}
+
+.alertItem.read {
+  background-color: var(--color-gray-500);
+}
+
+.alertItem.read .alertMessage,
+.alertItem.read .alertTime,
+.alertItem.read .alertType {
+  color: var(--color-gray-400);
+}
+
+.alertType {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+
+}
+
+.alertMessage {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.alertTime {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: var(--color-gray-300);
+  /* margin-top: 1rem;  */
+}
+
+.mobileHeader {
+  display: none;
+}
+
+
+@media (max-width: 743px) {
+  .alertContainer {
+    height: 100%;
+  }
+
+  .alertList {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    max-height: none;
+
+  }
+
+  .mobileHeader {
+    display: flex;
+    align-items: center;
+    padding: 2rem;
+    background-color: var(--color-black);
+  }
+
+  .headerTitle {
+    font-family: BR B;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    font-size: 2rem;
+  }
+
+  .alertList {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    max-height: none;
+  }
+
+  .alertItem {
+    width: 100%;
+  }
+
+  .backButton {
+    cursor: pointer;
+  }
+
+}

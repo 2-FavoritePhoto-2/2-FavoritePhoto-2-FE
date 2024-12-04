@@ -1,0 +1,212 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  gap: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+/* 숫자 버튼 (포켓볼 디자인) */
+.pageButton {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  position: relative;
+  cursor: pointer;
+  border-radius: 50%;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+/* 포켓볼 상단 색상 부분 */
+.pageButton::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(145deg, #ff2a6a 0%, #e62560 100%);
+  z-index: 1;
+}
+
+/* 포켓볼 하단 흰색 부분 */
+.pageButton::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 50%;
+  background: #FFFFFF;
+  z-index: 1;
+}
+
+/* 포켓볼 중앙 검은 선 */
+.pageButton .centerLine {
+  position: absolute;
+  left: 0;
+  top: 48%;
+  width: 100%;
+  height: 4px;
+  background: #000;
+  z-index: 2;
+}
+
+/* 포켓볼 중앙 흰색 원 */
+.pageButton .centerCircle {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  background: #FFF;
+  border: 2px solid #000;
+  border-radius: 50%;
+  z-index: 3;
+}
+
+/* 숫자를 포켓볼 위에 표시 */
+.pageButton span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 4;
+  color: #000;
+  font-weight: bold;
+  font-size: 16px;
+  text-shadow: 
+    -1px -1px 0 #FFF,
+    1px -1px 0 #FFF,
+    -1px 1px 0 #FFF,
+    1px 1px 0 #FFF;
+}
+
+.pageButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.pageButton:disabled::before {
+  background: linear-gradient(145deg, #666666 0%, #444444 100%);
+}
+
+/* active 상태일 때의 상단 색상 */
+.pageButton.active::before {
+  background: linear-gradient(145deg, #29c9f9 0%, #24b4e0 100%);
+}
+
+/* hover 상태일 때의 상단 색상 - 원래 색상보다 약간 밝게 */
+.pageButton:hover:not(:disabled)::before {
+  background: linear-gradient(145deg, #ff4483 0%, #ff2a6a 100%);
+}
+
+/* 이전/다음 버튼 */
+.pageButton:first-child,
+.pageButton:last-child {
+  width: 60px;
+  height: 35px;
+  background: #FFFFFF;
+  color: #000000;
+  border-radius: 20px;
+  font-weight: bold;
+  overflow: visible;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+}
+
+/* 이전/다음 버튼은 포켓볼 디자인 제외 */
+.pageButton:first-child::before,
+.pageButton:first-child::after,
+.pageButton:first-child .centerLine,
+.pageButton:first-child .centerCircle,
+.pageButton:last-child::before,
+.pageButton:last-child::after,
+.pageButton:last-child .centerLine,
+.pageButton:last-child .centerCircle {
+  display: none;
+}
+
+.pageButton:first-child:hover:not(:disabled),
+.pageButton:last-child:hover:not(:disabled) {
+  background: #F5F5F5;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(255, 255, 255, 0.3);
+}
+
+/* 이전/다음 버튼의 텍스트 스타일 */
+.pageButton:first-child span,
+.pageButton:last-child span {
+  position: static;
+  transform: none;
+  color: #000;
+  text-shadow: none;
+  display: inline-block;
+  line-height: 1;
+}
+
+/* 이전/다음 버튼 비활성화 상태 */
+.pageButton:first-child:disabled,
+.pageButton:last-child:disabled {
+  background: #CCCCCC;
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* 반응형 스타일 */
+@media (max-width: 1199px) {
+  .pagination {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    margin: 0;
+    padding: 0 20px;
+    background: transparent;
+    z-index: 1000;
+  }
+
+  .pageButton {
+    width: 35px;
+    height: 35px;
+    font-size: 14px;
+  }
+
+  .pageButton:first-child,
+  .pageButton:last-child {
+    width: 50px;
+    height: 30px;
+    font-size: 14px;
+  }
+
+  .pageButton .centerCircle {
+    width: 10px;
+    height: 10px;
+  }
+
+  /* 미디어쿼리에서도 모달 오픈 시 페이지네이션 숨기기 규칙 추가 */
+  .modal-open .pagination {
+    visibility: hidden;
+    z-index: -1;
+  }
+}
+
+/* Exchange 모달에서 두 번째 모달이 열릴 때 페이지네이션 숨기기 */
+:global(.modal-open) .pagination {
+  visibility: hidden;
+  z-index: -1;
+}
