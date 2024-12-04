@@ -5,7 +5,7 @@ import Image from "next/image";
 import Dropdown from "../Input/Dropdown";
 import Input from "../Input/Input";
 import CardSellInfo from "../CardInfo/CardSellInfo";
-import { createCardSale } from "@/lib/api/pocketPlaceAPI";
+import { createCardSale } from "@/lib/api/ShopService";
 
 export default function CardSell({ data, closeModal }) {
   const [selectedGrade, setSelectedGrade] = useState("");
