@@ -9,6 +9,7 @@ export default function QuantityCardBuyer({ data }) {
   const accessToken = typeof window !== "undefined" ? localStorage.getItem("accessToken") : "";
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [confirmPurchase, setConfirmPurchase] = useState(false);
+
   const router = useRouter();
 
   const response = data.card;
