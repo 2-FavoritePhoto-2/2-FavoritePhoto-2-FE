@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { getMyPhotoCard } from "@/lib/api/UserService";
+import { getMyPhotoCard, getUserProfile } from "@/lib/api/UserService";
 import Link from "next/link";
 import Image from "next/image";
 import back from "@/public/assets/icon_back.svg";
@@ -14,6 +14,21 @@ export default function MyGalleryDetail() {
   const [myCard, setMyCard] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const [profile, setProfile] = useState({});
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const fetchProfile = await getUserProfile();
+        setProfile(fetchProfile);
+      } catch (err) {
+        console.error("프로필 정보를 불러오는데 실패했습니다.", err);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
     if (!cardId) {
@@ -62,7 +77,7 @@ export default function MyGalleryDetail() {
         <div className={styles.img_wrap}>
           <Image className={styles.img} src={myCard.image} fill alt="카드 이미지" priority />
         </div>
-        <MyCardDetail data={myCard} />
+        <MyCardDetail data={myCard} profile={profile} />
       </div>
     </div>
   );
