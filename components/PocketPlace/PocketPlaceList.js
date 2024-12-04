@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import PhotoCard from "../Common/PhotoCard/PhotoCard";
 import Notification from "../Common/Modal/Notification";
 import throttle from "lodash/throttle";
-import { getCards } from "@/lib/api/pocketPlaceAPI";
+import { getCards } from "@/lib/api/ShopService";
 import styles from "./PocketPlaceList.module.css";
 
 export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCountChange }) {
