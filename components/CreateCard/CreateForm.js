@@ -61,10 +61,8 @@ export default function CreateForm() {
         pathname: "/SuccessFail",
         query: {
           type: "create_success",
-          data: {
-            rate: values.grade,
-            title: values.name,
-          },
+          rate: values.grade,
+          title: values.name,
         },
       });
       console.log(query.data);
