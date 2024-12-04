@@ -11,7 +11,7 @@ const RandomBoxModal = ({ onClose }) => {
   const [visibleBoxes, setVisibleBoxes] = useState([1, 2, 3]);
   const [error, setError] = useState('');
   const [canDraw, setCanDraw] = useState(false);
-  const modalRef = useRef(null);
+  const modalRef = useRef(null); // 모달 내부 요소를 참조, 모달 외부 클릭했을 때 모달 닫히게 만들었습니다 
 
   const boxes = [
     { id: 1, image: '/assets/box_blue.png', className: styles.boxBlue },
@@ -46,8 +46,9 @@ const RandomBoxModal = ({ onClose }) => {
     const checkLastDrawTime = async () => {
       try {
         const lastDrawTime = await fetchLastDrawTime();
-        if (lastDrawTime.error) {
-          setError(lastDrawTime.error);
+        if (!lastDrawTime) {
+          setTimeLeft(0);
+          setCanDraw(true);
         } else {
           const lastDrawDate = new Date(lastDrawTime);
           const now = new Date();
@@ -57,6 +58,7 @@ const RandomBoxModal = ({ onClose }) => {
           setCanDraw(remainingTimeInSeconds <= 0);
         }
       } catch (error) {
+        console.error('Error checking last draw time:', error);
         setError('마지막 뽑기 시간 조회에 실패했습니다.');
       }
     };
@@ -109,7 +111,13 @@ const RandomBoxModal = ({ onClose }) => {
           {boxes.map((box) => (
             visibleBoxes.includes(box.id) && ( // 현재 보이는 박스만 렌더링
               <div key={box.id} className={`${styles.box} ${box.className}`} onClick={() => handleBoxClick(box.id)}>
-                <Image src={box.image} width={230} height={200} layout="fixed" alt={`Box ${box.id}`} />
+                <Image
+                  src={box.image}
+                  layout="responsive"
+                  width={230}
+                  height={200}
+                  alt={`Box ${box.id}`}
+                />
               </div>
             )
           ))}
