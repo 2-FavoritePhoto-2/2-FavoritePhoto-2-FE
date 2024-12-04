@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { signup } from '@/lib/api/auth';
+import { signup } from '@/lib/api/authService';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import styles from './RandomBoxModal.module.css';
-import { fetchRandomPoints, fetchLastDrawTime } from '@/lib/api/randomPoints';
+import { fetchRandomPoints, fetchLastDrawTime } from '@/lib/api/PointsService';
 
 const RandomBoxModal = ({ onClose }) => {
   const [selectedBox, setSelectedBox] = useState(null);
