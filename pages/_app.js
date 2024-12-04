@@ -35,7 +35,6 @@ export default function App({ Component, pageProps }) {
   };
   
   const handleLogout = () => {
-    console.log("Logging out...");
     setIsLoggedIn(false);
     setPoints(0);
     setNickname("");
