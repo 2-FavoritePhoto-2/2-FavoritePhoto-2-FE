@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
-import styles from "./SuccessFail.module.css";
 import Image from "next/image";
 import icon_close from "@/public/assets/icon_close.svg";
 import icon_back from "@/public/assets/icon_back.svg";
+import styles from "./SuccessFail.module.css";
 
 export default function SuccessFail({ type, data }) {
   const router = useRouter();
@@ -49,15 +49,13 @@ export default function SuccessFail({ type, data }) {
     create_success: {
       title: "포토카드 생성",
       status: "성공",
-      description: "포토카드 생성에 성공했습니다!",
-      // description: `[${data.rate} | ${data.title}]\n 포토카드 생성에 성공했습니다!`,
+      description: `[${router.query.rate} | ${router.query.title}]\n 포토카드 생성에 성공했습니다!`,
       buttonText: "마이갤러리에서 확인하기",
     },
     create_fail: {
       title: "포토카드 생성",
       status: "실패",
-      description: "포토카드 생성에 실패했습니다.",
-      //   description: `[${data.rate} | ${data.title}]\n 포토카드 생성에 실패했습니다.`,
+      description: `[${router.query.rate} | ${router.query.title}]\n 포토카드 생성에 실패했습니다.`,
       buttonText: "마이갤러리로 돌아가기",
     },
   };
@@ -100,8 +98,9 @@ export default function SuccessFail({ type, data }) {
           <div className={styles.successFail_title}>
             <div className={styles.transaction_wrapper}>{content.title}</div>
             <div
-              className={`${styles.status_wrapper} ${content.status === "실패" ? styles.status_fail : styles.status_success
-                }`}
+              className={`${styles.status_wrapper} ${
+                content.status === "실패" ? styles.status_fail : styles.status_success
+              }`}
             >
               {content.status}
             </div>

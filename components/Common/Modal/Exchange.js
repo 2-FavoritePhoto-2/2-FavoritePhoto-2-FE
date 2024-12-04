@@ -12,7 +12,14 @@ import Image from "next/image.js";
 import icon_exchange from "@/public/assets/icon_exchange.svg";
 import { getUserProfile } from "@/lib/api/UserService.js";
 
-export default function Exchange({ data, shopId, onFilterChange, onSearch, onPageChange }) {
+export default function Exchange({
+  data,
+  shopId,
+  onFilterChange,
+  onSearch,
+  onPageChange,
+  profile,
+}) {
   const [isToggle, setIsToggle] = useState(false);
   const [selectPhoto, setSelectPhoto] = useState();
   const [currentPage, setCurrentPage] = useState(1);
@@ -20,7 +27,7 @@ export default function Exchange({ data, shopId, onFilterChange, onSearch, onPag
   const [filters, setFilters] = useState({
     grade: null,
     type: null,
-    search: ""
+    search: "",
   });
   const [reset, setReset] = useState(false);
   const [filterCounts, setFilterCounts] = useState({
@@ -52,12 +59,11 @@ export default function Exchange({ data, shopId, onFilterChange, onSearch, onPag
     setAllCards(data.card);
   }, [data.card]);
 
-
   const handleResetFilters = () => {
     setFilters({
       grade: null,
       type: null,
-      search: ""
+      search: "",
     });
 
     calculateFilterCounts(data.card);
@@ -69,7 +75,6 @@ export default function Exchange({ data, shopId, onFilterChange, onSearch, onPag
 
     setFilteredData(data.card);
   };
-
 
   useEffect(() => {
     if (reset) {
@@ -84,28 +89,26 @@ export default function Exchange({ data, shopId, onFilterChange, onSearch, onPag
     let result = [...data.card];
 
     if (filters.grade) {
-      result = result.filter(card => card.grade === filters.grade);
+      result = result.filter((card) => card.grade === filters.grade);
     }
 
     if (filters.type) {
-      result = result.filter(card => card.type.includes(filters.type));
+      result = result.filter((card) => card.type.includes(filters.type));
     }
 
     if (filters.search) {
-      result = result.filter(card =>
-        card.name.toLowerCase().includes(filters.search.toLowerCase())
+      result = result.filter((card) =>
+        card.name.toLowerCase().includes(filters.search.toLowerCase()),
       );
     }
 
     setFilteredData(result);
   }, [filters, data.card]);
 
-
-
   const handleSearch = (searchTerm) => {
-    setFilters(prev => ({
+    setFilters((prev) => ({
       ...prev,
-      search: searchTerm
+      search: searchTerm,
     }));
     setCurrentPage(1);
     onSearch(searchTerm);
@@ -116,17 +119,21 @@ export default function Exchange({ data, shopId, onFilterChange, onSearch, onPag
   };
 
   const handleSelectPhoto = (photo) => {
+    if (photo.quantity === 0) {
+      // 수량이 0인 경우 선택하지 않음
+      alert("선택한 카드는 수량이 없습니다."); // 사용자에게 알림
+      return;
+    }
     setSelectPhoto(photo); // 선택된 데이터 저장
     setIsToggle(true); // SelectCardExchange 모달 열기
   };
 
   const handleFilterChange = (filterType, value) => {
-
     const newValue = value === "등급" || value === "속성" ? null : value;
 
-    setFilters(prev => ({
+    setFilters((prev) => ({
       ...prev,
-      [filterType]: newValue
+      [filterType]: newValue,
     }));
   };
 
@@ -142,14 +149,14 @@ export default function Exchange({ data, shopId, onFilterChange, onSearch, onPag
       type: {},
     };
 
-    allCards.forEach(card => {
+    allCards.forEach((card) => {
       if (!filters.grade || card.grade === filters.grade) {
         if (!filters.type || card.type.includes(filters.type)) {
           if (card.grade) {
             counts.grade[card.grade] = (counts.grade[card.grade] || 0) + 1;
           }
           if (Array.isArray(card.type)) {
-            card.type.forEach(type => {
+            card.type.forEach((type) => {
               counts.type[type] = (counts.type[type] || 0) + 1;
             });
           }
@@ -166,9 +173,9 @@ export default function Exchange({ data, shopId, onFilterChange, onSearch, onPag
   }, [allCards, filters]);
 
   const handleMultiFilterChange = (filterType, value) => {
-    setFilters(prev => ({
+    setFilters((prev) => ({
       ...prev,
-      [filterType]: value
+      [filterType]: value,
     }));
   };
 
@@ -187,20 +194,25 @@ export default function Exchange({ data, shopId, onFilterChange, onSearch, onPag
                 filterKeys={["등급", "속성"]}
                 filterCounts={filterCounts}
                 onFilterChange={handleMultiFilterChange}
-                reset={reset} />
+                reset={reset}
+              />
             </div>
             <div className={styles.searchbar}>
               <SearchBar onSearch={handleSearch} />
             </div>
             <div className={styles.filter_table}>
-              <Rating sortType={(value) => handleFilterChange("grade", value)}
+              <Rating
+                sortType={(value) => handleFilterChange("grade", value)}
                 reset={reset}
-                isOpen={openDropdown === 'grade'}
-                onToggle={() => handleDropdownToggle('grade')} />
-              <Attribute sortType={(value) => handleFilterChange("type", value)}
+                isOpen={openDropdown === "grade"}
+                onToggle={() => handleDropdownToggle("grade")}
+              />
+              <Attribute
+                sortType={(value) => handleFilterChange("type", value)}
                 reset={reset}
-                isOpen={openDropdown === 'type'}
-                onToggle={() => handleDropdownToggle('type')} />
+                isOpen={openDropdown === "type"}
+                onToggle={() => handleDropdownToggle("type")}
+              />
               <Image
                 src={icon_exchange}
                 alt="새로고침"
@@ -213,11 +225,7 @@ export default function Exchange({ data, shopId, onFilterChange, onSearch, onPag
           <div className={styles.photocard_content}>
             {filteredData.map((photo) => (
               <div key={photo.id} onClick={() => handleSelectPhoto(photo)}>
-                <PhotoCard
-                  type="내카드"
-                  data={photo}
-                  profile={{ nickname: nickname }}
-                />
+                <PhotoCard type="내카드" data={photo} profile={profile} />
               </div>
             ))}
           </div>
@@ -229,7 +237,12 @@ export default function Exchange({ data, shopId, onFilterChange, onSearch, onPag
         </div>
         {isToggle && (
           <Modal isOpen={isToggle} closeModal={handleToggleModal}>
-            <SelectCardExchange data={selectPhoto} shopId={shopId} onClose={handleToggleModal} />
+            <SelectCardExchange
+              data={selectPhoto}
+              profile={profile}
+              shopId={shopId}
+              onClose={handleToggleModal}
+            />
           </Modal>
         )}
       </div>

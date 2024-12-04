@@ -1,5 +1,5 @@
 import styles from './AlertModals.module.css';
-import { updateNotification } from '@/lib/api/notifications';
+import { updateNotification } from '@/lib/api/AlarmService';
 import Image from 'next/image';
 import backIcon from '@/public/assets/icon_back.svg';
 

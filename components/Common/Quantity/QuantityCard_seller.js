@@ -6,6 +6,7 @@ import CardEdit from "../Modal/CardEdit";
 import Notification from "../Modal/Notification";
 import { useState } from "react";
 import axios from "@/lib/api/api.js";
+import { useRouter } from "next/router";
 
 export default function QuantityCardSeller({ data }) {
   const accessToken = typeof window !== "undefined" ? localStorage.getItem("accessToken") : "";
@@ -15,7 +16,7 @@ export default function QuantityCardSeller({ data }) {
   const gradeClass = response.grade;
   const modifiedString = gradeClass.replace(/_/g, " ");
   const exchangeGrade = data.exchangeGrade;
-
+  const router = useRouter();
   const toggleDropsaleModal = () => setDropSaleModal(!dropSaleModal);
   const editModalOpen = () => setEditModal(true);
   const editModalClose = () => setEditModal(false);
@@ -26,6 +27,7 @@ export default function QuantityCardSeller({ data }) {
         Authorization: `Bearer ${accessToken}`,
       },
     });
+    router.push(`/pocketPlace`);
   };
 
   return (
@@ -58,7 +60,9 @@ export default function QuantityCardSeller({ data }) {
             <p className={styles.exchange_name}>교환 희망 정보</p>
           </div>
           <div className={styles.exchange_card_rating_table}>
-            <p className={`${styles.card_rating} ${styles[exchangeGrade]}`}>{exchangeGrade.replace(/_/g, " ")}</p>
+            <p className={`${styles.card_rating} ${styles[exchangeGrade]}`}>
+              {exchangeGrade.replace(/_/g, " ")}
+            </p>
             <p className={styles.card_attribute}>{data.exchangeType.join("ㅣ")}</p>
           </div>
         </div>

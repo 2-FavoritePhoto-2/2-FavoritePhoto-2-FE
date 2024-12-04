@@ -5,7 +5,7 @@ import GlobalNavigationBar from "@/lib/gnb/gnb";
 import Head from "next/head";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { getUserProfile } from "@/lib/api/auth"; 
+import { getUserProfile } from "@/lib/api/authService"; 
 
 const noto = Noto_Sans_KR({ subsets: ["latin"] });
 
@@ -54,7 +54,7 @@ export default function App({ Component, pageProps }) {
         handleLogout();
       }
     }
-  }, []);
+  }, [isLoggedIn]);
 
   useEffect(() => {
     const handleResize = () => {
