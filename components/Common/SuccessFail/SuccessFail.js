@@ -4,7 +4,7 @@ import icon_close from "@/public/assets/icon_close.svg";
 import icon_back from "@/public/assets/icon_back.svg";
 import styles from "./SuccessFail.module.css";
 
-export default function SuccessFail({ type, data }) {
+export default function SuccessFail({ type = '', data }) {
   const router = useRouter();
 
   const SuccessFailContent = {
@@ -98,9 +98,8 @@ export default function SuccessFail({ type, data }) {
           <div className={styles.successFail_title}>
             <div className={styles.transaction_wrapper}>{content.title}</div>
             <div
-              className={`${styles.status_wrapper} ${
-                content.status === "실패" ? styles.status_fail : styles.status_success
-              }`}
+              className={`${styles.status_wrapper} ${content.status === "실패" ? styles.status_fail : styles.status_success
+                }`}
             >
               {content.status}
             </div>

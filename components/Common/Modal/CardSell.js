@@ -67,11 +67,9 @@ export default function CardSell({ data, closeModal }) {
         pathname: "/SuccessFail",
         query: {
           type: "register_fail",
-          data: {
-            rate: selectedGrade,
-            title: data.name,
-            count: selectedQuantity
-          }
+          rate: selectedGrade,
+          title: data.name,
+          count: selectedQuantity
         },
       });
     }
