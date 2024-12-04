@@ -2,7 +2,7 @@ import { useState } from "react";
 import styles from "./SelectCardExchange.module.css";
 import PhotoCard from "../PhotoCard/PhotoCard";
 import Input from "../Input/Input";
-import axios from "@/lib/api/api.js";
+import axios from "@/lib/api/CommonApi.js";
 import { useRouter } from "next/router";
 
 export default function SelectCardExchange({ data, profile, shopId, onClose }) {

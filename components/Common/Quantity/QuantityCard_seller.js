@@ -5,7 +5,7 @@ import Modal from "../Modal/Modal";
 import CardEdit from "../Modal/CardEdit";
 import Notification from "../Modal/Notification";
 import { useState } from "react";
-import axios from "@/lib/api/api.js";
+import axios from "@/lib/api/CommonApi.js";
 import { useRouter } from "next/router";
 
 export default function QuantityCardSeller({ data }) {

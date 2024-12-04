@@ -1,7 +1,6 @@
 .details_container {
   margin: 0 auto;
   width: 148rem;
-  
 }
 .poketplace {
   margin-bottom: 6rem;
@@ -220,7 +219,7 @@
   overflow-x: scroll;
   gap: 3rem;
 }
-.exchange_present_list::-webkit-scrollbar{
+.exchange_present_list::-webkit-scrollbar {
   height: 0.8rem;
 }
 /* .exchange_present_list::-webkit-scrollbar-track {
@@ -244,16 +243,16 @@
   color: var(--color-pink);
 }
 .recommendcard_table {
-  margin:4rem 0;
+  margin: 4rem 0;
 }
-.recommendcard{
+.recommendcard {
   display: flex;
   align-items: center;
   gap: 1rem;
   overflow-x: auto;
   padding-bottom: 1rem;
 }
-.recommendcard::-webkit-scrollbar{
+.recommendcard::-webkit-scrollbar {
   height: 1rem;
 }
 .recommendcard::-webkit-scrollbar-track {
@@ -267,12 +266,12 @@
 .recommendcard::-webkit-scrollbar-thumb:hover {
   background: var(--color-gray-300);
 }
-.nonCardList{
+.nonCardList {
   font-size: 1.8rem;
   font-weight: 500;
 }
 
-.relatedcard{
+.relatedcard {
   width: 44rem;
 }
 /* 태블릿사이즈 */
@@ -329,7 +328,8 @@
     width: 34.2rem;
     height: 7.5rem;
   }
-  .exchange_table,.recommendcard_table {
+  .exchange_table,
+  .recommendcard_table {
     margin-bottom: 4rem;
   }
   .exchange_button {
@@ -343,10 +343,10 @@
   .exchange_present_list {
     gap: 2rem;
   }
-  .recommendcard_table{
+  .recommendcard_table {
     margin-bottom: 3rem;
   }
-  .relatedcard{
+  .relatedcard {
     width: 34.2rem;
   }
 }
@@ -414,13 +414,13 @@
     height: 5.5rem;
     margin-bottom: 4rem;
   }
-  .recommendcard{
+  .recommendcard {
     margin-bottom: 1rem;
   }
-  .recommendcard::-webkit-scrollbar{
+  .recommendcard::-webkit-scrollbar {
     height: 0.5rem;
   }
-  .relatedcard{
+  .relatedcard {
     width: 17rem;
   }
 }
