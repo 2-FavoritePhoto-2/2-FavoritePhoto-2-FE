@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import styles from "./Landing.module.css";
@@ -16,31 +15,6 @@ export default function Landing() {
       router.push("/auth/login");
     }
   };
-
-  const handlePocketPlaceButtonClick = () => {
-    router.push("/pocketPlace");
-  };
-
-  const images = [
-    "/assets/피카츄.png",
-    "/assets/이브이.png",
-    "/assets/꼬부기.png",
-    "/assets/나옹이.png",
-    "/assets/고라파덕.png",
-    "/assets/푸린.png",
-    "/assets/이상해씨.png",
-    "/assets/파이리.png",
-  ];
-
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <>
