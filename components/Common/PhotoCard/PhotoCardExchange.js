@@ -1,7 +1,7 @@
 import styles from "./PhotoCardExchange.module.css";
 import Image from "next/image";
 import Grade from "../Grade/Grade";
-import axios from "@/lib/api/api.js";
+import axios from "@/lib/api/CommonApi.js";
 import { useState } from "react";
 import Notification from "../Modal/Notification";
 

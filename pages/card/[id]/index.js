@@ -4,7 +4,7 @@ import QuantityCardSeller from "@/components/Common/Quantity/QuantityCard_seller
 import PhotoCardExchange from "@/components/Common/PhotoCard/PhotoCardExchange";
 import { useEffect, useState } from "react";
 
-import axios from "@/lib/api/api.js";
+import axios from "@/lib/api/CommonApi.js";
 import PhotoCard from "@/components/Common/PhotoCard/PhotoCard";
 import Exchange from "@/components/Common/Modal/Exchange";
 import Modal from "@/components/Common/Modal/Modal";
@@ -40,7 +40,6 @@ export default function CardDetail({ data }) {
     type: "",
     value: "",
   });
-
 
   const card = data.card;
   const exchangeGrade = data.exchangeGrade;
@@ -80,7 +79,7 @@ export default function CardDetail({ data }) {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      setMyNickName(res.data)
+      setMyNickName(res.data);
       setIsOwner(() => {
         if (res.data.nickname === data.seller.nickname) {
           return true;

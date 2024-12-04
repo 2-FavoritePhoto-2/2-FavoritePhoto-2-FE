@@ -3,7 +3,7 @@ import styles from "./CardEdit.module.css";
 import Image from "next/image";
 import Dropdown from "../Input/Dropdown";
 import Input from "../Input/Input";
-import axios from "@/lib/api/api.js";
+import axios from "@/lib/api/CommonApi.js";
 import CardEditInfo from "../CardInfo/CardEditInfo";
 
 const INITIAL_VALUES = {

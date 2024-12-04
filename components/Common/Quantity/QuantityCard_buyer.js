@@ -2,7 +2,7 @@ import { useState } from "react";
 import Quantity from "./Quantity";
 import styles from "./QuantityCard.module.css";
 import Notification from "../Modal/Notification";
-import axios from "@/lib/api/api.js";
+import axios from "@/lib/api/CommonApi.js";
 import { useRouter } from "next/router";
 
 export default function QuantityCardBuyer({ data }) {
