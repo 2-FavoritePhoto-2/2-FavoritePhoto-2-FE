@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import styles from './RandomBoxModal.module.css';
-import { fetchRandomPoints, fetchLastDrawTime } from '@/lib/api/randomPoints';
+import { fetchRandomPoints, fetchLastDrawTime } from '@/lib/api/PointsService';
 
 const RandomBoxModal = ({ onClose }) => {
   const [selectedBox, setSelectedBox] = useState(null);
@@ -46,8 +46,9 @@ const RandomBoxModal = ({ onClose }) => {
     const checkLastDrawTime = async () => {
       try {
         const lastDrawTime = await fetchLastDrawTime();
-        if (lastDrawTime.error) {
-          setError(lastDrawTime.error);
+        if (!lastDrawTime) {
+          setTimeLeft(0);
+          setCanDraw(true);
         } else {
           const lastDrawDate = new Date(lastDrawTime);
           const now = new Date();
@@ -110,7 +111,13 @@ const RandomBoxModal = ({ onClose }) => {
           {boxes.map((box) => (
             visibleBoxes.includes(box.id) && ( // 현재 보이는 박스만 렌더링
               <div key={box.id} className={`${styles.box} ${box.className}`} onClick={() => handleBoxClick(box.id)}>
-                <Image src={box.image} width={230} height={200} layout="fixed" alt={`Box ${box.id}`} />
+                <Image
+                  src={box.image}
+                  layout="responsive"
+                  width={230}
+                  height={200}
+                  alt={`Box ${box.id}`}
+                />
               </div>
             )
           ))}
