@@ -50,9 +50,13 @@ export default function MyCardDetail({ data, profile }) {
           <p className={styles.value}>{data.quantity}</p>
         </div>
       </div>
-      <button className={styles.sell} onClick={handleClick}>
-        포토카드 판매하기
-      </button>
+      {data.quantity ? (
+        <button className={styles.sell} onClick={handleClick}>
+          포토카드 판매하기
+        </button>
+      ) : (
+        <p className={styles.none_quantity}>수량 부족으로 판매가 불가능합니다.</p>
+      )}
       {isOpen && (
         <Modal isOpen={isOpen} closeModal={handleClose}>
           <CardSell data={data} closeModal={handleClose} />
