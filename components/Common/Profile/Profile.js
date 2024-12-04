@@ -15,14 +15,14 @@ export default function UserDrop({ nickname, points, onClose, handleAuthChange }
             <div className={styles.divider}></div>
 
             <div className={styles.table}>
-              <Link href="/myGallery">마이갤러리</Link>
-              <Link href="/myShop">나의 판매 포토카드</Link>
+              <Link href="/myGallery" onClick={onClose}>마이갤러리</Link>
+              <Link href="/myShop" onClick={onClose}>나의 판매 포토카드</Link>
             </div>
 
             <span className={styles.logout} onClick={() => {
               if (typeof handleAuthChange === 'function') {
                 handleAuthChange(); 
-                setIsOpen(false);
+                onClose();
               } else {
                 console.error("handleAuthChange is not a function");
               }
