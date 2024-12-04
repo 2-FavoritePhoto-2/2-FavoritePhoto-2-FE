@@ -52,7 +52,7 @@ export default function PhotoCardExchange({ data, type = "buyer" }) {
     );
     window.location.reload();
   };
- 
+
   return (
     <div className={styles.card_container}>
       <div className={styles.img_wrap}>
@@ -65,8 +65,10 @@ export default function PhotoCardExchange({ data, type = "buyer" }) {
             <div className={styles.category}>
               <Grade grade={data.buyerCard.grade} />
               <p className={styles.vert_line}>|</p>
-              {data.buyerCard.type.map((types,index) => (
-                <p key={index} className={styles.type}>{types}</p>
+              {data.buyerCard.type.map((types, index) => (
+                <p key={index} className={styles.type}>
+                  {types}
+                </p>
               ))}
             </div>
             <div className={styles.point_seller}>
@@ -96,7 +98,7 @@ export default function PhotoCardExchange({ data, type = "buyer" }) {
       </div>
       {notificationModal && (
         <Notification
-          type="sale_stop"
+          type="exchange_cancel"
           data={{ name: data.buyerCard.name, grade: data.buyerCard.grade }}
           onClose={toggleNotification}
           onButtonClick={handleCancelClick}
