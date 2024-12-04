@@ -5,7 +5,7 @@ import GlobalNavigationBar from "@/lib/gnb/gnb";
 import Head from "next/head";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { getUserProfile } from "@/lib/api/authService"; 
+import { getUserProfile } from "@/lib/api/authService";
 
 const noto = Noto_Sans_KR({ subsets: ["latin"] });
 
@@ -15,38 +15,38 @@ export default function App({ Component, pageProps }) {
   const router = useRouter();
   const [isMobile, setIsMobile] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [points, setPoints] = useState(0); 
-  const [nickname, setNickname] = useState(""); 
+  const [points, setPoints] = useState(0);
+  const [nickname, setNickname] = useState("");
 
   const fetchUserProfile = async () => {
     try {
-      const profile = await getUserProfile(); 
+      const profile = await getUserProfile();
       setPoints(profile.point);
-      setNickname(profile.nickname); 
+      setNickname(profile.nickname);
     } catch (error) {
       handleLogout();
     }
   };
-  
+
   const handleLogin = async () => {
     setIsLoggedIn(true);
-    localStorage.setItem('isLoggedIn', 'true'); 
-    await fetchUserProfile(); 
+    localStorage.setItem("isLoggedIn", "true");
+    await fetchUserProfile();
   };
-  
+
   const handleLogout = () => {
     setIsLoggedIn(false);
     setPoints(0);
     setNickname("");
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('accessToken');
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("accessToken");
   };
-  
+
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const token = localStorage.getItem('accessToken');
-      const storedIsLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-  
+    if (typeof window !== "undefined") {
+      const token = localStorage.getItem("accessToken");
+      const storedIsLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
       if (token && storedIsLoggedIn) {
         setIsLoggedIn(true);
         fetchUserProfile();
@@ -61,7 +61,7 @@ export default function App({ Component, pageProps }) {
       setIsMobile(window.innerWidth <= 743);
     };
 
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       window.addEventListener("resize", handleResize);
       handleResize();
 
@@ -71,6 +71,7 @@ export default function App({ Component, pageProps }) {
     }
   }, []);
 
+  const showNav = router.asPath === "/";
   const isMobilePage =
     router.asPath === "/myGallery" ||
     router.asPath === "/myShop" ||
@@ -86,18 +87,18 @@ export default function App({ Component, pageProps }) {
       </Head>
 
       <div className={noto.className}>
-        {!(isMobile && isMobilePage) && (
-        <GlobalNavigationBar
-          isLoggedin={isLoggedIn}
-          setIsLoggedIn={setIsLoggedIn}
-          points={points}
-          nickname={nickname}
-          handleLogout={handleLogout}
-      /> 
-            )}
+        {!showNav && !(isMobile && isMobilePage) && (
+          <GlobalNavigationBar
+            isLoggedin={isLoggedIn}
+            setIsLoggedIn={setIsLoggedIn}
+            points={points}
+            nickname={nickname}
+            handleLogout={handleLogout}
+          />
+        )}
         <div className="body_container">
           <Component {...pageProps} handleLogin={handleLogin} />
-        </div> 
+        </div>
       </div>
     </QueryClientProvider>
   );

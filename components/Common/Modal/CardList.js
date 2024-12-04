@@ -40,6 +40,9 @@ export default function CardList() {
   }, []);
 
   const handleCardClick = (card) => {
+    if (card.quantity === 0) {
+      return alert("수량이 없습니다.");
+    }
     setSelectedCard(card);
     setShowCardSell(true);
   };
@@ -72,7 +75,7 @@ export default function CardList() {
       try {
         const fetchCardData = await getMyPhotoCardList({
           page: 1,
-          pageSize: 50,
+          pageSize: 100,
           grade: gradeFilter,
           type: typeFilter,
           keyword: searchTerm,
@@ -104,12 +107,14 @@ export default function CardList() {
           <div className={styles.filters}>
             <Rating
               sortType={handleGradeFilter}
-              isOpen={openDropdown === 'grade'}
-              onToggle={() => handleDropdownToggle('grade')} />
+              isOpen={openDropdown === "grade"}
+              onToggle={() => handleDropdownToggle("grade")}
+            />
             <Attribute
               sortType={handleTypeFilter}
-              isOpen={openDropdown === 'type'}
-              onToggle={() => handleDropdownToggle('type')} />
+              isOpen={openDropdown === "type"}
+              onToggle={() => handleDropdownToggle("type")}
+            />
           </div>
         </div>
       </div>
