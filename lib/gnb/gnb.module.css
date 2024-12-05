@@ -9,6 +9,7 @@
   background-color: var(--color-black);
   top: 0;
   max-width: 192rem;
+  width: 100%;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   height: 8rem; 
 }
@@ -122,7 +123,7 @@
 }
 
 
-@media (max-width: 743px) {
+@media (max-width: 375px) {
   .globalNavigationBar_container {
     justify-content: space-between;
     padding: 0 1rem;

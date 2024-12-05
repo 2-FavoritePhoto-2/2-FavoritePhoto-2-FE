@@ -5,7 +5,7 @@ import GlobalNavigationBar from "@/lib/gnb/gnb";
 import Head from "next/head";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { getUserProfile } from "@/lib/api/authService";
+import { getUserProfile } from "@/lib/api/AuthService";
 
 const noto = Noto_Sans_KR({ subsets: ["latin"] });
 

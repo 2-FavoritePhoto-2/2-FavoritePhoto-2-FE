@@ -3,8 +3,8 @@ import QuantityCardBuyer from "@/components/Common/Quantity/QuantityCard_buyer";
 import QuantityCardSeller from "@/components/Common/Quantity/QuantityCard_seller";
 import PhotoCardExchange from "@/components/Common/PhotoCard/PhotoCardExchange";
 import { useEffect, useState } from "react";
-
-import axios from "@/lib/api/api.js";
+import Image from "next/image";
+import axios from "@/lib/api/CommonApi.js";
 import PhotoCard from "@/components/Common/PhotoCard/PhotoCard";
 import Exchange from "@/components/Common/Modal/Exchange";
 import Modal from "@/components/Common/Modal/Modal";
@@ -40,7 +40,6 @@ export default function CardDetail({ data }) {
     type: "",
     value: "",
   });
-
 
   const card = data.card;
   const exchangeGrade = data.exchangeGrade;
@@ -80,7 +79,7 @@ export default function CardDetail({ data }) {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      setMyNickName(res.data)
+      setMyNickName(res.data);
       setIsOwner(() => {
         if (res.data.nickname === data.seller.nickname) {
           return true;
@@ -198,8 +197,14 @@ export default function CardDetail({ data }) {
         <img src="/assets/icon_poketplace.png" className={styles.poketplace} />
         <div className={styles.title}>{card.name}</div>
         <div className={styles.card_details_table}>
-          <img src={card.image} className={styles.card_img} />
-          {isOwner ? <QuantityCardSeller data={data} /> : <QuantityCardBuyer data={data} />}
+          <div className={styles.image_table}>
+            <div>
+              <Image width={300} height={300} src={card.image} className={styles.card_img} />
+            </div>
+          </div>
+          <div>
+            {isOwner ? <QuantityCardSeller data={data} /> : <QuantityCardBuyer data={data} />}
+          </div>
         </div>
         <div className={styles.exchange_container}>
           {isOwner ? (
