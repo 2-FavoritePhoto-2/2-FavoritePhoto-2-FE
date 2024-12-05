@@ -48,6 +48,10 @@
     display: none;
 }
 
+.button {
+    color: var(--color-black);
+}
+
 /* Tablet Only */
 @media (min-width: 744px) and (max-width: 1199px) {
     .title_button h1 {

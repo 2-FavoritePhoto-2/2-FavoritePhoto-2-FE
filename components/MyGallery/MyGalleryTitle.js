@@ -16,7 +16,7 @@ export default function MyGalleryTitle() {
           </Link>
         </div>
         <h1>마이 갤러리</h1>
-        <button onClick={() => router.push("/myGallery/create")}>포토카드 생성하기</button>
+        <button className={styles.button} onClick={() => router.push("/myGallery/create")}>포토카드 생성하기</button>
       </div>
       <div className={styles.line}></div>
     </div>
