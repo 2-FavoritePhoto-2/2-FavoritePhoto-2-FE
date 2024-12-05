@@ -8,6 +8,7 @@ import axios from "@/lib/api/CommonApi.js";
 import PhotoCard from "@/components/Common/PhotoCard/PhotoCard";
 import Exchange from "@/components/Common/Modal/Exchange";
 import Modal from "@/components/Common/Modal/Modal";
+import { useRouter } from "next/router";
 
 export async function getServerSideProps(context) {
   const shopId = context.params["id"];
@@ -40,7 +41,7 @@ export default function CardDetail({ data }) {
     type: "",
     value: "",
   });
-
+  const router = useRouter();
   const card = data.card;
   const exchangeGrade = data.exchangeGrade;
 
@@ -175,22 +176,24 @@ export default function CardDetail({ data }) {
     setFilteredCards(myCardList); // 필터링된 카드 목록 초기화
     setFilters({ type: "", value: "" }); // 필터 상태 초기화
   };
-
+  const fetchRelatedCards = async () => {
+    try {
+      const response = await axios.get(
+        `/shop?keyword=${encodeURIComponent(card.name)}&available=true&exclude=${data.id}`,
+      );
+      setRelatedCards(response.data.list); // 검색된 카드 목록을 상태에 저장
+      console.log(relatedCards);
+    } catch (error) {
+      console.error("Error fetching related cards:", error);
+    }
+  };
   useEffect(() => {
-    const fetchRelatedCards = async () => {
-      try {
-        const response = await axios.get(
-          `/shop?keyword=${encodeURIComponent(card.name)}&available=true&exclude=${data.id}`,
-        );
-        setRelatedCards(response.data.list); // 검색된 카드 목록을 상태에 저장
-      } catch (error) {
-        console.error("Error fetching related cards:", error);
-      }
-    };
-
     fetchRelatedCards();
   }, [card.name]); // card.name이 변경될 때마다 호출
 
+  const handleCardClick = (photo) => {
+    router.push(`/card/${photo.id}`);
+  };
   return (
     <div>
       <div className={styles.details_container}>
@@ -198,7 +201,7 @@ export default function CardDetail({ data }) {
         <div className={styles.title}>{card.name}</div>
         <div className={styles.card_details_table}>
           <div className={styles.image_table}>
-              <Image width={300} height={300} src={card.image} className={styles.card_img} />          
+            <Image width={300} height={300} src={card.image} className={styles.card_img} />
           </div>
           <div>
             {isOwner ? <QuantityCardSeller data={data} /> : <QuantityCardBuyer data={data} />}
@@ -251,7 +254,11 @@ export default function CardDetail({ data }) {
               <div className={styles.recommendcard}>
                 {relatedCards.length > 0 ? (
                   relatedCards.map((photo) => (
-                    <div key={photo.id} className={styles.relatedcard}>
+                    <div
+                      key={photo.id}
+                      className={styles.relatedcard}
+                      onClick={() => handleCardClick(photo)}
+                    >
                       <PhotoCard data={photo ?? {}} />
                     </div>
                   ))
