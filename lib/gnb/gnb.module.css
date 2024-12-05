@@ -90,8 +90,7 @@
 
 .menuIcon {
   display: none;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 2rem;
   cursor: pointer;
 }
 
@@ -115,15 +114,15 @@
 }
 
 
-/* 미디어쿼리 */
-@media (max-width: 744px) {
+/* 태블릿 스타일 (744px ~ 1024px) */
+@media screen and (max-width: 1024px) {
   .globalNavigationBar_container {
     padding: 0.625rem 0.625rem;
   }
 }
 
-
-@media (max-width: 375px) {
+/* 모바일 스타일 (375px ~ 743px) */
+@media (max-width: 743px) {
   .globalNavigationBar_container {
     justify-content: space-between;
     padding: 0 1rem;
@@ -160,9 +159,8 @@
   .points,
   .nickname,
   .logoutButton,
-  .separator,
-  .signupLink,
-  .loginLink {
+  .separator
+  {
     display: none;
   }
 

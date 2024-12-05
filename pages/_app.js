@@ -71,7 +71,7 @@ export default function App({ Component, pageProps }) {
     }
   }, []);
 
-  const showNav = router.asPath === "/";
+  const showNav = router.asPath === "/" || router.asPath === "/auth/login" || router.asPath === "/auth/signup";
   const isMobilePage =
     router.asPath === "/myGallery" ||
     router.asPath === "/myShop" ||
