@@ -32,7 +32,6 @@
   border: none;
   cursor: pointer;
   padding: 0.5rem;
-  color: var(--color-gray-300);
 }
 
 .title {
@@ -146,14 +145,16 @@
   transform: scale(1.05); /* 마우스 오버 시 확대 효과 */
 }
 
-/* 모바일 레이아웃 */
-@media (max-width: 744px) {
+/* 태블릿 스타일 (744px ~ 1024px) */
+@media screen and (max-width: 1024px) {
   .modal {
     width: 60rem;
     height: 60rem;
+    position: fixed; 
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); 
+    box-shadow: 0rem 0.1rem 1rem var(--color-gray-400);
   }
 
   .content {
@@ -215,19 +216,27 @@
   }
 
   .closeButton {
-    top: 1rem;
-    right: 1rem;
+    position: absolute; /* 모달 안에서 위치 고정 */
+    top: 1.5rem; /* 태블릿용으로 약간 더 가까운 위치 */
+    right: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
   }
 }
 
 
-@media (max-width: 375px) {
+/* 모바일 스타일 (375px ~ 743px) */
+@media screen and (max-width: 743px) {
   .modal {
     width: 30rem;
     height: 44rem;
+    position: fixed; 
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); 
+    box-shadow: 0rem 0.1rem 1rem var(--color-gray-400);
   }
 
   .content {
@@ -296,7 +305,7 @@
   }
 
   .closeButton {
-    height: 1.5rem;
-    font-size: 0.7rem;
+    top: 1rem; /* 모바일에서 더 가까운 위치 */
+    right: 1rem;
   }
 }
