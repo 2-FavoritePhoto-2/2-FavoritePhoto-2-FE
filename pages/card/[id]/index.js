@@ -198,9 +198,7 @@ export default function CardDetail({ data }) {
         <div className={styles.title}>{card.name}</div>
         <div className={styles.card_details_table}>
           <div className={styles.image_table}>
-            <div>
-              <Image width={300} height={300} src={card.image} className={styles.card_img} />
-            </div>
+              <Image width={300} height={300} src={card.image} className={styles.card_img} />          
           </div>
           <div>
             {isOwner ? <QuantityCardSeller data={data} /> : <QuantityCardBuyer data={data} />}
