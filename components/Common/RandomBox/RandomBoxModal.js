@@ -58,8 +58,7 @@ const RandomBoxModal = ({ onClose }) => {
           setCanDraw(remainingTimeInSeconds <= 0);
         }
       } catch (error) {
-        console.error('Error checking last draw time:', error);
-        setError('마지막 뽑기 시간 조회에 실패했습니다.');
+
       }
     };
 
