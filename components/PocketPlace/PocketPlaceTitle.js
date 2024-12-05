@@ -31,8 +31,8 @@ export default function PocketPlaceTitle() {
         <div>
           <h1 className={styles.title}>포켓플레이스</h1>
         </div>
-        <div className={styles.button}>
-          <button onClick={handleClickList}>나의 포토카드 판매하기</button>
+        <div className={styles.button_wrapper}>
+          <button className={styles.button} onClick={handleClickList}>나의 포토카드 판매하기</button>
         </div>
       </div>
       <div className={styles.line}></div>

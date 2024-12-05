@@ -37,6 +37,7 @@
     line-height: 2.606rem;
 
     background-color: var(--color-main);
+    color: var(--color-black);
 }
 
 .error {
