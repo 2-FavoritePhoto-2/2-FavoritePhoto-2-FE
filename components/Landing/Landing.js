@@ -3,12 +3,13 @@ import Image from "next/image";
 import styles from "./Landing.module.css";
 import pick from "@/public/assets/pick.gif";
 import homeBtn from "@/public/assets/btn_pika.png";
+import { getAccessToken } from "@/lib/utils/token";
 
 export default function Landing() {
   const router = useRouter();
 
   const handleLoginButtonClick = () => {
-    const accessToken = localStorage.getItem("accessToken");
+    const accessToken = getAccessToken();
     if (accessToken) {
       router.push("/pocketPlace");
     } else {

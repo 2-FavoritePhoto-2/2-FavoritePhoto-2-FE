@@ -9,6 +9,7 @@ import PhotoCard from "@/components/Common/PhotoCard/PhotoCard";
 import Exchange from "@/components/Common/Modal/Exchange";
 import Modal from "@/components/Common/Modal/Modal";
 import { useRouter } from "next/router";
+import { getAccessToken } from "@/lib/utils/token";
 
 export async function getServerSideProps(context) {
   const shopId = context.params["id"];
@@ -29,7 +30,7 @@ export async function getServerSideProps(context) {
 }
 
 export default function CardDetail({ data }) {
-  const accessToken = typeof window !== "undefined" ? localStorage.getItem("accessToken") : "";
+  const accessToken = typeof window !== "undefined" ? getAccessToken() : "";
   const [isOwner, setIsOwner] = useState(false);
   const [exchangeModal, setExchangeModal] = useState(false);
   const [myCardList, setMyCardList] = useState([]);

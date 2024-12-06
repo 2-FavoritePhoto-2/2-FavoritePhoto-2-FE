@@ -4,9 +4,10 @@ import PhotoCard from "../PhotoCard/PhotoCard";
 import Input from "../Input/Input";
 import axios from "@/lib/api/CommonApi.js";
 import { useRouter } from "next/router";
+import { getAccessToken } from "@/lib/utils/token";
 
 export default function SelectCardExchange({ data, profile, shopId, onClose }) {
-  const accessToken = typeof window !== "undefined" ? localStorage.getItem("accessToken") : "";
+  const accessToken = typeof window !== "undefined" ? getAccessToken() : "";
   const [inputValue, setInputValue] = useState("");
   const [errorMessage, setErrorMessage] = useState(""); // 오류 메시지 상태 추가
   const [isSubmitting, setIsSubmitting] = useState(false); // 제출 상태 추가
