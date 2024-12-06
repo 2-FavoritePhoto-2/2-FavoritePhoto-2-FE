@@ -143,7 +143,11 @@ export default function MyShop() {
         keyword: filters.searchTerm,
       });
 
-      setFilteredSales(filteredResults.card || []);
+      // 교환이 완료된 항목 제외
+      const filtered = filteredResults.card.filter(
+        (card) => !(card.mode === "exchange" && card.available === false),
+      );
+      setFilteredSales(filtered);
 
       const newFilterCounts = {
         grade: {},
@@ -152,7 +156,7 @@ export default function MyShop() {
         available: {},
       };
 
-      filteredResults.card.forEach((card) => {
+      filtered.forEach((card) => {
         const { grade, type, mode, available } = card;
 
         newFilterCounts.grade[grade] = (newFilterCounts.grade[grade] || 0) + 1;
@@ -163,8 +167,8 @@ export default function MyShop() {
 
       setFilterCounts(newFilterCounts);
 
-      setMySales(filteredResults.card.slice(0, 9));
-      setHasMore(filteredResults.card.length > 9);
+      setMySales(filtered.slice(0, 9));
+      setHasMore(filtered.length > 9);
     } catch (err) {
       console.error("필터링 중 오류 발생:", err);
     } finally {
@@ -245,26 +249,26 @@ export default function MyShop() {
               <Rating
                 sortType={(value) => handleFilterChange("grade", value)}
                 reset={resetFlags.grade}
-                isOpen={openDropdown === 'grade'}
-                onToggle={() => handleDropdownToggle('grade')}
+                isOpen={openDropdown === "grade"}
+                onToggle={() => handleDropdownToggle("grade")}
               />
               <Attribute
                 sortType={(value) => handleFilterChange("type", value)}
                 reset={resetFlags.type}
-                isOpen={openDropdown === 'type'}
-                onToggle={() => handleDropdownToggle('type')}
+                isOpen={openDropdown === "type"}
+                onToggle={() => handleDropdownToggle("type")}
               />
               <Sale
                 sortType={(value) => handleFilterChange("mode", value)}
                 reset={resetFlags.mode}
-                isOpen={openDropdown === 'mode'}
-                onToggle={() => handleDropdownToggle('mode')}
+                isOpen={openDropdown === "mode"}
+                onToggle={() => handleDropdownToggle("mode")}
               />
               <Soldout
                 sortType={(value) => handleFilterChange("available", value)}
                 reset={resetFlags.available}
-                isOpen={openDropdown === 'available'}
-                onToggle={() => handleDropdownToggle('available')}
+                isOpen={openDropdown === "available"}
+                onToggle={() => handleDropdownToggle("available")}
               />
               <Image
                 src={resetIcon}
