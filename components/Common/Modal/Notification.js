@@ -3,12 +3,10 @@ import Image from "next/image";
 import icon_close from "@/public/assets/icon_close.svg";
 import { useState } from "react";
 
-export default function Notification({ type, onButtonClick, onClose, data }) {
-  const [isOpen, setIsOpen] = useState(true);
-  const [isButtonClicked, setIsButtonClicked] = useState(false);
-  const { name, grade, quantity } = data || {};
+const createNotificationContent = (data = {}) => {
+  const { grade, name, quantity } = data;
 
-  const notificationContent = {
+  return {
     login: {
       title: "로그인이 필요합니다.",
       description: "로그인하시겠습니까?\n다양한 서비스를 편리하게 이용하실 수 있습니다.",
@@ -39,17 +37,19 @@ export default function Notification({ type, onButtonClick, onClose, data }) {
       description: "정말로 판매를 중단하시겠습니까?",
       buttonText: "판매 내리기",
     },
-  };
+  }
+};
 
-  const content = notificationContent[type];
+export default function Notification({ type, onButtonClick, onClose, data }) {
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
+
+  const content = createNotificationContent(data)[type];
 
   const handleButtonClick = () => {
     if (isButtonClicked) return;
     setIsButtonClicked(true);
     onButtonClick();
   };
-
-  if (!isOpen) return null;
 
   return (
     <>
