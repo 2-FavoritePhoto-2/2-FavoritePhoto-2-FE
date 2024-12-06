@@ -9,6 +9,13 @@ export default function MultiFilterModal({ filterKeys, filterCounts, onFilterCha
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
+  const tabToFilterMap = {
+    "등급": "grade",
+    "속성": "type",
+    "판매방법": "mode",
+    "매진여부": "available"
+  };
+
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
@@ -32,19 +39,11 @@ export default function MultiFilterModal({ filterKeys, filterCounts, onFilterCha
 
   const handleFilterSelect = (item) => {
     setSelectedItem(item);
-    const filterType =
-      activeTab === "등급"
-        ? "grade"
-        : activeTab === "속성"
-          ? "type"
-          : activeTab === "판매방법"
-            ? "mode"
-            : activeTab === "매진여부"
-              ? "available"
-              : null;
 
-    const filterValue =
-      activeTab === "매진여부" ? (item === "잔여" ? true : item === "매진" ? false : null) : item;
+    const filterType = tabToFilterMap[activeTab] || null;
+    const filterValue = activeTab === "매진여부"
+      ? (item === "잔여" ? true : item === "매진" ? false : null)
+      : item;
 
     onFilterChange(filterType, filterValue);
   };
