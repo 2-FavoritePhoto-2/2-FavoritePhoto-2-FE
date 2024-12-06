@@ -1,9 +1,9 @@
-GET https://pikapick.onrender.com/shop?keyword=망키
+GET https://pikapick.onrender.com/api/shop
 
 
 ###
 
-GET https://pikapick.onrender.com/shop/571c21ae-bf07-4082-acd1-8a2e830ca0c0
+GET https://pikapick.onrender.com/api/shop/571c21ae-bf07-4082-acd1-8a2e830ca0c0
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzMxMTU5MzcsImV4cCI6MTczMzIwMjMzN30.07cXE93Fc5bVoxukWZahCa_jWjup5pkhykcy-VB7eEg
 
 
@@ -56,8 +56,8 @@ GET https://pikapick.onrender.com/shop?keyword=망키
 
 ###
 
-GET https://pikapick.onrender.com/user/cards
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNjRhMDI0Zi1lZWI1LTQzNDEtODhjMi0yMjU5YWEwYmYwY2UiLCJpYXQiOjE3MzI4NDcwMDksImV4cCI6MTczMjkzMzQwOX0.xpWae8U8sLfFlHVTKIx2R3jkbHymKJr1TzrhvedBMiU
+GET https://pikapick.onrender.com/api/user/cards
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJmYmQ0NTE2OS0wYjRkLTQ0N2ItYWMyYy03MmZkNTFjNTJmMGEiLCJpYXQiOjE3MzM0NjA2NzgsImV4cCI6MTczMzU0NzA3OH0.0BB-XwxK2aItzkbVZAeD3o2rNSt5ahu03DWdLf-Cmek
 
 ###
 
