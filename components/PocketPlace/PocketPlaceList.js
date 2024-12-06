@@ -4,6 +4,7 @@ import PhotoCard from "../Common/PhotoCard/PhotoCard";
 import Notification from "../Common/Modal/Notification";
 import throttle from "lodash/throttle";
 import { getCards } from "@/lib/api/ShopService";
+import { getAccessToken } from "@/lib/utils/token";
 import styles from "./PocketPlaceList.module.css";
 
 export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCountChange }) {
@@ -46,7 +47,7 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
     if (remainingQuantity === 0) {
       return;
     }
-    const accessToken = localStorage.getItem("accessToken");
+    const accessToken = getAccessToken();
     if (!accessToken) {
       setShowNotification(true);
     } else {
@@ -191,9 +192,8 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
       {filteredCards.map((item) => (
         <div
           key={item.listId}
-          className={`${styles.card_wrapper} ${
-            item.card.remainingQuantity === 0 ? styles.disabled : ""
-          }`}
+          className={`${styles.card_wrapper} ${item.card.remainingQuantity === 0 ? styles.disabled : ""
+            }`}
           onClick={() => handleCardClick(item.listId, item.card.remainingQuantity)}
         >
           <PhotoCard
