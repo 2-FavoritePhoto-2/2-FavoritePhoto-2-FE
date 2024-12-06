@@ -183,7 +183,6 @@ export default function CardDetail({ data }) {
         `/shop?keyword=${encodeURIComponent(card.name)}&available=true&exclude=${data.id}`,
       );
       setRelatedCards(response.data.list); // 검색된 카드 목록을 상태에 저장
-      console.log(relatedCards);
     } catch (error) {
       console.error("Error fetching related cards:", error);
     }
