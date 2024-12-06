@@ -8,6 +8,12 @@ export default function Attribute({ sortType, reset, isOpen, onToggle }) {
 
   const [selectValue, setSelectValue] = useState("속성");
 
+  const attributes = [
+    "노말", "불꽃", "물", "풀", "전기", "얼음", "격투", "독",
+    "땅", "비행", "에스퍼", "벌레", "바위", "고스트",
+    "드래곤", "악", "강철", "페어리"
+  ];
+
   const handleSelect = (value) => {
     setSelectValue(value);
     if (sortType) {
@@ -31,60 +37,15 @@ export default function Attribute({ sortType, reset, isOpen, onToggle }) {
       {isOpen && (
         <div className={styles.dropDown_wrapper}>
           <ul className={styles.dropDown_list}>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("노말")}>
-              노말
-            </li>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("불꽃")}>
-              불꽃
-            </li>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("물")}>
-              물
-            </li>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("풀")}>
-              풀
-            </li>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("전기")}>
-              전기
-            </li>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("얼음")}>
-              얼음
-            </li>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("격투")}>
-              격투
-            </li>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("독")}>
-              독
-            </li>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("땅")}>
-              땅
-            </li>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("비행")}>
-              비행
-            </li>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("에스퍼")}>
-              에스퍼
-            </li>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("벌레")}>
-              벌레
-            </li>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("바위")}>
-              바위
-            </li>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("고스트")}>
-              고스트
-            </li>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("드래곤")}>
-              드래곤
-            </li>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("악")}>
-              악
-            </li>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("강철")}>
-              강철
-            </li>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("페어리")}>
-              페어리
-            </li>
+            {attributes.map((attribute) => (
+              <li
+                key={attribute}
+                className={styles.dropDown_item}
+                onClick={() => handleSelect(attribute)}
+              >
+                {attribute}
+              </li>
+            ))}
           </ul>
         </div>
       )}

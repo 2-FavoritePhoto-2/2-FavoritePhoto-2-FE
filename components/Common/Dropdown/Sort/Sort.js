@@ -8,6 +8,13 @@ export default function Sort({ sortType, initSort = "낮은 가격순" }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectValue, setSelectValue] = useState(initSort);
 
+  const sortOptions = [
+    { label: "최신 순", value: "newest" },
+    { label: "오래된 순", value: "oldest" },
+    { label: "높은 가격순", value: "priceHighest" },
+    { label: "낮은 가격순", value: "priceLowest" }
+  ];
+
   const handleToggle = () => {
     setIsOpen(!isOpen);
   };
@@ -16,28 +23,13 @@ export default function Sort({ sortType, initSort = "낮은 가격순" }) {
     setSelectValue(initSort);
   }, [initSort]);
 
-  const handleSelect = (value) => {
-    setSelectValue(value);
+  const handleSelect = (label) => {
+    setSelectValue(label);
     setIsOpen(false);
 
-    let orderBy;
-    switch (value) {
-      case "최신 순":
-        orderBy = "newest";
-        break;
-      case "오래된 순":
-        orderBy = "oldest";
-        break;
-      case "높은 가격순":
-        orderBy = "priceHighest";
-        break;
-      case "낮은 가격순":
-      default:
-        orderBy = "priceLowest";
-    }
-
-    if (sortType) {
-      sortType(orderBy);
+    const selectedOption = sortOptions.find(option => option.label === label);
+    if (sortType && selectedOption) {
+      sortType(selectedOption.value);
     }
   };
 
@@ -50,18 +42,15 @@ export default function Sort({ sortType, initSort = "낮은 가격순" }) {
       {isOpen && (
         <div className={`${styles.dropDown_wrapper} ${styles.wrapper_box}`}>
           <ul className={styles.dropDown_list}>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("최신 순")}>
-              최신 순
-            </li>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("오래된 순")}>
-              오래된 순
-            </li>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("높은 가격순")}>
-              높은 가격순
-            </li>
-            <li className={styles.dropDown_item} onClick={() => handleSelect("낮은 가격순")}>
-              낮은 가격순
-            </li>
+            {sortOptions.map(({ label }) => (
+              <li
+                key={label}
+                className={styles.dropDown_item}
+                onClick={() => handleSelect(label)}
+              >
+                {label}
+              </li>
+            ))}
           </ul>
         </div>
       )}

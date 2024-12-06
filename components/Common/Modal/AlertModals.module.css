@@ -73,7 +73,6 @@
   font-size: 1.4rem;
   font-weight: 300;
   color: var(--color-gray-300);
-  /* margin-top: 1rem;  */
 }
 
 .mobileHeader {
@@ -104,7 +103,7 @@
   }
 
   .headerTitle {
-    font-family: BR B;
+    font-family: "BR B";
     display: flex;
     justify-content: center;
     width: 100%;

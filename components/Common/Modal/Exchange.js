@@ -224,7 +224,7 @@ export default function Exchange({
           </div>
           <div className={styles.photocard_content}>
             {filteredData.map((photo) => (
-              <div key={photo.id} onClick={() => handleSelectPhoto(photo)}>
+              <div className={styles.photocard_table} key={photo.id} onClick={() => handleSelectPhoto(photo)}>
                 <PhotoCard type="내카드" data={photo} profile={profile} />
               </div>
             ))}

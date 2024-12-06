@@ -9,11 +9,11 @@ const AlertModals = ({ notifications, onUpdate, onClose }) => {
     if (!notificationId) return;
 
     const token = localStorage.getItem('accessToken');
-  if (!token) return;
+    if (!token) return;
 
     const updatedNotification = await updateNotification(notificationId, token);
     if (updatedNotification) {
-      onUpdate(); 
+      onUpdate();
     }
   };
 
@@ -60,17 +60,16 @@ const AlertModals = ({ notifications, onUpdate, onClose }) => {
     );
   }
   const isMobile = window.innerWidth <= 743;
-  const displayNotifications = isMobile ? notifications : notifications.slice(0, 5);
-
+  const displayNotifications = notifications;
   return (
     <div className={styles.alertContainer}>
       <div className={styles.alertList}>
-      <div className={styles.mobileHeader}>
-          <Image 
+        <div className={styles.mobileHeader}>
+          <Image
             src={backIcon}
-            alt="뒤로가기" 
-            width={24} 
-            height={24} 
+            alt="뒤로가기"
+            width={24}
+            height={24}
             className={styles.backButton}
             onClick={onClose}
           />
@@ -78,7 +77,7 @@ const AlertModals = ({ notifications, onUpdate, onClose }) => {
         </div>
         {displayNotifications.map((notification) => (
           <div key={notification.id}>
-            <div 
+            <div
               className={`${styles.alertItem} ${notification.isRead ? styles.read : ''}`}
               onClick={() => handleNotificationClick(notification.id)}
             >

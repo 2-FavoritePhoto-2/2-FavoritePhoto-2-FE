@@ -52,10 +52,12 @@ export default function CardDetail({ data }) {
           Authorization: `Bearer ${accessToken}`,
         },
       });
+      
       setMyCardList(response.data);
       setFilteredCards(response.data);
     } catch (error) {
       console.error("Error fetching cards:", error);
+      
     }
   };
   const fetchExchangeSubmitCard = async () => {

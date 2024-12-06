@@ -4,6 +4,10 @@
   gap: 2rem;
 }
 
+.button {
+  color: var(--color-black);
+}
+
 .title_button {
   display: flex;
   justify-content: space-between;
@@ -41,6 +45,7 @@
   .title_button h1 {
     font-size: 4.8rem;
   }
+
   .title_button button {
     width: 34.2rem;
   }
@@ -51,18 +56,21 @@
     display: flex;
     justify-content: center;
   }
+
   .title_button h1 {
     display: none;
   }
+
   .title_button button {
     width: 34.5rem;
   }
 
-  .button {
+  .button_wrapper {
     position: fixed;
     bottom: 2rem;
-    z-index: 10;
+    z-index: 1;
   }
+
   .line {
     display: none;
   }

@@ -168,6 +168,9 @@
     width: 100%;
     height: auto;
   }
+  .photocard_table{
+    height: 23.4rem;
+  }
   .filter_table {
     display: none;
   }
