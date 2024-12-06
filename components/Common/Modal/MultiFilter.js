@@ -93,7 +93,6 @@ export default function MultiFilterModal({ filterKeys, filterCounts, onFilterCha
             ? { 잔여: filterCounts?.available?.true || 0, 매진: filterCounts?.available?.false || 0 }
             : {};
 
-  //멀티 필터에서 총 개수 계산하는 부분
   const calculateTotalCount = () => {
     if (activeTab === "등급") {
       return Object.values(filterCounts?.grade || {}).reduce((total, count) => total + count, 0);

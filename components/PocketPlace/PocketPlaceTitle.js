@@ -2,6 +2,7 @@ import { useState } from "react";
 import CardList from "../Common/Modal/CardList";
 import Modal from "../Common/Modal/Modal";
 import Notification from "../Common/Modal/Notification";
+import { getAccessToken } from "@/lib/utils/token";
 import styles from "./PocketPlaceTitle.module.css";
 
 export default function PocketPlaceTitle() {
@@ -9,7 +10,7 @@ export default function PocketPlaceTitle() {
   const [showNotification, setShowNotification] = useState(false);
 
   const handleClickList = () => {
-    const accessToken = localStorage.getItem("accessToken");
+    const accessToken = getAccessToken();
     if (!accessToken) {
       setShowNotification(true);
     } else {

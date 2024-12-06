@@ -5,12 +5,9 @@ import { useState } from "react";
 
 export default function Notification({ type, onButtonClick, onClose, data }) {
   const [isOpen, setIsOpen] = useState(true);
-  const [isButtonClicked, setIsButtonClicked] = useState(false); // 버튼 클릭 상태 추가
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
   const { name, grade, quantity } = data || {};
 
-  /*TODO
-   * data props 받아서 description 바꾸기
-   */
   const notificationContent = {
     login: {
       title: "로그인이 필요합니다.",
@@ -19,28 +16,21 @@ export default function Notification({ type, onButtonClick, onClose, data }) {
     },
     purchase: {
       title: "포토카드 구매",
-      // description: `장을 구매하시겠습니까?`,
       description: `[${grade} | ${name}] ${quantity}장을 구매하시겠습니까?`,
       buttonText: "구매하기",
     },
     exchange_cancel: {
       title: "교환 제시 취소",
-      description: ` 교환 제시를 취소하시겠습니까?`,
-
       description: `[${grade} | ${name}] 교환 제시를 취소하시겠습니까?`,
       buttonText: "취소하기",
     },
     exchange_reject: {
       title: "교환 제시 거절",
-      // description: ` 카드와의 교환을 거절하시겠습니까?`,
-
       description: `[${grade} | ${name}] 카드와의 교환을 거절하시겠습니까?`,
       buttonText: "거절하기",
     },
     exchange_accept: {
       title: "교환 제시 승인",
-      // description: `카드와의 교환을 승인하시겠습니까?`,
-
       description: `[${grade} | ${name}] 카드와의 교환을 승인하시겠습니까?`,
       buttonText: "승인하기",
     },
@@ -54,9 +44,9 @@ export default function Notification({ type, onButtonClick, onClose, data }) {
   const content = notificationContent[type];
 
   const handleButtonClick = () => {
-    if (isButtonClicked) return; // 이미 클릭된 경우 함수 종료
-    setIsButtonClicked(true); // 버튼 클릭 상태 업데이트
-    onButtonClick(); // 버튼 클릭 핸들러 호출
+    if (isButtonClicked) return;
+    setIsButtonClicked(true);
+    onButtonClick();
   };
 
   if (!isOpen) return null;
@@ -74,7 +64,7 @@ export default function Notification({ type, onButtonClick, onClose, data }) {
           <button
             className={styles.alert_button}
             onClick={handleButtonClick}
-            disabled={isButtonClicked} // 버튼 클릭 상태에 따라 비활성화
+            disabled={isButtonClicked}
           >
             {content.buttonText}
           </button>
