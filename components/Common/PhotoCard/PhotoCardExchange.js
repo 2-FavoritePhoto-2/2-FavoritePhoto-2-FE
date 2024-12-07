@@ -4,9 +4,10 @@ import Grade from "../Grade/Grade";
 import axios from "@/lib/api/CommonApi.js";
 import { useState } from "react";
 import Notification from "../Modal/Notification";
+import { getAccessToken } from "@/lib/utils/token";
 
 export default function PhotoCardExchange({ data, type = "buyer" }) {
-  const accessToken = typeof window !== "undefined" ? localStorage.getItem("accessToken") : "";
+  const accessToken = typeof window !== "undefined" ? getAccessToken() : "";
   const buttonType = type === "seller";
   const [notificationModal, setNotificationModal] = useState(false);
   const [refuseModal, setRefuseModal] = useState(false);

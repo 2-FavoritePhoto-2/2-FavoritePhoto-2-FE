@@ -7,9 +7,10 @@ import Notification from "../Modal/Notification";
 import { useState } from "react";
 import axios from "@/lib/api/CommonApi.js";
 import { useRouter } from "next/router";
+import { getAccessToken } from "@/lib/utils/token";
 
 export default function QuantityCardSeller({ data }) {
-  const accessToken = typeof window !== "undefined" ? localStorage.getItem("accessToken") : "";
+  const accessToken = typeof window !== "undefined" ? getAccessToken() : "";
   const [editModal, setEditModal] = useState(false);
   const [dropSaleModal, setDropSaleModal] = useState(false);
   const response = data.card;

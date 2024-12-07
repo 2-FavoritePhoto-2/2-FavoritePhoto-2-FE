@@ -51,7 +51,7 @@
   text-decoration-skip-ink: none;
 }
 
-.point{
+.point {
   font-family: 'BR B';
   font-weight: 400;
   line-height: 4.71rem;
@@ -63,19 +63,19 @@
 }
 
 .description {
-  font-family:'Noto Sans KR';
+  font-family: 'Noto Sans KR';
   width: 36.2rem;
   height: 5.8rem;
   margin: 0 auto;
   font-size: 1.9rem;
   font-weight: 700;
   color: var(--color-white);
-  margin-bottom: 4rem; 
+  margin-bottom: 4rem;
 }
 
-.timer {  
+.timer {
   margin-top: 1rem;
-  margin-bottom: 5rem; 
+  margin-bottom: 5rem;
 }
 
 .timerText {
@@ -101,19 +101,22 @@
 
 .boxContainer {
   display: flex;
-  justify-content: center; 
-  width: 83.566rem; 
-  height: 19.8rem; 
-  margin: 0 auto; 
+  justify-content: center;
+  width: 83.566rem;
+  height: 19.8rem;
+  margin: 0 auto;
   background: transparent;
-  position: relative; 
+  position: relative;
 }
 
-.boxBlue, .boxPurple, .boxRed {
-  opacity: 1; 
-  position: absolute; 
-  margin: 1 1rem; 
-  top: 0; 
+.boxBlue,
+.boxPurple,
+.boxRed {
+  opacity: 1;
+  position: absolute;
+  margin: 1 1rem;
+  top: 0;
+  cursor: pointer;
 }
 
 .boxBlue {
@@ -122,13 +125,13 @@
 }
 
 .boxPurple {
-  top: 0; 
+  top: 0;
 }
 
 .boxRed {
   width: 24.596rem;
   left: 58.97rem;
-  position: absolute; 
+  position: absolute;
 }
 
 .congratulations {
@@ -142,7 +145,8 @@
 }
 
 .congratulations:hover {
-  transform: scale(1.05); /* 마우스 오버 시 확대 효과 */
+  transform: scale(1.05);
+  /* 마우스 오버 시 확대 효과 */
 }
 
 /* 태블릿 스타일 (744px ~ 1024px) */
@@ -150,10 +154,10 @@
   .modal {
     width: 60rem;
     height: 60rem;
-    position: fixed; 
+    position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); 
+    transform: translate(-50%, -50%);
     box-shadow: 0rem 0.1rem 1rem var(--color-gray-400);
   }
 
@@ -216,8 +220,10 @@
   }
 
   .closeButton {
-    position: absolute; /* 모달 안에서 위치 고정 */
-    top: 1.5rem; /* 태블릿용으로 약간 더 가까운 위치 */
+    position: absolute;
+    /* 모달 안에서 위치 고정 */
+    top: 1.5rem;
+    /* 태블릿용으로 약간 더 가까운 위치 */
     right: 1.5rem;
     background: none;
     border: none;
@@ -232,10 +238,10 @@
   .modal {
     width: 30rem;
     height: 44rem;
-    position: fixed; 
+    position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); 
+    transform: translate(-50%, -50%);
     box-shadow: 0rem 0.1rem 1rem var(--color-gray-400);
   }
 
@@ -297,7 +303,8 @@
 
   .congratulations {
     position: absolute;
-    bottom: 1rem; /* 모달 내부 하단에 배치 */
+    bottom: 1rem;
+    /* 모달 내부 하단에 배치 */
     left: 50%;
     transform: translateX(-50%);
     font-size: 1rem;
@@ -305,7 +312,8 @@
   }
 
   .closeButton {
-    top: 1rem; /* 모바일에서 더 가까운 위치 */
+    top: 1rem;
+    /* 모바일에서 더 가까운 위치 */
     right: 1rem;
   }
 }
