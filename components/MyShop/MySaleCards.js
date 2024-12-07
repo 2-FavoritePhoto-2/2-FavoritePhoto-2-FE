@@ -2,7 +2,7 @@ import Grade from "../Common/Grade/Grade";
 import styles from "./MySaleCards.module.css";
 
 export default function MySaleCards({ mySales, profile }) {
-  const grades = ["COMMON", "RARE", "SUPER RARE", "LEGENDARY"];
+  const grades = ["COMMON", "RARE", "SUPER_RARE", "LEGENDARY"];
 
   const gradeCount = {
     COMMON: 0,
