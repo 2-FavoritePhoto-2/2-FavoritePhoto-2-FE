@@ -276,10 +276,43 @@
 
 ---
 
+⚓️ 프론트엔드 전략
+<details> <summary>개발 환경 관리 전략</summary>
+ 
+**`Prettier` `nvm(Node Version Manager)` 활용**
+
+- PrettierRc: 프로젝트 내에서 코드 스타일을 일관되게 유지하기 위해 PrettierRc를 사용하여 세부 설정을 적용했습니다. 이를 통해 코드 가독성을 높이고, 협업 과정에서 발생할 수 있는 스타일 차이를 최소화했습니다.
+- nvm: 팀원 간 Node.js 버전 차이로 인한 문제를 방지하기 위해 nvm을 사용했습니다. 환경 설정 및 적용이 간단하여 모든 팀원이 동일한 Node.js 환경에서 작업할 수 있었습니다.
+  
+</details> <details> <summary>배포 및 운영 전략</summary>
+ 
+**`AWS (EC2)` `Nginx` `PM2` 활용**
+
+- AWS: EC2를 사용해 백엔드와 프론트엔드를 배포했습니다. AWS 환경을 통해 배포 과정에서 실무적인 경험을 쌓았습니다.
+- Nginx: Reverse Proxy로 설정하여 프론트엔드와 백엔드 간의 쿠키 사용 및 CORS 문제를 방지했습니다. 이를 통해 모든 요청을 하나의 도메인에서 처리하도록 구성해 배포 후 안정성을 확보했습니다.
+- PM2: 프로세스 관리와 로그 모니터링에 활용했습니다. 무중단 배포를 통해 서비스 가용성을 유지하고, 변경 사항을 신속히 반영할 수 있었습니다.
+
+</details> <details> <summary>브랜치 전략</summary>
+ 
+**`main` - `dev` - `feat` 브랜치로 구성**
+
+- main 브랜치: 안정적인 배포용 브랜치로, 최종 프로덕션 환경에서의 신뢰도를 유지했습니다.
+- dev 브랜치: 통합과 테스트를 위한 브랜치로, 전체 기능 개발 흐름을 점검했습니다. 개발용으로 AWS에서 실시간 업데이트하며 프론트엔드 작업의 연속성을 보장했습니다.
+- feat 브랜치: 개별 기능 구현 및 수정 작업에 사용해 작업 단위를 명확히 하고, 병합 시 충돌을 최소화했습니다.
+- 
+</details> <details> <summary>추가적 프론트엔드 전략</summary>
+ 
+**`컴포넌트 설계` 및 `협업`**
+- 컴포넌트 재사용성 강화: Atomic Design 패턴을 일부 적용해 컴포넌트를 계층적으로 설계했습니다. 이를 통해 UI 컴포넌트의 재사용성을 높이고 유지보수성을 강화했습니다.
+- Notion과 Figma: 백엔드와의 원활한 협업을 위해 API 명세 및 디자인 시안 관련 커뮤니케이션 도구로 사용했습니다.
+</details>
+
+---
+
 ## 🍰 프로젝트 회고
 
-- 발표 자료:
-- 시연 영상: 
+- 발표 자료: https://drive.google.com/file/d/1tEknEdzkiBmWKKBQK9ZgTfEoyttcOJ9U/view?usp=drive_link
+- 시연 영상: https://drive.google.com/file/d/1_Vda6hfvO_u9fFOHosq7FCGxZ0c2eq7q/view?usp=drive_link
 
 
 ## 📁 파일 구조
