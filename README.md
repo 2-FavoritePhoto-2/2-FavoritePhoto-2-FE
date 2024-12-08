@@ -264,7 +264,7 @@
 
 </details>
 <details>
-<summary>컴포넌트트</summary>
+<summary>컴포넌트</summary>
 
 - **모달 컴포넌트**  
   - 랜덤 포인트 획득  
@@ -276,7 +276,7 @@
 
 ---
 
-⚓️ 프론트엔드 전략
+## ⚓️ 프론트엔드 전략
 <details> <summary>개발 환경 관리 전략</summary>
  
 **`Prettier` `nvm(Node Version Manager)` 활용**
