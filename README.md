@@ -16,7 +16,7 @@
  
 ## 💡 결과물
 
-- 피카픽포토 홈페이지: https://pikapick-photo.kro.kr
+- 📄 피카픽포토 홈페이지: https://pikapick-photo.kro.kr
 - 🗂️ 팀 문서: https://www.notion.so/2-135c4cf223fc804a827de53230da2422?pvs=4
 - 🔍 API 명세: https://pikapick.onrender.com/api/docs
 
