@@ -102,9 +102,8 @@ export default function SuccessFail({ type = '', data }) {
           <div className={styles.successFail_title}>
             <div className={styles.transaction_wrapper}>{content.title}</div>
             <div
-              className={`${styles.status_wrapper} ${
-                content.status === "실패" ? styles.status_fail : styles.status_success
-              }`}
+              className={`${styles.status_wrapper} ${content.status === "실패" ? styles.status_fail : styles.status_success
+                }`}
             >
               {content.status}
             </div>

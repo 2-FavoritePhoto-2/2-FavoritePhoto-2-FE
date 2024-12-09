@@ -4,6 +4,7 @@ import PhotoCard from "../Common/PhotoCard/PhotoCard";
 import Notification from "../Common/Modal/Notification";
 import throttle from "lodash/throttle";
 import { getCards } from "@/lib/api/ShopService";
+import { getAccessToken } from "@/lib/utils/token";
 import styles from "./PocketPlaceList.module.css";
 
 export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCountChange }) {
@@ -21,7 +22,6 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
     setShowNotification(false);
   };
 
-  // 무한 스크롤링
   const handleScroll = throttle(() => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 
@@ -41,12 +41,11 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
-  // 로그인 여부 확인
   const handleCardClick = (cardId, remainingQuantity) => {
     if (remainingQuantity === 0) {
       return;
     }
-    const accessToken = localStorage.getItem("accessToken");
+    const accessToken = getAccessToken();
     if (!accessToken) {
       setShowNotification(true);
     } else {
@@ -54,7 +53,6 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
     }
   };
 
-  // 카드 데이터 가져오기 (현재 페이지)
   const fetchData = async (page, reset = false) => {
     try {
       setLoading(true);
@@ -96,7 +94,6 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
     }
   };
 
-  // 전체 데이터 (필터 개수 계산용)
   const fetchAllData = async () => {
     try {
       const queryParams = new URLSearchParams({
@@ -123,7 +120,6 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
     }
   };
 
-  // 필터 개수 계산
   useEffect(() => {
     const filtered = cardItems.filter((item) => {
       if (!activeFilter.grade && !activeFilter.type && activeFilter.available === undefined) {
@@ -140,7 +136,6 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
     setFilteredCards(filtered);
   }, [cardItems, activeFilter]);
 
-  // 필터 카운트 계산용 (전체 데이터 기준)
   useEffect(() => {
     const gradeCount = {};
     const typeCount = {};
@@ -172,7 +167,6 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
     });
   }, [allCards, activeFilter]);
 
-  // 초기 데이터 및 전체 데이터
   useEffect(() => {
     setCurrentPage(1);
     setCardItems([]);
@@ -191,9 +185,8 @@ export default function PocketPlaceList({ searchTerm, activeFilter, onFilterCoun
       {filteredCards.map((item) => (
         <div
           key={item.listId}
-          className={`${styles.card_wrapper} ${
-            item.card.remainingQuantity === 0 ? styles.disabled : ""
-          }`}
+          className={`${styles.card_wrapper} ${item.card.remainingQuantity === 0 ? styles.disabled : ""
+            }`}
           onClick={() => handleCardClick(item.listId, item.card.remainingQuantity)}
         >
           <PhotoCard

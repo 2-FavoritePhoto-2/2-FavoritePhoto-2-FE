@@ -4,9 +4,10 @@ import styles from "./QuantityCard.module.css";
 import Notification from "../Modal/Notification";
 import axios from "@/lib/api/CommonApi.js";
 import { useRouter } from "next/router";
+import { getAccessToken } from "@/lib/utils/token";
 
 export default function QuantityCardBuyer({ data }) {
-  const accessToken = typeof window !== "undefined" ? localStorage.getItem("accessToken") : "";
+  const accessToken = typeof window !== "undefined" ? getAccessToken() : "";
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [confirmPurchase, setConfirmPurchase] = useState(false);
 

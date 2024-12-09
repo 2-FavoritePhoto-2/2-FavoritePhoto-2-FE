@@ -65,7 +65,6 @@ export default function CreateForm() {
           title: values.name,
         },
       });
-      console.log(query.data);
     } catch (err) {
       console.error("상품 등록에 실패하였습니다.", err.message);
       return router.push({

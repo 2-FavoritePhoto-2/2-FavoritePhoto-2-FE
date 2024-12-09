@@ -5,6 +5,7 @@ import Dropdown from "../Input/Dropdown";
 import Input from "../Input/Input";
 import axios from "@/lib/api/CommonApi.js";
 import CardEditInfo from "../CardInfo/CardEditInfo";
+import { getAccessToken } from "@/lib/utils/token";
 
 const INITIAL_VALUES = {
   price: 0,
@@ -16,7 +17,7 @@ const INITIAL_VALUES = {
 };
 
 export default function CardEdit({ data, onClose }) {
-  const accessToken = typeof window !== "undefined" ? localStorage.getItem("accessToken") : "";
+  const accessToken = typeof window !== "undefined" ? getAccessToken() : "";
   const [values, setValues] = useState(INITIAL_VALUES);
   const [remainingQuantity, setRemainingQuantity] = useState(data.remainingQuantity);
   const [totalQuantity, setTotalQuantity] = useState(data.totalQuantity);
@@ -64,8 +65,8 @@ export default function CardEdit({ data, onClose }) {
       values.exchangeType[0] && values.exchangeType[1]
         ? values.exchangeType
         : values.exchangeType[0]
-        ? [values.exchangeType[0]]
-        : undefined;
+          ? [values.exchangeType[0]]
+          : undefined;
     const body = {
       ...(values.exchangeGrade && { exchangeGrade: values.exchangeGrade }), // 값이 존재할 때만 추가
       ...(exchangeType && { exchangeType }),

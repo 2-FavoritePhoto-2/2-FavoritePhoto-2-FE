@@ -2,6 +2,7 @@ import { useState } from "react";
 import CardList from "../Common/Modal/CardList";
 import Modal from "../Common/Modal/Modal";
 import Notification from "../Common/Modal/Notification";
+import { getAccessToken } from "@/lib/utils/token";
 import styles from "./PocketPlaceTitle.module.css";
 
 export default function PocketPlaceTitle() {
@@ -9,7 +10,7 @@ export default function PocketPlaceTitle() {
   const [showNotification, setShowNotification] = useState(false);
 
   const handleClickList = () => {
-    const accessToken = localStorage.getItem("accessToken");
+    const accessToken = getAccessToken();
     if (!accessToken) {
       setShowNotification(true);
     } else {
@@ -31,8 +32,8 @@ export default function PocketPlaceTitle() {
         <div>
           <h1 className={styles.title}>포켓플레이스</h1>
         </div>
-        <div className={styles.button}>
-          <button onClick={handleClickList}>나의 포토카드 판매하기</button>
+        <div className={styles.button_wrapper}>
+          <button className={styles.button} onClick={handleClickList}>나의 포토카드 판매하기</button>
         </div>
       </div>
       <div className={styles.line}></div>

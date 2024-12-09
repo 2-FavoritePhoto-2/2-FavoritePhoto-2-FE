@@ -6,6 +6,7 @@ import Head from "next/head";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { getUserProfile } from "@/lib/api/AuthService";
+import { getAccessToken, removeTokens } from "@/lib/utils/token";
 
 const noto = Noto_Sans_KR({ subsets: ["latin"] });
 
@@ -39,12 +40,12 @@ export default function App({ Component, pageProps }) {
     setPoints(0);
     setNickname("");
     localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("accessToken");
+    removeTokens();
   };
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const token = localStorage.getItem("accessToken");
+      const token = getAccessToken();
       const storedIsLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 
       if (token && storedIsLoggedIn) {
